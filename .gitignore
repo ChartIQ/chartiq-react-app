@@ -1,0 +1,5 @@
+# Make sure to ignore node_modules
+node_modules
+
+# And the ChartIQ library in tarball format
+chartiq-chartiq-*.tgz
