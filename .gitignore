@@ -3,3 +3,6 @@ node_modules
 
 # And the ChartIQ library in tarball format
 chartiq-chartiq-*.tgz
+
+# Ignore built files
+dist

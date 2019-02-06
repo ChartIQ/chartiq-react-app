@@ -59,7 +59,7 @@ module.exports = {
 		filename: '[name].js',
 		// The location the bundles are placed when built with the webpack command.
 		// https://webpack.js.org/configuration/output/#output-path
-		path: path.join(devDir, '/dist/'),
+		path: path.join(__dirname, 'dist'),
 	},
 	optimization: {
 		// Let other entries know that chartiq.js is its own entry
