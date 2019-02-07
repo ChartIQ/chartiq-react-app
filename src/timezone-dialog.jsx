@@ -1,6 +1,6 @@
 import React from 'react'
-import { TimezoneDialog } from './js/components'
-import './example-translations/translationSample'
+import { TimezoneDialog } from 'components'
+import 'example-translations/translationSample'
 
 export default class ChartTimezoneDialog extends React.Component {
 

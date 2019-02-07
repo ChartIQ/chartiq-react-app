@@ -1,6 +1,6 @@
 import React from 'react'
 import 'example-feeds/symbolLookupChartIQ'
-import { Lookup, Menu, Scroll } from './js/components'
+import { Lookup, Menu, Scroll } from 'components'
 import { ChartContext } from './react-chart-context'
 
 export default class ChartLookup extends React.Component {

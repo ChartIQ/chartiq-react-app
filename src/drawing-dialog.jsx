@@ -1,5 +1,5 @@
 import React from 'react'
-import { Dialog, DrawingDialog, Menu, MenuDropdown } from './js/components'
+import { Dialog, DrawingDialog, Menu, MenuDropdown } from 'components'
 import { ChartContext } from './react-chart-context'
 
 export default class DrawingMenus extends React.Component {

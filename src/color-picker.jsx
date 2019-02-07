@@ -1,5 +1,5 @@
 import React from 'react'
-import { ColorPicker } from './js/components'
+import { ColorPicker } from 'components'
 
 export default class ReactColorPicker extends React.Component {
 	render() {

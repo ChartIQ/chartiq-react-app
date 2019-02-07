@@ -1,5 +1,5 @@
 import React from 'react'
-import { Close, LanguageDialog } from './js/components'
+import { Close, LanguageDialog } from 'components'
 
 export default class ChartLanguageDialog extends React.Component {
 

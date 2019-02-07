@@ -1,5 +1,5 @@
 import React from 'react'
-import { Lookup, Menu, MenuDropDown, Scroll }from './js/components'
+import { Lookup, Menu, MenuDropDown, Scroll }from 'components'
 import { ChartContext } from './react-chart-context'
 
 export default class Periodicity extends React.Component {

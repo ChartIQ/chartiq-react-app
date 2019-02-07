@@ -4,8 +4,8 @@
   "description": "React Component Library for the ChartIQ charting library",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --config=webpack.config.js",
-    "start": "npm run build",
+    "build": "webpack -p --config=webpack.config.js",
+    "start": "npm run watch",
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "webpack-dev-server --inline --config=webpack.config.js --watch=true"
   },
@@ -29,7 +29,7 @@
     "webpack-dev-server": "^3.1.10"
   },
   "dependencies": {
-    "@chartiq/chartiq": "chartiq-chartiq-6.3.0.tgz",
+    "@chartiq/chartiq": "file:chartiq-chartiq-6.3.0.tgz",
     "react": "^16.7.0",
     "react-dom": "^16.7.0"
   }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { ChartTitle } from './js/components'
+import { ChartTitle } from 'components'
 
 export default class ChartIQTitle extends React.PureComponent {
 	render () {

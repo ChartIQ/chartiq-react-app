@@ -1,6 +1,6 @@
 import React from 'react'
 import { ChartContext } from './react-chart-context'
-import { Menu, MenuDropDown, Scroll, Studies, StudyLegend } from './js/components'
+import { Menu, MenuDropDown, Scroll, Studies, StudyLegend } from 'components'
 
 export default class ChartStudies extends React.Component {
 	

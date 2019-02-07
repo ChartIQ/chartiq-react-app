@@ -1,5 +1,5 @@
 import React from 'react'
-import { Clickable } from './js/components'
+import { Clickable } from 'components'
 
 export default class ShareChart extends React.Component {
 	render() {

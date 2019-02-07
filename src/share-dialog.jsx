@@ -1,5 +1,5 @@
 import React from 'react'
-import { ShareDialog } from './js/components'
+import { ShareDialog } from 'components'
 
 export default class ChartShareDialog extends React.Component {
 

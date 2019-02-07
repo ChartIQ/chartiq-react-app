@@ -1,5 +1,5 @@
 import React from 'react'
-import { ShowRange } from './js/components'
+import { ShowRange } from 'components'
 import {ChartContext} from './react-chart-context'
 
 export default class RangeBar extends React.Component {

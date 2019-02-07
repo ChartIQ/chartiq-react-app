@@ -1,5 +1,5 @@
 import React from 'react'
-import { Clickable, Lookup, Menu, MenuDropDown, Scroll, Themes } from './js/components'
+import { Clickable, Lookup, Menu, MenuDropDown, Scroll, Themes } from 'components'
 import { ChartContext } from './react-chart-context'
 
 export default class ChartSettings extends React.Component {

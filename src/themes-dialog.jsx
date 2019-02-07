@@ -1,5 +1,5 @@
 import React from 'react'
-import { ThemeDialog, ThemePiece } from './js/components'
+import { ThemeDialog, ThemePiece } from 'components'
 
 export default class ChartThemesDialog extends React.Component {
 
