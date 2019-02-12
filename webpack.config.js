@@ -1,6 +1,6 @@
 var path = require('path')
 var webpack = require('webpack')
-var chartiqDir = path.join(__dirname, 'node_modules', '@chartiq', 'chartiq', 'dist')
+// var chartiqDir = path.join(__dirname, 'node_modules', 'chartiq', 'dist')
 // var srcDir = path.join(__dirname, 'chartiq', 'js')
 // var quoteFeedDir = path.join(__dirname, 'chartiq', 'example-feeds')
 var devDir = path.join(__dirname, 'src')
@@ -26,8 +26,9 @@ module.exports = {
 		// Even though some of these are single files, their dependency
 		// on chartiq.js needs to be resolved and the UMD header generated.
 		// Let webpack handle all that boilerplate code for us!
-		basic: path.join(devDir, 'basic-chart.index.js'),
-		advanced: path.join(devDir, 'advanced-chart.index.js'),
+		index: path.join(__dirname, 'index.js'),
+		// basic: path.join(devDir, 'basic-chart.index.js'),
+		// advanced: path.join(devDir, 'advanced-chart.index.js'),
 		// chartiq: './chartiq.entry.js',
 	},
 	mode: env,
@@ -74,7 +75,7 @@ module.exports = {
 		new webpack.ProvidePlugin({
 			// CIQ: ['chartiq', 'CIQ'],
 			// $$$: ['chartiq', '$$$'],
-			quoteFeedSimulator: [path.join(chartiqDir, 'example-feeds', 'quoteFeedSimulator'),'quoteFeedSimulator']
+			// quoteFeedSimulator: [path.join(chartiqDir, 'example-feeds', 'quoteFeedSimulator'),'quoteFeedSimulator']
 		})
 	],
 	resolve: {
@@ -89,10 +90,10 @@ module.exports = {
 			'node_modules',
 			// srcDir,
 			devDir,
-			chartiqDir,
+			// chartiqDir,
 			// quoteFeedDir,
-			path.join(__dirname, '@chartiq', 'chartiq', 'dist'),
-			path.join(chartiqDir, 'js')
+			// path.join(__dirname, '@chartiq', 'chartiq', 'dist'),
+			// path.join(chartiqDir, 'js')
 		]
 	}
 }

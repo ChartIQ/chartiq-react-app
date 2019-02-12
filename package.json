@@ -29,7 +29,7 @@
     "webpack-dev-server": "^3.1.10"
   },
   "dependencies": {
-    "@chartiq/chartiq": "file:chartiq-chartiq-6.3.0.tgz",
+    "chartiq": "file:chartiq-6.3.0.tgz",
     "react": "^16.7.0",
     "react-dom": "^16.7.0"
   }
