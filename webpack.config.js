@@ -14,7 +14,7 @@ module.exports = {
 			'Access-Control-Allow-Origin': '*'
 		},
 		publicPath: 'localhost:4002/dist',
-		port: 4002,
+		port: 4000,
 	},
 	// Source map file configuration.
 	// https://webpack.js.org/configuration/devtool/#devtool
