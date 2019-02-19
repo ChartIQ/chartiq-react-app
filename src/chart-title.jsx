@@ -5,8 +5,8 @@ export default class ChartIQTitle extends React.PureComponent {
 	render () {
 		console.log('ChartTitle')
 		return (
-			<cq-chart-title>
-				<cq-symbol></cq-symbol>
+			<cq-chart-title style={{position: 'absolute', left: '0px', zIndex: '2'}}>
+				<cq-symbol style={{zIndex: 2}}></cq-symbol>
 				<cq-chart-price>
 					<cq-current-price cq-animate></cq-current-price>
 					<cq-change>

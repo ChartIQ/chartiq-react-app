@@ -1,8 +1,11 @@
 var path = require('path')
 var webpack = require('webpack')
-// var chartiqDir = path.join(__dirname, 'node_modules', 'chartiq', 'dist')
-// var srcDir = path.join(__dirname, 'chartiq', 'js')
-// var quoteFeedDir = path.join(__dirname, 'chartiq', 'example-feeds')
+var chartiqDir = path.join(__dirname, 'node_modules', 'chartiq')
+var srcDir = path.join(__dirname, 'node_modules', 'chartiq', 'js')
+var quoteFeedDir = path.join(__dirname, 'node_modules', 'chartiq', 'example-feeds')
+var scopedChartiqDir = path.join(__dirname, 'node_modules', '@chartiq','chartiq', 'dist')
+var scopedSrcDir = path.join(__dirname, 'node_modules', '@chartiq','chartiq', 'dist', 'js')
+var scopedQuoteFeedDir = path.join(__dirname, 'node_modules', '@chartiq','chartiq', 'dist', 'example-feeds')
 var devDir = path.join(__dirname, 'src')
 var env = process.env.PROD ? "production" : "development"
 
@@ -13,7 +16,7 @@ module.exports = {
 		headers: {
 			'Access-Control-Allow-Origin': '*'
 		},
-		publicPath: 'localhost:4002/dist',
+		publicPath: 'localhost:4000/dist',
 		port: 4000,
 	},
 	// Source map file configuration.
@@ -28,7 +31,7 @@ module.exports = {
 		// Let webpack handle all that boilerplate code for us!
 		index: path.join(__dirname, 'index.js'),
 		// basic: path.join(devDir, 'basic-chart.index.js'),
-		// advanced: path.join(devDir, 'advanced-chart.index.js'),
+		advanced: path.join(devDir, 'advanced-chart.index.js'),
 		// chartiq: './chartiq.entry.js',
 	},
 	mode: env,
@@ -75,7 +78,7 @@ module.exports = {
 		new webpack.ProvidePlugin({
 			// CIQ: ['chartiq', 'CIQ'],
 			// $$$: ['chartiq', '$$$'],
-			// quoteFeedSimulator: [path.join(chartiqDir, 'example-feeds', 'quoteFeedSimulator'),'quoteFeedSimulator']
+			quoteFeedSimulator: [path.join(scopedChartiqDir, 'example-feeds', 'quoteFeedSimulator'),'quoteFeedSimulator']
 		})
 	],
 	resolve: {
@@ -88,10 +91,13 @@ module.exports = {
 		extensions: ['.js', '.jsx'],
 		modules: [
 			'node_modules',
-			// srcDir,
+			srcDir,
+			scopedSrcDir,
 			devDir,
-			// chartiqDir,
-			// quoteFeedDir,
+			chartiqDir,
+			scopedChartiqDir,
+			quoteFeedDir,
+			scopedQuoteFeedDir
 			// path.join(__dirname, '@chartiq', 'chartiq', 'dist'),
 			// path.join(chartiqDir, 'js')
 		]

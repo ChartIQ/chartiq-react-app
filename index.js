@@ -2,10 +2,10 @@ import 'react'
 import { CIQ } from 'chartiq'
 // import * as chartiq from 'chartiq'
 
-// let library = chartiq.library.CIQ
 console.log(CIQ)
 // console.log(addOns)
 
+window.CIQ = CIQ
 let container = window.document.querySelector('.chartContainer')
 // let stxx = new library.STXChart({container: container})
 window.stxx = new CIQ.ChartEngine({container: container})
