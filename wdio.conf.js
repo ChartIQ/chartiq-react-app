@@ -1,3 +1,17 @@
+const debug = process.env.DEBUG
+
+const DEFAULT_BROWSERS = [
+    // { maxInstances: 2, browserName: 'chrome', chromeOptions: {'args':['headless'] } },
+    { maxInstances: 3, browserName: 'firefox', 'moz:firefoxOptions': {'args': ['-headless' ] } }
+    //{ maxInstances: 1, browserName: 'chrome'},
+    //{ maxInstances: 1, browserName: 'firefox'}
+]
+
+const DEBUG_BROWSERS = [
+    // {browserName: 'chrome', maxInstances: 1},
+    {browserName: 'firefox', maxInstances: 1}
+]
+
 const baseConfig = require('@chartiq/ui-tests').baseSettings
 const webpack = require('webpack')
 const webpackConfig = require('./webpack.config.js')
@@ -25,7 +39,7 @@ const config = {
     // directory is where your package.json resides, so `wdio` will be called from there.
     //
     specs: [
-        'node_modules/@chartiq/ui-tests/e2e/**/*.js'
+        'node_modules/@chartiq/ui-tests/e2e/sample-template-advanced/*.js'
     //     './test/specs/**/*.js'
     ],
     // Patterns to exclude.
@@ -54,14 +68,7 @@ const config = {
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
     // https://docs.saucelabs.com/reference/platforms-configurator
     //
-    capabilities: [{
-        // maxInstances can get overwritten per capability. So if you have an in-house Selenium
-        // grid with only 5 firefox instances available you can make sure that not more than
-        // 5 instances get started at a time.
-        maxInstances: 1,
-        //
-        browserName: 'chrome'
-    }],
+    capabilities: debug ? DEBUG_BROWSERS : DEFAULT_BROWSERS,
     //
     // ===================
     // Test Configurations
@@ -94,8 +101,10 @@ const config = {
     // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
     // gets prepended directly.
     baseUrl: 'http://localhost:4040',
-    basePath: './',
-    // port: 4000,
+    basePath: 'node_modules/@chartiq/ui-tests/',
+    templateRoot: {
+        'sample-template-advanced': ''
+    },
     //
     // Default timeout for all waitFor* commands.
     waitforTimeout: 10000,
@@ -174,34 +183,11 @@ const config = {
      * @param {Array.<Object>} capabilities list of capabilities details
      */
     onPrepare: function (config, capabilities) {
-        // function buildWebpack() {
-            // var compiler = webpack(webpackConfig, (err, stats)=>{
-            //     if (err || stats.hasErrors()){
-            //         console.error('Webpack could not build correctly, tests will not run')
-            //         console.error(err)
-            //     } else {
-            //         console.log('webpack build and ready to serve...')
-            //     }
-            // })
-            // var compiler = devServer.addDevServerEntrypoints(webpackConfig, {port: 4000, log: 'info'})
             const server = new devServer(webpack(webpackConfig), {logLevel: 'info'});
 
             server.listen(4040, 'localhost', () => {
               console.log('Starting server on http://localhost:4040');
             });
-            // console.log('between await?')
-            // console.log(compiler[stats])
-            // await compiler.watch({
-            //       aggregateTimeout: 300,
-            //       poll: undefined
-            //     }, (err, stats) => {
-            //       // Print watch/build result here...
-            //       console.log(`webpack stats: ${compiler.stats}`);
-            //     })
-            
-         // }
-
-         // buildWebpack()
     },
     /**
      * Gets executed just before initialising the webdriver session and test framework. It allows you

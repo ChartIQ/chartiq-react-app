@@ -6,7 +6,11 @@
   "scripts": {
     "build": "webpack -p --config=webpack.config.js",
     "start": "npm run watch",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "wdio",
+    "test:debug": "DEBUG=true wdio",
+    "test:debug:spec": "DEBUG=true wdio --spec",
+    "test:spec": "wdio --spec",
+    "test:watch": "wdio --watch",
     "watch": "webpack-dev-server --inline --config=webpack.config.js --watch=true"
   },
   "keywords": [
@@ -23,6 +27,7 @@
     "@babel/cli": "^7.1.2",
     "@babel/core": "^7.1.2",
     "@babel/preset-react": "^7.0.0",
+    "@chartiq/ui-tests": "file:chartiq-ui-tests-1.0.0.tgz",
     "babel-loader": "^8.0.4",
     "webpack": "^4.23.1",
     "webpack-cli": "^3.1.2",
@@ -30,7 +35,6 @@
   },
   "dependencies": {
     "@chartiq/chartiq": "file:chartiq-chartiq-6.3.0.tgz",
-    "@chartiq/ui-tests": "file:chartiq-ui-tests-1.0.0.tgz",
     "chartiq": "file:chartiq-6.3.0.tgz",
     "react": "^16.7.0",
     "react-dom": "^16.7.0"

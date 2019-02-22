@@ -6,3 +6,6 @@ chartiq-*.tgz
 
 # Ignore built files
 dist
+
+# Ignore error screenshots
+tests/errorShots
