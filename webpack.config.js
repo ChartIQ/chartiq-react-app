@@ -1,8 +1,7 @@
 var path = require('path')
 var webpack = require('webpack')
-var chartiqDir = path.join(__dirname, 'node_modules', '@chartiq', 'chartiq', 'dist')
-// var srcDir = path.join(__dirname, 'chartiq', 'js')
-// var quoteFeedDir = path.join(__dirname, 'chartiq', 'example-feeds')
+var chartiqDir = path.join(__dirname, 'chartiq')
+var quoteFeedDir = path.join(__dirname, 'chartiq', 'example-feeds')
 var devDir = path.join(__dirname, 'src')
 var env = process.env.PROD ? "production" : "development"
 
@@ -72,26 +71,24 @@ module.exports = {
 	},
 	plugins: [
 		new webpack.ProvidePlugin({
-			// CIQ: ['chartiq', 'CIQ'],
-			// $$$: ['chartiq', '$$$'],
+			CIQ: ['chartiq', 'CIQ'],
+			$$$: ['chartiq', '$$$'],
 			quoteFeedSimulator: [path.join(chartiqDir, 'example-feeds', 'quoteFeedSimulator'),'quoteFeedSimulator']
 		})
 	],
 	resolve: {
 		alias: {
-			// 'chartiq': path.resolve(__dirname, 'node_modules', '@chartiq', 'chartiq', 'dist', 'js', 'chartiq'),
-			// 'components': path.join(__dirname, 'node_modules', '@chartiq', 'chartiq', 'dist','js', 'components'),
-			// 'componentUI': path.join(__dirname, 'node_modules', '@chartiq', 'chartiq', 'dist','js', 'componentUI'),
-			// 'addOns': path.join(__dirname, 'node_modules', '@chartiq', 'chartiq', 'dist','js', 'addOns')
+			chartiq: path.join(chartiqDir, 'js', 'chartiq'),
+			components: path.join(chartiqDir, 'js', 'components'),
+			componentUI: path.join(chartiqDir, 'js', 'componentUI'),			
+			addOns: path.join(__dirname, chartiqDir, 'js', 'addOns')
 		},
 		extensions: ['.js', '.jsx'],
 		modules: [
 			'node_modules',
-			// srcDir,
 			devDir,
 			chartiqDir,
-			// quoteFeedDir,
-			path.join(__dirname, '@chartiq', 'chartiq', 'dist'),
+			quoteFeedDir,
 			path.join(chartiqDir, 'js')
 		]
 	}
