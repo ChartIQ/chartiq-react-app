@@ -1,6 +1,11 @@
 # Make sure to ignore node_modules
 node_modules
 
+# Ignore the library as an unzipped folder
+chartiq/js/*
+chartiq/**/**
+chartiq/examples/**
+
 # And the ChartIQ library in tarball format
 chartiq-chartiq-*.tgz
 
