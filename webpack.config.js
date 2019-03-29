@@ -1,7 +1,7 @@
 var path = require('path')
 var webpack = require('webpack')
 var chartiqDir = path.join(__dirname, 'chartiq')
-var quoteFeedDir = path.join(__dirname, 'chartiq', 'example-feeds')
+var examplesDir = path.join(__dirname, 'chartiq', 'examples')
 var devDir = path.join(__dirname, 'src')
 var env = process.env.PROD ? "production" : "development"
 
@@ -73,7 +73,7 @@ module.exports = {
 		new webpack.ProvidePlugin({
 			CIQ: ['chartiq', 'CIQ'],
 			$$$: ['chartiq', '$$$'],
-			quoteFeedSimulator: [path.join(chartiqDir, 'example-feeds', 'quoteFeedSimulator'),'quoteFeedSimulator']
+			quoteFeedSimulator: [path.join(examplesDir, 'feeds', 'quoteFeedSimulator'),'quoteFeedSimulator']
 		})
 	],
 	resolve: {
@@ -88,7 +88,7 @@ module.exports = {
 			'node_modules',
 			devDir,
 			chartiqDir,
-			quoteFeedDir,
+			examplesDir,
 			path.join(chartiqDir, 'js')
 		]
 	}
