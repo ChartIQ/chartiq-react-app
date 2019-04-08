@@ -1,6 +1,6 @@
 import React from 'react'
 import { CIQ } from 'chartiq'
-import { ChartIQChart } from 'js/chart-component'
+import { ChartIQChart } from 'components'
 import ChartIQTitle from './chart-title'
 import DrawToolbar from './drawing-toolbar'
 import ChartComparison from './comparison'
