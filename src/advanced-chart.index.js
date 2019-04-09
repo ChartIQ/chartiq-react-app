@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDom from 'react-dom'
 import { CIQ, $$$ } from 'chartiq'
-// import { quoteFeedSimulator } from 'example-feeds/quoteFeedSimulator'
+// import { quoteFeedSimulator } from 'examples/feeds/quoteFeedSimulator'
 import AdvancedChart from './sample-template-advanced'
 
 let constructor = {}

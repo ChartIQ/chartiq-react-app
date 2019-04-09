@@ -110,15 +110,16 @@ export default class DrawToolbar extends React.Component {
 					</cq-line-style>
 				</div>
 
-				<cq-cvp-controller cq-section="true" cq-cvp-header="1">
-					{cvpTemplate}
+				<cq-cvp-controller cq-section cq-cvp-header="1">
 				</cq-cvp-controller>
-				<cq-cvp-controller cq-section="true" cq-cvp-header="2">
-					{cvpTemplate}
+				<cq-cvp-controller cq-section cq-cvp-header="2">
+
 				</cq-cvp-controller>
-				<cq-cvp-controller cq-section="true" cq-cvp-header="3">
-					{cvpTemplate}
+				<cq-cvp-controller cq-section cq-cvp-header="3">
 				</cq-cvp-controller>
+					<template cq-cvp-controller="true">
+						{cvpTemplate}
+					</template>
 
 				<cq-annotation cq-section="true">
 					<cq-annotation-italic stxtap="toggleFontStyle('italic')" className="ciq-btn" style={{fontStyle:"italic"}}>I</cq-annotation-italic>
