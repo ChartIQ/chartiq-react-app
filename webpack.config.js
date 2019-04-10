@@ -1,11 +1,7 @@
 var path = require('path')
 var webpack = require('webpack')
-var chartiqDir = path.join(__dirname, 'node_modules', 'chartiq')
-var srcDir = path.join(__dirname, 'node_modules', 'chartiq', 'js')
-var quoteFeedDir = path.join(__dirname, 'node_modules', 'chartiq', 'example-feeds')
-var scopedChartiqDir = path.join(__dirname, 'node_modules', '@chartiq','chartiq', 'dist')
-var scopedSrcDir = path.join(__dirname, 'node_modules', '@chartiq','chartiq', 'dist', 'js')
-var scopedQuoteFeedDir = path.join(__dirname, 'node_modules', '@chartiq','chartiq', 'dist', 'example-feeds')
+var chartiqDir = path.join(__dirname, 'chartiq')
+var examplesDir = path.join(__dirname, 'chartiq', 'examples')
 var devDir = path.join(__dirname, 'src')
 var env = process.env.PROD ? "production" : "development"
 
@@ -30,7 +26,7 @@ module.exports = {
 		// on chartiq.js needs to be resolved and the UMD header generated.
 		// Let webpack handle all that boilerplate code for us!
 		index: path.join(__dirname, 'index.js'),
-		// basic: path.join(devDir, 'basic-chart.index.js'),
+		basic: path.join(devDir, 'basic-chart.index.js'),
 		advanced: path.join(devDir, 'advanced-chart.index.js'),
 		// chartiq: './chartiq.entry.js',
 	},
@@ -76,30 +72,25 @@ module.exports = {
 	},
 	plugins: [
 		new webpack.ProvidePlugin({
-			// CIQ: ['chartiq', 'CIQ'],
-			// $$$: ['chartiq', '$$$'],
-			quoteFeedSimulator: [path.join(scopedChartiqDir, 'example-feeds', 'quoteFeedSimulator'),'quoteFeedSimulator']
+			CIQ: ['chartiq', 'CIQ'],
+			$$$: ['chartiq', '$$$'],
+			quoteFeedSimulator: [path.join(examplesDir, 'feeds', 'quoteFeedSimulator'),'quoteFeedSimulator']
 		})
 	],
 	resolve: {
 		alias: {
-			// 'chartiq': path.resolve(__dirname, 'node_modules', '@chartiq', 'chartiq', 'dist', 'js', 'chartiq'),
-			// 'components': path.join(__dirname, 'node_modules', '@chartiq', 'chartiq', 'dist','js', 'components'),
-			// 'componentUI': path.join(__dirname, 'node_modules', '@chartiq', 'chartiq', 'dist','js', 'componentUI'),
-			// 'addOns': path.join(__dirname, 'node_modules', '@chartiq', 'chartiq', 'dist','js', 'addOns')
+			chartiq: path.join(chartiqDir, 'js', 'chartiq'),
+			components: path.join(chartiqDir, 'js', 'components'),
+			componentUI: path.join(chartiqDir, 'js', 'componentUI'),			
+			addOns: path.join(chartiqDir, 'js', 'addOns')
 		},
 		extensions: ['.js', '.jsx'],
 		modules: [
 			'node_modules',
-			srcDir,
-			scopedSrcDir,
 			devDir,
 			chartiqDir,
-			scopedChartiqDir,
-			quoteFeedDir,
-			scopedQuoteFeedDir
-			// path.join(__dirname, '@chartiq', 'chartiq', 'dist'),
-			// path.join(chartiqDir, 'js')
+			examplesDir,
+			path.join(chartiqDir, 'js')
 		]
 	}
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import 'example-feeds/symbolLookupChartIQ'
+import 'feeds/symbolLookupChartIQ'
 import { Lookup, Menu, Scroll } from 'components'
 import { ChartContext } from './react-chart-context'
 

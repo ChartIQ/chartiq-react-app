@@ -1,0 +1,2 @@
+CIQ = function() {};
+CIQ.UI = {};
