@@ -6,6 +6,17 @@ This repo contains an React component library that acts as a wrapper around Char
 
 This project aims to be create a full featured UI that is functionally equivelant to the native web components that come with `sample-template-advanced.html` in your ChartIQ license.
 
+## Getting Started
+
+To run this project copy over your files from the ChartIQ SDK into the `/chartiq` folder overwriting what is already there. Once you have the files you can start the webpack-dev-server with `npm start` and navigate to localhost:4002/
+```sh
+unzip your-chartiq-license.zip -d ./your-license
+cp -r ./your-license ./chartiq
+npm start
+```
+
+For more about including the SDK see [Including the ChartIQ SDK](#including-the-chartiq-sdk).
+
 ## Project Structure
 
 This project adheres to the following structure:
@@ -29,7 +40,11 @@ This project adheres to the following structure:
 
 ## Commands - `npm scripts`
 
-This repo contains some basic scripts to get started quickly, you can see a full list of scripts with `npm run`. Be sure to install the ChartIQ library from a local tarball before working with this repo.
+This repo contains some basic scripts to get started quickly, you can see a full list of scripts with `npm run`. 
+
+## Including the ChartIQ SDK
+
+You are expected to provide a copy of the ChartIQ SDK to in order to run this repo correctly. Already included are several stub files which will allow the project to compile correctly but will throw an alert and errors in the developer console. To get started you should overwrite these files with the correct versions from your SDK and recompile the project. Webpack will then pick up these files and allow you to use them in this project. 
 
 ## Testing
 
