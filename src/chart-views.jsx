@@ -3,6 +3,13 @@ import { Menu, MenuDropDown, Scroll, Views } from 'components'
 import { ChartContext } from './react-chart-context'
 
 export default class ChartViews extends React.Component {
+	componentDidMount() {
+		var views = $$$('cq-views')
+		views.params = {};
+		views.template = $$$('template.cq-view')
+		views.initialize()
+	}
+
 	render() {
 		return(
 <cq-menu class="ciq-menu ciq-views collapse">
@@ -11,7 +18,7 @@ export default class ChartViews extends React.Component {
 		<cq-views>
 		<cq-heading>Saved Views</cq-heading>
 			<cq-views-content>
-				<template className="cq-view">
+				<template cq-view="">
 					<cq-item>
 					<cq-label></cq-label>
 					<div className={"ciq-icon ciq-close"}></div>

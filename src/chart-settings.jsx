@@ -70,6 +70,8 @@ export default class ChartSettings extends React.Component {
 					<cq-heading>Chart Preferences</cq-heading>
 					<cq-item stxsetget="Layout.ChartScale('log')">Log Scale<span className="ciq-checkbox ciq-active"><span></span></span>
 					</cq-item>
+					<cq-item stxsetget="Layout.FlippedChart()">Invert Y-Axis<span className="ciq-checkbox ciq-active"><span></span></span>
+					</cq-item>
 					<cq-item stxsetget="Layout.ExtendedHours()">Extended Hours<span className="ciq-checkbox ciq-active"><span></span></span>
 					</cq-item>
 					<cq-item stxsetget="Layout.RangeSlider()">Range Selector<span className="ciq-checkbox ciq-active"><span></span></span>
