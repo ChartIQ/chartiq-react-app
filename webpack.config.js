@@ -25,8 +25,8 @@ module.exports = {
 		// Even though some of these are single files, their dependency
 		// on chartiq.js needs to be resolved and the UMD header generated.
 		// Let webpack handle all that boilerplate code for us!
-		index: path.join(__dirname, 'index.js'),
-		basic: path.join(devDir, 'basic-chart.index.js'),
+		// index: path.join(__dirname, 'index.js'),
+		// basic: path.join(devDir, 'basic-chart.index.js'),
 		advanced: path.join(devDir, 'advanced-chart.index.js'),
 		// chartiq: './chartiq.entry.js',
 	},
@@ -38,7 +38,7 @@ module.exports = {
 		rules: [
 			{
 				test: /\.(js|jsx)$/,
-				exclude: [/node_modules/,/\.spec\.js$/ ],
+				exclude: [/node_modules/,/\.spec\.js$/, /translationSample/ ],
 				use: {
 					loader: 'babel-loader',
 					options: {

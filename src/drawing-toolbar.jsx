@@ -5,7 +5,7 @@ import { ChartContext } from './react-chart-context'
 export default class DrawToolbar extends React.Component {
 
 	componentDidMount () {
-		$$$('chartiq-chart').stxx.setDrawingContainer($$$('cq-toolbar'))
+		$$$('chartiq-chart').stx.setDrawingContainer($$$('cq-toolbar'))
 		$$$('cq-redo').pairUp($$$('cq-undo'))
 	}
 

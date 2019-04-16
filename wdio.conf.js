@@ -1,15 +1,15 @@
 const debug = process.env.DEBUG
 
 const DEFAULT_BROWSERS = [
-    // { maxInstances: 2, browserName: 'chrome', chromeOptions: {'args':['headless'] } },
-    { maxInstances: 3, browserName: 'firefox', 'moz:firefoxOptions': {'args': ['-headless' ] } }
+    { maxInstances: 2, browserName: 'chrome', chromeOptions: {'args':['headless'] } },
+    // { maxInstances: 3, browserName: 'firefox', 'moz:firefoxOptions': {'args': ['-headless' ] } }
     //{ maxInstances: 1, browserName: 'chrome'},
     //{ maxInstances: 1, browserName: 'firefox'}
 ]
 
 const DEBUG_BROWSERS = [
-    // {browserName: 'chrome', maxInstances: 1},
-    {browserName: 'firefox', maxInstances: 1}
+    {browserName: 'chrome', maxInstances: 1},
+    // {browserName: 'firefox', maxInstances: 1}
 ]
 
 const baseConfig = require('@chartiq/ui-tests').baseSettings
@@ -17,6 +17,8 @@ const webpack = require('webpack')
 const webpackConfig = require('./webpack.config.js')
 
 const devServer = require('webpack-dev-server/lib/Server')
+
+require('chai').assert
 
 // const compiler = webpack(webpackConfig, (err, stats)=>{
 //     if (err || stats.hasErrors()){

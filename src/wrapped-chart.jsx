@@ -1,5 +1,4 @@
 import React from 'react'
-import { CIQ } from 'chartiq'
 import { ChartIQChart } from 'components'
 import ChartIQTitle from './chart-title'
 import DrawToolbar from './drawing-toolbar'
@@ -21,6 +20,8 @@ export default class WrappedChart extends React.Component {
 			console.log(`createEngine ref continer: ${container}`)
 			var config = Object.assign({container: container}, props.chartConstructor)
 			this.stxx = container.stxx = new CIQ.ChartEngine(config)
+			container.CIQ = CIQ
+			container.$$$ = $$$
 			container.startChart(this.stxx, quoteFeedSimulator, {rereshInterval: 1, bufferSize: 200})
 			this.context.setContext({stx: this.stxx})
 		}
