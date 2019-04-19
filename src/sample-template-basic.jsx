@@ -1,8 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import UIManger from './uiManager'
-import ChartLookup from './lookup'
-import WrappedChart from './wrapped-chart'
+import UIManager from './components/Core/UIManager'
+import ChartLookup from './components/Features/ChartLookup'
+import WrappedChart from './components/Core/WrappedChart'
 import { ChartContext } from './react-chart-context'
 
 export default class BasicChart extends React.Component {
@@ -33,7 +33,7 @@ export default class BasicChart extends React.Component {
 		let preferences = this.props.preferences
 		return (
 			<ChartContext.Provider value={this.state}>
-				<UIManger />
+				<UIManager />
 				<div className={"ciq-nav"}>
 					<ChartLookup />
 				</div>

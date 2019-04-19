@@ -4,13 +4,12 @@ import { CIQ } from 'chartiq'
 import 'addOns'
 import 'markets/marketDefinitionsSample'
 import 'markets/marketSymbologySample'
-import UIManger from './uiManager'
-import ReactColorPicker from './color-picker'
-import ChartNav from './chart-nav'
-import WrappedChart from './wrapped-chart'
-import HelicopterMarker from 'helicopter-marker'
-import Dialogs from './dialogs.jsx'
-import ChartFooter from './chart-footer'
+import UIManger from './components/Core/UIManager'
+import ColorPicker from './components/Features/ColorPicker'
+import ChartNav from './components/Layout/ChartNav'
+import WrappedChart from './components/Core/WrappedChart'
+import ChartDialogs from './components/Dialogs/ChartDialogs'
+import ChartFooter from './components/Layout/ChartFooter'
 import { ChartContext } from './react-chart-context'
 
 export default class AdvancedChart extends React.Component {
@@ -51,11 +50,11 @@ export default class AdvancedChart extends React.Component {
 			<ChartContext.Provider value={this.state}>
 				<UIManger />
 				<ChartNav />
-				<ReactColorPicker />
+				<ColorPicker />
 				<WrappedChart  quoteFeed={quoteFeed} chartConstructor={chartConstructor
 				} preferences={preferences} staticHeadsUp={true} dynamicHeadsUp={true} />
 				<ChartFooter />
-				<Dialogs />
+				<ChartDialogs />
 			</ChartContext.Provider>
 		)
 	}
