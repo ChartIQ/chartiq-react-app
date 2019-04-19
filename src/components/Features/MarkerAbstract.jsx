@@ -23,7 +23,7 @@ export default class MarkerAbstract extends React.Component {
 						</div>
 						{/* React or Webpack seems to be appending an extra 'css' to the class when we set the image
 						so instead we'll set it explicitly here. */}
-						<div id="heli-body" style={{background: 'url(css/img/helicopter.png)'}}></div>
+						<div id="heli-body" style={{background: 'url(chartiq/css/img/helicopter.png)'}}></div>
 					</div>
 				</div>
 			<div className="text">This is an example of a complex marker which can contain html, video, images, css, and animations.</div>
