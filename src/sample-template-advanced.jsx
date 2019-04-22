@@ -23,6 +23,12 @@ export default class AdvancedChart extends React.Component {
 			return update
 		}
 
+		this.getHeight = (update) => {
+			this.setState((state) => {
+				return Object.assign(this.context.height, )
+			})
+		}
+
 		let UIContext=new CIQ.UI.Context(null, document.querySelector("*[cq-context]"));
 		let UILayout=new CIQ.UI.Layout(UIContext);
 		let KeystrokeHub=new CIQ.UI.KeystrokeHub(document.querySelector("body"), UIContext, {cb:CIQ.UI.KeystrokeHub.defaultHotKeys});
@@ -32,7 +38,9 @@ export default class AdvancedChart extends React.Component {
 		this.state = {
 			stx: null,
 			UIContext: UIContext,
-			setContext: this.setContext
+			height: null,
+			setContext: this.setContext,
+			getHeight: this.getHeight
 		}
 	}
 
@@ -40,6 +48,8 @@ export default class AdvancedChart extends React.Component {
 		console.log('AdvancedChart componentDidUpdate')
 		CIQ.UI.begin()
 		CIQ.UI.BaseComponent.nextTick()
+		console.log('props.children: ', this.props.children)
+		console.log(React.Children)
 	}
 
 	render() {

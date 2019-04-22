@@ -1,0 +1,22 @@
+#app {
+	position: relative;
+}
+
+.ciq-chart-area {
+	position: relative;
+	top: 0;
+	bottom: 0;
+}
+
+.ciq-chart-area {
+	position: relative;
+}
+
+.ciq-footer {
+	position: relative;
+}
+
+.chartContainer {
+	/* 45px for nav + 45px for footer + 30 for padding */
+	height: calc(100vh - 120px);
+}

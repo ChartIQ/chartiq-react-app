@@ -6,7 +6,6 @@ import ToolbarDrawing from '../Features/ToolbarDrawing'
 import ChartComparison from '../Features/ChartComparison'
 import LoadingWidget from './LoadingWidget'
 import ContextMenuDrawing from '../Menus/ContextMenuDrawing'
-import ContextMenuStudy from '../Menus/ContextMenuStudy'
 import HeadsUpStatic from '../Features/HeadsUpStatic'
 import HeadsUpDynamic from '../Features/HeadsUpDynamic'
 import MarkerAbstract from '../Features/MarkerAbstract'
@@ -22,6 +21,8 @@ export default class WrappedChart extends React.Component {
 			console.log(`createEngine ref continer: ${container}`)
 			var config = Object.assign({container: container}, props.chartConstructor)
 			this.stxx = container.stxx = new CIQ.ChartEngine(config)
+			container.CIQ = CIQ
+			container.$$$ = $$$
 			container.startChart(this.stxx, quoteFeedSimulator, {rereshInterval: 1, bufferSize: 200})
 			this.context.setContext({stx: this.stxx})
 		}
@@ -32,6 +33,7 @@ export default class WrappedChart extends React.Component {
 	componentDidMount() {
 		this.createEngine(this.engineRef.current)
 		console.log('WrappedComponent mounted... ')
+		console.log("WrappedComponent.props.children: ", this.props.children)
 	}
 
 	render () {
@@ -54,8 +56,6 @@ export default class WrappedChart extends React.Component {
 
 						{this.props.staticHeadsUp && this.context.stx && <HeadsUpStatic />
 						}
-						{ this.context.stx && <ContextMenuDrawing />}
-						{ this.context.stx && <ContextMenuStudy />}
 					</chartiq-chart>
 					{ this.context.stx && <MarkerAbstract /> }
 				</div>
