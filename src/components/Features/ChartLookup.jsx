@@ -3,6 +3,22 @@ import 'feeds/symbolLookupChartIQ'
 import { Lookup, Menu, Scroll } from 'components'
 import { ChartContext } from '../../react-chart-context'
 
+/**
+ * Chart lookup component 
+ * 
+ * UI widget which provides search box to select active chart symbol
+ * 
+ * Note, a {@link CIQ.ChartEngine.Driver.Lookup} must be provided.
+ * If none is provided then the default will be used which displays no results.
+ *
+ * Use [CIQ.UI.Context.setLookupDriver](CIQ.UI.Context.html#setLookupDriver) to link the dirver to the [cq-lookup web component]{@link WebComponents.cq-lookup}
+ *
+ * To turn off the result window modify CSS  to `.stxMenuActive cq-lookup cq-menu { opacity: 0 }`
+ *
+ * @export
+ * @class ChartLookup
+ * @extends {React.Component}
+ */
 export default class ChartLookup extends React.Component {
 
 	componentDidMount() {

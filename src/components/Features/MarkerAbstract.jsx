@@ -2,6 +2,15 @@ import React from 'react'
 import { Lookup, Menu, MenuDropDown, Scroll } from 'components'
 import { ChartContext } from '../../react-chart-context'
 
+/**
+ * Abstract marker component `<MarkerAbstract/>`
+ * 
+ * Displays helicopter graphic as a chart marker style
+ *
+ * @export
+ * @class MarkerAbstract
+ * @extends {React.Component}
+ */
 export default class MarkerAbstract extends React.Component {
 
 	render() {

@@ -1,7 +1,15 @@
 import React from 'react'
-
 import { ChartContext } from '../../react-chart-context'
 
+/**
+ * Static Heads Up component `<HeadsUpStatic/>`
+ * 
+ * UI widget to display detailed chart data, in a fixed position, corresponding to the mouse pointer as it passes over the chart.
+ *
+ * @export
+ * @class HeadsUpStatic
+ * @extends {React.Component}
+ */
 export default class HeadsUpStatic extends React.Component {
 	componentDidMount() {
 		let UIContext = this.context.UIContext

@@ -2,6 +2,17 @@ import React from 'react'
 import { ChartContext } from '../../react-chart-context'
 import { Menu, MenuDropDown, Scroll, Studies, StudyLegend } from 'components'
 
+/**
+ * Chart menu component `<MenuStudies>`
+ * 
+ * IMPORTANT: To ensure proper stying, ALL menu components must be nested within a {@link ChartNav} container.
+ * 
+ * Dropdown menu of chart study display settings
+ *
+ * @export
+ * @class MenuStudies
+ * @extends {React.Component}
+ */
 export default class MenuStudies extends React.Component {
 	
 	componentDidMount () {

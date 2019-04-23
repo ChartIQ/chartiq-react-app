@@ -2,6 +2,15 @@ import React from 'react'
 import { TimezoneDialog } from 'components'
 import 'translations/translationSample'
 
+/**
+ * Timezone dialog component `<DialogTimezone/>`
+ * 
+ * Displays dialog with options to select local time zone.
+ *
+ * @export
+ * @class DialogTimezone
+ * @extends {React.Component}
+ */
 export default class DialogTimezone extends React.Component {
 
 	render () {

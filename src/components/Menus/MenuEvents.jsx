@@ -2,6 +2,17 @@ import React from 'react'
 import { Lookup, Menu, MenuDropDown, Scroll } from 'components'
 import { ChartContext } from '../../react-chart-context'
 
+/**
+ * Chart menu component `<MenuEvents>`
+ * 
+ * IMPORTANT: To ensure proper stying, ALL menu components must be nested within a {@link ChartNav} container.
+ * 
+ * Dropdown menu of event marker display settings
+ *
+ * @export
+ * @class MenuEvents
+ * @extends {React.Component}
+ */
 export default class MenuEvents extends React.Component {
 	activateMarker(target, type) {
 		console.log('chart events activate function')

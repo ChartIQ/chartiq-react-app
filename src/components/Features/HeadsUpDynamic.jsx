@@ -1,7 +1,15 @@
 import React from 'react'
-
 import { ChartContext } from '../../react-chart-context'
 
+/**
+ * Dynamic Heads Up component `<HeadsUpDynamic/>`
+ * 
+ * UI widget to display detailed chart data interactively, following the mouse pointer as it passes over the chart.
+ *
+ * @export
+ * @class HeadsUpDynamic
+ * @extends {React.Component}
+ */
 export default class HeadsUpDynamic extends React.Component {
 	componentDidMount() {
 		let UIContext = this.context.UIContext

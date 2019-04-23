@@ -2,6 +2,15 @@ import React from 'react'
 import { ViewDialog } from 'components'
 import {ChartContext} from '../../react-chart-context'
 
+/**
+ * View dialog component `<DialogView/>`
+ * 
+ * Displays dialog to enter custom view label.
+ *
+ * @export
+ * @class DialogView
+ * @extends {React.Component}
+ */
 export default class DialogView extends React.Component {
 	render() {
 		return (

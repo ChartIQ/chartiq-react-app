@@ -2,6 +2,15 @@ import React from 'react'
 import { DrawingToolbar, CVPController, Menu, MenuDropdown, Undo, Redo } from 'components'
 import { ChartContext } from '../../react-chart-context'
 
+/**
+ * Drawing toolbar component `<ToolbarDrawing>`
+ * 
+ * UI widget containing all tools for interactive drawing on the chart.
+ *
+ * @export
+ * @class ToolbarDrawing
+ * @extends {React.Component}
+ */
 export default class ToolbarDrawing extends React.Component {
 
 	componentDidMount () {

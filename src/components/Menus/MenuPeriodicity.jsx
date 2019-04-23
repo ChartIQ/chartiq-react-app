@@ -1,7 +1,17 @@
 import React from 'react'
 import { Lookup, Menu, MenuDropDown, Scroll }from 'components'
 import { ChartContext } from '../../react-chart-context'
-
+/**
+ * Chart menu component `<MenuPeriodicity>`
+ * 
+ * IMPORTANT: To ensure proper stying, ALL menu components must be nested within a {@link ChartNav} container.
+ * 
+ * Dropdown menu of chart periodicity settings
+ *
+ * @export
+ * @class MenuPeriodicity
+ * @extends {React.Component}
+ */
 export default class MenuPeriodicity extends React.Component {
 
 	render() {

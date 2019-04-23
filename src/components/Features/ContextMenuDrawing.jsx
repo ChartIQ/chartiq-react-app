@@ -2,6 +2,15 @@ import React from 'react'
 import { Dialog, DrawingDialog, Menu, MenuDropdown } from 'components'
 import { ChartContext } from '../../react-chart-context'
 
+/**
+ * Chart menu component `<ContextMenuDrawing>`
+ * 
+ * Contextual menu which provides additional settings for elements drawn using the {@link ToolbarDrawing} component.
+ *
+ * @export
+ * @class ContextMenuDrawing
+ * @extends {React.Component}
+ */
 export default class ContextMenuDrawing extends React.Component {
 
 	constructor(props) {

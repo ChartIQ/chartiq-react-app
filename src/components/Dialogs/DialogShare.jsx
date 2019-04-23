@@ -1,6 +1,15 @@
 import React from 'react'
 import { ShareDialog } from 'components'
 
+/**
+ * Share dialog component `<DialogShare/>`
+ * 
+ * Displays dialog to render and download a static image of the chart for sharing.
+ *
+ * @export
+ * @class DialogShare
+ * @extends {React.Component}
+ */
 export default class DialogShare extends React.Component {
 
 	render () {

@@ -1,6 +1,15 @@
 import React from 'react'
 import { ThemeDialog, ThemePiece } from 'components'
 
+/**
+ * Theme dialog component `<DialogTheme/>`
+ * 
+ * Displays dialog with options to select custom theme colors.
+ *
+ * @export
+ * @class DialogTheme
+ * @extends {React.Component}
+ */
 export default class DialogTheme extends React.Component {
 
 	render () {

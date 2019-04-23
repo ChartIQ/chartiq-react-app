@@ -1,6 +1,15 @@
 import React from 'react'
 import { AggregationDialog, Dialog } from 'components'
 
+/**
+ * Aggregation dialog component `<DialogAggregation/>`
+ * 
+ * Displays dialog to enter custom aggregation values.
+ *
+ * @export
+ * @class DialogAggregation
+ * @extends {React.Component}
+ */
 export default class DialogAggregation extends React.Component {
 	render() {
 		return(

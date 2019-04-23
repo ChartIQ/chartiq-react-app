@@ -1,6 +1,16 @@
 import React from 'react'
 import { ChartContext } from '../../react-chart-context'
 
+/**
+ * Chart menu component `<ContextMenuStudy>`
+ * 
+ * 
+ * Contextual menu which provides additional settings for chart studies.
+ *
+ * @export
+ * @class ContextMenuStudy
+ * @extends {React.Component}
+ */
 export default class ContextMenuStudy extends React.Component {
 
 	componentDidMount() {

@@ -5,12 +5,22 @@ import ChartTitle from './ChartTitle'
 import ToolbarDrawing from '../Features/ToolbarDrawing'
 import ChartComparison from '../Features/ChartComparison'
 import LoadingWidget from './LoadingWidget'
-import ContextMenuDrawing from '../Menus/ContextMenuDrawing'
 import HeadsUpStatic from '../Features/HeadsUpStatic'
 import HeadsUpDynamic from '../Features/HeadsUpDynamic'
 import MarkerAbstract from '../Features/MarkerAbstract'
 import { ChartContext } from '../../react-chart-context'
 
+/**
+ * Wrapped chart component `<WrappedChart/>`.
+ * 
+ * Renders ChartIQ chart canvas and associated DOM elements. The wrapped chart itself has no user interface. You may 
+ * use the provided components to add user controls suitable to your project. See components `<BasicChart>` or 
+ * `<AdvancedChart>` in this project for reference.
+ *
+ * @export
+ * @class WrappedChart
+ * @extends {React.Component}
+ */
 export default class WrappedChart extends React.Component {
 
 	constructor (props) {

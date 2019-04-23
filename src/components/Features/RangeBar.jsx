@@ -2,6 +2,15 @@ import React from 'react'
 import { ShowRange } from 'components'
 import {ChartContext} from '../../react-chart-context'
 
+/**
+ * Range bar component `<RangeBar/>`
+ * 
+ * Displays a group of buttons to select chart range setting
+ *
+ * @export
+ * @class RangeBar
+ * @extends {React.Component}
+ */
 export default class RangeBar extends React.Component {
 
 	render() {

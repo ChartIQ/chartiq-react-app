@@ -2,6 +2,17 @@ import React from 'react'
 import { Menu, MenuDropDown, Scroll, Views } from 'components'
 import { ChartContext } from '../../react-chart-context'
 
+/**
+ * Chart menu component `<MenuViews>`
+ * 
+ * IMPORTANT: To ensure proper stying, ALL menu components must be nested within a {@link ChartNav} container.
+ * 
+ * Dropdown menu of chart view display settings
+ *
+ * @export
+ * @class MenuViews
+ * @extends {React.Component}
+ */
 export default class MenuViews extends React.Component {
 	componentDidMount() {
 		var views = $$$('cq-views')

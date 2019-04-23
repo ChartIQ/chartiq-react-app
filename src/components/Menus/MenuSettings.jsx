@@ -2,6 +2,17 @@ import React from 'react'
 import { Clickable, Lookup, Menu, MenuDropDown, Scroll, Themes } from 'components'
 import { ChartContext } from '../../react-chart-context'
 
+/**
+ * Chart menu component `<MenuSettings>`
+ * 
+ * IMPORTANT: To ensure proper stying, ALL menu components must be nested within a {@link ChartNav} container.
+ * 
+ * Dropdown menu of chart customization settings
+ *
+ * @export
+ * @class MenuSettings
+ * @extends {React.Component}
+ */
 export default class MenuSettings extends React.Component {
 	
 	componentDidMount () {

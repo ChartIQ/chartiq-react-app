@@ -4,6 +4,16 @@ import ColorSwatch from '../Features/ColorSwatch'
 import ColorPicker from '../Features/ColorPicker'
 import {ChartContext} from '../../react-chart-context'
 
+/**
+ * Study dialog component `<DialogStudy/>`
+ * 
+ * Displays dialog to edit and manage selected study in library entry
+ * (inputs, outputs, parameters, etc).
+ *
+ * @export
+ * @class DialogStudy
+ * @extends {React.Component}
+ */
 export default class DialogStudy extends React.Component {
 
 	render() {

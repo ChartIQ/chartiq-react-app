@@ -2,6 +2,16 @@ import React from 'react'
 import { Comparisons } from 'components'
 import { ChartContext } from '../../react-chart-context'
 
+/**
+ * Chart symbol comparison component `<ChartComparison>`
+ * 
+ * UI widget to select alternative symbols for comparison. Can be used with any market 
+ * configured by CIQ.Market or any formula.
+ *
+ * @export
+ * @class ChartComparison
+ * @extends {React.Component}
+ */
 export default class ChartComparison extends React.Component {
 
 	componentDidMount () {
