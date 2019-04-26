@@ -21,7 +21,6 @@ export default class ContextMenuDrawing extends React.Component {
 	componentDidMount () {
 		let UIContext = this.context.UIContext;
 		let ciqChart = $$$('div.ciq-chart')
-		console.log(`drawing-dialog.jsx mounted count: ${this.mounts}`)
 
 		var UIDrawingEdit = new CIQ.UI.DrawingEdit(null, UIContext);
 
@@ -51,7 +50,6 @@ export default class ContextMenuDrawing extends React.Component {
 	}
 
 	componentWillUnmount() {
-		console.log(`unmount drawing-dialog.jsx ${this.mounts}`)
 		let stx = this.context.stx;
 		stx.removeEventListener(this.UIDrawingEdit.drawingCB)
 		stx.removeEventListener(this.UIDrawingEdit.drawingEditCB)

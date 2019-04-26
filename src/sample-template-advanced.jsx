@@ -45,11 +45,8 @@ export default class AdvancedChart extends React.Component {
 	}
 
 	componentDidUpdate() {
-		console.log('AdvancedChart componentDidUpdate')
 		CIQ.UI.begin()
 		CIQ.UI.BaseComponent.nextTick()
-		console.log('props.children: ', this.props.children)
-		console.log(React.Children)
 	}
 
 	render() {

@@ -46,7 +46,6 @@ export default class ToggleHUD extends React.Component {
 		<cq-toggle class="ciq-HU" cq-member="headsUp" cq-toggles="dynamic,static,null" ref={this.toggle} >
 			<span></span><cq-tooltip>Info</cq-tooltip>
 		</cq-toggle>
-		console.log('render hud toggles')
 		return( UIContext.UIHeadsUpStatic && UIContext.UIHeadsUpDynamic && hud)
 
 	}

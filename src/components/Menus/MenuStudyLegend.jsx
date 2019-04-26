@@ -35,7 +35,6 @@ export default class MenuStudyLegend extends React.Component {
 			filter = 'cq-custom-removal-only'
 		}
 		this.legend.current.setAttribute(filter, true)
-		console.log('MenuStudyLegend... legend about to begin')
 		this.legend.current.begin()
 	}
 

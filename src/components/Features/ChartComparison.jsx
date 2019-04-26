@@ -19,7 +19,6 @@ export default class ChartComparison extends React.Component {
 		// let engine = this.context.stx
 		// let comparison = $$$('cq-comparison')
 		// let lookupTemplate = $$$('[cq-lookup]', comparison)
-		console.log('React comparison component mounted')
 		// var lookup = CIQ.UI.makeFromTemplate(lookupTemplate);
 		// lookupTemplate.firstElementChild.remove()
 		// $$$('cq-comparison-lookup-frame',comparison).appendChild(lookup[0])

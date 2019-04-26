@@ -21,7 +21,6 @@ export default class MenuStudies extends React.Component {
 		let legend = $$$('cq-study-legend')
 		var studyParams = {template: "#studies"}
 		studies.initialize(studyParams)
-		console.log('ChartStudies... legend about to begin')
 		legend.begin()
 	}
 

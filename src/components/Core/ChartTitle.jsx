@@ -11,7 +11,6 @@ import { ChartTitle as TitleWebComponent } from 'components'
  */
 export default class ChartTitle extends React.PureComponent {
 	render () {
-		console.log('ChartTitle')
 		return (
 			<>
 			<cq-chart-title>

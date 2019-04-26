@@ -22,8 +22,6 @@ import { ChartContext } from '../../react-chart-context'
 export default class ChartLookup extends React.Component {
 
 	componentDidMount() {
-		console.log('ChartLookup mounted')
-		console.log(this.context)
 		let UIContext = this.context.UIContext
 		let stx = UIContext.stx
 		if (UIContext && stx) {
@@ -37,7 +35,6 @@ export default class ChartLookup extends React.Component {
 				});
 			};
 
-			console.log('ChartLookup just found the UIContext')
 			UIContext.setLookupDriver(new CIQ.ChartEngine.Driver.Lookup.ChartIQ());
 			UIContext.UISymbolLookup=$$$(".ciq-nav cq-lookup");
 			UIContext.UISymbolLookup.setCallback(function(context, data){

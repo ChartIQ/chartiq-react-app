@@ -15,7 +15,6 @@ import { ChartContext } from '../../react-chart-context'
  */
 export default class MenuEvents extends React.Component {
 	activateMarker(target, type) {
-		console.log('chart events activate function')
 		const chart = $$$('chartiq-chart')
 		$$$(".stx-markers .ciq-active").classList.remove("ciq-active")
 		target.classList.add("ciq-active")
@@ -44,7 +43,6 @@ export default class MenuEvents extends React.Component {
 	}
 
 	render () {
-		console.log('chart events render function')
 		return (
 			<cq-menu class="ciq-menu stx-markers collapse">
 				<span>Events</span>

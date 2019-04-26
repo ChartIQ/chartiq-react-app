@@ -25,9 +25,7 @@ export default class WrappedChart extends React.Component {
 	constructor (props) {
 		super(props)
 
-		console.log('WrappedChart constructor')
 		this.createEngine = container => {
-			console.log(`createEngine ref continer: ${container}`)
 			var config = Object.assign({container: container}, props.chartConstructor)
 			this.stxx = container.stxx = new CIQ.ChartEngine(config)
 			container.CIQ = CIQ
@@ -41,12 +39,9 @@ export default class WrappedChart extends React.Component {
 
 	componentDidMount() {
 		this.createEngine(this.engineRef.current)
-		console.log('WrappedComponent mounted... ')
-		console.log("WrappedComponent.props.children: ", this.props.children)
 	}
 
 	render () {
-		console.log('render WrappedChart')
 		const Comparison = React.forwardRef((props, ref) => (
 			ref.current && <ChartComparison forwardeRef={ref} />
 		))

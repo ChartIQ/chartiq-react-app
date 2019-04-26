@@ -14,10 +14,8 @@ import { ChartContext } from '../../react-chart-context'
 export default class TitleOverlay extends React.Component {
 
 	componentDidMount() {
-		console.log('TitleOverlay mounted. registering chart event')
 		let stx = this.context.stx
 		this.listener = stx.addEventListener("layout", function() {
-			console.log('layout event change')
 			$$$('.title-overlay-controls').style.top = stx.chart.panel.top + "px"
 		})
 	}
