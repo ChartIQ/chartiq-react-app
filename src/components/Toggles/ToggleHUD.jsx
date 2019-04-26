@@ -3,12 +3,18 @@ import { ChartContext } from '../../react-chart-context'
 import { Toggle } from 'components'
 
 export default class ToggleHUD extends React.Component {
+
+	constructor() {
+		super()
+		this.toggle = React.createRef()
+	}
+
 	componentDidMount() {
 		let UIContext = this.context.UIContext
 		let headsUpStatic = UIContext.UIHeadsUpStatic
 		let headsUpDynamic = this.context.UIContext.UIHeadsUpDynamic
 
-		$$$(".ciq-HU").registerCallback(function(value){
+		this.toggle.current.registerCallback(function(value){
 			if(value==="static"){
 				headsUpDynamic.end();
 				headsUpStatic.begin();
@@ -37,11 +43,11 @@ export default class ToggleHUD extends React.Component {
 	render() {
 		const UIContext = this.context.UIContext
 		const hud = 
-		<cq-toggle class="ciq-HU" cq-member="headsUp" cq-toggles="dynamic,static,null">
+		<cq-toggle class="ciq-HU" cq-member="headsUp" cq-toggles="dynamic,static,null" ref={this.toggle} >
 			<span></span><cq-tooltip>Info</cq-tooltip>
 		</cq-toggle>
 		console.log('render hud toggles')
-		return( UIContext.UIHeadsUpDynamic && UIContext.UIHeadsUpDynamic && hud)
+		return( UIContext.UIHeadsUpStatic && UIContext.UIHeadsUpDynamic && hud)
 
 	}
 }

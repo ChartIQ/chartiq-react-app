@@ -11,9 +11,15 @@ import { ChartContext } from '../../react-chart-context'
  * @extends {React.Component}
  */
 export default class HeadsUpStatic extends React.Component {
+	
+	constructor() {
+		super()
+		this.node = React.createRef()
+	}
+
 	componentDidMount() {
 		let UIContext = this.context.UIContext
-		this.UIHeadsUpStatic = new CIQ.UI.HeadsUp($$$('cq-hu-static'), this.context.UIContext, {autostart: true})
+		this.UIHeadsUpStatic = new CIQ.UI.HeadsUp(this.node.current, this.context.UIContext, {autostart: true})
 		this.UIHeadsUpStatic.end()
 		UIContext.UIHeadsUpStatic = this.UIHeadsUpStatic
 		// this.context.setContext({staticHeadsUp: this.UIHeadsUpStatic})
@@ -26,7 +32,7 @@ export default class HeadsUpStatic extends React.Component {
 
 	render() {
 		const staticHeadsUp = 
-			<cq-hu-static>
+			<cq-hu-static ref={this.node} >
 				<div>
 					<div>Price</div><cq-hu-price></cq-hu-price>
 					<div>Open</div><cq-hu-open></cq-hu-open>

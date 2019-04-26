@@ -11,9 +11,15 @@ import { ChartContext } from '../../react-chart-context'
  * @extends {React.Component}
  */
 export default class HeadsUpDynamic extends React.Component {
+	
+	constructor() {
+		super()
+		this.node = React.createRef()
+	}
+
 	componentDidMount() {
 		let UIContext = this.context.UIContext
-		this.UIHeadsUpDynamic = new CIQ.UI.HeadsUp($("cq-hu-dynamic"), UIContext, {followMouse:true, autoStart: false})
+		this.UIHeadsUpDynamic = new CIQ.UI.HeadsUp(this.node.current, UIContext, {followMouse:true, autoStart: false})
 		this.UIHeadsUpDynamic.end()
 		UIContext.UIHeadsUpDynamic = this.UIHeadsUpDynamic
 		// this.context.setContext({dynamicHeadsUp: this.UIHeadsUpDynamic})
@@ -26,7 +32,7 @@ export default class HeadsUpDynamic extends React.Component {
 
 	render() {
 		const dynamicHeadsUp = 
-			<cq-hu-dynamic>
+			<cq-hu-dynamic ref={this.node} >
 					<svg version="1.1" x="0px" y="0px" viewBox="0 0 215 140" enableBackground="new 0 0 215 140">
 					<defs>
 						<filter id="ciq-hu-shadow" height="130%">
