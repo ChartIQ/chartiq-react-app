@@ -32,13 +32,15 @@ export default class BasicChart extends React.Component {
 		let layout = this.props.layout
 		let preferences = this.props.preferences
 		return (
-			<ChartContext.Provider value={this.state}>
-				<UIManager />
-				<div className={"ciq-nav"}>
-					<ChartLookup />
-				</div>
-				<WrappedChart  quoteFeed={quoteFeed} layout={layout} preferences={preferences} />
-			</ChartContext.Provider>
+			<div className="cq-chart-container">
+				<ChartContext.Provider value={this.state}>
+					<UIManager />
+					<div className={"ciq-nav"}>
+						<ChartLookup />
+					</div>
+					<WrappedChart  quoteFeed={quoteFeed} layout={layout} preferences={preferences} />
+				</ChartContext.Provider>
+			</div>
 		)
 	}
 }

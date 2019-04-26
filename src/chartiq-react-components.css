@@ -1,5 +1,8 @@
-#app {
-	position: relative;
+/* The chart will fill up the dimensions of the container element. Set your chart size here. */
+.cq-chart-container {
+	position: absolute;
+	height:100%;
+	width:100%;
 }
 
 .ciq-chart-area {
@@ -10,13 +13,169 @@
 
 .ciq-chart-area {
 	position: relative;
+	height: calc(100% - 90px);
 }
 
 .ciq-footer {
 	position: relative;
 }
 
+cq-toolbar {
+	float:left;
+	width:100%;
+}
+
 .chartContainer {
-	/* 45px for nav + 45px for footer + 30 for padding */
-	height: calc(100vh - 120px);
+	clear: left;
+	width: 100%;
+}
+
+.title-overlay-controls{
+	position: relative;
+	z-index: 31;
+}
+
+cq-chart-title {
+	float: left;
+	z-index: 10;
+}
+
+cq-comparison {
+	float: left;
+	clear: left;
+	z-index: 25; 
+	display: 'inline-block';
+}
+
+cq-comparison-add{
+	z-index: 25;
+}
+
+.title-overlay-controls cq-study-legend {
+	float: left;
+	clear: left;
+	display: inline-block;
+	z-index: 23;
+}
+
+.title-overlay-controls cq-study-legend cq-section-dynamic {
+	border-top: none;
+	background: transparent;
+	padding-bottom: 20px;
+	float:left;
+}
+
+.title-overlay-controls cq-study-legend cq-section-dynamic cq-study-legend-content{
+	display: block;
+	float:left;
+}
+
+.title-overlay-controls cq-study-legend cq-item:hover { 
+	background-color:#fafafa;
+	border-radius:1px;
+	box-shadow:0px 1px 1px rgba(0,0,0,0.2);
+}
+
+.title-overlay-controls cq-study-legend cq-item {
+	padding-left:15px;
+	font-weight:bolder;
+}
+
+.title-overlay-controls cq-study-legend cq-item cq-label {
+	width:130px;
+}
+
+.title-overlay-controls cq-study-legend {
+	height:15px;
+	color:black;
+	margin:5px 0 0 10px;
+	z-index:23;
+}
+
+.break-sm .title-overlay-controls cq-study-legend {
+		display:none;
+}
+
+.title-overlay-controls cq-study-legend cq-section-dynamic cq-heading {
+	color: #398dff;
+	padding: 0;
+	color: #fff;
+	font-size: 12px;
+	text-transform: initial;
+	font-weight: normal;
+	font-family: Roboto, Helvetica, sans-serif;
+}
+
+.title-overlay-controls cq-study-legend cq-heading:after {
+	content:" ";
+	display: inline-block;
+	height: 12px;
+	width: 12px;
+	float:left;
+	margin-left:10px;
+	margin-right:4px;
+	background-image: url(../chartiq/css/img/stx-sprite-ui.svg);
+	background-position: -731px -31px;
+}
+
+@keyframes hovershow-toggle-animation{
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(450deg);
+	}
+}
+@keyframes reverse-hovershow-toggle-animation{
+	0% {
+		transform:  rotate(450deg);
+	}
+	100% {
+		transform:  rotate(0deg);
+	}
+}
+
+.title-overlay-controls cq-study-legend cq-heading:after {
+	animation: reverse-hovershow-toggle-animation ease-in-out .5s;
+}
+
+.title-overlay-controls cq-study-legend:hover cq-heading:after,
+.title-overlay-controls cq-study-legend.ciq-active cq-heading:after {
+	animation: hovershow-toggle-animation ease-in-out .5s;
+	animation-iteration-count: 1;
+	transform-origin: 50% 50%;
+	animation-fill-mode:forwards;
+}
+
+.title-overlay-controls cq-study-legend:hover,
+.title-overlay-controls cq-study-legend.ciq-active {
+	height:auto;
+}
+
+.title-overlay-controls cq-study-legend cq-item {
+	opacity: 0;
+	transition: opacity .20s .50s, background-color 0.25s ease-in-out;
+}
+
+.title-overlay-controls cq-study-legend:hover cq-item {
+	opacity: 1;
+}
+
+.title-overlay-controls cq-study-legend-content cq-heading {
+  cursor:pointer;
+}
+
+.ciq-night .title-overlay-controls cq-study-legend cq-item {
+  color:#fff;
+}
+
+.ciq-night .title-overlay-controls cq-study-legend cq-item:hover {
+	background: #21323f;
+}
+
+html .ciq-night .title-overlay-controls cq-study-legend cq-item:hover .ciq-edit {
+	background-position: -300px -50px;
+}
+html .ciq-night .title-overlay-controls cq-study-legend cq-item:hover .ciq-icon.ciq-close:after {
+	background-position: -250px -50px;
 }

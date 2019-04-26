@@ -29,7 +29,7 @@ export default class ChartComparison extends React.Component {
 		let context = this.context.UIContext
 
 		return (
-			<cq-comparison marker="true" style={{zIndex: 23, display: 'inline-block'}}>
+			<cq-comparison marker="true">
 				<cq-menu className="cq-comparison-new">
 					<cq-comparison-add-label>
 						<cq-comparison-plus></cq-comparison-plus><span>Compare</span><span>...</span>
@@ -43,6 +43,14 @@ export default class ChartComparison extends React.Component {
 										<cq-lookup-icon></cq-lookup-icon>
 									</cq-lookup-input>
 										<cq-lookup-results>
+										<cq-lookup-filters cq-no-close>
+											<cq-filter class="true">ALL</cq-filter>
+											<cq-filter>STOCKS</cq-filter>
+											<cq-filter>FX</cq-filter>
+											<cq-filter>INDEXES</cq-filter>
+											<cq-filter>FUNDS</cq-filter>
+											<cq-filter>FUTURES</cq-filter>
+										</cq-lookup-filters>
 											<cq-scroll></cq-scroll>
 										</cq-lookup-results>
 								</cq-lookup>

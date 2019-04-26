@@ -57,6 +57,7 @@ export default class AdvancedChart extends React.Component {
 		let chartConstructor = this.props.chartConstructor
 		let preferences = this.props.preferences
 		return (
+			<div className="cq-chart-container">
 			<ChartContext.Provider value={this.state}>
 				<UIManger />
 				<ChartNav />
@@ -66,6 +67,7 @@ export default class AdvancedChart extends React.Component {
 				<ChartFooter />
 				<ChartDialogs />
 			</ChartContext.Provider>
+			</div>
 		)
 	}
 }

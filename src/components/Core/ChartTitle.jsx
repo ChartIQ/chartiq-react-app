@@ -13,6 +13,7 @@ export default class ChartTitle extends React.PureComponent {
 	render () {
 		console.log('ChartTitle')
 		return (
+			<>
 			<cq-chart-title>
 				<cq-symbol></cq-symbol>
 				<cq-chart-price>
@@ -24,6 +25,7 @@ export default class ChartTitle extends React.PureComponent {
 					</cq-change>
 				</cq-chart-price>
 			</cq-chart-title>
+			</>
 			)
 	}
 }

@@ -1,9 +1,8 @@
 import React from 'react'
 import { CIQ } from 'chartiq'
 import { ChartIQChart } from 'components'
-import ChartTitle from './ChartTitle'
+import TitleOverlay from '../Layout/TitleOverlay'
 import ToolbarDrawing from '../Features/ToolbarDrawing'
-import ChartComparison from '../Features/ChartComparison'
 import LoadingWidget from './LoadingWidget'
 import HeadsUpStatic from '../Features/HeadsUpStatic'
 import HeadsUpDynamic from '../Features/HeadsUpDynamic'
@@ -58,8 +57,7 @@ export default class WrappedChart extends React.Component {
 				<div className={"ciq-chart"}>
 					{ this.context.stx && <ToolbarDrawing /> }
 					<chartiq-chart class="chartContainer" defer-start="true" ref={this.engineRef}>
-						<ChartTitle />
-						<Comparison ref={this.engineRef} />
+						{ this.context.stx && <TitleOverlay refProp={this.engineRef} /> }
 						<LoadingWidget />
 						{this.props.dynamicHeadsUp && this.context.stx && <HeadsUpDynamic />
 						}

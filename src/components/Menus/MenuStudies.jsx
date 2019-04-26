@@ -1,4 +1,5 @@
 import React from 'react'
+import MenuStudyLegend from './MenuStudyLegend'
 import { ChartContext } from '../../react-chart-context'
 import { Menu, MenuDropDown, Scroll, Studies, StudyLegend } from 'components'
 
@@ -29,22 +30,7 @@ export default class MenuStudies extends React.Component {
 			<cq-menu class="ciq-menu ciq-studies collapse">
 				<span>Studies</span>
 				<cq-menu-dropdown cq-no-scroll>
-					<cq-study-legend cq-no-close>
-						<cq-section-dynamic>
-							<cq-heading>Current Studies</cq-heading>
-							<cq-study-legend-content>
-								<template id="currentStudies">
-									<cq-item>
-										<cq-label className="click-to-edit ciq-edit"></cq-label>
-										<div className="ciq-icon ciq-close"></div>
-									</cq-item>
-								</template>
-							</cq-study-legend-content>
-							<cq-placeholder>
-								<div stxtap="Layout.clearStudies()" className="ciq-btn sm">Clear All</div>
-							</cq-placeholder>
-						</cq-section-dynamic>
-					</cq-study-legend>
+					<MenuStudyLegend heading={"Current Studies"} clearAll={true} />
 					{/*<!-- comment in the following lines if you have access to ScriptIQ -->
 					<!-- <cq-heading>ScriptIQ</cq-heading>
 						<cq-item><cq-clickable cq-selector="cq-scriptiq-editor" cq-method="open">New Script</cq-clickable></cq-item>

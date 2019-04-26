@@ -19,8 +19,10 @@ export default class ChartNav extends React.Component {
 		const nav = 
 			<div className={'ciq-nav'}>
 				<ChartLookup />
-				<ChartMenus />
-				<ChartToggles />
+				<div className="ciq-menu-section">
+					<ChartMenus />
+					<ChartToggles />
+				</div>
 			</div>
 		return ( this.context.stx && nav )
 	}
