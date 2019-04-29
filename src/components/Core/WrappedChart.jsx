@@ -26,7 +26,7 @@ export default class WrappedChart extends React.Component {
 		super(props)
 
 		this.createEngine = container => {
-			var config = Object.assign({container: container}, props.chartConstructor)
+			var config = {container: container, chart: props.chartConstructor, preferences: props.preferences}
 			this.stxx = container.stxx = new CIQ.ChartEngine(config)
 			container.CIQ = CIQ
 			container.$$$ = $$$
@@ -51,7 +51,7 @@ export default class WrappedChart extends React.Component {
 			<div className={"ciq-chart-area"}>
 				<div className={"ciq-chart"}>
 					{ this.context.stx && <ToolbarDrawing /> }
-					<chartiq-chart class="chartContainer" defer-start="true" ref={this.engineRef}>
+					<chartiq-chart class="chartContainer" defer-start="true" animations="false" ref={this.engineRef}>
 						{ this.context.stx && <TitleOverlay refProp={this.engineRef} /> }
 						<LoadingWidget />
 						{this.props.dynamicHeadsUp && this.context.stx && <HeadsUpDynamic />

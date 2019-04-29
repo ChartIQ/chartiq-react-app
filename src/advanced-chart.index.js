@@ -7,9 +7,9 @@ import AdvancedChart from './sample-template-advanced'
 let constructor = {}
 let preferences = {}
 // constructor = {yAxis:{position:"left"}}
-// preferences = {language: "de"}
+preferences = {labels:false, currentPriceLine:true, whitespace:0}
 
 ReactDom.render(
-	React.createElement(AdvancedChart, {chartConstructor:{chart: constructor}, preferences: preferences}),
+	React.createElement(AdvancedChart, {chartConstructor:constructor, preferences: preferences}),
 	document.querySelector("#app")
 )
