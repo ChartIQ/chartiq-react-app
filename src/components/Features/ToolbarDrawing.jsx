@@ -131,8 +131,8 @@ export default class ToolbarDrawing extends React.Component {
 					</template>
 
 				<cq-annotation cq-section="true">
-					<cq-annotation-italic stxtap="toggleFontStyle('italic')" className="ciq-btn" style={{fontStyle:"italic"}}>I</cq-annotation-italic>
-					<cq-annotation-bold stxtap="toggleFontStyle('bold')" className="ciq-btn" style={{fontWeight:"bold"}}>B</cq-annotation-bold>
+					<cq-annotation-italic stxtap="toggleFontStyle('italic')" class="ciq-btn" style={{fontStyle:"italic"}}>I</cq-annotation-italic>
+					<cq-annotation-bold stxtap="toggleFontStyle('bold')" class="ciq-btn" style={{fontWeight:"bold"}}>B</cq-annotation-bold>
 					<cq-menu class="ciq-select">
 						<span cq-font-size="true">12px</span>
 						<cq-menu-dropdown class="ciq-font-size">
