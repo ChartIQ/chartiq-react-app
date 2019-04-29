@@ -7,6 +7,7 @@ import LoadingWidget from './LoadingWidget'
 import HeadsUpStatic from '../Features/HeadsUpStatic'
 import HeadsUpDynamic from '../Features/HeadsUpDynamic'
 import MarkerAbstract from '../Features/MarkerAbstract'
+import DataAttribution from '../Features/DataAttribution'
 import { ChartContext } from '../../react-chart-context'
 
 /**
@@ -59,6 +60,7 @@ export default class WrappedChart extends React.Component {
 
 						{this.props.staticHeadsUp && this.context.stx && <HeadsUpStatic />
 						}
+						<DataAttribution />
 					</chartiq-chart>
 					{ this.context.stx && <MarkerAbstract /> }
 				</div>
