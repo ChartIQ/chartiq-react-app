@@ -8,7 +8,7 @@ export default class DataAttribution extends React.Component {
 <cq-attribution>
 	<template>
 		<cq-attrib-container>
-			<cq-attrib-source></cq-attrib-source>&nbsp;
+			<cq-attrib-source></cq-attrib-source>
 			<cq-attrib-quote-type></cq-attrib-quote-type>
 		</cq-attrib-container>
 	</template>
