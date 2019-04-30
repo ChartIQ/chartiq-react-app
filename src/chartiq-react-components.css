@@ -183,3 +183,7 @@ html .ciq-night .title-overlay-controls cq-study-legend cq-item:hover .ciq-edit 
 html .ciq-night .title-overlay-controls cq-study-legend cq-item:hover .ciq-icon.ciq-close:after {
 	background-position: -250px -50px;
 }
+
+div.stx-marker.abstract #helicopter #propeller{
+	height: 160px;
+}
