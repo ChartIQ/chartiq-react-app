@@ -21,6 +21,11 @@ import { ChartContext } from '../../react-chart-context'
  */
 export default class ChartLookup extends React.Component {
 
+	constructor() {
+		super()
+		this.symbolInput = React.createRef();
+	}
+
 	componentDidMount() {
 		let UIContext = this.context.UIContext
 		let stx = UIContext.stx
@@ -47,6 +52,21 @@ export default class ChartLookup extends React.Component {
 
 			this.context.setContext({UIContext: UIContext})
 		}
+
+		window.addEventListener("resize", this.resizeScreen.bind(this));
+		this.resizeScreen();
+	}
+
+	resizeScreen(){
+		let containerWidth = document.querySelector('.cq-chart-container').offsetWidth;
+
+		if (containerWidth> 700) {
+			this.symbolInput.current.placeholder = "Enter Symbol";
+		}else if (containerWidth <= 700 && containerWidth > 584) {
+			this.symbolInput.current.placeholder = "Symbol";
+		}else if (containerWidth <= 584) {
+			this.symbolInput.current.placeholder = "";
+		}
 	}
 
 
@@ -57,7 +77,7 @@ export default class ChartLookup extends React.Component {
 	<cq-menu class="ciq-search">
 		<cq-lookup cq-keystroke-claim cq-keystroke-default>
 			<cq-lookup-input cq-no-close>
-				<input type="text" spellCheck="off" autoComplete="off" autoCorrect="off" autoCapitalize="off" name="symbol" placeholder="Enter Symbol" />
+				<input id="symbol" type="text" spellCheck="off" autoComplete="off" autoCorrect="off" autoCapitalize="off" name="symbol" placeholder="Enter Symbol" ref={this.symbolInput} />
 				<cq-lookup-icon></cq-lookup-icon>
 			</cq-lookup-input>
 			<cq-lookup-results>

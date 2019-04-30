@@ -20,6 +20,10 @@
 	position: relative;
 }
 
+.sidenav{
+	height:calc(100% - 90px ); /* leave room for the footer */
+}
+
 cq-toolbar {
 	float:left;
 	width:100%;

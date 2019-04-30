@@ -20,13 +20,13 @@ import MenuEvents from './MenuEvents'
 export default class ChartMenus extends React.Component {
 	render () {
 		return (
-			<>
-			<MenuPeriodicity />
-			<MenuViews />
-			<MenuSettings />
-			<MenuStudies />
-			<MenuEvents />
-			</>
+			<div className="ciq-dropdowns">
+				<MenuPeriodicity />
+				<MenuViews />
+				<MenuSettings />
+				<MenuStudies />
+				<MenuEvents />
+			</div>
 		)
 	}
 }

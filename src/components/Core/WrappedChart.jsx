@@ -39,7 +39,24 @@ export default class WrappedChart extends React.Component {
 	}
 
 	componentDidMount() {
-		this.createEngine(this.engineRef.current)
+		this.createEngine(this.engineRef.current);
+		window.addEventListener("resize", this.resizeScreen.bind(this));
+		this.resizeScreen();
+	}
+
+	resizeScreen(){
+		let containerWidth = document.querySelector('.cq-chart-container').offsetWidth;
+
+		document.body.classList.remove('break-lg','break-md','break-sm')
+		if (containerWidth> 700) {
+			document.body.classList.add('break-lg');
+		}
+		else if (containerWidth <= 700 && containerWidth > 584) {
+			document.body.classList.add('break-md');
+		}
+		else if (containerWidth <= 584) {
+			document.body.classList.add('break-sm');
+		}
 	}
 
 	render () {
