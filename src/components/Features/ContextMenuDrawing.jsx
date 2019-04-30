@@ -15,7 +15,6 @@ export default class ContextMenuDrawing extends React.Component {
 
 	constructor(props) {
 		super(props)
-		this.mounts=0
 	}
 
 	componentDidMount () {

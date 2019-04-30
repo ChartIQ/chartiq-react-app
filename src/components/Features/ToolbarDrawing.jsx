@@ -12,10 +12,21 @@ import { ChartContext } from '../../react-chart-context'
  * @extends {React.Component}
  */
 export default class ToolbarDrawing extends React.Component {
+	constructor() {
+		super()
+		this.toolbar = React.createRef()
+		this.undoButton = React.createRef()
+		this.redoButton = React.createRef()
+	}
 
 	componentDidMount () {
-		$$$('chartiq-chart').stxx.setDrawingContainer($$$('cq-toolbar'))
-		$$$('cq-redo').pairUp($$$('cq-undo'))
+		let UIContext = this.context.UIContext;
+		let stx = this.context.stx;
+		let toolbar = this.toolbar.current
+		UIContext.ToolbarDrawing = toolbar;
+		stx.setDrawingContainer(toolbar)
+
+		this.redoButton.current.pairUp(this.undoButton.current)
 	}
 
 	render () {
@@ -48,7 +59,7 @@ export default class ToolbarDrawing extends React.Component {
 </cq-line-style>
 </React.Fragment>
 		return (
-		<cq-toolbar cq-drawing-edit="none">
+		<cq-toolbar cq-drawing-edit="none" ref={this.toolbar}>
 			<cq-menu class="ciq-select">
 				<span cq-current-tool="true">Select Tool</span>
 				<cq-menu-dropdown>
@@ -172,8 +183,8 @@ export default class ToolbarDrawing extends React.Component {
 			</cq-toolbar-settings>
 			<cq-measure><span className="mMeasure"></span></cq-measure>
 			<cq-undo-section className="ciq-drawing-edit-hidden">
-				<cq-undo class="ciq-btn">Undo</cq-undo>
-				<cq-redo class="ciq-btn">Redo</cq-redo>
+				<cq-undo class="ciq-btn" ref={this.undoButton} >Undo</cq-undo>
+				<cq-redo class="ciq-btn" ref={this.redoButton} >Redo</cq-redo>
 			</cq-undo-section>
 		</cq-toolbar>
 		)

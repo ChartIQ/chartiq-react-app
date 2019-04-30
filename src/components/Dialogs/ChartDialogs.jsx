@@ -8,6 +8,7 @@ import DialogTimezone from './DialogTimezone'
 import DialogLanguage from './DialogLanguage'
 import DialogShare from './DialogShare'
 import DialogTheme from './DialogTheme'
+import { ChartContext } from '../../react-chart-context'
 
 /**
  * Chart dialogs component `<ChartDialogs>`
@@ -22,6 +23,8 @@ import DialogTheme from './DialogTheme'
  */
 export default class ChartDialogs extends React.Component {
 	render() {
+		// Condititionally render ContextMenuDrawing and to make sure that the ToolBarDrawing has been mounted
+		// If not then DrawingEdit won't find the <cq-toolbar> web component and editing drawings won't work.
 		return(
 			<>
 			<DialogView />
@@ -31,9 +34,11 @@ export default class ChartDialogs extends React.Component {
 			<DialogLanguage />
 			<DialogShare />
 			<DialogTheme />
-			<ContextMenuDrawing />
+			{this.context.UIContext.ToolbarDrawing && <ContextMenuDrawing /> }
 			<ContextMenuStudy />
 			</>
 		)
 	}
 }
+
+ChartDialogs.contextType = ChartContext;
