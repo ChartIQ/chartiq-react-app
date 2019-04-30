@@ -13,11 +13,20 @@ import { ChartContext } from '../../react-chart-context'
  */
 export default class TitleOverlay extends React.Component {
 
+	constructor(){
+		super();
+		this.state = {
+			position: {
+				top: 0,
+				left: 0
+			}
+		}
+	}
+
 	componentDidMount() {
-		let stx = this.context.stx
-		this.listener = stx.addEventListener("layout", function() {
-			$$$('.title-overlay-controls').style.top = stx.chart.panel.top + "px"
-		})
+		let stx = this.context.stx;
+		this.listener = stx.addEventListener("layout", this.UpdateOverlayPosition.bind(this))
+		this.UpdateOverlayPosition();
 	}
 
 	componentWillUnmount() {
@@ -25,10 +34,18 @@ export default class TitleOverlay extends React.Component {
 		stx.removeEventListener(this.listener)
 	}
 
+	UpdateOverlayPosition(){
+		this.setState({
+			position: {
+				top: this.context.stx.chart.panel.top,
+				left: this.context.stx.chart.panel.left
+			}
+		});
+	}
+
 	render() {
-		let initialTop = this.context.stx.chart.panel.top+'px'
 		return(
-			<div className="title-overlay-controls" style={{top: initialTop}}>
+			<div className="title-overlay-controls" style={{top: this.state.position.top+'px', left: this.state.position.left+'px'}}>
 				<ChartTitle />
 				<ChartComparison />
 				<MenuStudyLegend clearAll={false
