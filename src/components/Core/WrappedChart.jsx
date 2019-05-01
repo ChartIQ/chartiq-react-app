@@ -31,11 +31,12 @@ export default class WrappedChart extends React.Component {
 			this.stxx = container.stxx = new CIQ.ChartEngine(config)
 			container.CIQ = CIQ
 			container.$$$ = $$$
-			container.startChart(this.stxx, quoteFeedSimulator, {refreshInterval: 1, bufferSize: 200})
+			container.startChart(this.stxx, this.feed, {refreshInterval: 1, bufferSize: 200})
 			this.context.setContext({stx: this.stxx})
 		}
 
 		this.engineRef = React.createRef()
+		this.feed = this.props.quoteFeed || quoteFeedSimulator
 	}
 
 	componentDidMount() {

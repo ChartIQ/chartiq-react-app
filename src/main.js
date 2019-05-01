@@ -1,8 +1,9 @@
+import '@babel/polyfill'
 import React from 'react'
 import ReactDom from 'react-dom'
 import { CIQ, $$$ } from 'chartiq'
 // import { quoteFeedSimulator } from 'examples/feeds/quoteFeedSimulator'
-import AdvancedChart from './containers/sample-template-advanced'
+import AdvancedChart from './containers/AdvancedChart'
 
 let constructor = {}
 let preferences = {}

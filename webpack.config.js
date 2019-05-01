@@ -12,7 +12,7 @@ module.exports = {
 		headers: {
 			'Access-Control-Allow-Origin': '*'
 		},
-		publicPath: '/dist/',
+		publicPath: '0.0.0.0:4002/dist/',
 		host: '0.0.0.0',
 		port: 4002,
 	},
@@ -26,8 +26,9 @@ module.exports = {
 		// Even though some of these are single files, their dependency
 		// on chartiq.js needs to be resolved and the UMD header generated.
 		// Let webpack handle all that boilerplate code for us!
+		// advanced: path.join(devDir, 'sample-template-advanced.jsx'),
+		// xignite: path.join(chartiqDir, 'examples', 'feeds', 'quoteFeedXignite.js'),
 		bundle: path.join(devDir, 'main.js'),
-		// chartiq: './chartiq.entry.js',
 	},
 	mode: env,
 	module: {
@@ -41,7 +42,7 @@ module.exports = {
 				use: {
 					loader: 'babel-loader',
 					options: {
-						presets: ['@babel/preset-react'],
+						presets: ['@babel/preset-env', '@babel/preset-react'],
 					},
 				}
 			}
@@ -64,10 +65,17 @@ module.exports = {
 		// Let other entries know that chartiq.js is its own entry
 		// to prevent it from being re-bundled inside other bundles.
 		// https://webpack.js.org/plugins/split-chunks-plugin/
-		// splitChunks: {
-		// 	name: 'chartiq',
-		// 	chunks: 'all'
-		// }
+		splitChunks: {
+			// name: 'chartiq',
+			// chunks: 'all'
+			// cacheGroups: {
+			// 	vendor: {
+			// 		test: /[\\/](react|react-dom)[\\/]/,
+			// 		name: 'vendor',
+			// 		chunks: 'all'
+			// 	},
+			// }
+		}
 	},
 	plugins: [
 		new webpack.ProvidePlugin({
