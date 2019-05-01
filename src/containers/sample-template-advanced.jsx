@@ -4,14 +4,23 @@ import { CIQ } from 'chartiq'
 import 'addOns'
 import 'markets/marketDefinitionsSample'
 import 'markets/marketSymbologySample'
-import UIManger from './components/Core/UIManager'
-import ColorPicker from './components/Features/ColorPicker'
-import ChartNav from './components/Layout/ChartNav'
-import WrappedChart from './components/Core/WrappedChart'
-import ChartDialogs from './components/Dialogs/ChartDialogs'
-import ChartFooter from './components/Layout/ChartFooter'
-import { ChartContext } from './react-chart-context'
+import UIManger from '../components/Core/UIManager'
+import ColorPicker from '../components/Features/ColorPicker'
+import ChartNav from '../components/Layout/ChartNav'
+import WrappedChart from '../components/Core/WrappedChart'
+import ChartDialogs from '../components/Dialogs/ChartDialogs'
+import ChartFooter from '../components/Layout/ChartFooter'
+import { ChartContext } from '../react-chart-context'
 
+/**
+ * This is a fully functional example showing how to load a chart with complete user interface.
+ * 
+ * Customize this sample template as needed to meet your use case and fit the screen size of your supported devices.
+ *
+ * @export
+ * @class AdvancedChart
+ * @extends {React.Component}
+ */
 export default class AdvancedChart extends React.Component {
 	constructor(props) {
 		super(props)

@@ -12,7 +12,7 @@ module.exports = {
 		headers: {
 			'Access-Control-Allow-Origin': '*'
 		},
-		publicPath: 'localhost:4002/dist',
+		publicPath: '/dist/',
 		host: '0.0.0.0',
 		port: 4002,
 	},
@@ -26,8 +26,7 @@ module.exports = {
 		// Even though some of these are single files, their dependency
 		// on chartiq.js needs to be resolved and the UMD header generated.
 		// Let webpack handle all that boilerplate code for us!
-		basic: path.join(devDir, 'basic-chart.index.js'),
-		advanced: path.join(devDir, 'advanced-chart.index.js'),
+		bundle: path.join(devDir, 'main.js'),
 		// chartiq: './chartiq.entry.js',
 	},
 	mode: env,
