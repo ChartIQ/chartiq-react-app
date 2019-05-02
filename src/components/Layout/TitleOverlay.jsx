@@ -44,12 +44,16 @@ export default class TitleOverlay extends React.Component {
 	}
 
 	render() {
+		let menuStudyLegend;
+		if( Object.keys(this.context.stx.overlays).length > 0 ){
+			// Only render the <MenuStudyLegend.../> component if there are overlay studies present in the chart
+			menuStudyLegend = <MenuStudyLegend clearAll={false} heading={"Overlays"} icon={true} only={"overlays"} />;
+		}
 		return(
 			<div className="title-overlay-controls" style={{top: this.state.position.top+'px', left: this.state.position.left+'px'}}>
 				<ChartTitle />
 				<ChartComparison />
-				<MenuStudyLegend clearAll={false
-				} heading={"Overlays"} icon={true} only={"overlays"} />
+				{menuStudyLegend}
 			</div>
 		)
 	}
