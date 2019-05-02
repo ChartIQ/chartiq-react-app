@@ -24,14 +24,14 @@ export default class MenuEvents extends React.Component {
 		[...this.markerDropdown.current.querySelectorAll('cq-item')].forEach((menuitem) => {
 			// Skip menu items that don't have a markertype attribute
 			if(menuitem.attributes.markertype){
-				menuitem.addEventListener('stxtap', this.eventStxtapHandler.bind(this));
+				menuitem.addEventListener('stxtap', this.eventStxtapHandler.bind(this, menuitem));
 			}
 		});
 	}
 
 	eventStxtapHandler(e){
-		if(e.target.attributes.markertype){
-			this.activateMarker(e.target, e.target.attributes.markertype.value);
+		if(e.attributes.markertype){
+			this.activateMarker(e, e.attributes.markertype.value);
 		}else{
 			console.log('Event marker type not found.')
 		}
