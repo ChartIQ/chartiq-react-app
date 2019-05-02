@@ -113,38 +113,59 @@
 	height: 160px;
 	perspective: 500px;
 	-webkit-perspective: 500px;
-	z-index: 1;
+	-webkit-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+	z-index: 10;
+	transform: rotateX(80deg);
+	transform-origin: 40px 0px 0px;
 }
 @keyframes spinner {
 	from {
-		transform: rotateY(0deg);
+		transform: rotate(0deg);
 	}
 	to {
-		transform: rotateY(-360deg);
+		transform: rotate(-360deg);
 	}
 }
 @-webkit-keyframes spinner {
 	from {
-		-webkit-transform: rotateY(0deg);
+		-webkit-transform: rotate(0deg);
 	}
 	to {
-		-webkit-transform: rotateY(-360deg);
+		-webkit-transform: rotate(-360deg);
 	}
 }
 #spinner {
-	-webkit-animation: spinner 1s linear infinite;
+	-webkit-animation: spinner 0.75s linear infinite;
 	/* Chrome, Safari, Opera */
-	animation: spinner 1s linear infinite;
+	animation: spinner 0.75s linear infinite;
 	/* Standard syntax */
-	-webkit-transform-style: preserve-3d;
-	transform-style: preserve-3d;
+	transform-origin: 40px 2px 0px;
 }
 #spinner div {
 	position: absolute;
-	background: #999;
+	background: #7a7a7a;
 	width: 80px;
 	height: 4px;
 }
+
+#spinner div:nth-child(1){
+	transform: rotate(0deg) translateX(40px) !important;
+	/* background: #f00; */
+}
+#spinner div:nth-child(2){
+	transform: rotate(-90deg) translateX(40px) !important;
+	/* background: #0f0; */
+}
+#spinner div:nth-child(3){
+	transform: rotate(-180deg) translateX(40px) !important;
+	/* background: #00f; */
+}
+#spinner div:nth-child(4){
+	transform: rotate(-270deg) translateX(40px) !important;
+	/* background: #ff0; */
+}
+
 #heli-body {
 	position: absolute;
 	left: 0;
