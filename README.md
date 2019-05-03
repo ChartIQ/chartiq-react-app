@@ -2,6 +2,10 @@
 
 ## Overview
 
+### -- BETA RELEASE	--	
+
+**Requirements:** ChartIQ SDK v7.0.1+ 
+
 This project provides ChartIQ's full feature advanced charting application, written with the React framework. It wraps ChartIQ's native Web Components and is fully interoperable with the advanced chart that comes in the ChartIQ SDK.
 
 - [Using this project](#using-this-project)

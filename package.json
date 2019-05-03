@@ -1,7 +1,7 @@
 {
-  "name": "stx-ui-react",
+  "name": "chartiq-react-app",
   "version": "0.0.1",
-  "description": "React Component Library for the ChartIQ charting library",
+  "description": "ChartIQ's full featured charting application written in ReactJS",
   "main": "index.js",
   "scripts": {
     "build": "webpack -p --config=webpack.config.js",
