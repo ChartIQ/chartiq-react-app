@@ -1,4 +1,4 @@
-# stx-ui-react
+# chartiq-react-app
 
 ## Overview
 
