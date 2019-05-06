@@ -9,17 +9,32 @@
 This project provides ChartIQ's full feature advanced charting application, written with the React framework. It wraps ChartIQ's native Web Components and is fully interoperable with the advanced chart that comes in the ChartIQ SDK.
 
 - [Using this project](#using-this-project)
+	- [Including the ChartIQ SDK](#including-the-chartiq-sdk)
 - [Project Structure](#project-structure)
 - [Building the project](#building-the-project)
 - [Integrating a QuoteFeed](#integrating-a-quotefeed)
 - [Customizing the project](#customizing-the-project)
 - [Commands](#commands)
-- [Including the ChartIQ SDK](#including-the-chartiq-sdk)
+- [Notes](#notes)
 
 
 ## Using this project
 
-To use this project you will need to include your specific SDK files provided by ChartIQ. This will allow you to build the project for your licensed domains. To get started, locate the `/chartiq` folder in this project's root. In this folder you will find placeholder files for the ChartIQ SDK. Extract your licensed copy of the SDK into the `/chartiq` folder, overwriting the placeholder files.
+To use this project you will need to include your specific license files provided by ChartIQ. This will allow you to build the project for your licensed domains. This project expects several files from your license in order to compile correctly. They are:
+**IF YOU DO NOT INCLUDE THESE FILES, THE APPLICATION WILL NOT COMPILE**
+ - chartiq/js/chartiq.js
+ - chartiq/js/componentUI.js
+ - chartiq/js/components.js
+ - chartiq/examples/feeds/quoteFeedSimulator.js
+ - chartiq/examples/feeds/symbolLookupChartIQ.js
+ - chartiq/examples/markets/marketDefinitionSamples.js
+ - chartiq/examples/markets/marketSymbologySample.js
+ - chartiq/examples/translations/translationSample.js
+
+
+> ### Including the ChartIQ SDK
+>
+> You are expected to provide a copy of the ChartIQ license to in order to run this repo correctly. To get started, extract your licensed files into the `chartiq/` folder. Webpack will then pick up these files and allow you to use them in this project and everything will compile correctly.
 
 Once done use `npm run build` to transpile the contents into one bundle, located in the `/dist` folder, which is used by index.html.
 
@@ -117,6 +132,8 @@ For more information about building a custom quoteFeed to provide data for your 
 
 Certain feature components, such as menus, have accompanying dialog components. When removing a feature component, it is best to remove all accompanying components. Though leaving unused components in the project will have no adverse impact on the user experience, removing them will keep your final build size as small as possible. For example, if you choose to remove the `<MenuViews />` component from the `<ChartMenus />` component, also be sure to remove the `<DialogView />` component from `<ChartDialogs />`.
 
+Severl of the files necessary to build the project are sample files that you can replace. If you wish to use your own files for market definitions, translations, or quoteFeeds, remember to remove the references to the these files when you import your own. If you only remove the files you will break the project when you try to compile.
+
 ## Commands - `npm scripts`
 
 This repo contains some basic scripts to get started quickly, you can see a full list of scripts with `npm run`. They include:
@@ -125,6 +142,6 @@ npm run build  # outputs the code bundled by webpack
 npm run start  # starts the webpack dev server
 ```
 
-## Including the ChartIQ SDK
+## Notes
 
-You are expected to provide a copy of the ChartIQ SDK to in order to run this repo correctly. Already included are several stub files which will allow the project to compile correctly but will throw an alert and errors in the developer console. To get started you should overwrite these files with the correct versions from your SDK and recompile the project. Webpack will then pick up these files and allow you to use them in this project. 
+When you are working this file there a few things to be aware of. If you need to bind webpack dev server to a differnt host like `http://0.0.0.0`, you will need to include that domain on your license. If you need this for development, please contact your Account Manager to set to have it added to your license.

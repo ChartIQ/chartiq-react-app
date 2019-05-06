@@ -12,8 +12,8 @@ module.exports = {
 		headers: {
 			'Access-Control-Allow-Origin': '*'
 		},
-		publicPath: '0.0.0.0:4002/dist/',
-		host: '0.0.0.0',
+		publicPath: '/dist/',
+		host: 'localhost',
 		port: 4002,
 	},
 	// Source map file configuration.
