@@ -1,6 +1,6 @@
 # chartiq-react-app
 
-## -- BETA RELEASE --	
+**-- BETA RELEASE --**
 
 **Requirements:** ChartIQ SDK v7.0.1+ 
 
@@ -9,8 +9,8 @@
 This project provides ChartIQ's full featured advanced charting application, written for the React framework. 
 It wraps ChartIQ's native [Web Components](https://documentation.chartiq.com/tutorial-Web%20Component%20Interface.html) and is fully interoperable with the advanced HTML template (sample-template-advanced.html) that comes with the ChartIQ library package.
 
-- [Using this project](#using-this-project)
-	- [Including the ChartIQ SDK](#including-the-chartiq-sdk)
+## Table Of Contents
+- [Installing this project](#installing-this-project)
 - [Project Structure](#project-structure)
 - [Building the project](#building-the-project)
 - [Integrating a QuoteFeed](#integrating-a-quotefeed)
@@ -134,7 +134,8 @@ Certain feature components, such as menus, have accompanying dialog components. 
 
 Several of the files necessary to build the project are sample files that you can replace. If you wish to use your own files for market definitions, translations, or quoteFeeds, remember to remove the references to the these files when you import your own. If you only remove the files you will break the project when you try to compile.
 
-## Commands - `npm scripts`
+## Commands 
+(`npm scripts`)
 
 This repo contains some basic scripts to get started quickly, you can see a full list of scripts with `npm run`. They include:
 ```
