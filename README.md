@@ -1,12 +1,13 @@
 # chartiq-react-app
 
-## Overview
-
-### -- BETA RELEASE	--	
+## -- BETA RELEASE --	
 
 **Requirements:** ChartIQ SDK v7.0.1+ 
 
-This project provides ChartIQ's full feature advanced charting application, written with the React framework. It wraps ChartIQ's native Web Components and is fully interoperable with the advanced chart that comes in the ChartIQ SDK.
+## Overview
+
+This project provides ChartIQ's full featured advanced charting application, written for the React framework. 
+It wraps ChartIQ's native [Web Components](https://documentation.chartiq.com/tutorial-Web%20Component%20Interface.html) and is fully interoperable with the advanced HTML template (sample-template-advanced.html) that comes with the ChartIQ library package.
 
 - [Using this project](#using-this-project)
 	- [Including the ChartIQ SDK](#including-the-chartiq-sdk)
@@ -18,10 +19,11 @@ This project provides ChartIQ's full feature advanced charting application, writ
 - [Notes](#notes)
 
 
-## Using this project
+## Installing this project
 
-To use this project you will need to include your specific license files provided by ChartIQ. This will allow you to build the project for your licensed domains. This project expects several files from your license in order to compile correctly. They are:
-**IF YOU DO NOT INCLUDE THESE FILES, THE APPLICATION WILL NOT COMPILE**
+To use this project you will need to include a copy of the ChartIQ library. If you do not have a copy of the library, please contact your account manager before continuing this installation.
+
+There are a few key files that must be present in order for the project to compile correctly. They are:
  - chartiq/js/chartiq.js
  - chartiq/js/componentUI.js
  - chartiq/js/components.js
@@ -31,12 +33,10 @@ To use this project you will need to include your specific license files provide
  - chartiq/examples/markets/marketSymbologySample.js
  - chartiq/examples/translations/translationSample.js
 
+**IF YOU DO NOT INCLUDE THE ABOVE FILES, THE APPLICATION WILL NOT COMPILE**
 
-> ### Including the ChartIQ SDK
->
-> You are expected to provide a copy of the ChartIQ license to in order to run this repo correctly. To get started, extract your licensed files into the `chartiq/` folder. Webpack will then pick up these files and allow you to use them in this project and everything will compile correctly.
 
-Once done use `npm run build` to transpile the contents into one bundle, located in the `/dist` folder, which is used by index.html.
+Extract your library files into the `chartiq/` folder. Then, use `npm run build` to transpile the contents into one bundle, located in the `/dist` folder, which is used by index.html.
 
 ```sh
 unzip your-chartiq-license.zip -d ./your-license
@@ -143,5 +143,4 @@ npm run start  # starts the webpack dev server
 ```
 
 ## Notes
-
-When you are working this project there a few things to be aware of. If you need to bind webpack dev server to a different host like `http://0.0.0.0`, you will need to include that domain on your license. If you need this for development, please contact your Account Manager to set to have it added to your license.
+- This application will only run from `127.0.0.1`, `localhost`, and the explicit list of domains set on your particular chartIQ library license. If you need to bind webpack dev server to a different host, like `http://0.0.0.0`, please contact your Account Manager to have those additional domains added to your license.
