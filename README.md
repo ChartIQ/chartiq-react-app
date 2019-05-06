@@ -42,11 +42,9 @@ Extract your library files into the `chartiq/` folder. Then, use `npm run build`
 unzip your-chartiq-license.zip -d ./your-license
 cp -r ./your-license ./chartiq
 npm run build
-cp dist/* ../path/to/your/project
 ```
 
 - For more about building this project see [Building the project](#building-the-project).
-- For more about including the SDK see [Including the ChartIQ SDK](#including-the-chartiq-sdk).
 
 In `src/main.js` you can add React props that are passed down to the chart engine constructor. These props are set in the `chartConstructor` and `preferences` objects. Read more about the arguments that the ChartEngine accepts and the preferences of the chart at [documentation.chartiq.com](http://documentation.chartiq.com)
 
@@ -144,4 +142,4 @@ npm run start  # starts the webpack dev server
 ```
 
 ## Notes
-- This application will only run from `127.0.0.1`, `localhost`, and the explicit list of domains set on your particular chartIQ library license. If you need to bind webpack dev server to a different host, like `http://0.0.0.0`, please contact your Account Manager to have those additional domains added to your license.
+- This application will only run from `127.0.0.1`, `localhost`, and the explicit list of domains set on your particular ChartIQ library license. If you need to bind webpack dev server to a different host, like `http://0.0.0.0`, please contact your Account Manager to have those additional domains added to your license.
