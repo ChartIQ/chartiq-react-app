@@ -128,11 +128,11 @@ For more information about building a custom quoteFeed to provide data for your 
 
 ## Customizing the Project
 
-`<AdvancedChart />` is designed as a full feature drop in charting component. However, you may not require every feature in this project. If you wish to omit certian feature components, or change the default appearance, you are free to make adjustments to the files in `src/components/` and `src/containers`. If you chose to customize the appearance of this project, **it is strongly recommended that you run the project in development mode and verify all changes are functioning correctly before building.**
+`<AdvancedChart />` is designed as a full feature drop in charting component. However, you may not require every feature in this project. If you wish to omit certain feature components, or change the default appearance, you are free to make adjustments to the files in `src/components/` and `src/containers`. If you chose to customize the appearance of this project, **it is strongly recommended that you run the project in development mode and verify all changes are functioning correctly before building.**
 
 Certain feature components, such as menus, have accompanying dialog components. When removing a feature component, it is best to remove all accompanying components. Though leaving unused components in the project will have no adverse impact on the user experience, removing them will keep your final build size as small as possible. For example, if you choose to remove the `<MenuViews />` component from the `<ChartMenus />` component, also be sure to remove the `<DialogView />` component from `<ChartDialogs />`.
 
-Severl of the files necessary to build the project are sample files that you can replace. If you wish to use your own files for market definitions, translations, or quoteFeeds, remember to remove the references to the these files when you import your own. If you only remove the files you will break the project when you try to compile.
+Several of the files necessary to build the project are sample files that you can replace. If you wish to use your own files for market definitions, translations, or quoteFeeds, remember to remove the references to the these files when you import your own. If you only remove the files you will break the project when you try to compile.
 
 ## Commands - `npm scripts`
 
@@ -144,4 +144,4 @@ npm run start  # starts the webpack dev server
 
 ## Notes
 
-When you are working this file there a few things to be aware of. If you need to bind webpack dev server to a differnt host like `http://0.0.0.0`, you will need to include that domain on your license. If you need this for development, please contact your Account Manager to set to have it added to your license.
+When you are working this project there a few things to be aware of. If you need to bind webpack dev server to a different host like `http://0.0.0.0`, you will need to include that domain on your license. If you need this for development, please contact your Account Manager to set to have it added to your license.
