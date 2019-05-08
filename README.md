@@ -92,14 +92,17 @@ src
 ├── containers
 │   └── AdvancedChart.jsx           # React component version of sample-template-advanced.html file that comes with ChartIQ SDK
 ├── main.js
+├── polyfill.js
 └── react-chart-context.js          # React Context used as a store in this project
 
-2 directories, 3 files
+2 directories, 4 files
 ```
 
 ## Building the Project
 
-If you wish to use the ChartIQ `<AdvancedChart />` sample in its default state, you may build the component right away and use in your own React project. By default, this project includes polyfills for use in ES5 browsers. To take advantage of them simply run `npm run build` and start using the project.
+If you wish to use the ChartIQ `<AdvancedChart />` sample in its default state, you may build the component right away and use in your own React project. Simply run the npm script `npm run build` to generate the javascript bundle file, which can be found in the `dist/` folder.
+
+In order to keep the bundle size as small as possible this project does not, by default, support older browsers. You may optionaly include polyfills for legacy browser support by running the npm script `npm run build:polyfill`. This script is identical to `npm run build` but will attach polyfills to the javascript bundle file for legacy browser support.
 
 If you make adjustments to the project and want to test in development mode, use `npm start`. This will run the webpack dev server on port 4002. You may make adjustments or just explore the project. Verify all changes are functioning correctly in development mode before building the production bundle. Run `npm run build` to get your customized bundle.
 
@@ -138,6 +141,7 @@ Several of the files necessary to build the project are sample files that you ca
 This repo contains some basic scripts to get started quickly, you can see a full list of scripts with `npm run`. They include:
 ```
 npm run build  # outputs the code bundled by webpack
+npm run build:polyfill  # outputs the code bundled by webpack including polyfills for legacy browser support
 npm run start  # starts the webpack dev server
 ```
 

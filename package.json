@@ -4,7 +4,8 @@
   "description": "ChartIQ's full featured charting application written in ReactJS",
   "main": "index.js",
   "scripts": {
-    "build": "webpack -p --config=webpack.config.js",
+    "build": "webpack --config=webpack.config.js --env.production",
+    "build:polyfill": "webpack --config=webpack.config.js --env.production=polyfill",
     "start": "npm run watch",
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "webpack-dev-server --inline --config=webpack.config.js --watch=true"
