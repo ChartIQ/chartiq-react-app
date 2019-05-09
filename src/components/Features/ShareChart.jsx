@@ -1,5 +1,6 @@
 import React from 'react'
 import { Clickable } from 'components'
+import * as html2canvas from 'thirdparty/html2canvas'
 
 /**
  * Share chart button component `<ShareChart/>`
@@ -12,6 +13,9 @@ import { Clickable } from 'components'
  */
 export default class ShareChart extends React.Component {
 	render() {
+		CIQ.Share.html2canvasLocation = 'dist'
+		// CIQ expects html2canvas on the global
+		window.html2canvas = html2canvas
 		return (
 			<>
 			<cq-share-button>
