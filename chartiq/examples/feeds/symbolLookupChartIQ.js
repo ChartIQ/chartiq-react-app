@@ -1,1 +1,0 @@
-new Error('replace me with the actual file from your license')

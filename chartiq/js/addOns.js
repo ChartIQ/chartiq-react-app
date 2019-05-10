@@ -1,2 +1,0 @@
-CIQ = function() {};
-CIQ.AddOns = {};
