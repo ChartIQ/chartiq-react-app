@@ -185,7 +185,7 @@ const config = {
      * @param {Array.<Object>} capabilities list of capabilities details
      */
     onPrepare: function (config, capabilities) {
-            const server = new devServer(webpack(webpackConfig), {logLevel: 'info'});
+            const server = new devServer(webpack(webpackConfig()), {logLevel: 'info'});
 
             server.listen(4040, 'localhost', () => {
               console.log('Starting server on http://localhost:4040');
