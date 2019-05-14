@@ -31,7 +31,8 @@ export default class WrappedChart extends React.Component {
 			this.stxx = container.stxx = new CIQ.ChartEngine(config)
 			container.CIQ = CIQ
 			container.$$$ = $$$
-			container.startChart(this.stxx, this.feed, {refreshInterval: 1, bufferSize: 200})
+			let addOns = props.addOns
+			container.startChart(this.stxx, this.feed, {refreshInterval: 1, bufferSize: 200}, addOns)
 			this.context.setContext({stx: this.stxx})
 		}
 

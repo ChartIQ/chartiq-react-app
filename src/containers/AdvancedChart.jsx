@@ -59,9 +59,10 @@ export default class AdvancedChart extends React.Component {
 	}
 
 	render() {
-		let quoteFeed = this.props.quoteFeed
-		let chartConstructor = this.props.chartConstructor
-		let preferences = this.props.preferences
+		let props = this.props
+		let quoteFeed = props.quoteFeed
+		let chartConstructor = props.chartConstructor
+		let preferences = props.preferences
 		return (
 			<div className="cq-chart-container">
 			<ChartContext.Provider value={this.state}>
@@ -69,7 +70,7 @@ export default class AdvancedChart extends React.Component {
 				<ChartNav />
 				<ColorPicker />
 				<WrappedChart  quoteFeed={quoteFeed} chartConstructor={chartConstructor
-				} preferences={preferences} staticHeadsUp={true} dynamicHeadsUp={true} />
+				} preferences={preferences} staticHeadsUp={true} dynamicHeadsUp={true} addOns={props.addOns} />
 				<ChartFooter />
 				<ChartDialogs />
 			</ChartContext.Provider>

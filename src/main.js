@@ -5,11 +5,10 @@ import { CIQ, $$$ } from 'chartiq'
 import AdvancedChart from './containers/AdvancedChart'
 
 let constructor = {}
-let preferences = {}
-// constructor = {yAxis:{position:"left"}}
-preferences = {labels:false, currentPriceLine:true, whitespace:0}
+let preferences = {labels:false, currentPriceLine:true, whitespace:0}
+let enableAddOns = {InactivityTimer: {minutes:30}, ExtendedHours: {filter:true}, RangeSlider:true}
 
 ReactDom.render(
-	React.createElement(AdvancedChart, {chartConstructor:constructor, preferences: preferences}),
+	React.createElement(AdvancedChart, {chartConstructor:constructor, preferences: preferences, addOns: enableAddOns}),
 	document.querySelector("#app")
 )
