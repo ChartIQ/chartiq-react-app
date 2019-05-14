@@ -104,8 +104,8 @@ const config = {
     // gets prepended directly.
     baseUrl: 'http://localhost:4040',
     basePath: 'node_modules/@chartiq/ui-tests/',
-    templateRoot: {
-        'sample-template-advanced': ''
+    templates: {
+        'advancedChart': 'index.html'
     },
     //
     // Default timeout for all waitFor* commands.
