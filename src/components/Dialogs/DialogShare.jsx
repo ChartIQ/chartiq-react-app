@@ -19,7 +19,7 @@ export default class DialogShare extends React.Component {
 		<div>
 			<h4 className="title">Share Your Chart</h4>
 			<cq-separator></cq-separator>
-			<cq-share-create className="ciq-btn" stxtap="share()">Create Image</cq-share-create>
+			<cq-share-create  class="ciq-btn" stxtap="share()">Create Image</cq-share-create>
 			<cq-share-generating style={{display:"none"}}>Generating Image</cq-share-generating>
 			<cq-share-uploading style={{display:"none"}}>Uploading Image</cq-share-uploading>
 
