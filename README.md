@@ -16,6 +16,7 @@ It wraps ChartIQ's native [Web Components](https://documentation.chartiq.com/tut
 - [Integrating a QuoteFeed](#integrating-a-quotefeed)
 - [Customizing the project](#customizing-the-project)
 - [Commands](#commands)
+- [Configuring AddOns](#configuring-addons)
 - [Notes](#notes)
 
 
@@ -143,6 +144,29 @@ This repo contains some basic scripts to get started quickly, you can see a full
 npm run build  # outputs the code bundled by webpack
 npm run build:polyfill  # outputs the code bundled by webpack including polyfills for legacy browser support
 npm run start  # starts the webpack dev server
+```
+
+## Configuring AddOns
+
+AddOns available in the ChartIQ SDK are compatible with this project. The `<AdvancedChart />` component takes an addOns prop that allows for each addOn to be individually configured. The addOns prop is an object where each key corresponds with the addOn from the SDK. By default the project enables three addons: ExtendedHours, InactivityTimer, and RangeSlider. If you would like to change the constructors being passed into the addOns, change the value of that addOns prop. 
+
+```js
+//Set the CIQ.InactivityTimer to time out after one hour
+let enableAddOns = {InactivityTimer: {minutes:60}, ExtendedHours: {filter:true}, RangeSlider:true}
+
+ReactDom.render(React.createElement(AdvancedChart, {
+	addOns={enableAddOns}
+}), document.querySelector('#app'))
+```
+
+By removing an object from the addOns prop, you will not be initialize that addOn. The following example starts only the RangeSlider and the Tooltip:
+
+```js
+let enableAddOns = {RangeSlider:true, Tooltip: {ohl:true, volume:true, series:true, studies:true}}
+
+ReactDom.render(React.createElement(AdvancedChart, {
+	addOns={enableAddOns}
+}), document.querySelector('#app'))
 ```
 
 ## Notes
