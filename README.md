@@ -4,12 +4,12 @@
 
 ## Overview
 
-This project provides ChartIQ's full featured advanced charting application, written for the React framework. 
-It wraps ChartIQ's native [Web Components](https://documentation.chartiq.com/tutorial-Web%20Component%20Interface.html) and is fully interoperable with the advanced HTML template (sample-template-advanced.html) that comes with the ChartIQ library package.
+This project is an implementation of ChartIQ's Advanced Chart application written for the React framework. 
+It wraps ChartIQ's native [Web Components](https://documentation.chartiq.com/tutorial-Web%20Component%20Interface.html) and is fully interoperable with the advanced HTML template (*sample-template-advanced.html*) that comes with the ChartIQ SDK.
 
-## Table Of Contents
+## Table of contents
 - [Installing this project](#installing-this-project)
-- [Project Structure](#project-structure)
+- [Project structure](#project-structure)
 - [Building the project](#building-the-project)
 - [Integrating a QuoteFeed](#integrating-a-quotefeed)
 - [Customizing the project](#customizing-the-project)
@@ -35,7 +35,7 @@ There are a few key files that must be present in order for the project to compi
 **IF YOU DO NOT INCLUDE THE ABOVE FILES, THE APPLICATION WILL NOT COMPILE**
 
 
-Extract your library files into the `chartiq/` folder. Then, use `npm run build` to transpile the contents into one bundle, located in the `/dist` folder, which is used by index.html.
+Extract your library files into the */chartiq* folder. Then use `npm run build` to transpile the contents into one bundle, located in the */dist* folder, which is used by *index.html*.
 
 ```sh
 unzip your-chartiq-license.zip -d ./your-license
@@ -45,7 +45,7 @@ npm run build
 
 - For more about building this project see [Building the project](#building-the-project).
 
-In `src/main.js` you can add React props that are passed down to the chart engine constructor. These props are set in the `chartConstructor` and `preferences` objects. Read more about the arguments that the ChartEngine accepts and the preferences of the chart at [documentation.chartiq.com](http://documentation.chartiq.com)
+In *src/main.js* you can add React props that are passed down to the chart engine constructor. These props are set in the `chartConstructor` and `preferences` objects. Read more about the arguments that the ChartEngine accepts and the preferences of the chart at [documentation.chartiq.com](http://documentation.chartiq.com)
 
 ```js
 // src/main.js
@@ -80,7 +80,7 @@ This project adheres to the following structure:
 3 directories, 5 files
 
 src
-├── chartiq-react-components.css    # Base CSS file for this project
+├── chartiq-react-components.css    # base CSS file for this project
 ├── components                      # contains the all the reusable components
 │   ├── Core                        # necessary components for making a chart
 │   ├── Dialogs                     # all dialogs associated with chart settings
@@ -97,7 +97,7 @@ src
 2 directories, 4 files
 ```
 
-## Building the Project
+## Building the project
 
 If you wish to use the ChartIQ `<AdvancedChart />` sample in its default state, you may build the component right away and use in your own React project. Simply run the npm script `npm run build` to generate the javascript bundle file, which can be found in the `dist/` folder.
 
@@ -109,7 +109,7 @@ See [customizing the project](#customizing-the-project) for more details about o
 
 ## Integrating a quoteFeed
 
-By default the Advanced Chart will fall back to using simulated data from the quoteFeedSimulater (designed for local development) in the ChartIQ SDK. The `<AdvancedChart />` component is designed to take your custom quoteFeed as a React prop. For example, to use the XigniteQuoteFeed, included in the ChartIQ SDK, you would make the following changes to `src/main.js` in your React project: 
+By default the Advanced Chart will fall back to using simulated data from the quoteFeedSimulater (designed for local development) in the ChartIQ SDK. The Advanced Chart component is designed to take your custom quoteFeed as a React prop. For example, to use the XigniteQuoteFeed included in the ChartIQ SDK, you would make the following changes to *src/main.js* in your React project: 
 
 ```js
 // src/main.js
@@ -126,9 +126,9 @@ ReactDom.render(
 ```
 For more information about building a custom quoteFeed to provide data for your React application, see the [quoteFeed documentation on ChartIQ's developer docs](https://documentation.chartiq.com/tutorial-DataIntegrationQuoteFeeds.html).
 
-## Customizing the Project
+## Customizing the project
 
-`<AdvancedChart />` is designed as a full feature drop in charting component. However, you may not require every feature in this project. If you wish to omit certain feature components, or change the default appearance, you are free to make adjustments to the files in `src/components/` and `src/containers`. If you chose to customize the appearance of this project, **it is strongly recommended that you run the project in development mode and verify all changes are functioning correctly before building.**
+The Advanced Chart compopnent is designed as a full-feature drop-in charting component. However, you may not require every feature in this project. If you wish to omit certain features or change the default appearance, you are free to make adjustments to the files in *src/components/* and *src/containers*. If you chose to customize the appearance of this project, **it is strongly recommended that you run the project in development mode and verify all changes are functioning correctly before building.**
 
 Certain feature components, such as menus, have accompanying dialog components. When removing a feature component, it is best to remove all accompanying components. Though leaving unused components in the project will have no adverse impact on the user experience, removing them will keep your final build size as small as possible. For example, if you choose to remove the `<MenuViews />` component from the `<ChartMenus />` component, also be sure to remove the `<DialogView />` component from `<ChartDialogs />`.
 
@@ -139,7 +139,7 @@ Be aware that any customization you do will not be reflected in this project. Fu
 ## Commands 
 (`npm scripts`)
 
-This repo contains some basic scripts to get started quickly, you can see a full list of scripts with `npm run`. They include:
+This repo contains some basic scripts to help you get started quickly. You can see a full list of scripts with `npm run`. They include:
 ```
 npm run build  # outputs the code bundled by webpack
 npm run build:polyfill  # outputs the code bundled by webpack including polyfills for legacy browser support
