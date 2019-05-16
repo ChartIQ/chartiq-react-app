@@ -1,7 +1,5 @@
 # chartiq-react-app
 
-**-- BETA RELEASE --**
-
 **Requirements:** ChartIQ SDK v7.0.1+ 
 
 ## Overview
@@ -136,6 +134,8 @@ Certain feature components, such as menus, have accompanying dialog components. 
 
 Several of the files necessary to build the project are sample files that you can replace. If you wish to use your own files for market definitions, translations, or quoteFeeds, remember to remove the references to the these files when you import your own. If you only remove the files you will break the project when you try to compile.
 
+Be aware that any customization you do will not be reflected in this project. Future releases are not guarenteed to work with your changes. The project roadmap does include a way to make the project more configurable. 
+
 ## Commands 
 (`npm scripts`)
 
@@ -171,3 +171,5 @@ ReactDom.render(React.createElement(AdvancedChart, {
 
 ## Notes
 - This application will only run from `127.0.0.1`, `localhost`, and the explicit list of domains set on your particular ChartIQ library license. If you need to bind webpack dev server to a different host, like `http://0.0.0.0`, please contact your Account Manager to have those additional domains added to your license.
+
+- This release does not currently work with plugins. They will be added in a future update.
