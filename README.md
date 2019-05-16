@@ -1,6 +1,6 @@
 # chartiq-react-app
 
-**Requirements:** ChartIQ SDK v7.0.1+ 
+**Minimum Requirement:** ChartIQ SDK v7.0.2 
 
 ## Overview
 
