@@ -11,6 +11,7 @@ It wraps ChartIQ's native [Web Components](https://documentation.chartiq.com/tut
 - [Installing this project](#installing-this-project)
 - [Project structure](#project-structure)
 - [Building the project](#building-the-project)
+- [Accessing the Chart Engine](#accessing-the-chart-engine)
 - [Integrating a QuoteFeed](#integrating-a-quotefeed)
 - [Customizing the project](#customizing-the-project)
 - [Commands](#commands)
@@ -106,6 +107,19 @@ In order to keep the bundle size as small as possible this project does not, by 
 If you make adjustments to the project and want to test in development mode, use `npm start`. This will run the webpack dev server on port 4002. You may make adjustments or just explore the project. Verify all changes are functioning correctly in development mode before building the production bundle. Run `npm run build` to get your customized bundle.
 
 See [customizing the project](#customizing-the-project) for more details about on custom builds.
+
+## Accessing the Chart Engine
+
+You can access the [ChartEngine](https://documentation.chartiq.com/CIQ.ChartEngine.html) and the [UIContext](https://documentation.chartiq.com/CIQ.UI.Context.html) for the application via the React's [Context](https://reactjs.org/docs/context.html). The application gets its context from the  `<AdvancedChart />` state. If you need to access the the chart engine this is the best place to do so. 
+
+In the example below you may want to stream data into the chart engine instead of relying on a quoteFeed. This example gets you started with streaming data.
+```js
+// in some component with access to React Context
+let stx = this.context.stx
+stx.quoteDriver.die()
+stxx.updateChartData({"Close": 102.05, "Volume": 100, "DT":new Date("20160102T093000Z"}, null, {fillGaps: true, useAsLastSale: true});
+```
+*Remember if you are creating new components to import "src/react-chart-context.js" and set the contextType*
 
 ## Integrating a quoteFeed
 
