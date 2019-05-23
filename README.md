@@ -39,11 +39,12 @@ There are a few key files that must be present in order for the project to compi
 **IF YOU DO NOT INCLUDE THE ABOVE FILES, THE APPLICATION WILL NOT COMPILE**
 
 
-Extract your library files into the */chartiq* folder. Then use `npm run build` to transpile the contents into one bundle, located in the */dist* folder, which is used by *index.html*.
+Extract your library files into the */chartiq* folder. After running `npm install` then you may use `npm run build` to transpile the contents into one bundle, located in the */dist* folder, which is used by *index.html*.
 
 ```sh
-unzip your-chartiq-license.zip -d ./your-license
-cp -r ./your-license ./chartiq
+// These commands expect you to be in the root of this repo
+unzip your-chartiq-license.zip -d ./chartiq
+npm install
 npm run build
 ```
 
