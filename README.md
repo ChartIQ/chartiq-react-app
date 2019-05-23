@@ -17,6 +17,9 @@ It wraps ChartIQ's native [Web Components](https://documentation.chartiq.com/tut
 - [Commands](#commands)
 - [Configuring AddOns](#configuring-addons)
 - [Notes](#notes)
+- [Questions and support](#questions-and-support)
+- [Contributing to this project](#contributing-to-this-project)
+
 
 
 ## Installing this project
@@ -187,3 +190,13 @@ ReactDom.render(React.createElement(AdvancedChart, {
 - This application will only run from `127.0.0.1`, `localhost`, and the explicit list of domains set on your particular ChartIQ library license. If you need to bind webpack dev server to a different host, like `http://0.0.0.0`, please contact your Account Manager to have those additional domains added to your license.
 
 - This release does not currently work with plugins. They will be added in a future update.
+
+## Questions and support
+
+- Our development support team can be reached at [support@chartiq.com](mailto:support@chartiq.com).
+- Our javascript documentation can be found at https://documentation.chartiq.com
+
+## Contributing to this project
+
+If you wish to contribute to this project, fork it and send us a pull request.
+We'd love to see what it is you want to do with our charting tools!
