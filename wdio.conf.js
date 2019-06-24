@@ -1,7 +1,7 @@
 const debug = process.env.DEBUG
 
 const DEFAULT_BROWSERS = [
-    { maxInstances: 2, browserName: 'chrome', chromeOptions: {'args':['headless'] } },
+	{ maxInstances: 2, browserName: 'chrome', 'goog:chromeOptions': {'args':['headless'] } },
     // { maxInstances: 3, browserName: 'firefox', 'moz:firefoxOptions': {'args': ['-headless' ] } }
     //{ maxInstances: 1, browserName: 'chrome'},
     //{ maxInstances: 1, browserName: 'firefox'}
@@ -12,7 +12,7 @@ const DEBUG_BROWSERS = [
     // {browserName: 'firefox', maxInstances: 1}
 ]
 
-const baseConfig = require('@chartiq/ui-tests').baseSettings
+const baseConfig = require('@chartiq/ui-tests/index').baseSettings
 const webpack = require('webpack')
 const webpackConfig = require('./webpack.config.js')
 
@@ -29,8 +29,15 @@ require('chai').assert
 //     }
 // })
 
-const config = {
-    
+exports.config = {
+	//
+    // ====================
+    // Runner Configuration
+    // ====================
+    //
+    // WebdriverIO allows it to run your tests in arbitrary locations (e.g. locally or
+    // on a remote machine).
+    runner: 'local',
     //
     // ==================
     // Specify Test Files
@@ -41,7 +48,7 @@ const config = {
     // directory is where your package.json resides, so `wdio` will be called from there.
     //
     specs: [
-        'node_modules/@chartiq/ui-tests/e2e/sample-template-advanced/*.js'
+        'node_modules/@chartiq/ui-tests/e2e/sample-template-advanced/*.spec.js'
     //     './test/specs/**/*.js'
     ],
     // Patterns to exclude.
@@ -168,7 +175,7 @@ const config = {
     // Options to be passed to Mocha.
     // See the full list at http://mochajs.org/
     mochaOpts: {
-        ui: 'assert',
+        ui: 'bdd',
         timeout: 86400000
     },
     //
@@ -290,6 +297,7 @@ const config = {
         //   console.log('Webpack watching ended.');
         // });
     },
+    /*
     seleniumArgs: {
         // The selenium-standalone module specifies it's default selenium-server and browser driver versions in the default-config.js file,
         // https://github.com/vvo/selenium-standalone/blob/HEAD/lib/default-config.js
@@ -326,6 +334,7 @@ const config = {
             },
         }
     }
+    */
 }
 console.log('exporting...')
-exports.config =  Object.assign(baseConfig, config)
+exports.config =  Object.assign(baseConfig, exports.config)
