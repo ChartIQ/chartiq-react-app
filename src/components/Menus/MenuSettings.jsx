@@ -87,9 +87,12 @@ export default class MenuSettings extends React.Component {
 					</cq-item>
 					<cq-item stxsetget="Layout.RangeSlider()">Range Selector<span className="ciq-checkbox ciq-active"><span></span></span>
 					</cq-item>
-					{/*<!-- Uncomment this option for access to cryptoIQ Marketdepth/Orderbook functionality -->
-					<!--<cq-item stxsetget="Layout.MarketDepth()">Market Depth<span className="ciq-checkbox ciq-active"><span></span></span>
-					</cq-item>-->*/}
+					{/*<!-- Uncomment this option for access to cryptoIQ Marketdepth/Orderbook functionality --> */}
+					{this.props.plugins.cryptoiq && <cq-item stxsetget="Layout.MarketDepth()">Market Depth<span className="ciq-checkbox ciq-active"><span></span></span>
+					</cq-item>}
+					{this.props.plugins.cryptoiq && <cq-item stxsetget="Layout.L2Heatmap()">L2 Heat Map<span className="ciq-checkbox ciq-active"><span></span></span>
+					</cq-item>
+					}
 					<cq-separator></cq-separator>
 					<cq-heading>Locale</cq-heading>
 						<cq-item><cq-clickable cq-selector="cq-timezone-dialog" cq-method="open">Change Timezone</cq-clickable></cq-item>

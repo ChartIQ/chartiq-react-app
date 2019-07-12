@@ -8,6 +8,10 @@ import HeadsUpStatic from '../Features/HeadsUpStatic'
 import HeadsUpDynamic from '../Features/HeadsUpDynamic'
 import MarkerAbstract from '../Features/MarkerAbstract'
 import DataAttribution from '../Features/DataAttribution'
+
+import OrderBook from '../Plugins/CryptoIQ/OrderBook'
+import ToggleOrderBook from '../Plugins/CryptoIQ/ToggleOrderBook'
+
 import { ChartContext } from '../../react-chart-context'
 
 /**
@@ -28,15 +32,19 @@ export default class WrappedChart extends React.Component {
 
 		this.createEngine = container => {
 			var config = {container: container, chart: props.chartConstructor, preferences: props.preferences}
-			this.stxx = container.stxx = new CIQ.ChartEngine(config)
-			container.CIQ = CIQ
-			container.$$$ = $$$
+			this.stxx = window.stxx = container.stxx = new CIQ.ChartEngine(config)
+			window.CIQ = container.CIQ = CIQ
+			window.$$$ = container.$$$ = $$$
 			let addOns = props.addOns
 			container.startChart(this.stxx, this.feed, {refreshInterval: 1, bufferSize: 200}, addOns)
 			this.context.setContext({stx: this.stxx})
+			this.configurePlugins(this.stxx)
 		}
 
 		this.engineRef = React.createRef()
+		if(props.plugins) {
+			if(props.plugins.cryptoiq) this.orderbookRef = React.createRef()
+		}
 		this.feed = this.props.quoteFeed || quoteFeedSimulator
 	}
 
@@ -44,6 +52,15 @@ export default class WrappedChart extends React.Component {
 		this.createEngine(this.engineRef.current);
 		window.addEventListener("resize", this.resizeScreen.bind(this));
 		this.resizeScreen();
+	}
+
+	configurePlugins(stx) {
+		const plugins = this.props.plugins;
+		if (!plugins) return;
+		if (plugins.cryptoiq) {
+			const defaultMD = {stx: stx, volume:true, mountain:true, step:true, record: true, height:"50%"}
+			new CIQ.MarketDepth(Object.assign(defaultMD, plugins.cryptoiq.MarketDepth))
+		}
 	}
 
 	resizeScreen(){
@@ -62,6 +79,8 @@ export default class WrappedChart extends React.Component {
 	}
 
 	render () {
+		const props = this.props;
+		const context = this.context;
 		const Comparison = React.forwardRef((props, ref) => (
 			ref.current && <ChartComparison forwardeRef={ref} />
 		))
@@ -70,18 +89,20 @@ export default class WrappedChart extends React.Component {
 			<React.Fragment>
 			<div className={"ciq-chart-area"}>
 				<div className={"ciq-chart"}>
-					{ this.context.stx && <ToolbarDrawing /> }
+					{ context.stx && <ToolbarDrawing /> }
 					<chartiq-chart class="chartContainer" defer-start="true" animations="false" ref={this.engineRef}>
-						{ this.context.stx && <TitleOverlay refProp={this.engineRef} /> }
+						{ context.stx && <TitleOverlay refProp={this.engineRef} /> }
 						<LoadingWidget />
-						{this.props.dynamicHeadsUp && this.context.stx && <HeadsUpDynamic />
+						{props.dynamicHeadsUp && context.stx && <HeadsUpDynamic />
 						}
 
-						{this.props.staticHeadsUp && this.context.stx && <HeadsUpStatic />
+						{props.staticHeadsUp && context.stx && <HeadsUpStatic />
 						}
 						<DataAttribution />
 					</chartiq-chart>
-					{ this.context.stx && <MarkerAbstract /> }
+					{props.plugins.cryptoiq && context.stx && <OrderBook refProp={this.orderbookRef} /> }
+					{props.plugins.cryptoiq && context.stx && <ToggleOrderBook /> }
+					{context.stx && <MarkerAbstract /> }
 				</div>
 			</div>
 			</React.Fragment>

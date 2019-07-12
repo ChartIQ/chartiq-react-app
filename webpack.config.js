@@ -1,8 +1,9 @@
-var path = require('path')
-var webpack = require('webpack')
-var chartiqDir = path.join(__dirname, 'chartiq')
-var examplesDir = path.join(__dirname, 'chartiq', 'examples')
-var devDir = path.join(__dirname, 'src')
+const path = require('path')
+const webpack = require('webpack')
+const MiniCssExtractPlugin = require('extract-css-chunks-webpack-plugin');  // used for packaging css into bundles
+const chartiqDir = path.join(__dirname, 'chartiq')
+const examplesDir = path.join(__dirname, 'chartiq', 'examples')
+const devDir = path.join(__dirname, 'src')
 
 module.exports = (env) => {
 
@@ -51,6 +52,35 @@ module.exports = (env) => {
 			// files that match the given "test" regex
 			// https://webpack.js.org/concepts/loaders/
 			rules: [
+				{ 
+					parser: {
+						amd: false,
+						requireEnsure: false
+					}
+				},
+				/* CSS bundling rule, using SASS */
+				{
+					test: /\.(s)?css$/,
+					use: [
+						{loader: MiniCssExtractPlugin.loader, options: {publicPath: 'css/'}},
+						'css-loader',
+					]
+				},
+				/* image bundling rule, images are referenced via css */
+				{
+					test: /\.(jpg|gif|png|svg|cur)$/,
+					use: [
+						{
+							loader: 'file-loader',
+							options: {
+								name: '[name].[ext]',
+								outputPath: '.',
+								publicPath: 'dist/'
+							}
+						}
+					]
+				},
+				/* Javascript and JSX loading */
 				{
 					test: /\.(js|jsx)$/,
 					exclude: [/node_modules/,/\.spec\.js$/, /translationSample/ ],
@@ -93,6 +123,9 @@ module.exports = (env) => {
 			}
 		},
 		plugins: [
+			new MiniCssExtractPlugin({
+				fileNname: '[name].css',
+			}),
 			new webpack.ProvidePlugin({
 				CIQ: ['chartiq', 'CIQ'],
 				$$$: ['chartiq', '$$$'],
@@ -103,7 +136,8 @@ module.exports = (env) => {
 			alias: {
 				chartiq: path.join(chartiqDir, 'js', 'chartiq'),
 				components: path.join(chartiqDir, 'js', 'components'),
-				componentUI: path.join(chartiqDir, 'js', 'componentUI'),			
+				componentUI: path.join(chartiqDir, 'js', 'componentUI'),
+				'./componentUI': path.join(chartiqDir, 'js', 'componentUI'),
 				addOns: path.join(chartiqDir, 'js', 'addOns')
 			},
 			extensions: ['.js', '.jsx'],

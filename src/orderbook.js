@@ -9,6 +9,10 @@ import { quoteFeedSimulator } from 'examples/feeds/quoteFeedSimulator'
 import * as L2Simulator from 'feeds/L2_simulator'
 
 ReactDom.render(
-	React.createElement(OrderBook, {symbol: "^USDBTC", quoteFeed: quoteFeedSimulator, quoteFeedBehavior: {refreshInterval: 1}}),
+	React.createElement(OrderBook, {
+		symbol: "^USDBTC",
+		quoteFeed: quoteFeedSimulator,
+		quoteFeedBehavior: {refreshInterval: 1}
+	}),
 	document.querySelector("#app")
 )

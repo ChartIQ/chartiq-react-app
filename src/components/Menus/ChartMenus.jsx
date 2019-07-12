@@ -23,8 +23,8 @@ export default class ChartMenus extends React.Component {
 			<div className="ciq-dropdowns">
 				<MenuPeriodicity />
 				<MenuViews />
-				<MenuSettings />
-				<MenuStudies />
+				<MenuSettings plugins={this.props.plugins} />
+				<MenuStudies plugins={this.props.plugins} />
 				<MenuEvents />
 			</div>
 		)

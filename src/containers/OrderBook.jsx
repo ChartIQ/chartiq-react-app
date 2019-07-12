@@ -7,7 +7,7 @@ import UIManager from '../components/Core/UIManager'
 import 'feeds/L2_simulator'
 
 export default class OrderBook extends React.Component {
-    constructor(props) {
+	constructor(props) {
 		super(props);
 
 		this.createOrderBook = orderbook => {
@@ -19,9 +19,9 @@ export default class OrderBook extends React.Component {
 	}
 
 	componentDidMount() {
-  		this.createOrderBook(this.orderBookRef.current);
-  		const props = this.props;
-  		let quoteFeed = props.quoteFeed;
+		this.createOrderBook(this.orderBookRef.current);
+		const props = this.props;
+		let quoteFeed = props.quoteFeed;
 		let stxx = window.stxx = this.stx;
 
 		// initialize the UI context
@@ -61,7 +61,7 @@ export default class OrderBook extends React.Component {
 	render() {
 		return(
 			<React.Fragment>
-			  <UIManager />
+				<UIManager />
 				<div className="chartContainer" style={{"width":"800px","height":"460px","position":"relative", "visibility":"hidden"}} ref={this.engineRef}></div>
 				<cq-orderbook cq-active ref={this.orderBookRef}>
 					<cq-orderbook-table reverse>

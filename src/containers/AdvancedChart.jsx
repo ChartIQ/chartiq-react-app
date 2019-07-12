@@ -67,10 +67,17 @@ export default class AdvancedChart extends React.Component {
 			<div className="cq-chart-container">
 			<ChartContext.Provider value={this.state}>
 				<UIManger />
-				<ChartNav />
+				<ChartNav plugins={props.plugins} />
 				<ColorPicker />
-				<WrappedChart  quoteFeed={quoteFeed} chartConstructor={chartConstructor
-				} preferences={preferences} staticHeadsUp={true} dynamicHeadsUp={true} addOns={props.addOns} />
+				<WrappedChart  
+					quoteFeed={quoteFeed}
+					chartConstructor={chartConstructor}
+					preferences={preferences}
+					staticHeadsUp={true}
+					dynamicHeadsUp={true}
+					addOns={props.addOns}
+					plugins={props.plugins}
+				/>
 				<ChartFooter />
 				<ChartDialogs />
 			</ChartContext.Provider>

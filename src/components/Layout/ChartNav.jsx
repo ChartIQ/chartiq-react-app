@@ -20,7 +20,7 @@ export default class ChartNav extends React.Component {
 			<div className={'ciq-nav'}>
 				<ChartLookup />
 				<div className="ciq-menu-section">
-					<ChartMenus />
+					<ChartMenus plugins={this.props.plugins}/>
 					<ChartToggles />
 				</div>
 			</div>
