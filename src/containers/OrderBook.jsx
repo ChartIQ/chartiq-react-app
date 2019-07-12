@@ -6,6 +6,16 @@ import 'plugins/cryptoiq/orderbook'
 import UIManager from '../components/Core/UIManager'
 import 'feeds/L2_simulator'
 
+/**
+ * Stand alone OrderBook component `<OrderBook />`.
+ *
+ * Renders the Orderbook table based on the chart's current market data.
+ * @param quoteFeed object - A valid quoteFeed for fetching data
+ * @param quoteFeedBehavior object - The behavior object to pass into your quoteFeed when it is attached
+ * @export
+ * @class WrappedChart
+ * @extends {React.Component}
+ */
 export default class OrderBook extends React.Component {
 	constructor(props) {
 		super(props);
