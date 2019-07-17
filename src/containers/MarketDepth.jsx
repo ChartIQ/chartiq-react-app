@@ -23,11 +23,9 @@ export default class MarketDepth extends React.Component {
 
 		this.createEngine = container => {
 			var stxx = window.stxx = this.stx = new CIQ.ChartEngine({container: this.engineRef.current,
-				layout:{
-					chartType: 'marketdepth'
-				}
 			})
 			container.startChart(stxx, this.props.quoteFeed, this.props.quoteFeedBehavior, {})
+			stxx.addEventListener("symbolImport", this.overrideChartLayout())
 		}
 
 		this.themesRef = React.createRef()
@@ -36,6 +34,7 @@ export default class MarketDepth extends React.Component {
 	}
 
 	componentDidMount() {
+		if(localStorage.myChartLayout) delete localStorage.myChartLayout
 		this.createEngine(this.engineRef.current);
 		const props = this.props;
 		let quoteFeed = props.quoteFeed;
@@ -71,6 +70,14 @@ export default class MarketDepth extends React.Component {
 		this.stx.loadChart(self.props.symbol, null, self.symbolChangeCallback)
 	}
 
+	overrideChartLayout() {
+		let stx = this.stx
+		stx.setChartType("marketdepth")
+		Object.assign(stx.layout, {
+			crosshair: true,
+		})
+		stx.changeOccurred("layout")
+	}
 	/**
 	 * Overwrite me with any function to be called when the symbol changes
 	 */

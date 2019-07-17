@@ -1,6 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const MiniCssExtractPlugin = require('extract-css-chunks-webpack-plugin');  // used for packaging css into bundles
+const HTMLWebpackPlugin = require('html-webpack-plugin')
 const chartiqDir = path.join(__dirname, 'chartiq')
 const examplesDir = path.join(__dirname, 'chartiq', 'examples')
 const devDir = path.join(__dirname, 'src')
@@ -10,6 +11,7 @@ module.exports = (env) => {
 	env = env || {production: false};
 	var environment = env.production ? 'production' : 'development';
 	// Pass --env.production=polyfill to include support for legacy browsers
+	// var entryFile = (env.production === true) ? 'main.js' : 'cryptoiq-workstation.js';
 	var entryFile = (env.production === true) ? 'main.js' : 'polyfill.js';
 	var devTool = (environment === 'development') ? 'source-map' : '';
 
@@ -41,6 +43,9 @@ module.exports = (env) => {
 			// advanced: path.join(devDir, 'sample-template-advanced.jsx'),
 			// xignite: path.join(chartiqDir, 'examples', 'feeds', 'quoteFeedXignite.js'),
 			bundle: path.join(devDir, entryFile),
+			orderBook: path.join(devDir, 'orderbook.js'),
+			marketDepth: path.join(devDir, 'marketdepth.js'),
+			cryptoIQWorkStation: path.join(devDir, 'cryptoiq-workstation.js'),
 		},
 		performance: {
 			maxAssetSize: 1500000,
@@ -75,7 +80,7 @@ module.exports = (env) => {
 							options: {
 								name: '[name].[ext]',
 								outputPath: '.',
-								publicPath: 'dist/'
+								publicPath: '.'
 							}
 						}
 					]
@@ -102,6 +107,7 @@ module.exports = (env) => {
 			// The naming scheme for the generated bundles.
 			// https://webpack.js.org/configuration/output/#output-filename
 			filename: '[name].js',
+			chunkFilename: '[name].js',
 			// The location the bundles are placed when built with the webpack command.
 			// https://webpack.js.org/configuration/output/#output-path
 			path: path.join(__dirname, 'dist'),
@@ -123,9 +129,38 @@ module.exports = (env) => {
 			}
 		},
 		plugins: [
+			new HTMLWebpackPlugin({
+				title: 'AdvancedChart',
+				filename: path.join(__dirname, 'dist', 'advanced-chart.html'),
+				template: path.join(__dirname, 'index.html'),
+				chunks: ['bundle']
+			}),
+
+			new HTMLWebpackPlugin({
+				title: 'CryptoIQWorkStation',
+				filename: path.join(__dirname, 'dist','cryptoIQWorkStation.html'),
+				template: path.join(__dirname, 'index.html'),
+				chunks: ['cryptoIQWorkStation']
+			}),
+
+			new HTMLWebpackPlugin({
+				title: 'MarketDepth',
+				filename: path.join(__dirname, 'dist','marketdepth.html'),
+				template: path.join(__dirname, 'index.html'),
+				chunks: ['marketDepth']
+			}),
+
+						new HTMLWebpackPlugin({
+				title: 'OrderBook',
+				filename: path.join(__dirname, 'dist','orderbook.html'),
+				template: path.join(__dirname, 'index.html'),
+				chunks: ['orderBook']
+			}),
+
 			new MiniCssExtractPlugin({
 				fileNname: '[name].css',
 			}),
+
 			new webpack.ProvidePlugin({
 				CIQ: ['chartiq', 'CIQ'],
 				$$$: ['chartiq', '$$$'],

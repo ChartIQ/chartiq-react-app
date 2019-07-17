@@ -20,19 +20,22 @@ export default class OrderBook extends React.Component {
 		let marketDepth = stx.marketDepth
 		let orderbook  = this.orderBookRef.current
 
-		orderbook.parentElement.removeChild(orderbook)
-		marketDepth.marketDepth.container.appendChild(orderbook)
+		if(this.props.addToChart) {
+			orderbook.parentElement.removeChild(orderbook)
+			marketDepth.marketDepth.container.appendChild(orderbook)
 
-		marketDepth.marketDepth.orderbook = orderbook
+			marketDepth.marketDepth.orderbook = orderbook
+		}
 
 		if(quoteFeed.url && quoteFeed.url.includes("simulator.chartiq.com")) CIQ.simulateL2({stx:stx, onTrade:true});
 	}
 
 	render() {
+		const props = this.props
 		return(
 			<React.Fragment>
 				<cq-orderbook cq-active ref={this.orderBookRef} >
-					<cq-close></cq-close>
+					{props.closeButton && <cq-close></cq-close>}
 					<cq-orderbook-table reverse>
 						<cq-scroll cq-no-claim>
 							<cq-orderbook-bids></cq-orderbook-bids>
@@ -45,11 +48,11 @@ export default class OrderBook extends React.Component {
 					</cq-orderbook-table>
 					<template>
 						<cq-item cq-size-shading>
-							<div col="price">Price</div>
-							<div col="size">Size</div>
-							<div col="cum_size">Total Size</div>
-							<div col="amount">Amount</div>
-							<div col="cum_amount">Total Amount</div>
+							{props.price && <div col="price">Price</div>}
+							{props.size && <div col="size">Size</div>}
+							{props.totalSize && <div col="cum_size">Total Size</div>}
+							{props.amount && <div col="amount">Amount</div>}
+							{props.totalAmount && <div col="cum_amount">Total Amount</div>}
 						</cq-item>
 					</template>
 				</cq-orderbook>

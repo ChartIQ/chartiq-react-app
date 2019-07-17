@@ -26,6 +26,8 @@ export default class MenuSettings extends React.Component {
 	}
 
 	render () {
+		const plugins = this.props.plugins || {}
+
 		return (
 <cq-menu class="ciq-menu ciq-display collapse">
 				<span>Display</span>
@@ -87,10 +89,9 @@ export default class MenuSettings extends React.Component {
 					</cq-item>
 					<cq-item stxsetget="Layout.RangeSlider()">Range Selector<span className="ciq-checkbox ciq-active"><span></span></span>
 					</cq-item>
-					{/*<!-- Uncomment this option for access to cryptoIQ Marketdepth/Orderbook functionality --> */}
-					{this.props.plugins.cryptoiq && <cq-item stxsetget="Layout.MarketDepth()">Market Depth<span className="ciq-checkbox ciq-active"><span></span></span>
+					{plugins.cryptoiq && <cq-item stxsetget="Layout.MarketDepth()">Market Depth<span className="ciq-checkbox ciq-active"><span></span></span>
 					</cq-item>}
-					{this.props.plugins.cryptoiq && <cq-item stxsetget="Layout.L2Heatmap()">L2 Heat Map<span className="ciq-checkbox ciq-active"><span></span></span>
+					{plugins.cryptoiq && <cq-item stxsetget="Layout.L2Heatmap()">L2 Heat Map<span className="ciq-checkbox ciq-active"><span></span></span>
 					</cq-item>
 					}
 					<cq-separator></cq-separator>

@@ -35,7 +35,7 @@ cq-toolbar {
 }
 
 .title-overlay-controls{
-	position: relative;
+	position: absolute;
 	z-index: 31;
 }
 
@@ -45,7 +45,7 @@ cq-chart-title {
 }
 
 cq-comparison {
-	float: left;
+	/*float: left;*/
 	clear: left;
 	z-index: 25; 
 	display: 'inline-block';

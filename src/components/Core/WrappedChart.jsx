@@ -60,6 +60,8 @@ export default class WrappedChart extends React.Component {
 		if (plugins.cryptoiq) {
 			const defaultMD = {stx: stx, volume:true, mountain:true, step:true, record: true, height:"50%"}
 			new CIQ.MarketDepth(Object.assign(defaultMD, plugins.cryptoiq.MarketDepth))
+			let quoteFeed = stx.quoteDriver.quoteFeed
+			if(quoteFeed && quoteFeed.url && quoteFeed.url.includes("simulator.chartiq.com")) CIQ.simulateL2({stx:stx, onTrade:true});
 		}
 	}
 
@@ -81,13 +83,17 @@ export default class WrappedChart extends React.Component {
 	render () {
 		const props = this.props;
 		const context = this.context;
+		const plugins = props.plugins || {}
+		const cryptoiq = plugins.cryptoiq
+
 		const Comparison = React.forwardRef((props, ref) => (
 			ref.current && <ChartComparison forwardeRef={ref} />
 		))
 
+		const classes = props.classes || "ciq-chart-area"
 		return (
 			<React.Fragment>
-			<div className={"ciq-chart-area"}>
+			<div className={classes} id={props.id}>
 				<div className={"ciq-chart"}>
 					{ context.stx && <ToolbarDrawing /> }
 					<chartiq-chart class="chartContainer" defer-start="true" animations="false" ref={this.engineRef}>
@@ -100,8 +106,16 @@ export default class WrappedChart extends React.Component {
 						}
 						<DataAttribution />
 					</chartiq-chart>
-					{props.plugins.cryptoiq && context.stx && <OrderBook refProp={this.orderbookRef} /> }
-					{props.plugins.cryptoiq && context.stx && <ToggleOrderBook /> }
+					{plugins && cryptoiq && cryptoiq.OrderBook.addToChart && context.stx && <OrderBook refProp={this.orderbookRef} 
+						addToChart={cryptoiq.OrderBook.addToChart}
+						closeButton={cryptoiq.OrderBook.closeButton} 
+						size={cryptoiq.OrderBook.size}
+						amount={cryptoiq.OrderBook.amount}
+						price={cryptoiq.OrderBook.price}
+						totalSize={cryptoiq.OrderBook.totalSize}
+						totalAmount={cryptoiq.OrderBook.totalAmount}
+					/> }
+					{plugins && cryptoiq && cryptoiq.OrderBook && cryptoiq.OrderBook.addToChart && context.stx && <ToggleOrderBook /> }
 					{context.stx && <MarkerAbstract /> }
 				</div>
 			</div>
