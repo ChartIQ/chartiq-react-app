@@ -5,13 +5,18 @@ import 'addOns'
 import 'markets/marketDefinitionsSample'
 import 'markets/marketSymbologySample'
 import UIManger from '../components/Core/UIManager'
+import ChartArea from '../components/Layout/ChartArea'
 import ColorPicker from '../components/Features/ColorPicker'
 import ChartNav from '../components/Layout/ChartNav'
+import SidePanel from '../components/Layout/SidePanel'
 import TradeHistory from '../components/Plugins/CryptoIQ/TradeHistory'
 import OrderBook from '../components/Plugins/CryptoIQ/OrderBook'
 import WrappedChart from '../components/Core/WrappedChart'
 import ChartDialogs from '../components/Dialogs/ChartDialogs'
 import ChartFooter from '../components/Layout/ChartFooter'
+
+import TradePanel from '../components/Plugins/TFC/TradePanel'
+
 import { ChartContext } from '../react-chart-context'
 
 /**
@@ -41,7 +46,6 @@ export default class CryptoIQWorkstation extends React.Component {
 		this.state = {
 			stx: null,
 			UIContext: UIContext,
-			height: null,
 			setContext: this.setContext,
 			getHeight: this.getHeight
 		}
@@ -49,6 +53,7 @@ export default class CryptoIQWorkstation extends React.Component {
 	componentDidMount() {
 		console.log('workstation mounted')
 		console.log('state.stx: ',this.state.stx)
+		console.log('Workstation children: ', this.props.children)
 	}
 
 	getSnapshotBeforeUpdate(prevProps, prevState) {
@@ -97,7 +102,7 @@ export default class CryptoIQWorkstation extends React.Component {
 				<UIManger />
 				<ChartNav plugins={props.plugins} />
 				<ColorPicker />
-				<div className="ciq-chart-area">
+				<ChartArea>
 					<div id="flexContainer">
 						<TradeHistory />
 						<WrappedChart id="mainChartGroup" classes="foo"
@@ -108,7 +113,11 @@ export default class CryptoIQWorkstation extends React.Component {
 							dynamicHeadsUp={true}
 							addOns={props.addOns}
 							plugins={props.plugins}
-						/>
+						>
+							<SidePanel>
+								<TradePanel />
+							</SidePanel>
+						</WrappedChart>
 						<div id="cryptoGroup2">
 							<div id="marketDepthBookmark" /> 
 							{cryptoiq.OrderBook && this.context.stx && <OrderBook 
@@ -118,7 +127,7 @@ export default class CryptoIQWorkstation extends React.Component {
 							/>}
 						</div>
 					</div>
-				</div>
+				</ChartArea>
 				<ChartFooter />
 				<ChartDialogs />
 			</ChartContext.Provider>

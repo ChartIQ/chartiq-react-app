@@ -13,6 +13,7 @@ import '../chartiq/css/perfect-scrollbar.css'
 import '../chartiq/css/stx-chart.css'
 import '../chartiq/css/chartiq.css'
 import './chartiq-react-components.css'
+import 'plugins/cryptoiq/cryptoiq.css'
 import './components/Plugins/CryptoIQ/cryptoiq-workstation.css'
 
 // Remove this file if you don't want the helicpter marker
@@ -44,7 +45,8 @@ let enablePlugins = {
 			price: true,
 			// totalAmount: true,
 			// totalSize: true
-		}
+		},
+		TFC: true
 	},
 }
 

@@ -5,12 +5,14 @@ import { CIQ, $$$ } from 'chartiq'
 import AdvancedChart from './containers/AdvancedChart'
 
 import 'plugins/cryptoiq/cryptoiq'
+import 'plugins/cryptoiq/marketdepth'
 
 import '../chartiq/css/normalize.css'
 import '../chartiq/css/page-defaults.css'
 import '../chartiq/css/perfect-scrollbar.css'
 import '../chartiq/css/stx-chart.css'
 import '../chartiq/css/chartiq.css'
+// This file must be loaded last!
 import './chartiq-react-components.css'
 // Remove this file if you don't want the helicpter marker
 // import './chartiq-abstract-marker.css'
@@ -18,8 +20,8 @@ import './chartiq-react-components.css'
 let constructor = {}
 let preferences = {labels:false, currentPriceLine:true, whitespace:0}
 let enableAddOns = {
-	InactivityTimer: {minutes:30}, 
-	ExtendedHours: {filter:true}, 
+	InactivityTimer: {minutes:30},
+	ExtendedHours: {filter:true},
 	RangeSlider:true
 }
 let enablePlugins = {

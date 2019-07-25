@@ -9,8 +9,7 @@ import HeadsUpDynamic from '../Features/HeadsUpDynamic'
 import MarkerAbstract from '../Features/MarkerAbstract'
 import DataAttribution from '../Features/DataAttribution'
 
-import OrderBook from '../Plugins/CryptoIQ/OrderBook'
-import ToggleOrderBook from '../Plugins/CryptoIQ/ToggleOrderBook'
+import Plugins from './Plugins'
 
 import { ChartContext } from '../../react-chart-context'
 
@@ -84,7 +83,6 @@ export default class WrappedChart extends React.Component {
 		const props = this.props;
 		const context = this.context;
 		const plugins = props.plugins || {}
-		const cryptoiq = plugins.cryptoiq
 
 		const Comparison = React.forwardRef((props, ref) => (
 			ref.current && <ChartComparison forwardeRef={ref} />
@@ -95,7 +93,13 @@ export default class WrappedChart extends React.Component {
 			<React.Fragment>
 			<div className={classes} id={props.id}>
 				<div className={"ciq-chart"}>
-					{ context.stx && <ToolbarDrawing /> }
+					{context.stx &&
+						<>
+						{plugins && <Plugins {...props.plugins} />}
+						<ToolbarDrawing />
+						<MarkerAbstract />
+						</>
+					}
 					<chartiq-chart class="chartContainer" defer-start="true" animations="false" ref={this.engineRef}>
 						{ context.stx && <TitleOverlay refProp={this.engineRef} /> }
 						<LoadingWidget />
@@ -105,18 +109,9 @@ export default class WrappedChart extends React.Component {
 						{props.staticHeadsUp && context.stx && <HeadsUpStatic />
 						}
 						<DataAttribution />
+						{this.props.children}
 					</chartiq-chart>
-					{plugins && cryptoiq && cryptoiq.OrderBook.addToChart && context.stx && <OrderBook refProp={this.orderbookRef} 
-						addToChart={cryptoiq.OrderBook.addToChart}
-						closeButton={cryptoiq.OrderBook.closeButton} 
-						size={cryptoiq.OrderBook.size}
-						amount={cryptoiq.OrderBook.amount}
-						price={cryptoiq.OrderBook.price}
-						totalSize={cryptoiq.OrderBook.totalSize}
-						totalAmount={cryptoiq.OrderBook.totalAmount}
-					/> }
-					{plugins && cryptoiq && cryptoiq.OrderBook && cryptoiq.OrderBook.addToChart && context.stx && <ToggleOrderBook /> }
-					{context.stx && <MarkerAbstract /> }
+
 				</div>
 			</div>
 			</React.Fragment>
