@@ -91,7 +91,6 @@ export default class WrappedChart extends React.Component {
 		const classes = props.classes || "ciq-chart-area"
 		return (
 			<React.Fragment>
-			<div className={classes} id={props.id}>
 				<div className={"ciq-chart"}>
 					{context.stx &&
 						<>
@@ -113,7 +112,6 @@ export default class WrappedChart extends React.Component {
 					</chartiq-chart>
 
 				</div>
-			</div>
 			</React.Fragment>
 		)
 	}

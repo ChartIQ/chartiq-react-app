@@ -13,9 +13,19 @@ export default class ToggleTradePanel extends React.Component {
 
 	setToggleCallback(node) {
 		let stx = this.context.stx
-		node.registerCallback(function(){
-			stx.marketDepth.marketDepth.orderbook.open()
-		}, false)
+		node.registerCallback(function(value) {
+				var sidePanel=$("cq-side-panel")[0];
+				if(value){
+					sidePanel.open({selector:".stx-trade-panel",className:"active"});
+					this.node.addClass("active");
+					$(".stx-trade-panel").removeClass("closed");
+					stxx.layout.sidenav = 'sidenavOff'; // in break-sm hide sidenav when turning on tfc side panel
+				}else{
+					sidePanel.close();
+					this.node.removeClass("active");
+					$(".stx-trade-panel").addClass("closed");
+				}
+			});
 	}
 
 	render() {

@@ -8,7 +8,7 @@ export default class SidePanel extends React.Component {
 	render() {
 		return(
 			<React.Fragment>
-				<cq-side-panel style={{width: '280px'}}></cq-side-panel>
+				<cq-side-panel></cq-side-panel>
 			</React.Fragment>
 		)
 	}

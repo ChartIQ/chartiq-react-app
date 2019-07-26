@@ -7,7 +7,10 @@ import 'markets/marketSymbologySample'
 import UIManger from '../components/Core/UIManager'
 import ColorPicker from '../components/Features/ColorPicker'
 import ChartNav from '../components/Layout/ChartNav'
+import ChartArea from '../components/Layout/ChartArea'
 import WrappedChart from '../components/Core/WrappedChart'
+import SidePanel from '../components/Layout/SidePanel'
+import TradePanel from '../components/Plugins/TFC/TradePanel'
 import ChartDialogs from '../components/Dialogs/ChartDialogs'
 import ChartFooter from '../components/Layout/ChartFooter'
 import { ChartContext } from '../react-chart-context'
@@ -69,15 +72,22 @@ export default class AdvancedChart extends React.Component {
 				<UIManger />
 				<ChartNav plugins={props.plugins} />
 				<ColorPicker />
-				<WrappedChart  
-					quoteFeed={quoteFeed}
-					chartConstructor={chartConstructor}
-					preferences={preferences}
-					staticHeadsUp={true}
-					dynamicHeadsUp={true}
-					addOns={props.addOns}
-					plugins={props.plugins}
-				/>
+				<ChartArea>
+					<WrappedChart  
+						quoteFeed={quoteFeed}
+						chartConstructor={chartConstructor}
+						preferences={preferences}
+						staticHeadsUp={true}
+						dynamicHeadsUp={true}
+						addOns={props.addOns}
+						plugins={props.plugins}
+					/>
+					<SidePanel>
+						{props.plugins && props.plugins.TFC && 
+							<TradePanel />
+						}
+					</SidePanel>
+				</ChartArea>
 				<ChartFooter />
 				<ChartDialogs />
 			</ChartContext.Provider>
