@@ -7,6 +7,10 @@ import CryptoIQWorkstation from './containers/CryptoIQWorkstation'
 
 import 'plugins/cryptoiq/cryptoiq'
 
+import 'plugins/tfc/tfc-loader'
+// Be sure to load some account file or TFC will not work
+import 'plugins/tfc/tfc-demo'
+
 import '../chartiq/css/normalize.css'
 import '../chartiq/css/page-defaults.css'
 import '../chartiq/css/perfect-scrollbar.css'
@@ -46,8 +50,8 @@ let enablePlugins = {
 			// totalAmount: true,
 			// totalSize: true
 		},
-		TFC: true
 	},
+	TFC: true
 }
 
 ReactDom.render(

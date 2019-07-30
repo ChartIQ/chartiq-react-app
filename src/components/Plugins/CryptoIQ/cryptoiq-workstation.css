@@ -19,8 +19,6 @@
 #mainChartGroup {
     display:flex;
     flex-direction: column;
-    float: right;
-    width: 57%;
     display:grid;  /* a better model, if browser supports */
     height:100%;
     padding:10px;

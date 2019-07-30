@@ -47,17 +47,12 @@ export default class CryptoIQWorkstation extends React.Component {
 			stx: null,
 			UIContext: UIContext,
 			setContext: this.setContext,
-			getHeight: this.getHeight
+			getHeight: this.getHeight,
+			resize: () => { this.resizeScreen() }
 		}
-	}
-	componentDidMount() {
-		console.log('workstation mounted')
-		console.log('state.stx: ',this.state.stx)
-		console.log('Workstation children: ', this.props.children)
 	}
 
 	getSnapshotBeforeUpdate(prevProps, prevState) {
-		console.log('workstation snapshot before update ', prevState)
 		if(prevState.stx===null && this.state.stx!=null) {
 			this.state.stx.addEventListener("symbolImport", this.overrideChartLayout())
 		}
@@ -65,18 +60,16 @@ export default class CryptoIQWorkstation extends React.Component {
 	}
 
 	componentDidUpdate(prevProps, prevState, snapshot) {
-		console.log('workstation updated')
-		// stx.addEventListener("symbolImport",overrideLayoutSettings);
 		CIQ.UI.begin()
 		CIQ.UI.BaseComponent.nextTick()
 	}
 
 	overrideChartLayout() {
-		let stx = this.state.stx
+		let self = this
 		return function () {
-			stx.setChartType('line');
-			stx.slider.slider.setChartType('line')
-			Object.assign(stx.layout,{
+			this.setChartType('line');
+			this.slider.slider.setChartType('line')
+			Object.assign(this.layout,{
 				crosshair:true,
 				headsUp:"static",
 				l2heatmap:true,
@@ -84,8 +77,19 @@ export default class CryptoIQWorkstation extends React.Component {
 				marketDepth:true,
 				extended:false
 			});
-			stx.changeOccurred('layout');
+			self.context.UIContext.ToggleTradePanel.set(true)
+			this.changeOccurred('layout');
 		}
+	}
+
+	resizeScreen() {
+		let context = this.context
+		if(!context || !context.chartArea || !context.UIContext) return
+		let chartArea = context.chartArea
+		let sidePanel
+		if(context.UIContext.SidePanel)  sidePanel = context.UIContext.SidePanel
+		let sidePanelWidth = sidePanel? sidePanel.nonAnimatedWidth() : 0
+		chartArea.node.style.width = chartArea.width - sidePanelWidth +'px'
 	}
 
 	render() {
@@ -105,19 +109,6 @@ export default class CryptoIQWorkstation extends React.Component {
 				<ChartArea>
 					<div id="flexContainer">
 						<TradeHistory />
-						<WrappedChart id="mainChartGroup" classes="foo"
-							quoteFeed={quoteFeed}
-							chartConstructor={chartConstructor}
-							preferences={preferences}
-							staticHeadsUp={true}
-							dynamicHeadsUp={true}
-							addOns={props.addOns}
-							plugins={props.plugins}
-						>
-							<SidePanel>
-								<TradePanel />
-							</SidePanel>
-						</WrappedChart>
 						<div id="cryptoGroup2">
 							<div id="marketDepthBookmark" /> 
 							{cryptoiq.OrderBook && this.context.stx && <OrderBook 
@@ -126,8 +117,24 @@ export default class CryptoIQWorkstation extends React.Component {
 								price={cryptoiq.OrderBook.price}
 							/>}
 						</div>
+						<div id="mainChartGroup">
+							<WrappedChart
+								quoteFeed={quoteFeed}
+								chartConstructor={chartConstructor}
+								preferences={preferences}
+								staticHeadsUp={true}
+								dynamicHeadsUp={true}
+								addOns={props.addOns}
+								plugins={props.plugins}
+							/>
+						</div>						
 					</div>
 				</ChartArea>
+				<SidePanel>
+					{props.plugins && props.plugins.TFC && 
+						<TradePanel />
+					}
+				</SidePanel>				
 				<ChartFooter />
 				<ChartDialogs />
 			</ChartContext.Provider>

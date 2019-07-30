@@ -5,8 +5,6 @@ import { CIQ, $$$ } from 'chartiq'
 import AdvancedChart from './containers/AdvancedChart'
 
 import 'plugins/cryptoiq/cryptoiq'
-import 'plugins/cryptoiq/marketdepth'
-
 import 'plugins/tfc/tfc-loader'
 // Be sure to load some account file or TFC will not work
 import 'plugins/tfc/tfc-demo'

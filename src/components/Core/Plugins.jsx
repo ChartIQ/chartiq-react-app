@@ -8,7 +8,7 @@ export default class Plugins extends React.Component {
 		const cryptoiq = this.props.cryptoiq
 		return(
 			<React.Fragment>
-				{ cryptoiq && cryptoiq.OrderBook &&
+				{ cryptoiq && cryptoiq.OrderBook && cryptoiq.OrderBook.addToChart &&
 					<>
 					<OrderBook {...cryptoiq.OrderBook} />
 					<ToggleOrderBook {...cryptoiq.OrderBook} />

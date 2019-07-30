@@ -14,6 +14,7 @@ export default class ToggleTradePanel extends React.Component {
 	setToggleCallback(node) {
 		let context = this.context
 		let stx = context.stx
+		context.UIContext.ToggleTradePanel = this.toggle.current
 		node.registerCallback(function(value) {
 				var sidePanel=$("cq-side-panel")[0];
 				if(value){
