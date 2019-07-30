@@ -35,12 +35,6 @@ export default class AdvancedChart extends React.Component {
 			return update
 		}
 
-		this.getHeight = (update) => {
-			this.setState((state) => {
-				return Object.assign(this.context.height, )
-			})
-		}
-
 		let UIContext=new CIQ.UI.Context(null, document.querySelector("*[cq-context]"));
 		let UILayout=new CIQ.UI.Layout(UIContext);
 		let KeystrokeHub=new CIQ.UI.KeystrokeHub(document.querySelector("body"), UIContext, {cb:CIQ.UI.KeystrokeHub.defaultHotKeys});
@@ -52,13 +46,25 @@ export default class AdvancedChart extends React.Component {
 			UIContext: UIContext,
 			height: null,
 			setContext: this.setContext,
-			getHeight: this.getHeight
+			getHeight: this.getHeight,
+			resize: () => { this.resizeScreen() }
 		}
 	}
 
 	componentDidUpdate() {
 		CIQ.UI.begin()
 		CIQ.UI.BaseComponent.nextTick()
+	}
+
+	resizeScreen() {
+		console.log('resize the chart here!');
+		let context = this.context
+		if(!context || !context.chartArea || !context.UIContext) return
+		let chartArea = context.chartArea
+		let sidePanel
+		if(context.UIContext.SidePanel)  sidePanel = context.UIContext.SidePanel
+		let sidePanelWidth = sidePanel? sidePanel.nonAnimatedWidth() : 0
+		chartArea.node.style.width = chartArea.width - sidePanelWidth +'px'
 	}
 
 	render() {
@@ -82,12 +88,12 @@ export default class AdvancedChart extends React.Component {
 						addOns={props.addOns}
 						plugins={props.plugins}
 					/>
-					<SidePanel>
-						{props.plugins && props.plugins.TFC && 
-							<TradePanel />
-						}
-					</SidePanel>
 				</ChartArea>
+				<SidePanel>
+					{props.plugins && props.plugins.TFC &&
+						<TradePanel />
+					}
+				</SidePanel>
 				<ChartFooter />
 				<ChartDialogs />
 			</ChartContext.Provider>

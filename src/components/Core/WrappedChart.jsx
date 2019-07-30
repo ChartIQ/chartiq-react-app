@@ -62,6 +62,9 @@ export default class WrappedChart extends React.Component {
 			let quoteFeed = stx.quoteDriver.quoteFeed
 			if(quoteFeed && quoteFeed.url && quoteFeed.url.includes("simulator.chartiq.com")) CIQ.simulateL2({stx:stx, onTrade:true});
 		}
+		if (plugins.TFC) {
+			new CIQ.TFC({stx:stx, account: plugins.TFC.account, context:this.context.UIContext})
+		}
 	}
 
 	resizeScreen(){

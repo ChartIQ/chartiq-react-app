@@ -11,7 +11,8 @@ export default class ChartArea extends React.Component {
 		let ref = this.chartAreaRef.current
 		this.context.setContext({chartArea: {
 				width: ref.clientWidth,
-				height: ref.clientHeight 
+				height: ref.clientHeight,
+				node: ref
 			}
 		})
 	}

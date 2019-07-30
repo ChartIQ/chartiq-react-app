@@ -12,7 +12,8 @@ export default class ToggleTradePanel extends React.Component {
 	}
 
 	setToggleCallback(node) {
-		let stx = this.context.stx
+		let context = this.context
+		let stx = context.stx
 		node.registerCallback(function(value) {
 				var sidePanel=$("cq-side-panel")[0];
 				if(value){
@@ -25,6 +26,10 @@ export default class ToggleTradePanel extends React.Component {
 					this.node.removeClass("active");
 					$(".stx-trade-panel").addClass("closed");
 				}
+				let sidePanelWidth = sidePanel.nonAnimatedWidth()
+				console.log("SidePanel.width: ", sidePanelWidth)
+				context.chartArea.node.style.right = sidePanelWidth+'px'
+				context.resize()
 			});
 	}
 
@@ -32,10 +37,11 @@ export default class ToggleTradePanel extends React.Component {
 		return(
 			<React.Fragment>
 				<cq-toggle class="tfc-ui-sidebar stx-trade" ref={this.toggle}>
+					<span></span>
 					<cq-tooltip>Trade</cq-tooltip>
 				</cq-toggle>
 			</React.Fragment>
 		)
 	}
 }
-ToggleOrderBook.contextType = ChartContext
+ToggleTradePanel.contextType = ChartContext

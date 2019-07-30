@@ -4,6 +4,7 @@ const MiniCssExtractPlugin = require('extract-css-chunks-webpack-plugin');  // u
 const HTMLWebpackPlugin = require('html-webpack-plugin')
 const chartiqDir = path.join(__dirname, 'chartiq')
 const examplesDir = path.join(__dirname, 'chartiq', 'examples')
+const pluginsDir = path.join(__dirname, 'chartiq', 'plugins')
 const devDir = path.join(__dirname, 'src')
 
 module.exports = (env) => {
@@ -57,11 +58,12 @@ module.exports = (env) => {
 			// files that match the given "test" regex
 			// https://webpack.js.org/concepts/loaders/
 			rules: [
-				{ 
-					parser: {
-						amd: false,
-						requireEnsure: false
-					}
+				/* HTML bundling rule, used mainly for plugins UI */
+				{
+					test: /\.html/,
+					use: [
+						{loader: "html-loader"}
+					]
 				},
 				/* CSS bundling rule, using SASS */
 				{
@@ -69,6 +71,7 @@ module.exports = (env) => {
 					use: [
 						{loader: MiniCssExtractPlugin.loader, options: {publicPath: 'css/'}},
 						'css-loader',
+						'sass-loader'
 					]
 				},
 				/* image bundling rule, images are referenced via css */
@@ -181,6 +184,7 @@ module.exports = (env) => {
 				devDir,
 				chartiqDir,
 				examplesDir,
+				pluginsDir,
 				path.join(chartiqDir, 'js')
 			]
 		}
