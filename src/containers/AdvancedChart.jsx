@@ -57,7 +57,6 @@ export default class AdvancedChart extends React.Component {
 	}
 
 	resizeScreen() {
-		console.log('resize the chart here!');
 		let context = this.context
 		if(!context || !context.chartArea || !context.UIContext) return
 		let chartArea = context.chartArea

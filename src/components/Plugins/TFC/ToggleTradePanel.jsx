@@ -27,7 +27,6 @@ export default class ToggleTradePanel extends React.Component {
 					$(".stx-trade-panel").addClass("closed");
 				}
 				let sidePanelWidth = sidePanel.nonAnimatedWidth()
-				console.log("SidePanel.width: ", sidePanelWidth)
 				context.chartArea.node.style.right = sidePanelWidth+'px'
 				context.resize()
 			});
