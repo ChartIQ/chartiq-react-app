@@ -4,12 +4,19 @@ import { ChartContext } from '../../../react-chart-context'
 export default class TradePanel extends React.Component {
 	constructor() {
 		super()
+		this.tradePanel = React.createRef()
+	}
+
+	componentDidMount() {
+		let context = this.context
+		// context.setContext({components: {TradePanel: this}})
+		this.context.components.TradePanel = this
 	}
 
 	render() {
 		return (
 			<React.Fragment>
-			<div className="stx-panel-side stx-trade-panel">
+			<div className="stx-panel-side stx-trade-panel" ref={this.tradePanel}>
 				<div className="stx-wrapper stx-trade-nav">
 					<ul className="stx-orders">
 						<li className="stx-market" style={{display:"none"}}><a>MKT</a></li>

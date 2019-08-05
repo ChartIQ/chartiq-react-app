@@ -24,30 +24,35 @@ export default class MenuStudies extends React.Component {
 		legend.begin()
 	}
 
+	
+
 	render () {
 		return (
 			<cq-menu class="ciq-menu ciq-studies collapse">
 				<span>Studies</span>
 				<cq-menu-dropdown cq-no-scroll>
 					<MenuStudyLegend heading={"Current Studies"} clearAll={true} />
-					{/*<!-- comment in the following lines if you have access to ScriptIQ -->
-					<!-- <cq-heading>ScriptIQ</cq-heading>
-						<cq-item><cq-clickable cq-selector="cq-scriptiq-editor" cq-method="open">New Script</cq-clickable></cq-item>
-						<cq-scriptiq-menu>
-							<cq-scriptiq-content>
-									<template>
-										<cq-item>
-											<cq-label></cq-label>
-											<div>
-												<span class="ciq-edit"></span>
-												<span class="ciq-icon ciq-close"></span>
-											</div>
-										</cq-item>
-									</template>
-							</cq-scriptiq-content>
-						</cq-scriptiq-menu>
-					<cq-separator></cq-separator>
-					<cq-heading>Studies</cq-heading> -->*/}
+					{this.props.plugins.ScriptIQ &&
+						<>
+						<cq-heading>ScriptIQ</cq-heading>
+							<cq-item  onClick={this.context.resize} ><cq-clickable cq-selector="cq-scriptiq-editor" cq-method="open">New Script</cq-clickable></cq-item>
+							<cq-scriptiq-menu>
+								<cq-scriptiq-content>
+										<template>
+											<cq-item>
+												<cq-label></cq-label>
+												<div>
+													<span className="ciq-edit"></span>
+													<span className="ciq-icon ciq-close"></span>
+												</div>
+											</cq-item>
+										</template>
+								</cq-scriptiq-content>
+							</cq-scriptiq-menu>
+						<cq-separator></cq-separator>
+						<cq-heading>Studies</cq-heading>
+						</>
+					}
 					<cq-scroll>
 						<cq-studies>
 							<cq-studies-content>
@@ -64,3 +69,4 @@ export default class MenuStudies extends React.Component {
 		)
 	}
 }
+MenuStudies.contextType = ChartContext
