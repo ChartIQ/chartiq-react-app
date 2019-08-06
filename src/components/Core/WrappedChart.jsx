@@ -97,7 +97,6 @@ export default class WrappedChart extends React.Component {
 				<div className={"ciq-chart"}>
 					{context.stx &&
 						<>
-						{plugins && <Plugins {...props.plugins} />}
 						<ToolbarDrawing />
 						<MarkerAbstract />
 						</>

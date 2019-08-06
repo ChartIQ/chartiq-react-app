@@ -7,7 +7,6 @@ import 'markets/marketSymbologySample'
 import UIManger from '../components/Core/UIManager'
 import ColorPicker from '../components/Features/ColorPicker'
 import ChartNav from '../components/Layout/ChartNav'
-import TradingCentralComponents from '../components/Plugins/TradingCentral/TradingCentralComponents'
 import ChartArea from '../components/Layout/ChartArea'
 import WrappedChart from '../components/Core/WrappedChart'
 import SidePanel from '../components/Layout/SidePanel'
@@ -17,6 +16,8 @@ import ChartDialogs from '../components/Dialogs/ChartDialogs'
 import ChartFooter from '../components/Layout/ChartFooter'
 import { ChartContext } from '../react-chart-context'
 import BottomPanel from '../components/Layout/BottomPanel';
+import MarketDepth from '../components/Plugins/CryptoIQ/MarketDepth';
+import Plugins from '../components/Core/Plugins';
 
 /**
  * This is a fully functional example showing how to load a chart with complete user interface.
@@ -49,6 +50,7 @@ export default class AdvancedChart extends React.Component {
 			UIContext: UIContext,
 			components: {AdvancedChart: this},
 			setContext: this.setContext,
+			registerComponent: (component) => { this.registerComponent(component) },
 			resize: () => { this.resizeScreen() }
 		}
 	}
@@ -58,23 +60,21 @@ export default class AdvancedChart extends React.Component {
 		CIQ.UI.BaseComponent.nextTick()
 	}
 
+	registerComponent(component) {
+		this.setState((state) => {
+			return Object.assign(this.state.components, component)
+		})
+		return component
+	}
+
 	resizeScreen() {
 		let context = Object.keys(this.context).length ? this.context : this.state
 		if(!context || !context.chartArea || !context.UIContext) return
 		let chartArea = context.chartArea
-		let sidePanel, bottomPanel, scriptiq
+		let sidePanel, topPanel, bottomPanel
 		if(context.UIContext.SidePanel)  sidePanel = context.UIContext.SidePanel
-		if(context.components.BottomPanel) bottomPanel = context.components.BottomPanel
 		let sidePanelWidth = sidePanel? sidePanel.nonAnimatedWidth() : 0
-		let bottomPanelHeight = bottomPanel? bottomPanel.node.clientHeight : 0
-		// bottomPanel.resize()
-		// if(context.UIContext.ScriptIQ) scriptiq = context.UIContext.ScriptIQ
-		// let editorHeight = scriptiq? scriptiq.firstElementChild.clientHeight : 0
-		// scriptiq.style.height = editorHeight + 'px'
-		// if(context.components.ScriptIQ) context.components.ScriptIQ.resize()
-		let style = chartArea.node.style
-		style.width = chartArea.width - sidePanelWidth +'px'
-		style.height = chartArea.height - /*CIQ.stripPX(style.top) -*/ bottomPanelHeight + 'px'
+		chartArea.node.style.width = chartArea.width - sidePanelWidth +'px'
 	}
 
 	render() {
@@ -83,14 +83,12 @@ export default class AdvancedChart extends React.Component {
 		let chartConstructor = props.chartConstructor
 		let preferences = props.preferences
 		return (
-			<div className="cq-chart-container">
 			<ChartContext.Provider value={this.state}>
+			<div className="cq-chart-container">
 				<UIManger />
 				<ChartNav plugins={props.plugins} />
 				<ColorPicker />
-				{ props.plugins.TradingCentral &&
-					<TradingCentralComponents />
-				}
+				{ props.plugins && this.state.stx && <Plugins {...props.plugins} />}
 				<ChartArea>
 					<WrappedChart  
 						quoteFeed={quoteFeed}
@@ -100,23 +98,24 @@ export default class AdvancedChart extends React.Component {
 						dynamicHeadsUp={true}
 						addOns={props.addOns}
 						plugins={props.plugins}
-					/>
+						/>
+					<MarketDepth plugins={props.plugins}/>
+				</ChartArea>
 				<BottomPanel>
 					{ props.plugins.ScriptIQ &&
 						<ScriptIQ />
 					}
 					{/* <ScriptEditor /> */}
 				</BottomPanel>
-				</ChartArea>
 				<SidePanel>
 					{props.plugins && props.plugins.TFC &&
 						<TradePanel />
 					}
 				</SidePanel>
-				<ChartFooter />
 				<ChartDialogs />
-			</ChartContext.Provider>
 			</div>
+			<ChartFooter />
+			</ChartContext.Provider>
 		)
 	}
 }

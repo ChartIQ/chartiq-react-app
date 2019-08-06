@@ -8,7 +8,12 @@ export default class ToggleOrderBook extends React.Component {
 	}
 
 	componentDidMount() {
-		this.setToggleCallback(this.toggle.current)
+		let node = this.toggle.current
+		this.setToggleCallback(node)
+		if(this.props.addToChart) {
+			node.parentElement.removeChild(node)
+			this.context.stx.marketDepth.marketDepth.container.appendChild(node)
+		}
 	}
 
 	setToggleCallback(node) {
@@ -21,7 +26,7 @@ export default class ToggleOrderBook extends React.Component {
 	render() {
 		return(
 			<React.Fragment>
-				<cq-toggle class="cq-orderbook-toggle" ref={this.toggle} style={{right: '35px', bottom: '25px'}}>
+				<cq-toggle class="cq-orderbook-toggle" ref={this.toggle}>
 					<cq-tooltip>Orderbook</cq-tooltip>
 				</cq-toggle>
 			</React.Fragment>

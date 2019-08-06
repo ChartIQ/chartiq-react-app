@@ -18,10 +18,11 @@
 .ciq-chart-area {
 	position: relative;
 	height: calc(100% - 90px);
+	top: auto !important;
 }
 
 .ciq-footer {
-	position: relative;
+	position: absolute;
 }
 
 .sidenav{

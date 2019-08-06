@@ -21,7 +21,6 @@ import 'plugins/tfc/tfc-loader'
 // Be sure to load some account file or TFC will not work
 import 'plugins/tfc/tfc-demo'
 import 'plugins/scriptiq/scriptiq'
-import 'plugins/tradingcentral/components'
 
 let constructor = {}
 let preferences = {labels:false, currentPriceLine:true, whitespace:0}
@@ -37,7 +36,8 @@ let enablePlugins = {
 			mountain:true,
 			step:true,
 			record: true,
-			height:"50%"
+			height:"50%",
+			precedingContainer: '.market-depth-bookmark'
 		},
 		OrderBook: {
 			addToChart: true,

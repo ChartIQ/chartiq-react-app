@@ -9,8 +9,7 @@ export default class TradePanel extends React.Component {
 
 	componentDidMount() {
 		let context = this.context
-		// context.setContext({components: {TradePanel: this}})
-		this.context.components.TradePanel = this
+		context.registerComponent({TradePanel: this})
 	}
 
 	render() {

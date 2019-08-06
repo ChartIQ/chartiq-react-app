@@ -9,8 +9,7 @@ export default class TradingCentralComponents extends React.Component {
 
     componentDidMount() {
         console.log('mounting TradingCentralComponents...')
-        // this.context.setContext({components: {TradingCentral: this}})
-        this.context.components.TradingCentral = this
+        this.context.registerComponent({TradingCentral: this})
     }
     
     render()  {

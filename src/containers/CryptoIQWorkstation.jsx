@@ -47,7 +47,8 @@ export default class CryptoIQWorkstation extends React.Component {
 			stx: null,
 			UIContext: UIContext,
 			setContext: this.setContext,
-			getHeight: this.getHeight,
+			components: {AdvancedChart: this},
+			registerComponent: (component) => { this.registerComponent(component) },
 			resize: () => { this.resizeScreen() }
 		}
 	}
@@ -82,8 +83,15 @@ export default class CryptoIQWorkstation extends React.Component {
 		}
 	}
 
+	registerComponent(component) {
+		this.setState((state) => {
+			return Object.assign(this.state.components, component)
+		})
+		return component
+	}
+
 	resizeScreen() {
-		let context = this.context
+		let context = Object.keys(this.context).length ? this.context : this.state
 		if(!context || !context.chartArea || !context.UIContext) return
 		let chartArea = context.chartArea
 		let sidePanel
