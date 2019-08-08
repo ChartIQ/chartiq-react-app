@@ -11,8 +11,6 @@ import '../chartiq/css/stx-chart.css'
 import '../chartiq/css/chartiq.css'
 // This file must be loaded last!
 import './chartiq-react-components.css'
-// import './_plugins.scss'
-// import './components/Plugins/ScriptIQ/scriptiq.css'
 // Remove this file if you don't want the helicpter marker
 // import './chartiq-abstract-marker.css'
 
