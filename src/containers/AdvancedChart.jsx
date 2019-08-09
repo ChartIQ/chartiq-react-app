@@ -55,6 +55,10 @@ export default class AdvancedChart extends React.Component {
 		}
 	}
 
+	componentDidMount() {
+		window.addEventListener("resize", this.resizeScreen.bind(this));
+	}
+
 	componentDidUpdate() {
 		CIQ.UI.begin()
 		CIQ.UI.BaseComponent.nextTick()
@@ -71,10 +75,11 @@ export default class AdvancedChart extends React.Component {
 		let context = Object.keys(this.context).length ? this.context : this.state
 		if(!context || !context.chartArea || !context.UIContext) return
 		let chartArea = context.chartArea
-		let sidePanel, topPanel, bottomPanel
+		let parentWidth = chartArea.node.parentElement.clientWidth
+		let sidePanel
 		if(context.UIContext.SidePanel)  sidePanel = context.UIContext.SidePanel
 		let sidePanelWidth = sidePanel? sidePanel.nonAnimatedWidth() : 0
-		chartArea.node.style.width = chartArea.width - sidePanelWidth +'px'
+		chartArea.node.style.width = parentWidth - sidePanelWidth + 'px'
 	}
 
 	render() {
