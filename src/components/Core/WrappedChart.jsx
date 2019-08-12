@@ -9,8 +9,6 @@ import HeadsUpDynamic from '../Features/HeadsUpDynamic'
 import MarkerAbstract from '../Features/MarkerAbstract'
 import DataAttribution from '../Features/DataAttribution'
 
-import Plugins from './Plugins'
-
 import { ChartContext } from '../../react-chart-context'
 
 /**
@@ -32,8 +30,14 @@ export default class WrappedChart extends React.Component {
 		this.createEngine = container => {
 			var config = {container: container, chart: props.chartConstructor, preferences: props.preferences}
 			this.stxx = window.stxx = container.stxx = new CIQ.ChartEngine(config)
-			window.CIQ = container.CIQ = CIQ
-			window.$$$ = container.$$$ = $$$
+			container.CIQ = CIQ
+			container.$$$ = $$$
+			// If in development allow access to globals
+			if(process.env.NODE_ENV !== 'production') {
+				window.CIQ = container.CIQ
+				window.$$$ = container.$$$
+				window.stxx = container.stxx
+			}
 			let addOns = props.addOns
 			container.startChart(this.stxx, this.feed, {refreshInterval: 1, bufferSize: 200}, addOns)
 			this.context.setContext({stx: this.stxx})
@@ -85,7 +89,6 @@ export default class WrappedChart extends React.Component {
 	render () {
 		const props = this.props;
 		const context = this.context;
-		const plugins = props.plugins || {}
 
 		const Comparison = React.forwardRef((props, ref) => (
 			ref.current && <ChartComparison forwardeRef={ref} />
