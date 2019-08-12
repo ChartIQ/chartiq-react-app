@@ -8,7 +8,6 @@ module.exports = {
         new HTMLWebpackPlugin({
             title: 'AdvancedChart',
             template: path.join(__dirname, '..', 'index.html'),
-            chunks: ['bundle']
         }),
     ]
 }

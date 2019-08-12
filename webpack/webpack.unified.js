@@ -15,6 +15,7 @@ module.exports = {
 	// https://webpack.js.org/configuration/entry-context/#entry
 	entry: {
 		bundle: path.join(devDir, 'main.js'),
+		advanced: path.join(devDir, 'advanced.js'),
 		orderBook: path.join(devDir, 'orderbook.js'),
 		marketDepth: path.join(devDir, 'marketdepth.js'),
 		cryptoIQWorkStation: path.join(devDir, 'cryptoiq-workstation.js'),
@@ -26,10 +27,17 @@ module.exports = {
 	// mode: environment,
 	plugins: [
 		new HTMLWebpackPlugin({
+			title: 'Index',
+			filename: path.join(__dirname, '..', 'dist', 'index.html'),
+			template: path.join(__dirname, '..', 'index.html'),
+			chunks: ['bundle']
+		}),
+
+		new HTMLWebpackPlugin({
 			title: 'AdvancedChart',
 			filename: path.join(__dirname, '..', 'dist', 'advanced-chart.html'),
 			template: path.join(__dirname, '..', 'index.html'),
-			chunks: ['bundle']
+			chunks: ['advanced']
 		}),
 
 		new HTMLWebpackPlugin({

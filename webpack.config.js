@@ -10,10 +10,21 @@ const unified = require('./webpack/webpack.unified.js')
 
 
 module.exports = env => {
-    let output = merge(common, unified)
-    let environment = env.production ? 'production' : 'development'
-    let polyfill = env.production === 'polyfill' ? true : false
+    let environment, polyfill
+    let extras = {}
+    
 
+    console.log("Webpack env: ", env)
+    if(env) {
+        environment = env.production ? 'production' : 'development'
+        polyfill = env.production === 'polyfill' ? true : false
+    }
+    else environment = 'development'
+    
+    extras.mode = environment
+    extras.devtool = environment === 'development' ? 'source-maps' : ''
+    
+    let output = merge(common, unified, extras)
     if(polyfill) merge(output, legacy)
     console.log(output)
 
