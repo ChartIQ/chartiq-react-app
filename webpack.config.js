@@ -1,31 +1,36 @@
 const merge = require('webpack-merge')
 
-const common = require('./webpack/webpack.common.js')
-const legacy = require('./webpack/webpack.legacy.js')
+const configs = {}
+configs["common"] = require('./webpack/webpack.common.js')
+configs["legacy"] = require('./webpack/webpack.legacy.js')
 
-const advanced = require('./webpack/webpack.advanced-chart.js')
-const marketDepth = require('./webpack/webpack.market-depth.js')
-const orderbook = require('./webpack/webpack.orderbook.js')
-const unified = require('./webpack/webpack.unified.js')
-
+configs["advanced"] = require('./webpack/webpack.advanced-chart.js')
+configs["marketDepth"] = require('./webpack/webpack.market-depth.js')
+configs["orderbook"] = require('./webpack/webpack.orderbook.js')
+configs["unified"] = require('./webpack/webpack.unified.js')
 
 module.exports = env => {
-    let environment, polyfill
+    let environment, polyfill, build
     let extras = {}
-    
 
     console.log("Webpack env: ", env)
     if(env) {
         environment = env.production ? 'production' : 'development'
         polyfill = env.production === 'polyfill' ? true : false
+        build = configs[env.build]
     }
-    else environment = 'development'
+    else {
+        environment = 'development'
+        build = config.advanced
+    }
     
+    console.log(build)
+
     extras.mode = environment
     extras.devtool = environment === 'development' ? 'source-maps' : ''
     
-    let output = merge(common, unified, extras)
-    if(polyfill) merge(output, legacy)
+    let output = merge(configs.common, build, extras)
+    if(polyfill) merge(output, configs.legacy)
     console.log(output)
 
     return output  

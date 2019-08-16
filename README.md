@@ -112,6 +112,15 @@ In order to keep the bundle size as small as possible this project does not, by 
 
 If you make adjustments to the project and want to test in development mode, use `npm start`. This will run the webpack dev server on port 4002. You may make adjustments or just explore the project. Verify all changes are functioning correctly in development mode before building the production bundle. Run `npm run build` to get your customized bundle.
 
+In addition to the `<AdvancedChart />` you can also build several other components from the CryptoIQ Plugin: OrderBook, MarketDepth, and the CryptoIQWorkStation. You can build all of the components at once with `npm run watch:unified` and find them listed at [localhost:4002/dist/](http://localhost:4002/dist/).
+
+This project makes use of [Webpack Merge](https://github.com/survivejs/webpack-merge) to keep its configurations more managable and allow for individual building of each component. The standard _webpack.config.js_ pulls in configurations for each component from the _webpack/_ folder and merges them together to build the project. By default the project builds the AdvancedChart but you can change the build target by setting the `env.build` varialbe that you pass into _webpack.config.js_. 
+
+If you would like to build for a specific component we recommend that you add a your own build script to _package.json_. The example below shows how to add a node script to build the MarketDepth component for production. The `env.build` variable has been set to reference the _webpack/webpack.market-depth.js_ in _webpack.config.js_ : 
+```json
+"build:marketDepth": "webpack --config=webpack.config.js --env.production --env.build=marketDepth"
+```
+
 See [customizing the project](#customizing-the-project) for more details about on custom builds.
 
 ## Accessing the Chart Engine

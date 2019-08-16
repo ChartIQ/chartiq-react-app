@@ -24,6 +24,7 @@ render() {
                 description: 'Stand alone component for showing an current orders'
             }
         ]
+        delete localStorage.myChartLayout
         return (
              <React.Fragment>
                 <h1>Choose Your Component</h1>

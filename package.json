@@ -8,7 +8,8 @@
     "build:polyfill": "webpack --config=webpack.config.js --env.production=polyfill",
     "start": "npm run watch",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "webpack-dev-server --inline --config=webpack.config.js --watch=true"
+    "watch": "webpack-dev-server --inline --config=webpack.config.js --watch=true",
+    "watch:unified": "webpack-dev-server --inline --config=webpack.config.js --watch=true --env.build=unified"
   },
   "keywords": [
     "react",
