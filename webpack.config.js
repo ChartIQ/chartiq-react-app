@@ -21,7 +21,7 @@ module.exports = env => {
     }
     else {
         environment = 'development'
-        build = config.advanced
+        build = configs.advanced
     }
     
     console.log(build)
