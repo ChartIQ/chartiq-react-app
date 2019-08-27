@@ -1,13 +1,14 @@
 const merge = require('webpack-merge')
 
-const configs = {}
-configs["common"] = require('./webpack/webpack.common.js')
-configs["legacy"] = require('./webpack/webpack.legacy.js')
+const configs = {
+    common: require('./webpack/webpack.common.js'),
+    legacy: require('./webpack/webpack.legacy.js'),
 
-configs["advanced"] = require('./webpack/webpack.advanced-chart.js')
-configs["marketDepth"] = require('./webpack/webpack.market-depth.js')
-configs["orderbook"] = require('./webpack/webpack.orderbook.js')
-configs["unified"] = require('./webpack/webpack.unified.js')
+    advanced: require('./webpack/webpack.advanced-chart.js'),
+    marketDepth: require('./webpack/webpack.market-depth.js'),
+    orderbook: require('./webpack/webpack.orderbook.js'),
+    unified: require('./webpack/webpack.unified.js')
+}
 
 module.exports = env => {
     let environment, polyfill, build

@@ -12,18 +12,8 @@ export default class BottomPanel extends React.Component {
 	
 	componentDidMount() {
 		let context = this.context
-		// context.setContext({components: {BottomPanel: this}})
-		context.components.BottomPanel = this
+		context.registerComponent({BottomPanel: this})
 		this.node = context.UIContext.BottomPanel = this.bottomPanelRef.current
-	}
-
-	resize() {
-		console.log(React.Children.count(this.props.children))
-		React.Children.forEach(this.props.children, (me ,child) => { 
-			// console.log(me === this)
-			console.log(child)
-			if(child.resize) child.resize() 
-		})
 	}
 
 	render() {

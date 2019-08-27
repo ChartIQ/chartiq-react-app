@@ -22,6 +22,12 @@ export default class OrderBook extends React.Component {
 
 		this.createOrderBook = orderbook => {
 			var stxx = this.stx = new CIQ.ChartEngine({container: this.engineRef.current})
+			// If in development allow access to globals
+			if(process.env.NODE_ENV !== 'production') {
+				window.CIQ = orderbook.CIQ
+				window.$$$ = orderbook.$$$
+				window.stxx = orderbook.stxx
+			}
 		}
 
 		this.engineRef = React.createRef()
@@ -32,7 +38,7 @@ export default class OrderBook extends React.Component {
 		this.createOrderBook(this.orderBookRef.current);
 		const props = this.props;
 		let quoteFeed = props.quoteFeed;
-		let stxx = window.stxx = this.stx;
+		let stxx = this.stx;
 
 		// initialize the UI context
 		let UIContext=new CIQ.UI.Context(stxx, document.querySelector("*[cq-context]"));
@@ -41,12 +47,12 @@ export default class OrderBook extends React.Component {
 		if(quoteFeed) {
 			stxx.attachQuoteFeed(quoteFeed, props.quoteFeedBehavior);
 			// initialize the sample data feed
-			if(quoteFeed.url && quoteFeed.url.includes("simulator.chartiq.com")) CIQ.simulateL2({stx:stxx, onTrade:true});
+			if(CIQ.simulateL2) CIQ.simulateL2({stx:stxx, onTrade:true});
 		} 
 
 
 		// load a symbol so the OrderBook loads
-		stxx.loadChart(props.symbol || "^USDBTC")
+		stxx.loadChart(props.symbol || "^BTCUSD")
 	}
 
 	componentDidUpdate() {

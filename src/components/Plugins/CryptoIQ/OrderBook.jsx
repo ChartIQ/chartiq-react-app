@@ -27,7 +27,7 @@ export default class OrderBook extends React.Component {
 			marketDepth.marketDepth.orderbook = orderbook
 		}
 
-		if(quoteFeed.url && quoteFeed.url.includes("simulator.chartiq.com")) CIQ.simulateL2({stx:stx, onTrade:true});
+		if(CIQ.simulateL2) CIQ.simulateL2({stx:stx, onTrade:true});
 	}
 
 	render() {

@@ -22,8 +22,13 @@ export default class MarketDepth extends React.Component {
 		super(props);
 
 		this.createEngine = container => {
-			var stxx = window.stxx = this.stx = new CIQ.ChartEngine({container: this.engineRef.current,
-			})
+			var stxx = this.stx = new CIQ.ChartEngine({container: this.engineRef.current})
+			// If in development allow access to globals
+			if(process.env.NODE_ENV !== 'production') {
+				window.CIQ = container.CIQ
+				window.$$$ = container.$$$
+				window.stxx = container.stxx
+			}
 			container.startChart(stxx, this.props.quoteFeed, this.props.quoteFeedBehavior, {})
 			stxx.addEventListener("symbolImport", this.overrideChartLayout())
 		}
@@ -38,7 +43,7 @@ export default class MarketDepth extends React.Component {
 		this.createEngine(this.engineRef.current);
 		const props = this.props;
 		let quoteFeed = props.quoteFeed;
-		let stxx = window.stxx = this.stx;
+		let stxx = this.stx;
 
 		let UIStorage=new CIQ.NameValueStore();
 
@@ -57,12 +62,12 @@ export default class MarketDepth extends React.Component {
 		this.setState((state) => Object.assign(state, defaultState))
 
 		// Setup the L2 Simulator if using the quoteFeedSimulator
-		if(quoteFeed && quoteFeed.url && quoteFeed.url.includes("simulator.chartiq.com")) {
+		if(CIQ.simulateL2) {
 			CIQ.simulateL2({stx:stxx, onTrade:true});
 		}
 
 		// load a symbol so the OrderBook loads
-		stxx.loadChart(props.symbol || "^USDBTC")
+		stxx.loadChart(props.symbol || "^BTCUSD")
 	}
 
 	componentDidUpdate() {

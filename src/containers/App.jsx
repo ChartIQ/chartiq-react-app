@@ -21,7 +21,7 @@ render() {
             },
             {   name: 'OrderBook',
                 link: 'orderbook',
-                description: 'Stand alone component for showing an current orders'
+                description: 'Stand alone component for showing current orders'
             }
         ]
         delete localStorage.myChartLayout

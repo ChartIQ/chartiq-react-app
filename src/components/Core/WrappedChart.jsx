@@ -29,7 +29,7 @@ export default class WrappedChart extends React.Component {
 
 		this.createEngine = container => {
 			var config = {container: container, chart: props.chartConstructor, preferences: props.preferences}
-			this.stxx = window.stxx = container.stxx = new CIQ.ChartEngine(config)
+			this.stxx = container.stxx = new CIQ.ChartEngine(config)
 			container.CIQ = CIQ
 			container.$$$ = $$$
 			// If in development allow access to globals
@@ -64,7 +64,7 @@ export default class WrappedChart extends React.Component {
 			const defaultMD = {stx: stx, volume:true, mountain:true, step:true, record: true, height:"50%"}
 			new CIQ.MarketDepth(Object.assign(defaultMD, plugins.cryptoiq.MarketDepth))
 			let quoteFeed = stx.quoteDriver.quoteFeed
-			if(quoteFeed && quoteFeed.url && quoteFeed.url.includes("simulator.chartiq.com")) CIQ.simulateL2({stx:stx, onTrade:true});
+			if(CIQ.simulateL2) CIQ.simulateL2({stx:stx, onTrade:true});
 		}
 		if (plugins.TFC) {
 			new CIQ.TFC({stx:stx, account: plugins.TFC.account, context:this.context.UIContext})
