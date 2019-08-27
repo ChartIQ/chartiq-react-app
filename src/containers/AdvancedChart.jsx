@@ -4,7 +4,7 @@ import { CIQ } from 'chartiq'
 import 'addOns'
 import 'markets/marketDefinitionsSample'
 import 'markets/marketSymbologySample'
-import UIManger from '../components/Core/UIManager'
+import UIManager from '../components/Core/UIManager'
 import ColorPicker from '../components/Features/ColorPicker'
 import ChartNav from '../components/Layout/ChartNav'
 import ChartArea from '../components/Layout/ChartArea'
@@ -90,7 +90,7 @@ export default class AdvancedChart extends React.Component {
 		return (
 			<ChartContext.Provider value={this.state}>
 			<div className="cq-chart-container">
-				<UIManger />
+				<UIManager />
 				<ChartNav plugins={props.plugins} />
 				<ColorPicker />
 				{ props.plugins && this.state.stx && <Plugins {...props.plugins} />}

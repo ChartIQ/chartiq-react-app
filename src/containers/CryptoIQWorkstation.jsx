@@ -4,7 +4,7 @@ import { CIQ } from 'chartiq'
 import 'addOns'
 import 'markets/marketDefinitionsSample'
 import 'markets/marketSymbologySample'
-import UIManger from '../components/Core/UIManager'
+import UIManager from '../components/Core/UIManager'
 import ChartArea from '../components/Layout/ChartArea'
 import ColorPicker from '../components/Features/ColorPicker'
 import ChartNav from '../components/Layout/ChartNav'
@@ -111,7 +111,7 @@ export default class CryptoIQWorkstation extends React.Component {
 		return (
 			<div className="cq-chart-container">
 			<ChartContext.Provider value={this.state}>
-				<UIManger />
+				<UIManager />
 				<ChartNav plugins={props.plugins} />
 				<ColorPicker />
 				<ChartArea>
