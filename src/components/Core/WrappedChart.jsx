@@ -34,10 +34,13 @@ export default class WrappedChart extends React.Component {
 			container.$$$ = $$$
 			// If in development allow access to globals for easy debugging
 			if(process.env.NODE_ENV !== 'production') {
-				window.cq_debug = {
-					CIQ: CIQ,
-					stx: this.stxx
+				if(!window.cq_debug) {
+					window.cq_debug = {
+						CIQ: CIQ,
+						stx: this.stxx
+					}
 				}
+				else window.cq_debug.stx = this.stxx
 			}
 			let addOns = props.addOns
 			container.startChart(this.stxx, this.feed, {refreshInterval: 1, bufferSize: 200}, addOns)
