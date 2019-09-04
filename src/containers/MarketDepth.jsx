@@ -22,7 +22,7 @@ export default class MarketDepth extends React.Component {
 		super(props);
 
 		this.createEngine = container => {
-			var stxx = this.stx = new CIQ.ChartEngine({container: this.engineRef.current})
+			this.stx = new CIQ.ChartEngine({container: this.engineRef.current})
 			// If in development allow access to globals for easy debugging
 			if(process.env.NODE_ENV !== 'production') {
 				if(!window.cq_debug) {
