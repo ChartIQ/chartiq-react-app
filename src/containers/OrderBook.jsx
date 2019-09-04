@@ -22,11 +22,12 @@ export default class OrderBook extends React.Component {
 
 		this.createOrderBook = orderbook => {
 			var stxx = this.stx = new CIQ.ChartEngine({container: this.engineRef.current})
-			// If in development allow access to globals
+			// If in development allow access to globals for easy debugging
 			if(process.env.NODE_ENV !== 'production') {
-				window.CIQ = orderbook.CIQ
-				window.$$$ = orderbook.$$$
-				window.stxx = orderbook.stxx
+				window.cq_debug = {
+					CIQ: CIQ,
+					stx: this.stx
+				}
 			}
 		}
 

@@ -15,7 +15,7 @@ import './chartiq-react-components.css'
 
 ReactDom.render(
 	React.createElement(MarketDepth, {
-		symbol: "^USDEUR",
+		symbol: "^BTCUSD",
 		quoteFeed: quoteFeedSimulator,
 		quoteFeedBehavior: {refreshInterval: 1}
 	}),

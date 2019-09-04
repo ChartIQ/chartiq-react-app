@@ -84,7 +84,6 @@ module.exports = {
 			chartiq: path.join(chartiqDir, 'js', 'chartiq'),
 			components: path.join(chartiqDir, 'js', 'components'),
 			componentUI: path.join(chartiqDir, 'js', 'componentUI'),
-			'./componentUI': path.join(chartiqDir, 'js', 'componentUI'),
 			addOns: path.join(chartiqDir, 'js', 'addOns')
 		},
 		extensions: ['.js', '.jsx'],

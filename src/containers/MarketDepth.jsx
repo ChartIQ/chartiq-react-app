@@ -23,11 +23,12 @@ export default class MarketDepth extends React.Component {
 
 		this.createEngine = container => {
 			var stxx = this.stx = new CIQ.ChartEngine({container: this.engineRef.current})
-			// If in development allow access to globals
+			// If in development allow access to globals for easy debugging
 			if(process.env.NODE_ENV !== 'production') {
-				window.CIQ = container.CIQ
-				window.$$$ = container.$$$
-				window.stxx = container.stxx
+				window.cq_debug = {
+					CIQ: CIQ,
+					stx: this.stx
+				}
 			}
 			container.startChart(stxx, this.props.quoteFeed, this.props.quoteFeedBehavior, {})
 			stxx.addEventListener("symbolImport", this.overrideChartLayout())
