@@ -16,6 +16,7 @@ It wraps ChartIQ's native [Web Components](https://documentation.chartiq.com/tut
 - [Customizing the project](#customizing-the-project)
 - [Commands](#commands)
 - [Configuring AddOns](#configuring-addons)
+- [Configuring Plugins](#configuring-plugins)
 - [Notes](#notes)
 - [Questions and support](#questions-and-support)
 - [Contributing to this project](#contributing-to-this-project)
@@ -30,6 +31,7 @@ There are a few key files that must be present in order for the project to compi
  - chartiq/js/chartiq.js
  - chartiq/js/componentUI.js
  - chartiq/js/components.js
+ - chartiq/js/addOns.js
  - chartiq/examples/feeds/quoteFeedSimulator.js
  - chartiq/examples/feeds/symbolLookupChartIQ.js
  - chartiq/examples/markets/marketDefinitionSamples.js
@@ -110,6 +112,15 @@ In order to keep the bundle size as small as possible this project does not, by 
 
 If you make adjustments to the project and want to test in development mode, use `npm start`. This will run the webpack dev server on port 4002. You may make adjustments or just explore the project. Verify all changes are functioning correctly in development mode before building the production bundle. Run `npm run build` to get your customized bundle.
 
+In addition to the `<AdvancedChart />` you can also build several other components from the CryptoIQ Plugin: OrderBook, MarketDepth, and the CryptoIQWorkStation. You can build all of the components at once with `npm run watch:unified` and find them listed at [localhost:4002/dist/](http://localhost:4002/dist/).
+
+This project makes use of [Webpack Merge](https://github.com/survivejs/webpack-merge) to keep its configurations more managable and allow for individual building of each component. The standard _webpack.config.js_ pulls in configurations for each component from the _webpack/_ folder and merges them together to build the project. By default the project builds the AdvancedChart but you can change the build target by setting the `env.build` variable that you pass into _webpack.config.js_. 
+
+If you would like to build for a specific component we recommend that you add a your own build script to _package.json_. The example below shows how to add a node script to build the MarketDepth component for production. The `env.build` variable has been set to reference the _webpack/webpack.market-depth.js_ in _webpack.config.js_ : 
+```json
+"build:marketDepth": "webpack --config=webpack.config.js --env.production --env.build=marketDepth"
+```
+
 See [customizing the project](#customizing-the-project) for more details about on custom builds.
 
 ## Accessing the Chart Engine
@@ -187,10 +198,34 @@ ReactDom.render(React.createElement(AdvancedChart, {
 }), document.querySelector('#app'))
 ```
 
+## Configuring Plugins
+
+Similar to the way addOns work, you can configure the plugins from the ChartIQ library with the "plugins" React prop. By default the AdvancedChart uses: CryptoIQ, ScriptIQ, and TradeFromChart (TFC). If you wish to disable a plugin, do not pass in a truth value for that plugin in the plugins prop. See the example below on how to customize the plugins:
+
+```js
+import SomeDemoClass from './path/to/demo-class.js'
+
+let enablePlugins = {TFC: {account: SomeDemoClass}, cryptoiq: {
+	MarketDepth: {
+		volume: true,
+		step: true,
+		height: 40%,
+		precedingContainer: '.chartContainer'
+	}
+}}
+
+ReactDom.render(React.createElement(AdvancedChart, {
+	plugins={enablePlugins}
+}), document.querySelector('#app'))
+
+```
+
+This example will create a [CIQ.MarketDepth](https://documentation.chartiq.com/CIQ.MarketDepth.html) instance with a height 40% of the area of your main chart but will not create an Orderbook or a toggle to display the Orderbook. It will also pass in a custom account class to [CIQ.TFC](https://documentation.chartiq.com/CIQ.TFC.html)
+
 ## Notes
 - This application will only run from `127.0.0.1`, `localhost`, and the explicit list of domains set on your particular ChartIQ library license. If you need to bind webpack dev server to a different host, like `http://0.0.0.0`, please contact your Account Manager to have those additional domains added to your license.
 
-- This release does not currently work with plugins. They will be added in a future update.
+- Plugins require a library version of 7.2+
 
 ## Questions and support
 

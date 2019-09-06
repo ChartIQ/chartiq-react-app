@@ -11,3 +11,8 @@ chartiq-chartiq-*.tgz
 
 # Ignore built files
 dist
+
+#Ignore any workspace files
+*.code-workspace
+*.sublime-workspace
+*.sublime-project

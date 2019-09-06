@@ -50,8 +50,8 @@ export default class ContextMenuDrawing extends React.Component {
 
 	componentWillUnmount() {
 		let stx = this.context.stx;
-		stx.removeEventListener(this.UIDrawingEdit.drawingCB)
-		stx.removeEventListener(this.UIDrawingEdit.drawingEditCB)
+		if(this.UIDrawingEdit.drawingCB) stx.removeEventListener(this.UIDrawingEdit.drawingCB)
+		if(this.UIDrawingEdit.drawingEditCB) stx.removeEventListener(this.UIDrawingEdit.drawingEditCB)
 	}
 
 	render () {

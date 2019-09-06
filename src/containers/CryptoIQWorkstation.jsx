@@ -5,19 +5,19 @@ import 'addOns'
 import 'markets/marketDefinitionsSample'
 import 'markets/marketSymbologySample'
 import UIManager from '../components/Core/UIManager'
+import ChartArea from '../components/Layout/ChartArea'
 import ColorPicker from '../components/Features/ColorPicker'
 import ChartNav from '../components/Layout/ChartNav'
-import ChartArea from '../components/Layout/ChartArea'
-import WrappedChart from '../components/Core/WrappedChart'
 import SidePanel from '../components/Layout/SidePanel'
-import ScriptIQ from '../components/Plugins/ScriptIQ/ScriptIQ'
-import TradePanel from '../components/Plugins/TFC/TradePanel'
+import TradeHistory from '../components/Plugins/CryptoIQ/TradeHistory'
+import OrderBook from '../components/Plugins/CryptoIQ/OrderBook'
+import WrappedChart from '../components/Core/WrappedChart'
 import ChartDialogs from '../components/Dialogs/ChartDialogs'
 import ChartFooter from '../components/Layout/ChartFooter'
+
+import TradePanel from '../components/Plugins/TFC/TradePanel'
+
 import { ChartContext } from '../react-chart-context'
-import BottomPanel from '../components/Layout/BottomPanel';
-import MarketDepth from '../components/Plugins/CryptoIQ/MarketDepth';
-import Plugins from '../components/Core/Plugins';
 
 /**
  * This is a fully functional example showing how to load a chart with complete user interface.
@@ -28,13 +28,13 @@ import Plugins from '../components/Core/Plugins';
  * @class AdvancedChart
  * @extends {React.Component}
  */
-export default class AdvancedChart extends React.Component {
+export default class CryptoIQWorkstation extends React.Component {
 	constructor(props) {
 		super(props)
 
 		this.setContext = (update) => {
 			this.setState((state) => {
-				return Object.assign(this.state, update)
+				return Object.assign(this.context, update)
 			}) 
 			return update
 		}
@@ -42,26 +42,45 @@ export default class AdvancedChart extends React.Component {
 		let UIContext=new CIQ.UI.Context(null, document.querySelector("*[cq-context]"));
 		let UILayout=new CIQ.UI.Layout(UIContext);
 		let KeystrokeHub=new CIQ.UI.KeystrokeHub(document.querySelector("body"), UIContext, {cb:CIQ.UI.KeystrokeHub.defaultHotKeys});
-		// var UIStudyEdit=new CIQ.UI.StudyEdit(null, UIContext);
-		// var UIDrawingEdit = new CIQ.UI.DrawingEdit(null, UIContext);
 
 		this.state = {
 			stx: null,
 			UIContext: UIContext,
-			components: {AdvancedChart: this},
 			setContext: this.setContext,
+			components: {AdvancedChart: this},
 			registerComponent: (component) => { this.registerComponent(component) },
 			resize: () => { this.resizeScreen() }
 		}
 	}
 
-	componentDidMount() {
-		window.addEventListener("resize", this.resizeScreen.bind(this));
+	getSnapshotBeforeUpdate(prevProps, prevState) {
+		if(prevState.stx===null && this.state.stx!=null) {
+			this.state.stx.addEventListener("symbolImport", this.overrideChartLayout())
+		}
+		return null
 	}
 
-	componentDidUpdate() {
+	componentDidUpdate(prevProps, prevState, snapshot) {
 		CIQ.UI.begin()
 		CIQ.UI.BaseComponent.nextTick()
+	}
+
+	overrideChartLayout() {
+		let self = this
+		return function () {
+			this.setChartType('line');
+			this.slider.slider.setChartType('line')
+			Object.assign(this.layout,{
+				crosshair:true,
+				headsUp:"static",
+				l2heatmap:true,
+				rangeSlider:true,
+				marketDepth:true,
+				extended:false
+			});
+			self.context.UIContext.ToggleTradePanel.set(true)
+			this.changeOccurred('layout');
+		}
 	}
 
 	registerComponent(component) {
@@ -75,11 +94,10 @@ export default class AdvancedChart extends React.Component {
 		let context = Object.keys(this.context).length ? this.context : this.state
 		if(!context || !context.chartArea || !context.UIContext) return
 		let chartArea = context.chartArea
-		let parentWidth = chartArea.node.parentElement.clientWidth
 		let sidePanel
 		if(context.UIContext.SidePanel)  sidePanel = context.UIContext.SidePanel
 		let sidePanelWidth = sidePanel? sidePanel.nonAnimatedWidth() : 0
-		chartArea.node.style.width = parentWidth - sidePanelWidth + 'px'
+		chartArea.node.style.width = chartArea.width - sidePanelWidth +'px'
 	}
 
 	render() {
@@ -87,42 +105,50 @@ export default class AdvancedChart extends React.Component {
 		let quoteFeed = props.quoteFeed
 		let chartConstructor = props.chartConstructor
 		let preferences = props.preferences
+		let plugins = props.plugins || {}
+		let cryptoiq = plugins.cryptoiq 
+
 		return (
-			<ChartContext.Provider value={this.state}>
 			<div className="cq-chart-container">
+			<ChartContext.Provider value={this.state}>
 				<UIManager />
 				<ChartNav plugins={props.plugins} />
 				<ColorPicker />
-				{ props.plugins && this.state.stx && <Plugins {...props.plugins} />}
 				<ChartArea>
-					<WrappedChart  
-						quoteFeed={quoteFeed}
-						chartConstructor={chartConstructor}
-						preferences={preferences}
-						staticHeadsUp={true}
-						dynamicHeadsUp={true}
-						addOns={props.addOns}
-						plugins={props.plugins}
-						/>
-					<MarketDepth plugins={props.plugins}/>
+					<div id="flexContainer">
+						<TradeHistory />
+						<div id="cryptoGroup2">
+							<div id="marketDepthBookmark" /> 
+							{cryptoiq.OrderBook && this.context.stx && <OrderBook 
+								amount={cryptoiq.OrderBook.amount}
+								size={cryptoiq.OrderBook.size}
+								price={cryptoiq.OrderBook.price}
+							/>}
+						</div>
+						<div id="mainChartGroup">
+							<WrappedChart
+								quoteFeed={quoteFeed}
+								chartConstructor={chartConstructor}
+								preferences={preferences}
+								staticHeadsUp={true}
+								dynamicHeadsUp={true}
+								addOns={props.addOns}
+								plugins={props.plugins}
+							/>
+						</div>						
+					</div>
 				</ChartArea>
-				<BottomPanel>
-					{ props.plugins.ScriptIQ &&
-						<ScriptIQ />
-					}
-					{/* <ScriptEditor /> */}
-				</BottomPanel>
 				<SidePanel>
-					{props.plugins && props.plugins.TFC &&
+					{props.plugins && props.plugins.TFC && 
 						<TradePanel />
 					}
-				</SidePanel>
+				</SidePanel>				
+				<ChartFooter />
 				<ChartDialogs />
-			</div>
-			<ChartFooter />
 			</ChartContext.Provider>
+			</div>
 		)
 	}
 }
-AdvancedChart.contextType = ChartContext
+CryptoIQWorkstation.contextType = ChartContext
 

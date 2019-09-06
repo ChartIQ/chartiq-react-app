@@ -8,6 +8,7 @@ import HeadsUpStatic from '../Features/HeadsUpStatic'
 import HeadsUpDynamic from '../Features/HeadsUpDynamic'
 import MarkerAbstract from '../Features/MarkerAbstract'
 import DataAttribution from '../Features/DataAttribution'
+
 import { ChartContext } from '../../react-chart-context'
 
 /**
@@ -31,12 +32,26 @@ export default class WrappedChart extends React.Component {
 			this.stxx = container.stxx = new CIQ.ChartEngine(config)
 			container.CIQ = CIQ
 			container.$$$ = $$$
+			// If in development allow access to globals for easy debugging
+			if(process.env.NODE_ENV !== 'production') {
+				if(!window.cq_debug) {
+					window.cq_debug = {
+						CIQ: CIQ,
+						stx: this.stxx
+					}
+				}
+				else window.cq_debug.stx = this.stxx
+			}
 			let addOns = props.addOns
 			container.startChart(this.stxx, this.feed, {refreshInterval: 1, bufferSize: 200}, addOns)
 			this.context.setContext({stx: this.stxx})
+			this.configurePlugins(this.stxx)
 		}
 
 		this.engineRef = React.createRef()
+		if(props.plugins) {
+			if(props.plugins.cryptoiq) this.orderbookRef = React.createRef()
+		}
 		this.feed = this.props.quoteFeed || quoteFeedSimulator
 	}
 
@@ -44,6 +59,20 @@ export default class WrappedChart extends React.Component {
 		this.createEngine(this.engineRef.current);
 		window.addEventListener("resize", this.resizeScreen.bind(this));
 		this.resizeScreen();
+	}
+
+	configurePlugins(stx) {
+		const plugins = this.props.plugins;
+		if (!plugins) return;
+		if (plugins.cryptoiq) {
+			const defaultMD = {stx: stx, volume:true, mountain:true, step:true, record: true, height:"50%"}
+			new CIQ.MarketDepth(Object.assign(defaultMD, plugins.cryptoiq.MarketDepth))
+			let quoteFeed = stx.quoteDriver.quoteFeed
+			if(CIQ.simulateL2) CIQ.simulateL2({stx:stx, onTrade:true});
+		}
+		if (plugins.TFC) {
+			new CIQ.TFC({stx:stx, account: plugins.TFC.account, context:this.context.UIContext})
+		}
 	}
 
 	resizeScreen(){
@@ -62,28 +91,36 @@ export default class WrappedChart extends React.Component {
 	}
 
 	render () {
+		const props = this.props;
+		const context = this.context;
+
 		const Comparison = React.forwardRef((props, ref) => (
 			ref.current && <ChartComparison forwardeRef={ref} />
 		))
 
+		const classes = props.classes || "ciq-chart-area"
 		return (
 			<React.Fragment>
-			<div className={"ciq-chart-area"}>
 				<div className={"ciq-chart"}>
-					{ this.context.stx && <ToolbarDrawing /> }
+					{context.stx &&
+						<>
+						<ToolbarDrawing />
+						<MarkerAbstract />
+						</>
+					}
 					<chartiq-chart class="chartContainer" defer-start="true" animations="false" ref={this.engineRef}>
-						{ this.context.stx && <TitleOverlay refProp={this.engineRef} /> }
+						{ context.stx && <TitleOverlay refProp={this.engineRef} /> }
 						<LoadingWidget />
-						{this.props.dynamicHeadsUp && this.context.stx && <HeadsUpDynamic />
+						{props.dynamicHeadsUp && context.stx && <HeadsUpDynamic />
 						}
 
-						{this.props.staticHeadsUp && this.context.stx && <HeadsUpStatic />
+						{props.staticHeadsUp && context.stx && <HeadsUpStatic />
 						}
 						<DataAttribution />
+						{this.props.children}
 					</chartiq-chart>
-					{ this.context.stx && <MarkerAbstract /> }
+
 				</div>
-			</div>
 			</React.Fragment>
 		)
 	}
