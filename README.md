@@ -146,7 +146,7 @@ For more information about building a custom quoteFeed to provide data for your 
 
 ## Customizing the project
 
-The Advanced Chart compopnent is designed as a full-feature drop-in charting component. However, you may not require every feature in this project. If you wish to omit certain features or change the default appearance, you are free to make adjustments to the files in *src/components/* and *src/containers*. If you chose to customize the appearance of this project, **it is strongly recommended that you run the project in development mode and verify all changes are functioning correctly before building.**
+The Advanced Chart compopnent is designed as a full-feature drop-in "Charting App". However, you may not require every feature in this project. If you wish to omit certain features or change the default appearance, you are free to make adjustments to the files in *src/components/* and *src/containers*. If you chose to customize the appearance of this project, **it is strongly recommended that you run the project in development mode and verify all changes are functioning correctly before building.**
 
 Certain feature components, such as menus, have accompanying dialog components. When removing a feature component, it is best to remove all accompanying components. Though leaving unused components in the project will have no adverse impact on the user experience, removing them will keep your final build size as small as possible. For example, if you choose to remove the `<MenuViews />` component from the `<ChartMenus />` component, also be sure to remove the `<DialogView />` component from `<ChartDialogs />`.
 
