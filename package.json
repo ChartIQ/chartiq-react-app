@@ -19,7 +19,7 @@
     "library"
   ],
   "author": "ChartIQ",
-  "license": "ISC",
+  "license": "apache-2.0",
   "devDependencies": {
     "@babel/cli": "^7.1.2",
     "@babel/core": "^7.1.2",
