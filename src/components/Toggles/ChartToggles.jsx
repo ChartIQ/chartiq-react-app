@@ -75,9 +75,9 @@ export default class ChartToggles extends React.Component {
 		</div>
 
 		<div className="icon-toggles ciq-toggles" ref={this.sidenav}>
+			<ToggleDrawing />
 			<ToggleCrosshair />
 			{ hud }
-			<ToggleDrawing />
 		</div>
 		</>
 		)

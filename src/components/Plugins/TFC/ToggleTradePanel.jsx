@@ -21,7 +21,7 @@ export default class ToggleTradePanel extends React.Component {
 					sidePanel.open({selector:".stx-trade-panel",className:"active"});
 					this.node.addClass("active");
 					$(".stx-trade-panel").removeClass("closed");
-					stxx.layout.sidenav = 'sidenavOff'; // in break-sm hide sidenav when turning on tfc side panel
+					stx.layout.sidenav = 'sidenavOff'; // in break-sm hide sidenav when turning on tfc side panel
 				}else{
 					sidePanel.close();
 					this.node.removeClass("active");
@@ -30,6 +30,7 @@ export default class ToggleTradePanel extends React.Component {
 				let sidePanelWidth = sidePanel.nonAnimatedWidth()
 				context.chartArea.node.style.right = sidePanelWidth+'px'
 				context.resize()
+				document.querySelector('cq-palette-dock').handleResize();
 			});
 	}
 

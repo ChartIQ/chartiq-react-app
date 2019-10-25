@@ -23,7 +23,7 @@ import { ChartContext } from '../../react-chart-context'
  */
 export default class ChartDialogs extends React.Component {
 	render() {
-		// Condititionally render ContextMenuDrawing and to make sure that the ToolBarDrawing has been mounted
+		// Condititionally render ContextMenuDrawing and to make sure that the PaletteDrawing has been mounted
 		// If not then DrawingEdit won't find the <cq-toolbar> web component and editing drawings won't work.
 		return(
 			<>
@@ -34,7 +34,7 @@ export default class ChartDialogs extends React.Component {
 			<DialogLanguage />
 			<DialogShare />
 			<DialogTheme />
-			{this.context.UIContext.ToolbarDrawing && <ContextMenuDrawing /> }
+			{this.context.UIContext.PaletteDrawing && <ContextMenuDrawing /> }
 			<ContextMenuStudy />
 			</>
 		)

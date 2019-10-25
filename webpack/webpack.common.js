@@ -5,6 +5,7 @@ const MiniCssExtractPlugin = require('extract-css-chunks-webpack-plugin');  // u
 const chartiqDir = path.join(__dirname, '..', 'chartiq')
 const examplesDir = path.join(__dirname, '..', 'chartiq', 'examples')
 const pluginsDir = path.join(__dirname, '..', 'chartiq', 'plugins')
+const thirdpartyDir = path.join(__dirname, '..', 'chartiq', 'js', 'thirdparty')
 const devDir = path.join(__dirname, '..', 'src')
 
 module.exports = {
@@ -84,7 +85,8 @@ module.exports = {
 			chartiq: path.join(chartiqDir, 'js', 'chartiq'),
 			components: path.join(chartiqDir, 'js', 'components'),
 			componentUI: path.join(chartiqDir, 'js', 'componentUI'),
-			addOns: path.join(chartiqDir, 'js', 'addOns')
+			addOns: path.join(chartiqDir, 'js', 'addOns'),
+			perfectScrollbar: path.join(thirdpartyDir, 'perfect-scrollbar.jquery')
 		},
 		extensions: ['.js', '.jsx'],
 		modules: [
@@ -93,6 +95,7 @@ module.exports = {
 			chartiqDir,
 			examplesDir,
 			pluginsDir,
+			thirdpartyDir,
 			path.join(chartiqDir, 'js')
 		]
 	}

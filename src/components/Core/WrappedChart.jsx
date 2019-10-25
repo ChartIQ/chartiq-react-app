@@ -2,7 +2,7 @@ import React from 'react'
 import { CIQ } from 'chartiq'
 import { ChartIQChart } from 'components'
 import TitleOverlay from '../Layout/TitleOverlay'
-import ToolbarDrawing from '../Features/ToolbarDrawing'
+import PaletteDrawing from '../Features/PaletteDrawing'
 import LoadingWidget from './LoadingWidget'
 import HeadsUpStatic from '../Features/HeadsUpStatic'
 import HeadsUpDynamic from '../Features/HeadsUpDynamic'
@@ -104,7 +104,7 @@ export default class WrappedChart extends React.Component {
 				<div className={"ciq-chart"}>
 					{context.stx &&
 						<>
-						<ToolbarDrawing />
+						<PaletteDrawing />
 						<MarkerAbstract />
 						</>
 					}

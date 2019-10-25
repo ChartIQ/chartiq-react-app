@@ -5,7 +5,7 @@ import { ChartContext } from '../../react-chart-context'
 /**
  * Chart menu component `<ContextMenuDrawing>`
  * 
- * Contextual menu which provides additional settings for elements drawn using the {@link ToolbarDrawing} component.
+ * Contextual menu which provides additional settings for elements drawn using the {@link PaletteDrawing} component.
  *
  * @export
  * @class ContextMenuDrawing
