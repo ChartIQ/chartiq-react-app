@@ -2,7 +2,7 @@
   "name": "chartiq-react-app",
   "version": "1.0.0",
   "description": "ChartIQ's full featured charting application written in ReactJS",
-  "main": "index.js",
+  "main": "dist/bundle.js",
   "scripts": {
     "build": "webpack --config=webpack.config.js --env.production",
     "build:polyfill": "webpack --config=webpack.config.js --env.production=polyfill",

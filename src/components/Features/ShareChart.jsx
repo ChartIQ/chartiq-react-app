@@ -1,5 +1,6 @@
 import React from 'react'
 import { Clickable } from 'components'
+import { CIQ, $$$ } from 'chartiq'
 import * as html2canvas from 'thirdparty/html2canvas'
 
 /**

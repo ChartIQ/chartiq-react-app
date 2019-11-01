@@ -1,6 +1,7 @@
 import React from 'react'
 import 'feeds/symbolLookupChartIQ'
 import { Lookup, Menu, Scroll } from 'components'
+import { CIQ, $$$ } from 'chartiq'
 import { ChartContext } from '../../react-chart-context'
 
 /**

@@ -1,5 +1,6 @@
 import React from 'react'
 import { Dialog, DrawingDialog, Menu, MenuDropdown } from 'components'
+import { CIQ, $$$ } from 'chartiq'
 import { ChartContext } from '../../react-chart-context'
 
 /**

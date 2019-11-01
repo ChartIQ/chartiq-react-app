@@ -1,4 +1,5 @@
 import React from 'react'
+import { CIQ, $$$ } from 'chartiq'
 import { ChartContext } from '../../react-chart-context'
 import { Toggle } from 'components'
 

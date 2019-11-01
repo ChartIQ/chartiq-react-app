@@ -21,7 +21,7 @@ import { ChartContext } from '../react-chart-context'
  * @class AdvancedChart
  * @extends {React.Component}
  */
-export default class AdvancedChart extends React.Component {
+export class AdvancedChart extends React.Component {
 	constructor(props) {
 		super(props)
 
@@ -79,4 +79,3 @@ export default class AdvancedChart extends React.Component {
 	}
 }
 AdvancedChart.contextType = ChartContext
-

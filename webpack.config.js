@@ -75,6 +75,7 @@ module.exports = (env) => {
 			// The location the bundles are placed when built with the webpack command.
 			// https://webpack.js.org/configuration/output/#output-path
 			path: path.join(__dirname, 'dist'),
+    	libraryTarget: 'commonjs'
 		},
 		optimization: {
 			// Let other entries know that chartiq.js is its own entry

@@ -1,5 +1,6 @@
 import React from 'react'
 import { ChartContext } from '../../react-chart-context'
+import { CIQ, $$$ } from 'chartiq'
 
 /**
  * Dynamic Heads Up component `<HeadsUpDynamic/>`
