@@ -26,6 +26,7 @@ export default class ChartToggles extends React.Component {
 		let chart = this.context.stx.container
 		let ciqChart = chart.parentElement
 		let sidenavRef = this.sidenav.current
+		let context = this.context
 
 		this.toggleSidenav.current.registerCallback(function (value) {
 			var stx=this.context.stx, rightPx;
@@ -42,6 +43,8 @@ export default class ChartToggles extends React.Component {
 				stx.layout.sidenav = "sidenavOff";
 			}
 			ciqChart.parentElement.style.marginRight = rightPx +'px';
+			context.resize();
+			document.querySelector('cq-palette-dock').handleResize();
 			stx.resizeChart();
 		});
 
