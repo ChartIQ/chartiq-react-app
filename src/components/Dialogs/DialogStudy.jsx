@@ -1,8 +1,4 @@
 import React from 'react'
-import { StudyContext, StudyDialog, StudyInput, StudyOutput, studyParameter } from 'components'
-import ColorSwatch from '../Features/ColorSwatch'
-import ColorPicker from '../Features/ColorPicker'
-import {ChartContext} from '../../react-chart-context'
 
 /**
  * Study dialog component `<DialogStudy/>`

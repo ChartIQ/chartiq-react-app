@@ -1,0 +1,42 @@
+#flexContainer {
+    position:absolute;
+    top:-15px;
+    bottom:5px;
+    left:0;
+    right:0;
+    overflow:hidden;
+    padding:10px 0;
+}
+#cryptoGroup1, #cryptoGroup2 {
+    float:left;
+    width:15%;
+    height:100%;
+    padding:5px 5px 10px;
+}
+#cryptoGroup2 {
+    width:25%;
+}
+#mainChartGroup {
+    display:flex;
+    flex-direction: column;
+    display:grid;  /* a better model, if browser supports */
+    height:100%;
+    padding:10px;
+}
+#marketDepthBookmark {
+    display:none;
+}
+#orderBookContainer, #tradeHistoryContainer {
+    width:100%;
+    padding-top:5px;
+}
+cq-orderbook, cq-tradehistory {
+    position:relative !important;
+}
+
+/* these pertain to the sample-template */
+cq-item[stxsetget="Layout.ExtendedHours()"],
+cq-item[stxsetget="Layout.MarketDepth()"],
+cq-item[stxtap="Markers.showMarkers(\'abstract\')"] {
+    display:none;
+}

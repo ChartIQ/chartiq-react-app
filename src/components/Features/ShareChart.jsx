@@ -1,6 +1,6 @@
 import React from 'react'
-import { Clickable } from 'components'
-import * as html2canvas from 'thirdparty/html2canvas'
+import { CIQ } from 'chartiq'
+import * as html2canvas from 'chartiq/js/thirdparty/html2canvas'
 
 /**
  * Share chart button component `<ShareChart/>`

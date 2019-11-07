@@ -1,5 +1,4 @@
 import React from 'react'
-import { Menu, MenuDropDown, Scroll, Views } from 'components'
 import { ChartContext } from '../../react-chart-context'
 
 /**
@@ -14,10 +13,16 @@ import { ChartContext } from '../../react-chart-context'
  * @extends {React.Component}
  */
 export default class MenuViews extends React.Component {
+	constructor(){
+		super()
+		this.templateRef = React.createRef()
+		this.viewsRef = React.createRef()
+	}
+
 	componentDidMount() {
-		var views = $$$('cq-views')
+		var views = this.viewsRef.current
 		views.params = {};
-		views.template = $$$('template.cq-view')
+		views.template = this.templateRef.current
 		views.initialize()
 	}
 
@@ -26,10 +31,10 @@ export default class MenuViews extends React.Component {
 <cq-menu class="ciq-menu ciq-views collapse">
 	<span>Views</span>
 	<cq-menu-dropdown>
-		<cq-views>
+		<cq-views ref={this.viewsRef}>
 		<cq-heading>Saved Views</cq-heading>
 			<cq-views-content>
-				<template cq-view="">
+				<template cq-view="" ref={this.templateRef}>
 					<cq-item>
 					<cq-label></cq-label>
 					<div className={"ciq-icon ciq-close"}></div>

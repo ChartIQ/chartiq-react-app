@@ -1,6 +1,6 @@
 import React from 'react'
+import { CIQ } from 'chartiq'
 import { ChartContext } from '../../react-chart-context'
-import { Toggle } from 'components'
 
 export default class ToggleHUD extends React.Component {
 

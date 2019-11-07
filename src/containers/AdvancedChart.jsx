@@ -1,16 +1,19 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import { CIQ } from 'chartiq'
-import 'addOns'
-import 'markets/marketDefinitionsSample'
-import 'markets/marketSymbologySample'
-import UIManger from '../components/Core/UIManager'
+import UIManager from '../components/Core/UIManager'
 import ColorPicker from '../components/Features/ColorPicker'
 import ChartNav from '../components/Layout/ChartNav'
+import ChartArea from '../components/Layout/ChartArea'
 import WrappedChart from '../components/Core/WrappedChart'
+import SidePanel from '../components/Layout/SidePanel'
+import ScriptIQ from '../components/Plugins/ScriptIQ/ScriptIQ'
+import TradePanel from '../components/Plugins/TFC/TradePanel'
 import ChartDialogs from '../components/Dialogs/ChartDialogs'
 import ChartFooter from '../components/Layout/ChartFooter'
 import { ChartContext } from '../react-chart-context'
+import BottomPanel from '../components/Layout/BottomPanel';
+import MarketDepth from '../components/Plugins/CryptoIQ/MarketDepth';
+import Plugins from '../components/Core/Plugins';
 
 /**
  * This is a fully functional example showing how to load a chart with complete user interface.
@@ -27,15 +30,9 @@ export default class AdvancedChart extends React.Component {
 
 		this.setContext = (update) => {
 			this.setState((state) => {
-				return Object.assign(this.context, update)
+				return Object.assign(this.state, update)
 			}) 
 			return update
-		}
-
-		this.getHeight = (update) => {
-			this.setState((state) => {
-				return Object.assign(this.context.height, )
-			})
 		}
 
 		let UIContext=new CIQ.UI.Context(null, document.querySelector("*[cq-context]"));
@@ -47,15 +44,38 @@ export default class AdvancedChart extends React.Component {
 		this.state = {
 			stx: null,
 			UIContext: UIContext,
-			height: null,
+			components: {AdvancedChart: this},
 			setContext: this.setContext,
-			getHeight: this.getHeight
+			registerComponent: (component) => { this.registerComponent(component) },
+			resize: () => { this.resizeScreen() }
 		}
+	}
+
+	componentDidMount() {
+		window.addEventListener("resize", this.resizeScreen.bind(this));
 	}
 
 	componentDidUpdate() {
 		CIQ.UI.begin()
 		CIQ.UI.BaseComponent.nextTick()
+	}
+
+	registerComponent(component) {
+		this.setState((state) => {
+			return Object.assign(this.state.components, component)
+		})
+		return component
+	}
+
+	resizeScreen() {
+		let context = Object.keys(this.context).length ? this.context : this.state
+		if(!context || !context.chartArea || !context.UIContext) return
+		let chartArea = context.chartArea
+		let parentWidth = chartArea.node.parentElement.clientWidth
+		let sidePanel
+		if(context.UIContext.SidePanel)  sidePanel = context.UIContext.SidePanel
+		let sidePanelWidth = sidePanel? sidePanel.nonAnimatedWidth() : 0
+		chartArea.node.style.width = parentWidth - sidePanelWidth + 'px'
 	}
 
 	render() {
@@ -64,17 +84,39 @@ export default class AdvancedChart extends React.Component {
 		let chartConstructor = props.chartConstructor
 		let preferences = props.preferences
 		return (
-			<div className="cq-chart-container">
 			<ChartContext.Provider value={this.state}>
-				<UIManger />
-				<ChartNav />
+			<div className="cq-chart-container">
+				<UIManager />
+				<ChartNav plugins={props.plugins} />
 				<ColorPicker />
-				<WrappedChart  quoteFeed={quoteFeed} chartConstructor={chartConstructor
-				} preferences={preferences} staticHeadsUp={true} dynamicHeadsUp={true} addOns={props.addOns} />
-				<ChartFooter />
+				{ props.plugins && this.state.stx && <Plugins {...props.plugins} />}
+				<ChartArea>
+					<WrappedChart  
+						quoteFeed={quoteFeed}
+						chartConstructor={chartConstructor}
+						preferences={preferences}
+						staticHeadsUp={true}
+						dynamicHeadsUp={true}
+						addOns={props.addOns}
+						plugins={props.plugins}
+						/>
+					<MarketDepth plugins={props.plugins}/>
+				</ChartArea>
+				<BottomPanel>
+					{ props.plugins.ScriptIQ &&
+						<ScriptIQ />
+					}
+					{/* <ScriptEditor /> */}
+				</BottomPanel>
+				<SidePanel>
+					{props.plugins && props.plugins.TFC &&
+						<TradePanel />
+					}
+				</SidePanel>
 				<ChartDialogs />
-			</ChartContext.Provider>
 			</div>
+			<ChartFooter />
+			</ChartContext.Provider>
 		)
 	}
 }

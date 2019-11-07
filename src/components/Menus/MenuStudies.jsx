@@ -1,7 +1,6 @@
 import React from 'react'
 import MenuStudyLegend from './MenuStudyLegend'
 import { ChartContext } from '../../react-chart-context'
-import { Menu, MenuDropDown, Scroll, Studies, StudyLegend } from 'components'
 
 /**
  * Chart menu component `<MenuStudies>`
@@ -15,41 +14,46 @@ import { Menu, MenuDropDown, Scroll, Studies, StudyLegend } from 'components'
  * @extends {React.Component}
  */
 export default class MenuStudies extends React.Component {
+	constructor(){
+		super()
+		this.studiesRef = React.createRef()
+	}
 	
 	componentDidMount () {
-		let studies = $$$('cq-studies')
-		let legend = $$$('cq-study-legend')
+		let studies = this.studiesRef.current
 		var studyParams = {template: "#studies"}
 		studies.initialize(studyParams)
-		legend.begin()
-	}
+	}	
 
 	render () {
 		return (
 			<cq-menu class="ciq-menu ciq-studies collapse">
 				<span>Studies</span>
 				<cq-menu-dropdown cq-no-scroll>
-					<MenuStudyLegend heading={"Current Studies"} clearAll={true} />
-					{/*<!-- comment in the following lines if you have access to ScriptIQ -->
-					<!-- <cq-heading>ScriptIQ</cq-heading>
-						<cq-item><cq-clickable cq-selector="cq-scriptiq-editor" cq-method="open">New Script</cq-clickable></cq-item>
-						<cq-scriptiq-menu>
-							<cq-scriptiq-content>
-									<template>
-										<cq-item>
-											<cq-label></cq-label>
-											<div>
-												<span class="ciq-edit"></span>
-												<span class="ciq-icon ciq-close"></span>
-											</div>
-										</cq-item>
-									</template>
-							</cq-scriptiq-content>
-						</cq-scriptiq-menu>
-					<cq-separator></cq-separator>
-					<cq-heading>Studies</cq-heading> -->*/}
+					<MenuStudyLegend heading={"Current Studies"} clearAll={true} ref={this.studyLegendRef}/>
+					{this.props.plugins.ScriptIQ &&
+						<>
+						<cq-heading>ScriptIQ</cq-heading>
+							<cq-item  onClick={this.context.resize} ><cq-clickable cq-selector="cq-scriptiq-editor" cq-method="open">New Script</cq-clickable></cq-item>
+							<cq-scriptiq-menu>
+								<cq-scriptiq-content>
+										<template>
+											<cq-item>
+												<cq-label></cq-label>
+												<div>
+													<span className="ciq-edit"></span>
+													<span className="ciq-icon ciq-close"></span>
+												</div>
+											</cq-item>
+										</template>
+								</cq-scriptiq-content>
+							</cq-scriptiq-menu>
+						<cq-separator></cq-separator>
+						<cq-heading>Studies</cq-heading>
+						</>
+					}
 					<cq-scroll>
-						<cq-studies>
+						<cq-studies ref={this.studiesRef}>
 							<cq-studies-content>
 									<template id="studies">
 										<cq-item>
@@ -64,3 +68,4 @@ export default class MenuStudies extends React.Component {
 		)
 	}
 }
+MenuStudies.contextType = ChartContext

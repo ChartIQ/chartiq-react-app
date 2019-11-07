@@ -1,11 +1,11 @@
 import React from 'react'
-import { Dialog, DrawingDialog, Menu, MenuDropdown } from 'components'
+import { CIQ } from 'chartiq'
 import { ChartContext } from '../../react-chart-context'
 
 /**
  * Chart menu component `<ContextMenuDrawing>`
  * 
- * Contextual menu which provides additional settings for elements drawn using the {@link ToolbarDrawing} component.
+ * Contextual menu which provides additional settings for elements drawn using the {@link PaletteDrawing} component.
  *
  * @export
  * @class ContextMenuDrawing
@@ -19,7 +19,6 @@ export default class ContextMenuDrawing extends React.Component {
 
 	componentDidMount () {
 		let UIContext = this.context.UIContext;
-		let ciqChart = $$$('div.ciq-chart')
 
 		var UIDrawingEdit = new CIQ.UI.DrawingEdit(null, UIContext);
 
@@ -50,8 +49,8 @@ export default class ContextMenuDrawing extends React.Component {
 
 	componentWillUnmount() {
 		let stx = this.context.stx;
-		stx.removeEventListener(this.UIDrawingEdit.drawingCB)
-		stx.removeEventListener(this.UIDrawingEdit.drawingEditCB)
+		if(this.UIDrawingEdit.drawingCB) stx.removeEventListener(this.UIDrawingEdit.drawingCB)
+		if(this.UIDrawingEdit.drawingEditCB) stx.removeEventListener(this.UIDrawingEdit.drawingEditCB)
 	}
 
 	render () {

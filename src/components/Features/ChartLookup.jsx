@@ -1,6 +1,6 @@
 import React from 'react'
-import 'feeds/symbolLookupChartIQ'
-import { Lookup, Menu, Scroll } from 'components'
+import { CIQ } from 'chartiq'
+import 'chartiq/examples/feeds/symbolLookupChartIQ'
 import { ChartContext } from '../../react-chart-context'
 
 /**
@@ -23,7 +23,8 @@ export default class ChartLookup extends React.Component {
 
 	constructor() {
 		super()
-		this.symbolInput = React.createRef();
+		this.symbolInputRef = React.createRef()
+		this.lookupRef = React.createRef()
 	}
 
 	componentDidMount() {
@@ -41,7 +42,7 @@ export default class ChartLookup extends React.Component {
 			};
 
 			UIContext.setLookupDriver(new CIQ.ChartEngine.Driver.Lookup.ChartIQ());
-			UIContext.UISymbolLookup=$$$(".ciq-nav cq-lookup");
+			UIContext.UISymbolLookup=this.lookupRef.current;
 			UIContext.UISymbolLookup.setCallback(function(context, data){
 				context.changeSymbol(data);
 			});
@@ -61,11 +62,11 @@ export default class ChartLookup extends React.Component {
 		let containerWidth = document.querySelector('.cq-chart-container').offsetWidth;
 
 		if (containerWidth> 700) {
-			this.symbolInput.current.placeholder = "Enter Symbol";
+			if(this.symbolInputRef.current) this.symbolInputRef.current.placeholder = "Enter Symbol";
 		}else if (containerWidth <= 700 && containerWidth > 584) {
-			this.symbolInput.current.placeholder = "Symbol";
+			if(this.symbolInputRef.current) this.symbolInputRef.current.placeholder = "Symbol";
 		}else if (containerWidth <= 584) {
-			this.symbolInput.current.placeholder = "";
+			if(this.symbolInputRef.current) this.symbolInputRef.current.placeholder = "";
 		}
 	}
 
@@ -75,7 +76,7 @@ export default class ChartLookup extends React.Component {
 
 <React.Fragment>
 	<cq-menu class="ciq-search">
-		<cq-lookup cq-keystroke-claim cq-keystroke-default>
+		<cq-lookup cq-keystroke-claim cq-keystroke-default ref={this.lookupRef}>
 			<cq-lookup-input cq-no-close>
 				<input id="symbol" type="text" spellCheck="off" autoComplete="off" autoCorrect="off" autoCapitalize="off" name="symbol" placeholder="Enter Symbol" ref={this.symbolInput} />
 				<cq-lookup-icon></cq-lookup-icon>

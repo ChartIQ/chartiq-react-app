@@ -1,5 +1,4 @@
 import React from 'react'
-import { Toggle } from 'components'
 import { ChartContext } from '../../react-chart-context'
 
 /**
@@ -29,6 +28,7 @@ export default class ToggleDrawing extends React.Component {
 			chart.setHeight();
 			var stx=this.context.stx;
 			stx.resizeChart();
+			document.querySelector('cq-palette-dock').handleResize();
 
 			// a little code here to remember what the previous drawing tool was
 			// and to re-enable it when the toolbar is reopened

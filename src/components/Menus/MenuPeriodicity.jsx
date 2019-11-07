@@ -1,6 +1,4 @@
 import React from 'react'
-import { Lookup, Menu, MenuDropDown, Scroll }from 'components'
-import { ChartContext } from '../../react-chart-context'
 /**
  * Chart menu component `<MenuPeriodicity>`
  * 

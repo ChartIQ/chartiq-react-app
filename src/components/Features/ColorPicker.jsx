@@ -1,5 +1,4 @@
 import React from 'react'
-import { ColorPicker as  ColorPickerWebComponent} from 'components'
 
 /**
  * Color picker component `<ColorPicker/>`

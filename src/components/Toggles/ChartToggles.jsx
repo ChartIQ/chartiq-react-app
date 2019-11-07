@@ -2,7 +2,6 @@ import React from 'react'
 import ToggleCrosshair from './ToggleCrosshair'
 import ToggleDrawing from './ToggleDrawing'
 import { ChartContext } from '../../react-chart-context'
-import { Toggle } from 'components'
 import ToggleHUD from './ToggleHUD'
 
 /**
@@ -75,9 +74,9 @@ export default class ChartToggles extends React.Component {
 		</div>
 
 		<div className="icon-toggles ciq-toggles" ref={this.sidenav}>
+			<ToggleDrawing />
 			<ToggleCrosshair />
 			{ hud }
-			<ToggleDrawing />
 		</div>
 		</>
 		)

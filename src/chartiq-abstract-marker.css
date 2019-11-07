@@ -172,6 +172,6 @@
 	width: 145px;
 	height: 55px;
 	position: absolute;
-	background: url(css/img/helicopter.png) no-repeat center;
+	background: url(~chartiq/examples/markers/img/helicopter.png) no-repeat center;
 	z-index: 2;
 }

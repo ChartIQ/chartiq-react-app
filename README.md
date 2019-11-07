@@ -1,6 +1,6 @@
 # chartiq-react-app
 
-**Requirements:** ChartIQ SDK v7.0.2+ 
+**Requirements:** ChartIQ SDK v7.2.0+ 
 
 ## Overview
 
@@ -8,7 +8,7 @@ This project is an implementation of ChartIQ's Advanced Chart application writte
 It wraps ChartIQ's native [Web Components](https://documentation.chartiq.com/tutorial-Web%20Component%20Interface.html) and is fully interoperable with the advanced HTML template (*sample-template-advanced.html*) that comes with the ChartIQ SDK.
 
 ## Table of contents
-- [Installing this project](#installing-this-project)
+- [Getting started](#getting-started)
 - [Project structure](#project-structure)
 - [Building the project](#building-the-project)
 - [Accessing the Chart Engine](#accessing-the-chart-engine)
@@ -16,41 +16,33 @@ It wraps ChartIQ's native [Web Components](https://documentation.chartiq.com/tut
 - [Customizing the project](#customizing-the-project)
 - [Commands](#commands)
 - [Configuring AddOns](#configuring-addons)
+- [Configuring Plugins](#configuring-plugins)
 - [Notes](#notes)
 - [Questions and support](#questions-and-support)
 - [Contributing to this project](#contributing-to-this-project)
 
 
 
-## Installing this project
+## Getting started
 
-To use this project you will need to include a copy of the ChartIQ library. If you do not have a copy of the library, please contact your account manager before continuing this installation.
+To use this project you will need to include a copy of the ChartIQ library. It is recommended that you install the library from the tarball that you recieved in your license. If you do not have a copy of the library, please contact your account manager before continuing this installation.
 
-There are a few key files that must be present in order for the project to compile correctly. They are:
- - chartiq/js/chartiq.js
- - chartiq/js/componentUI.js
- - chartiq/js/components.js
- - chartiq/examples/feeds/quoteFeedSimulator.js
- - chartiq/examples/feeds/symbolLookupChartIQ.js
- - chartiq/examples/markets/marketDefinitionSamples.js
- - chartiq/examples/markets/marketSymbologySample.js
- - chartiq/examples/translations/translationSample.js
+This project lists the chartiq tarball as an optional dependency from the root of the repo. If you do not keep your tarball here, you will need to specify where it is located and install manually.
 
-**IF YOU DO NOT INCLUDE THE ABOVE FILES, THE APPLICATION WILL NOT COMPILE**
+```
+npm install ./path-to/chartiq-7.2.0.tgz
+```
 
+When you are upgrading or changing your license it is recommended that you completely remove the old tarball before reinstalling the new one
 
-Extract your library files into the */chartiq* folder. After running `npm install` then you may use `npm run build` to transpile the contents into one bundle, located in the */dist* folder, which is used by *index.html*.
-
-```sh
-// These commands expect you to be in the root of this repo
-unzip your-chartiq-license.zip -d ./chartiq
-npm install
-npm run build
+```
+npm remove chartiq
+npm install ./path-to-new/chartiq-7.2.0.tgz
 ```
 
 - For more about building this project see [Building the project](#building-the-project).
 
-In *src/main.js* you can add React props that are passed down to the chart engine constructor. These props are set in the `chartConstructor` and `preferences` objects. Read more about the arguments that the ChartEngine accepts and the preferences of the chart at [documentation.chartiq.com](http://documentation.chartiq.com)
+Once you have installed the chartiq package you can begin working with the project. In *src/main.js* you can add React props that are passed down to the chart engine constructor. These props are set in the `chartConstructor` and `preferences` objects. Read more about the arguments that the ChartEngine accepts and the preferences of the chart at [documentation.chartiq.com](http://documentation.chartiq.com)
 
 ```js
 // src/main.js
@@ -109,6 +101,15 @@ If you wish to use the ChartIQ `<AdvancedChart />` sample in its default state, 
 In order to keep the bundle size as small as possible this project does not, by default, support older browsers. You may optionaly include polyfills for legacy browser support by running the npm script `npm run build:polyfill`. This script is identical to `npm run build` but will attach polyfills to the javascript bundle file for legacy browser support.
 
 If you make adjustments to the project and want to test in development mode, use `npm start`. This will run the webpack dev server on port 4002. You may make adjustments or just explore the project. Verify all changes are functioning correctly in development mode before building the production bundle. Run `npm run build` to get your customized bundle.
+
+In addition to the `<AdvancedChart />` you can also build several other components from the CryptoIQ Plugin: OrderBook, MarketDepth, and the CryptoIQWorkStation. You can build all of the components at once with `npm run watch:unified` and find them listed at [localhost:4002/dist/](http://localhost:4002/dist/).
+
+This project makes use of [Webpack Merge](https://github.com/survivejs/webpack-merge) to keep its configurations more managable and allow for individual building of each component. The standard _webpack.config.js_ pulls in configurations for each component from the _webpack/_ folder and merges them together to build the project. By default the project builds the AdvancedChart but you can change the build target by setting the `env.build` variable that you pass into _webpack.config.js_. 
+
+If you would like to build for a specific component we recommend that you add a your own build script to _package.json_. The example below shows how to add a node script to build the MarketDepth component for production. The `env.build` variable has been set to reference the _webpack/webpack.market-depth.js_ in _webpack.config.js_ : 
+```json
+"build:marketDepth": "webpack --config=webpack.config.js --env.production --env.build=marketDepth"
+```
 
 See [customizing the project](#customizing-the-project) for more details about on custom builds.
 
@@ -187,10 +188,53 @@ ReactDom.render(React.createElement(AdvancedChart, {
 }), document.querySelector('#app'))
 ```
 
+## Configuring Plugins
+
+Similar to the way addOns work, you can configure the plugins from the ChartIQ library with the "plugins" React prop. By default the AdvancedChart uses: CryptoIQ, ScriptIQ, and TradeFromChart (TFC). If you wish to disable a plugin, do not pass in a truth value for that plugin in the plugins prop. See the example below on how to customize the plugins:
+
+```js
+import SomeDemoClass from './path/to/demo-class.js'
+
+let enablePlugins = {TFC: {account: SomeDemoClass}, cryptoiq: {
+	MarketDepth: {
+		volume: true,
+		step: true,
+		height: 40%,
+		precedingContainer: '.chartContainer'
+	}
+}}
+
+ReactDom.render(React.createElement(AdvancedChart, {
+	plugins={enablePlugins}
+}), document.querySelector('#app'))
+
+```
+
+This example will create a [CIQ.MarketDepth](https://documentation.chartiq.com/CIQ.MarketDepth.html) instance with a height 40% of the area of your main chart but will not create an Orderbook or a toggle to display the Orderbook. It will also pass in a custom account class to [CIQ.TFC](https://documentation.chartiq.com/CIQ.TFC.html)
+
 ## Notes
 - This application will only run from `127.0.0.1`, `localhost`, and the explicit list of domains set on your particular ChartIQ library license. If you need to bind webpack dev server to a different host, like `http://0.0.0.0`, please contact your Account Manager to have those additional domains added to your license.
 
-- This release does not currently work with plugins. They will be added in a future update.
+- Plugins require a library version of 7.2+
+- If you are not using the ChartIQ library as a node package, you will need to make some additions to the webpack.common.js file in order to load the library. You will need to change the resolve key to include the following in order to tell Webpack where to resolve the library files:
+```js
+	resolve: {
+		alias: {
+			'chartiq/js/chartiq': path.join(chartiqDir,'js', 'chartiq'),
+			'chartiq/js/componentUI': path.join(chartiqDir,'js', 'componentUI'),
+			'chartiq/js/components': path.join(chartiqDir,'js', 'components'),
+			'chartiq/js/addOns': path.join(chartiqDir,'js', 'addOns'),
+			'chartiq/js/thirdparty/perfectScrollbar': path.join(chartiqDir,'thirdparty', 'perfect-scrollbar.jquery'),
+		},
+		extensions: ['.js', '.jsx'],
+		modules: [
+			'node_modules', 
+			path.join('path', 'to', 'extracted', 'library'),
+		]
+	}
+```
+Where `chartiqDir` is the path to the extracted library files, (in previous releases of this project that was the _./chartiq_ folder). If you are attempting to use an earlier release than 7.2, you will need to provide aliases for the modules `chartiq`, `componentUI`, `components`, and `addOns` as well.
+- The ScriptIQ plugin requires browser features not present in Internet Explorer; if you are transpiling the AdvancedChart be sure to remove this import.
 
 ## Questions and support
 

@@ -1,5 +1,4 @@
 import React from 'react'
-import { Toggle } from 'components'
 
 /**
  * Component that toggles crosshairs for the chart. `<ToggleCrosshair />`

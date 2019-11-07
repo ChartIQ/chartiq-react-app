@@ -1,9 +1,11 @@
 import React from 'react'
-import { DrawingToolbar, CVPController, Menu, MenuDropdown, Undo, Redo } from 'components'
 import { ChartContext } from '../../react-chart-context'
 
 /**
  * Drawing toolbar component `<ToolbarDrawing>`
+ * 
+ * Deprecated: This component remains available for legacy support. 
+ * Use PaletteDrawing with chart library 7.2 or later.
  * 
  * UI widget containing all tools for interactive drawing on the chart.
  *

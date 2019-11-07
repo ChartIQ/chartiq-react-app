@@ -1,5 +1,4 @@
 import React from 'react'
-import { ThemeDialog, ThemePiece } from 'components'
 
 /**
  * Theme dialog component `<DialogTheme/>`

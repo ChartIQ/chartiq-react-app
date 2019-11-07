@@ -12,9 +12,12 @@ import { ChartContext } from '../../react-chart-context'
  * @extends {React.Component}
  */
 export default class ContextMenuStudy extends React.Component {
-
+	constructor() {
+		super()
+		this.contextMenuRef = React.createRef()
+	}
 	componentDidMount() {
-		let studyContext = $$$("cq-study-context")
+		let studyContext = this.contextMenuRef.current
 		this.context.UIContext.advertised["StudyEdit"].contextDialog = [studyContext]
 	}
 
@@ -22,7 +25,7 @@ export default class ContextMenuStudy extends React.Component {
 		return(
 			<>
 			<cq-dialog>
-				<cq-study-context>
+				<cq-study-context ref={this.contextMenuRef}>
 					<div stxtap="StudyEdit.edit()">Edit Settings...</div>
 					<div stxtap="StudyEdit.remove()">Delete Study</div>
 				</cq-study-context>

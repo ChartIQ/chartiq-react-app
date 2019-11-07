@@ -8,6 +8,12 @@ chartiq/examples/**
 
 # And the ChartIQ library in tarball format
 chartiq-chartiq-*.tgz
+chartiq-*.*.*.tgz
 
 # Ignore built files
 dist
+
+#Ignore any workspace files
+*.code-workspace
+*.sublime-workspace
+*.sublime-project
