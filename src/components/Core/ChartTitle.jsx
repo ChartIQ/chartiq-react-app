@@ -1,5 +1,4 @@
 import React from 'react'
-import { ChartTitle as TitleWebComponent } from 'components'
 
 /**
  * Chart title component `<ChartTitle />`

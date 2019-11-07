@@ -1,4 +1,6 @@
 import React from 'react'
+import { CIQ } from 'chartiq'
+import { MarkersSample } from 'chartiq/examples/markers/markersSample'
 import { ChartContext } from '../../react-chart-context'
 
 /**
@@ -17,9 +19,15 @@ export default class MenuEvents extends React.Component {
 	constructor(){
 		super();
 		this.markerDropdown = React.createRef();
+		// The MarkersSample should take the chart engine as an argument here but it hasn't been created yet
+		// instead we will correct the reference once the component mounts and the engine has been created.
+		// We're going with this work around so that we do not need to change the ChartMenus component
+		// to be aware of the context so we can keep it presentationl and only render this component when the engine is ready.
+		this.markers = new MarkersSample()
 	}
 
 	componentDidMount(){
+		this.markers.stx = this.context.stx;
 		// Attach an stxtap event handler to all cq-item tags in the events menu
 		[...this.markerDropdown.current.querySelectorAll('cq-item')].forEach((menuitem) => {
 			// Skip menu items that don't have a markertype attribute
@@ -51,16 +59,15 @@ export default class MenuEvents extends React.Component {
 		if (type == "helicopter") 
 			this.activateHelicopter();
 		else if (type == "none") 
-			chart.hideMarkers();
+			this.markers.showMarkers();
 		else 
-			chart.showMarkers(type);
+			this.markers.showMarkers(type);
 	}
 
 	activateHelicopter() {
 		let helicopter = CIQ.UI.makeFromTemplate(document.querySelector("template.abstract"))[0];
-		this.context.stx.container.hideMarkers();
-		
-		var marker=new CIQ.Marker({
+		this.markers.showMarkers();
+		new CIQ.Marker({
 			stx: this.context.stx,
 			xPositioner:"none",
 			yPositioner:"above_candle",
@@ -71,7 +78,7 @@ export default class MenuEvents extends React.Component {
 		});
 
 		var leftPositition = this.context.stx.chart.width*0.4;
-		document.querySelector('div.stx-marker.abstract').setAttribute('style', `z-index: 21; left: ${leftPositition}px`);
+		helicopter.setAttribute('style', `z-index: 21; left: ${leftPositition}px`);
 		
 		this.context.stx.draw();
 	}
@@ -87,6 +94,8 @@ export default class MenuEvents extends React.Component {
 					</cq-item>
 					<cq-item className="callout" markertype="callout">Callouts<span className="ciq-radio"><span></span></span>
 					</cq-item>
+					{ this.markers && this.markers.showTradeAnalytics && <cq-item className="trade"markerType="trade">Trade<span className="ciq-radio"><span></span></span>
+					</cq-item> }
 					<cq-item className="abstract" markertype="helicopter">Abstract<span className="ciq-radio"><span></span></span>
 					</cq-item>
 					<cq-item className="none" markertype="none">None<span className="ciq-radio ciq-active"><span></span></span>

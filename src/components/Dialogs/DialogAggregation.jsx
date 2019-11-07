@@ -1,5 +1,4 @@
 import React from 'react'
-import { AggregationDialog, Dialog } from 'components'
 
 /**
  * Aggregation dialog component `<DialogAggregation/>`

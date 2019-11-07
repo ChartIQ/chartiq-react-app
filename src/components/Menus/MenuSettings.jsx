@@ -1,6 +1,4 @@
 import React from 'react'
-import { Clickable, Lookup, Menu, MenuDropDown, Scroll, Themes } from 'components'
-import { ChartContext } from '../../react-chart-context'
 
 /**
  * Chart menu component `<MenuSettings>`
@@ -14,9 +12,13 @@ import { ChartContext } from '../../react-chart-context'
  * @extends {React.Component}
  */
 export default class MenuSettings extends React.Component {
+	constructor (){
+		super()
+		this.themesRef = React.createRef()
+	}
 	
 	componentDidMount () {
-		let themes = $$$('cq-themes')
+		let themes = this.themesRef.current
 		let themeParams = {
 		builtInThemes: {"ciq-day":"Day","ciq-night":"Night"},
 		defaultTheme: "ciq-night",
@@ -100,7 +102,7 @@ export default class MenuSettings extends React.Component {
 						<cq-item stxsetget="Layout.Language()"><cq-flag></cq-flag><cq-language-name>Change Language</cq-language-name></cq-item>
 					<cq-separator></cq-separator>
 					<cq-heading>Themes</cq-heading>
-					<cq-themes>
+					<cq-themes ref={this.themesRef}>
 						<cq-themes-builtin cq-no-close>
 							<template>
 								<cq-item></cq-item>

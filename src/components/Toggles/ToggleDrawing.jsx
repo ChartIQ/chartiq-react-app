@@ -1,5 +1,4 @@
 import React from 'react'
-import { Toggle } from 'components'
 import { ChartContext } from '../../react-chart-context'
 
 /**

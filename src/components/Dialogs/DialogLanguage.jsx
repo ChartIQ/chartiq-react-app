@@ -1,5 +1,4 @@
 import React from 'react'
-import { Close, LanguageDialog } from 'components'
 
 /**
  * Language dialog component `<DialogLanguage/>`

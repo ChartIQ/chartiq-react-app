@@ -1,10 +1,9 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import { CIQ } from 'chartiq'
-import 'components'
-import 'plugins/cryptoiq/orderbook'
+import 'chartiq/js/components'
+import 'chartiq/plugins/cryptoiq/orderbook'
+import 'chartiq/examples/feeds/L2_simulator'
 import UIManager from '../components/Core/UIManager'
-import 'feeds/L2_simulator'
 
 /**
  * Stand alone OrderBook component `<OrderBook />`.

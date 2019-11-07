@@ -31,8 +31,11 @@ module.exports = env => {
     extras.devtool = environment === 'development' ? 'source-maps' : ''
     
     let output = merge(configs.common, build, extras)
-    if(polyfill) merge(output, configs.legacy)
-    console.log(output)
+    if(polyfill) {
+        console.log('legacy config: ',configs.legacy)
+        output = merge(output, configs.legacy)
+    }
+    console.log('final merged webpack config: ',output)
 
     return output  
 }

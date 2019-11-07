@@ -1,24 +1,28 @@
 import React from 'react'
 import ReactDom from 'react-dom'
-import { CIQ, $$$ } from 'chartiq'
-// import { quoteFeedSimulator } from 'examples/feeds/quoteFeedSimulator'
 import AdvancedChart from './containers/AdvancedChart'
 
-import '../chartiq/css/normalize.css'
-import '../chartiq/css/page-defaults.css'
-import '../chartiq/css/perfect-scrollbar.css'
-import '../chartiq/css/stx-chart.css'
-import '../chartiq/css/chartiq.css'
+import 'chartiq/css/normalize.css'
+import 'chartiq/css/page-defaults.css'
+import 'chartiq/css/perfect-scrollbar.css'
+import 'chartiq/css/stx-chart.css'
+import 'chartiq/css/chartiq.css'
 // Remove this file if you don't want the helicopter marker
-// import './chartiq-abstract-marker.css'
+import './chartiq-abstract-marker.css'
+
+// Add these files if you want the Trade markers
+import 'chartiq/examples/markers/tradeAnalyticsSample'
+import 'chartiq/examples/markers/tradeAnalyticsSample.css'
 // This file must be loaded last after default ChartIQ styles!
 import './chartiq-react-components.css'
 
-import 'plugins/cryptoiq/cryptoiq'
-import 'plugins/tfc/tfc-loader'
+import 'chartiq/js/addOns'
+import 'chartiq/plugins/cryptoiq/cryptoiq'
+import 'chartiq/plugins/tfc/tfc-loader'
 // Be sure to load some account file or TFC will not work
-import 'plugins/tfc/tfc-demo'
-import 'plugins/scriptiq/scriptiq'
+import 'chartiq/plugins/tfc/tfc-demo'
+import 'chartiq/plugins/scriptiq/scriptiq'
+import "chartiq/js/thirdparty/perfect-scrollbar.jquery.js";
 
 let constructor = {}
 let preferences = {labels:false, currentPriceLine:true, whitespace:0}

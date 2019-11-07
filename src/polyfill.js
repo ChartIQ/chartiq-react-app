@@ -5,4 +5,4 @@
  *
  */
 import '@babel/polyfill'
-import './main';
+import './advanced';

@@ -1,20 +1,13 @@
 const path = require('path')
-const webpack = require('webpack')
 const MiniCssExtractPlugin = require('extract-css-chunks-webpack-plugin');  // used for packaging css into bundles
-
-const chartiqDir = path.join(__dirname, '..', 'chartiq')
-const examplesDir = path.join(__dirname, '..', 'chartiq', 'examples')
-const pluginsDir = path.join(__dirname, '..', 'chartiq', 'plugins')
-const thirdpartyDir = path.join(__dirname, '..', 'chartiq', 'js', 'thirdparty')
-const devDir = path.join(__dirname, '..', 'src')
 
 module.exports = {
 	devServer: {
-		contentBase: path.join(__dirname, '..'),
+		contentBase: path.join(__dirname, '..', 'dist'),
 		headers: {
 			'Access-Control-Allow-Origin': '*'
 		},
-		publicPath: '/dist/',
+		publicPath: '/',
 		host: 'localhost',
 		port: 4002,
 	},
@@ -74,29 +67,8 @@ module.exports = {
 		new MiniCssExtractPlugin({
 			fileNname: '[name].css',
 		}),
-		new webpack.ProvidePlugin({
-			CIQ: ['chartiq', 'CIQ'],
-			$$$: ['chartiq', '$$$'],
-			quoteFeedSimulator: [path.join(examplesDir, 'feeds', 'quoteFeedSimulator'),'quoteFeedSimulator']
-		})
 	],
 	resolve: {
-		alias: {
-			chartiq: path.join(chartiqDir, 'js', 'chartiq'),
-			components: path.join(chartiqDir, 'js', 'components'),
-			componentUI: path.join(chartiqDir, 'js', 'componentUI'),
-			addOns: path.join(chartiqDir, 'js', 'addOns'),
-			perfectScrollbar: path.join(thirdpartyDir, 'perfect-scrollbar.jquery')
-		},
 		extensions: ['.js', '.jsx'],
-		modules: [
-			'node_modules',
-			devDir,
-			chartiqDir,
-			examplesDir,
-			pluginsDir,
-			thirdpartyDir,
-			path.join(chartiqDir, 'js')
-		]
 	}
 }

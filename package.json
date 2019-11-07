@@ -4,7 +4,7 @@
   "description": "ChartIQ's full featured charting application written in ReactJS",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --config=webpack.config.js --env.production",
+    "build": "webpack --config=webpack.config.js --env.production --env.build=advanced",
     "build:polyfill": "webpack --config=webpack.config.js --env.production=polyfill",
     "start": "npm run watch",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -44,5 +44,8 @@
     "@babel/preset-env": "^7.4.4",
     "react": "^16.7.0",
     "react-dom": "^16.7.0"
+  },
+  "optionalDependencies": {
+    "chartiq": "file:chartiq-7.2.0.tgz"
   }
 }

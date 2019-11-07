@@ -1,6 +1,5 @@
 import React from 'react'
-import { TimezoneDialog } from 'components'
-import 'translations/translationSample'
+import 'chartiq/examples/translations/translationSample'
 
 /**
  * Timezone dialog component `<DialogTimezone/>`

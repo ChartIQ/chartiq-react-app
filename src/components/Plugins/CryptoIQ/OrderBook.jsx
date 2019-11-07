@@ -1,10 +1,7 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import { CIQ } from 'chartiq'
-import 'components'
-// import 'plugins/cryptoiq/orderbook'
-import UIManager from '../../Core/UIManager'
-import 'feeds/L2_simulator'
+import 'chartiq/plugins/cryptoiq/orderbook'
+import 'chartiq/examples/feeds/L2_simulator'
 
 import { ChartContext } from '../../../react-chart-context'
 
@@ -16,7 +13,6 @@ export default class OrderBook extends React.Component {
 
 	componentDidMount() {
 		let stx = this.context.stx
-		let quoteFeed = stx.quoteDriver.quoteFeed
 		let marketDepth = stx.marketDepth
 		let orderbook  = this.orderBookRef.current
 

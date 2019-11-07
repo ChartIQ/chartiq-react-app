@@ -1,5 +1,4 @@
 import React from 'react'
-import { DrawingToolbar, CVPController, Menu, MenuDropdown, Undo, Redo } from 'components'
 import { ChartContext } from '../../react-chart-context'
 
 /**

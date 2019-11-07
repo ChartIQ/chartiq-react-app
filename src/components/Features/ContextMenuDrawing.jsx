@@ -1,5 +1,5 @@
 import React from 'react'
-import { Dialog, DrawingDialog, Menu, MenuDropdown } from 'components'
+import { CIQ } from 'chartiq'
 import { ChartContext } from '../../react-chart-context'
 
 /**
@@ -19,7 +19,6 @@ export default class ContextMenuDrawing extends React.Component {
 
 	componentDidMount () {
 		let UIContext = this.context.UIContext;
-		let ciqChart = $$$('div.ciq-chart')
 
 		var UIDrawingEdit = new CIQ.UI.DrawingEdit(null, UIContext);
 

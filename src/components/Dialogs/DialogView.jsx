@@ -1,6 +1,4 @@
 import React from 'react'
-import { ViewDialog } from 'components'
-import {ChartContext} from '../../react-chart-context'
 
 /**
  * View dialog component `<DialogView/>`

@@ -1,5 +1,4 @@
 import React from 'react'
-import { ChartIQChart } from 'components'
 import { ChartContext } from '../../react-chart-context'
 
 /**

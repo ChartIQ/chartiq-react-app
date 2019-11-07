@@ -1,10 +1,9 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import { CIQ } from 'chartiq'
-import 'components'
-import 'plugins/cryptoiq/marketdepth'
+import 'chartiq/js/components'
+import 'chartiq/plugins/cryptoiq/marketdepth'
 import UIManager from '../components/Core/UIManager'
-import 'feeds/L2_simulator'
+import 'chartiq/examples/feeds/L2_simulator'
 
 /**
  * Stand alone MarketDepth chart component `<MarketDepth/>`.
@@ -33,8 +32,8 @@ export default class MarketDepth extends React.Component {
 				}
 				else window.cq_debug.stx_md = this.stx
 			}
-			container.startChart(stxx, this.props.quoteFeed, this.props.quoteFeedBehavior, {})
-			stxx.addEventListener("symbolImport", this.overrideChartLayout())
+			container.startChart(this.stx, this.props.quoteFeed, this.props.quoteFeedBehavior, {})
+			this.stx.addEventListener("symbolImport", this.overrideChartLayout())
 		}
 
 		this.themesRef = React.createRef()

@@ -1,5 +1,4 @@
 import React from 'react'
-import { ShareDialog } from 'components'
 
 /**
  * Share dialog component `<DialogShare/>`

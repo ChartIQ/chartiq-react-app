@@ -16,16 +16,30 @@ export default class PaletteDrawing extends React.Component {
 		this.toolbar = React.createRef()
 		this.undoButton = React.createRef()
 		this.redoButton = React.createRef()
+		this.magnetToggle = React.createRef()
 	}
 
 	componentDidMount () {
 		let UIContext = this.context.UIContext;
 		let stx = this.context.stx;
 		let toolbar = this.toolbar.current;
+		let magnetToggle = this.magnetToggle.current;
 		UIContext.PaletteDrawing = toolbar;
 		stx.setDrawingContainer(toolbar)
 
 		this.redoButton.current.pairUp(this.undoButton.current)
+		magnetToggle.registerCallback(function(value){
+			if(!isNaN(parseInt(value,10))) {
+				magnetToggle.classList.add('active');
+				magnetToggle.classList.remove('strong');
+			}else if(!value || value=="false"){
+				magnetToggle.classList.remove('active');
+				magnetToggle.classList.remove('strong');
+			}else{
+				magnetToggle.classList.add('active');
+				magnetToggle.classList.add('strong');
+			}
+		}, false);
 	}
 
 	render () {
@@ -129,8 +143,11 @@ export default class PaletteDrawing extends React.Component {
 										<cq-item class="ciq-tool" cq-tool="vertical" cq-tool-group="line" stxtap="tool()"><span className="icon vertical"></span><label>Vertical</label></cq-item>
 									</cq-scroll>
 									<cq-separator></cq-separator>
-									<cq-item class="ciq-tool" stxtap="clearDrawings()"><span className="icon clear"></span><label>Clear Drawings</label></cq-item>
-									<cq-item class="ciq-tool" stxtap="restoreDefaultConfig(true)"><span className="icon restore"></span><label>Restore Default Parameters</label></cq-item>
+									<div className="mini-widget-group mini-widget-foot">
+										<cq-toggle class="ciq-mini-widget ciq-magnet" cq-member="preferences.magnet" cq-toggles="true,75,false" ref={this.magnetToggle}><span className="icon magnet"></span><label>Magnet</label></cq-toggle>
+										<cq-item class="ciq-mini-widget" stxtap="clearDrawings()"><span className="icon clear"></span><label>Clear Drawings</label></cq-item>
+										<cq-item class="ciq-mini-widget" stxtap="restoreDefaultConfig(true)"><span className="icon restore"></span><label>Restore Default Parameters</label></cq-item>
+									</div>
 								</div>
 							<div className="resize-strip"></div>
 						</div>
@@ -140,9 +157,9 @@ export default class PaletteDrawing extends React.Component {
 						<div className="palette-container">
 							<div className="drag-strip"></div>
 								<div className="drawing-settings-wrapper">
-									<div class="mini-widget-group">
-										<cq-item class="ciq-mini-widget" cq-view="detach" stxtap="detach()"><span class="icon"></span><label>Detach</label></cq-item>
-										<cq-item class="ciq-mini-widget" cq-view="attach" stxtap="dock()"><span class="icon"></span><label>Attach</label></cq-item>
+									<div className="mini-widget-group">
+										<cq-item class="ciq-mini-widget" cq-view="detach" stxtap="detach()"><span className="icon"></span><label>Detach</label></cq-item>
+										<cq-item class="ciq-mini-widget" cq-view="attach" stxtap="dock()"><span className="icon"></span><label>Attach</label></cq-item>
 									</div>
 									<cq-clickable class="ciq-select ciq-mobile-palette-toggle" stxtap="togglePalette()"><span>Select Tool</span></cq-clickable>
 									<div className="ciq-active-tool-label ciq-heading"></div>
@@ -213,7 +230,7 @@ export default class PaletteDrawing extends React.Component {
 												</cq-menu-dropdown>
 											</cq-menu>
 										</cq-annotation>
-										<cq-clickable cq-fib-settings cq-selector="cq-fib-settings-dialog" cq-method="open" cq-section="true"><span className="ciq-btn">Settings</span></cq-clickable>
+										<cq-clickable cq-fib-settings cq-selector="cq-fib-settings-dialog" cq-method="open" cq-section="true"><span className="ciq-icon-btn cq-icon-gear"></span><cq-tooltip></cq-tooltip></cq-clickable>
 										<div className="ciq-drawing-edit-only" cq-section="true">
 											<div cq-toolbar-action="done_edit" stxtap="DrawingEdit.endEdit('close')" cq-section="true"><cq-tooltip>Done Editing</cq-tooltip></div>
 										</div>

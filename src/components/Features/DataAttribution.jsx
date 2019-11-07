@@ -1,5 +1,4 @@
 import React from 'react'
-import { Attribution } from 'components'
 
 export default class DataAttribution extends React.Component {
 	render() {

@@ -123,7 +123,7 @@ cq-comparison-add{
 	float:left;
 	margin-left:10px;
 	margin-right:4px;
-	background-image: url(../chartiq/css/img/stx-sprite-ui.svg);
+	background-image: url(~chartiq/css/img/stx-sprite-ui.svg);
 	background-position: -731px -31px;
 }
 

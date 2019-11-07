@@ -1,5 +1,4 @@
 import React from 'react'
-import { Swatch } from 'components'
 
 /**
  * Color swatch component `<ColorSwatch/>`

@@ -3,6 +3,7 @@ import ContextMenuDrawing from '../Features/ContextMenuDrawing'
 import ContextMenuStudy from '../Features/ContextMenuStudy'
 import DialogView from './DialogView'
 import DialogStudy from './DialogStudy'
+import DialogFibonacci from './DialogFibonacci'
 import DialogAggregation from './DialogAggregation'
 import DialogTimezone from './DialogTimezone'
 import DialogLanguage from './DialogLanguage'
@@ -30,6 +31,7 @@ export default class ChartDialogs extends React.Component {
 			<DialogView />
 			<DialogAggregation />
 			<DialogStudy />
+			<DialogFibonacci />
 			<DialogTimezone />
 			<DialogLanguage />
 			<DialogShare />

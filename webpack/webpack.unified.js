@@ -2,9 +2,6 @@ const path = require('path')
 const webpack = require('webpack')
 const MiniCssExtractPlugin = require('extract-css-chunks-webpack-plugin');  // used for packaging css into bundles
 const HTMLWebpackPlugin = require('html-webpack-plugin')
-const chartiqDir = path.join(__dirname, '..', 'chartiq')
-const examplesDir = path.join(__dirname, '..', 'chartiq', 'examples')
-const pluginsDir = path.join(__dirname, '..', 'chartiq', 'plugins')
 const devDir = path.join(__dirname, '..', 'src')
 
 
@@ -64,12 +61,6 @@ module.exports = {
 		new MiniCssExtractPlugin({
 			fileNname: '[name].css',
 		}),
-
-		new webpack.ProvidePlugin({
-			CIQ: ['chartiq', 'CIQ'],
-			$$$: ['chartiq', '$$$'],
-			quoteFeedSimulator: [path.join(examplesDir, 'feeds', 'quoteFeedSimulator'),'quoteFeedSimulator']
-		})
 	],
 }
 // }
