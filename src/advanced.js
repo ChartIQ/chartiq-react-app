@@ -22,6 +22,8 @@ import 'chartiq/plugins/tfc/tfc-loader'
 // Be sure to load some account file or TFC will not work
 import 'chartiq/plugins/tfc/tfc-demo'
 import 'chartiq/plugins/scriptiq/scriptiq'
+import 'chartiq/plugins/timespanevent/timespanevent'
+import 'chartiq/plugins/timespanevent/examples/timeSpanEventSample'
 import "chartiq/js/thirdparty/perfect-scrollbar.jquery.js";
 
 let constructor = {}
@@ -53,6 +55,7 @@ let enablePlugins = {
 	},
 	TFC: true,
 	ScriptIQ: true,
+	TimeSpanEvents: true,
 }
 
 ReactDom.render(

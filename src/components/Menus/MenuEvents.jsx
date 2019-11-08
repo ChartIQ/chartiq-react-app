@@ -100,6 +100,15 @@ export default class MenuEvents extends React.Component {
 					</cq-item>
 					<cq-item className="none" markertype="none">None<span className="ciq-radio ciq-active"><span></span></span>
 					</cq-item>
+					<div className="timespanevent-ui">
+						<cq-separator></cq-separator>
+						<cq-heading>Panel Events</cq-heading>
+						<cq-item class="time-span-panel" stxsetget="Layout.TimeSpanEventPanel()" cq-no-close>Show Panel<span className="ciq-checkbox ciq-active"><span></span></span></cq-item>
+						<cq-separator></cq-separator>
+						<cq-item class="span-event" stxtap="TimeSpanEvent.showMarkers('Order')" cq-no-close>Order<span className="ciq-checkbox ciq-active" ><span></span></span></cq-item>
+						<cq-item class="span-event" stxtap="TimeSpanEvent.showMarkers('CEO')" cq-no-close>CEO<span className="ciq-checkbox ciq-active" ><span></span></span></cq-item>
+						<cq-item class="span-event" stxtap="TimeSpanEvent.showMarkers('News')" cq-no-close>News<span className="ciq-checkbox ciq-active" ><span></span></span></cq-item>
+					</div>
 				</cq-menu-dropdown>
 			</cq-menu>
 		)

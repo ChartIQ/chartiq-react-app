@@ -74,6 +74,11 @@ export default class WrappedChart extends React.Component {
 		if (plugins.TFC) {
 			new CIQ.TFC({stx:stx, account: plugins.TFC.account, context:this.context.UIContext})
 		}
+		if(plugins.TimeSpanEvents) {
+			new CIQ.TimeSpanEventPanel({stx: stx, context: this.context.UIContext});
+			let helper = new CIQ.UI.TimeSpanEvent(this.context.UIContext, {menuItemSelector: ".stx-markers cq-item.span-event"});
+			helper.implementation = new CIQ.TimeSpanEventSample(stx);
+		}
 	}
 
 	resizeScreen(){
