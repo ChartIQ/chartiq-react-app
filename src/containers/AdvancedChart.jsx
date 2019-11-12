@@ -73,9 +73,13 @@ export default class AdvancedChart extends React.Component {
 		let chartArea = context.chartArea
 		let parentWidth = chartArea.node.parentElement.clientWidth
 		let sidePanel
+		let sideNav = document.querySelector('.sidenav')
+		let sideNavWidth = 0
+		if(sideNav) sideNavWidth = sideNav.clientWidth;
 		if(context.UIContext.SidePanel)  sidePanel = context.UIContext.SidePanel
 		let sidePanelWidth = sidePanel? sidePanel.nonAnimatedWidth() : 0
-		chartArea.node.style.width = parentWidth - sidePanelWidth + 'px'
+		chartArea.node.style.width = (parentWidth - sidePanelWidth - sideNavWidth) + 'px'
+		chartArea.node.style.left = sideNavWidth + 'px'
 	}
 
 	render() {
