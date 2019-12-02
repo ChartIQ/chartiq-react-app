@@ -7,6 +7,9 @@ module.exports = {
     entry: {
         bundle: path.join(__dirname, '..', 'src', 'advanced.js')
     },
+    output: {
+        chunkFilename: '[name].bundle.js'
+    },
     plugins: [
         new HTMLWebpackPlugin({
             title: 'AdvancedChart',

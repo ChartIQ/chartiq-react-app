@@ -6,10 +6,11 @@
   "scripts": {
     "build": "webpack --config=webpack.config.js --env.production --env.build=advanced",
     "build:polyfill": "webpack --config=webpack.config.js --env.production=polyfill",
-    "start": "npm run watch",
+    "start": "npm run watch -- --host=127.0.0.1 --disable-host-check=true",
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "webpack-dev-server --inline --config=webpack.config.js --watch=true",
-    "watch:unified": "webpack-dev-server --inline --config=webpack.config.js --watch=true --env.build=unified"
+    "watch:unified": "webpack-dev-server --inline --config=webpack.config.js --watch=true --env.build=unified",
+    "postinstall": "vendor-copy"
   },
   "keywords": [
     "react",
@@ -24,8 +25,10 @@
   "devDependencies": {
     "@babel/cli": "^7.1.2",
     "@babel/core": "^7.1.2",
+    "@babel/plugin-syntax-dynamic-import": "^7.7.4",
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.4",
+    "copy-webpack-plugin": "^5.0.5",
     "css-loader": "^3.0.0",
     "extract-css-chunks-webpack-plugin": "^4.5.5",
     "file-loader": "^4.0.0",
@@ -34,6 +37,7 @@
     "node-sass": "^4.12.0",
     "resolve-url-loader": "^3.1.0",
     "sass-loader": "^7.1.0",
+    "vendor-copy": "^2.0.0",
     "webpack": "^4.23.1",
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.10",
@@ -42,10 +46,20 @@
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
     "@babel/preset-env": "^7.4.4",
+    "@webcomponents/webcomponentsjs": "^2.3.0",
+    "lit-html": "^1.1.2",
     "react": "^16.7.0",
     "react-dom": "^16.7.0"
   },
-  "optionalDependencies": {
-    "chartiq": "file:chartiq-7.2.0.tgz"
-  }
+  "optionalDependencies": {},
+  "vendorCopy": [
+    {
+      "from": "node_modules/@webcomponents/webcomponentsjs/custom-elements-es5-adapter.js",
+      "to": "public/vendor/custom-elements-es5-adapter.js"
+    },
+    {
+      "from": "node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js",
+      "to": "public/vendor/webcomponents-bundle.js"
+    }
+  ]
 }
