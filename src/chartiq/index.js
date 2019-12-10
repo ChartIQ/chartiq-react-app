@@ -12,5 +12,7 @@ import 'chartiq/plugins/scriptiq/scriptiq';
 
 import 'chartiq/plugins/timespanevent/timespanevent';
 import 'chartiq/plugins/timespanevent/examples/timeSpanEventSample';
+import _config from './_config';
 
 export { default as AdvancedChart } from './containers/AdvancedChart';
+export { default as defaultConfig, getDefaultConfig } from './_config';

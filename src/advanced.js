@@ -2,24 +2,13 @@ import React from 'react';
 import ReactDom from 'react-dom';
 
 import './chartiq/style-imports';
-import { AdvancedChart } from './chartiq';
+import { AdvancedChart, getDefaultConfig } from './chartiq';
 
-import defaultConfig from './chartiq/_config';
+let config = getDefaultConfig();
 
-const { chartConfig } = defaultConfig;
-
-// chart configuration by extending and overriding default configuration
-const config = {
-	...defaultConfig,
-	chartConfig: {
-		...chartConfig,
-		preferences: {
-			...chartConfig.preferences,
-			currentPriceLine: true
-		}
-	}
-	// footer_range: true
-};
+// chart configuration by updating default configuration
+config.chartConfig.preferences.currentPriceLine = true;
+config.addOns.tooltip = null;
 
 ReactDom.render(
 	<AdvancedChart config={config} />,
