@@ -94,6 +94,7 @@ export default class AdvancedChart extends React.Component {
 
 	configurePlugins(stx) {
 		const { plugins, marketDepth, simulateL2 } = this.props.config;
+		const { UIContext } = this.state;
 		if (!plugins) return;
 
 		if (plugins.cryptoiq) {
@@ -110,6 +111,12 @@ export default class AdvancedChart extends React.Component {
 				account: plugins.tfc.account,
 				context: this.context.UIContext
 			});
+		}
+
+		if(plugins.timeSpanEvents && CIQ.TimeSpanEventPanel) {
+			new CIQ.TimeSpanEventPanel({stx: stx, context: UIContext});
+			let helper = new CIQ.UI.TimeSpanEvent(UIContext, {menuItemSelector: ".stx-markers cq-item.span-event"});
+			helper.implementation = new CIQ.TimeSpanEventSample(stx);
 		}
 	}
 

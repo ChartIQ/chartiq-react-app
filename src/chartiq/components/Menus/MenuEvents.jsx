@@ -63,7 +63,7 @@ export default class MenuEvents extends React.Component {
 
 	render() {
 		const { activeEvent } = this.state;
-		const { menu_events } = this.context.config;
+		const { menu_events, plugins } = this.context.config;
 		const menuItems = menu_events.map((item, index) => {
 			// as menu item is using stxtap all items need to be created at once
 			// or binding will not apply
@@ -80,6 +80,17 @@ export default class MenuEvents extends React.Component {
 				<span>Events</span>
 				<cq-menu-dropdown ref={this.markerDropdown}>
 					{ menuItems }
+					{plugins && plugins.timeSpanEvents &&
+						<div className="timespanevent-ui">
+							<cq-separator></cq-separator>
+							<cq-heading>Panel Events</cq-heading>
+							<cq-item class="time-span-panel" stxsetget="Layout.TimeSpanEventPanel()" cq-no-close>Show Panel<span className="ciq-checkbox ciq-active"><span></span></span></cq-item>
+							<cq-separator></cq-separator>
+							<cq-item class="span-event" stxtap="TimeSpanEvent.showMarkers('Order')" cq-no-close>Order<span className="ciq-checkbox ciq-active" ><span></span></span></cq-item>
+							<cq-item class="span-event" stxtap="TimeSpanEvent.showMarkers('CEO')" cq-no-close>CEO<span className="ciq-checkbox ciq-active" ><span></span></span></cq-item>
+							<cq-item class="span-event" stxtap="TimeSpanEvent.showMarkers('News')" cq-no-close>News<span className="ciq-checkbox ciq-active" ><span></span></span></cq-item>
+						</div>
+					}
 				</cq-menu-dropdown>
 			</cq-menu>
 		);

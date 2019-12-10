@@ -172,6 +172,7 @@ export default {
 	plugins: {
 		tfc: true,
 		scriptIQ: false,
+		timeSpanEvents: true,
 		cryptoiq: {
 			// supplements and overrides root MarketDepth
 			marketDepth: {
