@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDom from 'react-dom';
 
 import './chartiq/style-imports';
-// add style addtions and overrides here
+// add style additions and overrides here
 import { AdvancedChart, getDefaultConfig } from './chartiq';
 
 let config = getDefaultConfig();
