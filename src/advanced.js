@@ -2,11 +2,12 @@ import React from 'react';
 import ReactDom from 'react-dom';
 
 import './chartiq/style-imports';
+// add style addions and overrides here
 import { AdvancedChart, getDefaultConfig } from './chartiq';
 
 let config = getDefaultConfig();
 
-// chart configuration by updating default configuration
+// update chart configuration by modifying default configuration
 config.chartConfig.preferences.currentPriceLine = true;
 config.addOns.tooltip = null;
 
