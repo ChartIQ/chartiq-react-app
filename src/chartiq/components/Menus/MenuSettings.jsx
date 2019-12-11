@@ -38,8 +38,8 @@ export default class MenuSettings extends React.Component {
 
 	getMenuItems() {
 		const self = this;
-		const { menu_display, plugins = {}} = self.context.config || {};
-		if (!menu_display) {
+		const { items, plugins = {}} = this.props || {};
+		if (!items) {
 			return null;
 		}
 
@@ -47,7 +47,7 @@ export default class MenuSettings extends React.Component {
 			return this.menuItems;
 		}
 
-		this.menuItems = menu_display.map(itemToMarkup);
+		this.menuItems = items.map(itemToMarkup);
 		return this.menuItems;
 			
 		function itemToMarkup({ label, action, option, type, required }, index) {

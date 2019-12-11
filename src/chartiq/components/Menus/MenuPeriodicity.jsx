@@ -14,8 +14,11 @@ import { ChartContext } from '../../ChartContext';
 
 export default class MenuPeriodicity extends PureComponent {
 	render() {
-		const { menu_periodicity } = this.context.config;
-		const items = menu_periodicity.map(
+		const { items } = this.props;
+		if (!items) {
+			return null;
+		}
+		const menuItems = items.map(
 			({ label, periodicity, interval, timeUnit }, index) =>
 				periodicity ? (
 					<cq-item
@@ -33,7 +36,7 @@ export default class MenuPeriodicity extends PureComponent {
 				<span>
 					<cq-clickable stxbind="Layout.periodicity">1D</cq-clickable>
 				</span>
-				<cq-menu-dropdown>{items}</cq-menu-dropdown>
+				<cq-menu-dropdown>{menuItems}</cq-menu-dropdown>
 			</cq-menu>
 		);
 	}

@@ -23,6 +23,7 @@ export function getDefaultConfig() {
 		chartConfig: {
 			preferences: { labels: false, currentPriceLine: true, whitespace: 0 }
 		},
+		menus: ['menu_periodicity', 'menu_views', 'menu_display', 'menu_studies', 'menu_events'],
 		menu_periodicity: [
 			{ label: '1 D', periodicity: 1, interval: 1, timeUnit: 'day' },
 			{ label: '1 W', periodicity: 1, interval: 1, timeUnit: 'week' },

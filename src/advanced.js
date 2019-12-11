@@ -14,12 +14,12 @@ config.addOns.tooltip = null;
 // uncomment following to have minimal interace
 // config.header = null
 // config.footer = null;
-// // turning off individual menus when header is set to true
-// config.menu_periodicity = null;
-// config.menu_views = null;
-// config.menu_display = null;
-// config.menu_events = null;
 
+// turning off individual menus or re-ordering
+// config.menus = ['menu_display', 'menu_periodicity', 'menu_views', 'menu_studies', 'menu_events']
+
+// show only few studies
+// config.menu_studies.include_only = ['ATR Bands', 'MACD', 'Moving Average']
 
 /**
  * Optional callback function to access chart engine and uiContext
