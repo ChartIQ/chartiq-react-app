@@ -14,6 +14,7 @@ export function getDefaultConfig() {
 		breakpointLabels: ['sm', 'md', 'lg'], // ui container classes for various break points
 		breakpointSymbolPlaceholders: ['', 'Symbol', 'Enter Symbol'],
 		defaultSymbol: 'AAPL',
+		symbolLookupTabs: ['ALL', 'STOCKS', 'FX', 'INDEXES', 'FUNDS', 'FEATURES'],
 		// quote refresh interval
 		quoteFeed,
 		refreshInterval: 1, // referesh interval is required for MarketDepth simulation

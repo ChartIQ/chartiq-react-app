@@ -29,7 +29,7 @@ export default class ChartLookup extends React.Component {
 	componentDidMount() {
 		const {
 			UIContext,
-			config: { defaultSymbol }
+			config: { defaultSymbol, symbolLookupTabs = ['ALL'] }
 		} = this.context;
 		const { stx } = UIContext;
 
@@ -52,12 +52,20 @@ export default class ChartLookup extends React.Component {
 		if (!stx.chart.symbol) {
 			UIContext.UISymbolLookup.selectItem({ symbol: defaultSymbol }); // load an initial symbol
 		}
+
+		this.tabItems = symbolLookupTabs.map((name, index) => {
+			return index 
+			? <cq-filter>{name}</cq-filter>
+			: <cq-filter class="true">{name}</cq-filter>;
+		});
 	}
 
 	render() {
 		const {
-			uiLayout: { symbolPlaceholder = 'Enter Symbol' } = {}
-		} = this.context.UIContext;
+			UIContext: {
+				uiLayout: { symbolPlaceholder = 'Enter Symbol' } = {}
+			},
+		} = this.context;
 
 		return (
 			<React.Fragment>
@@ -83,12 +91,13 @@ export default class ChartLookup extends React.Component {
 						</cq-lookup-input>
 						<cq-lookup-results>
 							<cq-lookup-filters cq-no-close>
-								<cq-filter class="true">ALL</cq-filter>
+								{this.tabItems}
+								{/* <cq-filter class="true">ALL</cq-filter>
 								<cq-filter>STOCKS</cq-filter>
 								<cq-filter>FX</cq-filter>
 								<cq-filter>INDEXES</cq-filter>
 								<cq-filter>FUNDS</cq-filter>
-								<cq-filter>FUTURES</cq-filter>
+								<cq-filter>FUTURES</cq-filter> */}
 							</cq-lookup-filters>
 							<cq-scroll></cq-scroll>
 						</cq-lookup-results>

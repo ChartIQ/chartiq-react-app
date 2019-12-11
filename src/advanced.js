@@ -11,15 +11,18 @@ let config = getDefaultConfig();
 config.chartConfig.preferences.currentPriceLine = true;
 config.addOns.tooltip = null;
 
+// select and order symbol market tabs
+config.symbolLookupTabs = ['ALL', 'FX', 'STOCKS'];
+
 // uncomment following to have minimal interace
 // config.header = null
 // config.footer = null;
 
 // turning off individual menus or re-ordering
-// config.menus = ['menu_display', 'menu_periodicity', 'menu_views', 'menu_studies', 'menu_events']
+// config.menus = ['menu_display', 'menu_periodicity', 'menu_views', 'menu_studies', 'menu_events'];
 
 // show only few studies
-// config.menu_studies.include_only = ['ATR Bands', 'MACD', 'Moving Average']
+// config.menu_studies.include_only = ['ATR Bands', 'MACD', 'Moving Average'];
 
 /**
  * Optional callback function to access chart engine and uiContext
@@ -27,7 +30,7 @@ config.addOns.tooltip = null;
 const chartInitialized = ({ chartEngine, uiContext }) => {
 	// access to chart engine and uiContext
 	// console.log(chartEngine, uiContext);
-}
+};
 
 ReactDom.render(
 	<AdvancedChart config={config} chartInitialized={chartInitialized} />,
