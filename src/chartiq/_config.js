@@ -167,8 +167,30 @@ export function getDefaultConfig() {
 		addOns: {
 			inactivityTimer: { minutes: 30 },
 			extendedHours: { filter: true },
-			rangeSlicer: true,
+			rangeSlider: true,
 			animation: { tension: 0.3 },
+			continuousZoom: {
+				periodicities:
+				[
+					// daily interval data
+					{period:1,   interval:"month"},
+					{period:1,   interval:"week"},
+					{period:1,   interval:"day"},
+					// 30 minute interval data
+					{period:8,   interval:30},
+					{period:1,   interval:30},
+					// 1 minute interval data
+					{period:5,   interval:1},
+					{period:1,   interval:1},
+					// one second interval data
+					{period:10,  interval:1,  timeUnit:"second"},
+					{period:1,   interval:1,  timeUnit:"second"},
+				],
+				boundaries:{
+					maxCandleWidth: 15,
+					minCandleWidth: 3
+				}
+			},
 			tooltip: {
 				ohl: true,
 				volume: true,
