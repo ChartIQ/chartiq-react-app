@@ -1,7 +1,9 @@
 import React from 'react';
-import MenuStudyLegend from './MenuStudyLegend';
+
+import { CIQ } from 'chartiq/js/chartiq';
 import { ChartContext } from '../../ChartContext';
 
+// import MenuStudyLegend from './MenuStudyLegend';
 import '../../webcomponent-containers/study-legend';
 
 /**
@@ -22,8 +24,29 @@ export default class MenuStudies extends React.Component {
 	}
 
 	componentDidMount() {
-		let studies = this.studiesRef.current;
-		var studyParams = { template: '#studies' };
+		const studies = this.studiesRef.current;
+		const { include_only = [], exclude = [] } = this.props.filter || {};
+
+		const excludedStudies = Object.entries(CIQ.Studies.studyLibrary)
+			.reduce((acc, [key, { name }]) => {
+				if (include_only.length) {
+					if (!include_only.includes(name)) {  // not on included list
+						acc[key] = name
+					}
+					return acc;
+				}
+
+				if (exclude.length) {
+					if (exclude.includes(name)) {  // not on included list
+						acc[key] = name
+					}
+					return acc;
+				}
+				return acc;
+			}, {});
+		console.log({ excludedStudies });
+
+		var studyParams = { template: '#studies', excludedStudies };
 		studies.initialize(studyParams);
 	}
 
@@ -59,7 +82,8 @@ export default class MenuStudies extends React.Component {
 							<cq-heading>Studies</cq-heading>
 						</>
 					)}
-					<cq-scroll>
+					<cq-heading cq-filter="true">Studies</cq-heading>
+					<cq-scroll cq-no-maximize="true">
 						<cq-studies ref={this.studiesRef}>
 							<cq-studies-content>
 								<template id="studies">

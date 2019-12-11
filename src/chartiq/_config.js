@@ -72,6 +72,10 @@ export function getDefaultConfig() {
 			{ label: 'Themes', type: 'heading'},
 			{ label: 'New Theme', type: 'themes'}
 		],
+		menu_studies: {
+			include_only: [],		// add names to have as only included
+			exclude: []					// exclude names from list of available studies
+		},
 		menu_events: [
 			{ label: 'Simple Square', markertype: 'square' },
 			{ label: 'Simple Circle', markertype: 'circle' },
