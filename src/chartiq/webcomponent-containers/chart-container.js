@@ -242,35 +242,31 @@ document.querySelector("#app")
 		this.stx.setMarketFactory(CIQ.Market.Symbology.factory);
 	}
 
-	configureAddOns({
-		rangeSlider = true,
-		animation = { tension: 0.3 },
-		extendedHours = { filter: true },
-		inactivityTimer = { minutes: 30 },
-		tooltip = {
-			ohl: true,
-			volume: true,
-			series: true,
-			studies: true
-		}
-	} = {}) {
+	configureAddOns(addOns) {
 		const { stx } = this;
+		CIQ.debugErrors = true;
 
-		if (rangeSlider && CIQ.RangeSlider) {
-			new CIQ.RangeSlider({ stx });
-		}
-		if (animation && CIQ.Animation) {
-			new CIQ.Animation(stx, animation);
-		}
-		if (extendedHours && CIQ.ExtendedHours) {
-			new CIQ.ExtendedHours({ stx, ...extendedHours });
-		}
-		if (inactivityTimer && CIQ.InactivityTimer) {
-			new CIQ.InactivityTimer({ stx, ...inactivityTimer });
-		}
-		if (tooltip && Tooltip) {
-			new Tooltip({ stx, ...tooltip });
-		}
+		Object.entries(addOns)
+			.filter(([, params]) => !!params)
+			.forEach(([addOn, params]) => {
+			console.log({addOn})
+			const addOnObjectName = addOn[0].toUpperCase() + addOn.substr(1);
+
+			try {
+				if (!CIQ[addOnObjectName]) {
+					if (CIQ.debugErrors) {
+						console.log('Plugin ' + addOnObjectName + ' not availble for ' + addOn + ' with params ', params)
+					}
+					return;
+				}
+				console.log('setting ', addOn, params)
+				new CIQ[addOnObjectName]({ stx, ...(typeof params === 'object' ? params : {})})
+			} catch (err) {
+				if (CIQ.debugErrors) {
+					console.error('Error configuring ' + addOn + ' using params ', params, 'error', err);
+				}
+			}
+		});
 	}
 
 	startComponentUI() {
