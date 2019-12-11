@@ -21,10 +21,17 @@ export default class ChartArea extends React.Component {
 	resizeChart() {}
 
 	render() {
-		const { left, right } = this.props;
+		const { left, right, header, footer } = this.props;
+		const style = { 
+			left,
+			right, 
+			top: header ? '' : 0,  // if header exists use class setting
+			bottom: footer ? '' : 0  // if footer use class setting
+		}
+		
 		return (
 			<React.Fragment>
-				<div className="ciq-chart-area" ref={this.chartAreaRef} style={{ left, right }}>
+				<div className="ciq-chart-area" ref={this.chartAreaRef} style={style}>
 					{this.props.children}
 				</div>
 			</React.Fragment>

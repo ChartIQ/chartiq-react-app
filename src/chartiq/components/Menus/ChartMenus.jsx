@@ -21,13 +21,13 @@ import MenuEvents from './MenuEvents';
  */
 export default class ChartMenus extends PureComponent {
 	render() {
-		const { menu_periodicity, menu_views } = this.context.config;
+		const { menu_periodicity, menu_views, menu_display, menu_events } = this.context.config;
 		return (
 			<div className="ciq-dropdowns">
 				{menu_periodicity && <MenuPeriodicity />}
 				{menu_views && <MenuViews />}
-				<MenuSettings plugins={this.props.plugins} />
-				<MenuStudies plugins={this.props.plugins} />
+				{menu_display && <MenuSettings plugins={this.props.plugins} />}
+				{menu_events && <MenuStudies plugins={this.props.plugins} />}
 				<MenuEvents />
 			</div>
 		);

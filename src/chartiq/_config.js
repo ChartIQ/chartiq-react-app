@@ -5,8 +5,13 @@ export default getDefaultConfig();
 
 export function getDefaultConfig() {
 	return {
+		header: true,  	// chart header will show / hide top navigation
+		footer: true,	// chart footer
+		/**
+		 * breakpoints define changes in layout
+		 */
 		breakpoints: [584, 700],
-		breakpointLabels: ['sm', 'md', 'lg'],
+		breakpointLabels: ['sm', 'md', 'lg'], // ui container classes for various break points
 		breakpointSymbolPlaceholders: ['', 'Symbol', 'Enter Symbol'],
 		defaultSymbol: 'AAPL',
 		// quote refresh interval

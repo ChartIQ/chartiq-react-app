@@ -42,6 +42,7 @@ export default class AdvancedChart extends React.Component {
 		};
 
 		const self = this;
+		const { chartInitialized } = this.props;
 		this.state = {
 			config: this.props.config,
 			stx: null,
@@ -60,6 +61,9 @@ export default class AdvancedChart extends React.Component {
 				this.configurePlugins(stx);
 				this.setState({ stx });
 				stx.addEventListener('layout', self.resizeScreen);
+				if (chartInitialized) {
+					chartInitialized({ chartEngine: stx, uiContext: self.state.UIContext });
+				}
 			}
 		};
 	}
@@ -201,6 +205,8 @@ export default class AdvancedChart extends React.Component {
 	render() {
 		// more explicit props wiring to WrappedChart and ChartNav
 		const { 
+			header,
+			footer,
 			chartConfig,
 			addOns,
 			quoteFeed,
@@ -218,10 +224,11 @@ export default class AdvancedChart extends React.Component {
 					{UIContext && (
 						<>
 							<div className={breakpointClass} ref={this.chartContainer}>
-								<ChartNav plugins={plugins} />
 								<ColorPicker />
+								{header && <ChartNav plugins={plugins} />}
 								{plugins && this.state.stx && <Plugins {...plugins} />}
-								<ChartArea left={chartAreaLeft} right={chartAreaRight} >
+								<ChartArea 
+									{ ... {header, footer, left: chartAreaLeft, right: chartAreaRight}}>
 									<WrappedChart 
 										{...{
 											chartConfig,
@@ -238,7 +245,7 @@ export default class AdvancedChart extends React.Component {
 								</BottomPanel>
 								<SidePanel />
 								<ChartDialogs />
-								<ChartFooter />
+								{footer && <ChartFooter />}
 							</div>
 						</>
 					)}
