@@ -78,7 +78,6 @@ export default class MenuStudies extends React.Component {
 								</cq-scriptiq-content>
 							</cq-scriptiq-menu>
 							<cq-separator></cq-separator>
-							<cq-heading>Studies</cq-heading>
 						</>
 					)}
 					<cq-heading cq-filter="true">Studies</cq-heading>
