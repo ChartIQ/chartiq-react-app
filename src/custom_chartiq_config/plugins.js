@@ -10,6 +10,6 @@ import 'chartiq/plugins/tfc/tfc-demo';
 // ScriptIQ plugin
 import 'chartiq/plugins/scriptiq/scriptiq';
 
-// Timespan events
-import 'chartiq/plugins/timespanevent/timespanevent';
-import 'chartiq/plugins/timespanevent/examples/timeSpanEventSample';
+// Timespan events available starting 7.3
+// import 'chartiq/plugins/timespanevent/timespanevent';
+// import 'chartiq/plugins/timespanevent/examples/timeSpanEventSample';

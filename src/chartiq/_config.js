@@ -208,10 +208,14 @@ export function getDefaultConfig() {
 				studies: true
 			}
 		},
+		/**
+		 * Not all plugins may be available, import required plugins to make 
+		 * them available in addition to configuration here
+		 */
 		plugins: {
 			tfc: true,
-			scriptIQ: false,
-			timeSpanEvents: true,
+			scriptIQ: true,
+			timeSpanEvents: true, // available starting 7.3
 			cryptoiq: {
 				// supplements and overrides root MarketDepth
 				marketDepth: {
