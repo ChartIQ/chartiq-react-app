@@ -1,6 +1,5 @@
 import React from 'react'
 import { CIQ } from 'chartiq'
-import * as html2canvas from 'chartiq/js/thirdparty/html2canvas'
 
 /**
  * Share chart button component `<ShareChart/>`
@@ -12,10 +11,20 @@ import * as html2canvas from 'chartiq/js/thirdparty/html2canvas'
  * @extends {React.Component}
  */
 export default class ShareChart extends React.Component {
+	componentDidMount() {
+		// take a bit time to load canvas allowing other items load
+		// with additonal UI notificatio this could also be implemented with on demand loading
+		setTimeout(() => {
+			import(/** webpackChunkName: html2canvas */ 'chartiq/js/thirdparty/html2canvas')
+			.then(html2canvas => {
+				CIQ.Share.html2canvasLocation = 'dist'
+				window.html2canvas = html2canvas;
+			})
+			.catch(err => console.error('Error: failed to load html2canvas for screen sharing'))
+		}, 1000);  
+	}
+
 	render() {
-		CIQ.Share.html2canvasLocation = 'dist'
-		// CIQ expects html2canvas on the global
-		window.html2canvas = html2canvas
 		return (
 			<>
 			<cq-share-button>
