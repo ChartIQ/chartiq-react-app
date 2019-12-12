@@ -2,7 +2,7 @@ import React from 'react';
 import ChartTitle from '../Core/ChartTitle';
 import ChartComparison from '../Features/ChartComparison';
 import MenuStudyLegend from '../Menus/MenuStudyLegend';
-import { ChartContext } from '../../ChartContext';
+import { ChartContext } from '../../context/ChartContext';
 
 /**
  * Presentational component that holds the ChartTitle and other components. This component is designed to keep the ChartTitle in the same position with the top of the main chart panel.

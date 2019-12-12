@@ -1,4 +1,5 @@
 import React from 'react'
+import './App.css'
 
 export default class App extends React.Component {
 
@@ -10,11 +11,11 @@ render() {
                 link: 'advanced-chart',
                 description: 'A chart with all the bells and whistles enabled via props'
             },
-            {
-                name: 'CryptoIQWorkstation', 
-                link: 'cryptoIQWorkStation',
-                description: 'Crypto workstation with MarketDepth, TradeHistory, and Orderbook. Includes Trade From Chart functionality'
-            },
+            // {
+            //     name: 'CryptoIQWorkstation', 
+            //     link: 'cryptoIQWorkStation',
+            //     description: 'Crypto workstation with MarketDepth, TradeHistory, and Orderbook. Includes Trade From Chart functionality'
+            // },
             {   name: 'MarketDepth',
                 link: 'marketdepth',
                 description: 'Stand alone component for rendering a MarketDepth type chart'
@@ -27,7 +28,7 @@ render() {
         delete localStorage.myChartLayout
         return (
              <React.Fragment>
-                <h1>Choose Your Component</h1>
+                <h1>Select Component</h1>
                     
                 <div className="component-selection">
                     <ul>

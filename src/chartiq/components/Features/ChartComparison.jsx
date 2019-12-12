@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChartContext } from '../../ChartContext';
+import { ChartContext } from '../../context/ChartContext';
 
 /**
  * Chart symbol comparison component `<ChartComparison>`

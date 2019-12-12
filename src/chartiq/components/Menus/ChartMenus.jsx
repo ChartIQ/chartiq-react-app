@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { ChartContext } from '../../ChartContext';
+import { ChartContext } from '../../context/ChartContext';
 
 import MenuPeriodicity from './MenuPeriodicity';
 import MenuViews from './MenuViews';

@@ -4,19 +4,16 @@ import 'chartiq/js/addOns'
 import 'chartiq/examples/markets/marketDefinitionsSample'
 import 'chartiq/examples/markets/marketSymbologySample'
 import UIManager from '../components/Core/UIManager'
-import ChartArea from '../components/Layout/ChartArea'
+import WrappedChart from '../components/Core/WrappedChart'
+
+import { ChartNav, ChartArea, ChartFooter, SidePanel } from '../components/Layout'
 import ColorPicker from '../components/Features/ColorPicker'
-import ChartNav from '../components/Layout/ChartNav'
-import SidePanel from '../components/Layout/SidePanel'
 import TradeHistory from '../components/Plugins/CryptoIQ/TradeHistory'
 import OrderBook from '../components/Plugins/CryptoIQ/OrderBook'
-import WrappedChart from '../components/Core/WrappedChart'
-import ChartDialogs from '../components/Dialogs/ChartDialogs'
-import ChartFooter from '../components/Layout/ChartFooter'
-
 import TradePanel from '../components/Plugins/TFC/TradePanel'
+import ChartDialogs from '../components/Dialogs/ChartDialogs'
 
-import { ChartContext } from '../react-chart-context'
+import { ChartContext } from '../context/ChartContext'
 
 /**
  * This is a fully functional example showing how to load a chart with complete user interface.
@@ -31,25 +28,31 @@ export default class CryptoIQWorkstation extends React.Component {
 	constructor(props) {
 		super(props)
 
+		this.contextContainer = React.createRef();
+
 		this.setContext = (update) => {
 			this.setState((state) => {
 				return Object.assign(this.context, update)
 			}) 
-			return update
+			return update;
 		}
-
-		let UIContext=new CIQ.UI.Context(null, document.querySelector("*[cq-context]"));
-		let UILayout=new CIQ.UI.Layout(UIContext);
-		let KeystrokeHub=new CIQ.UI.KeystrokeHub(document.querySelector("body"), UIContext, {cb:CIQ.UI.KeystrokeHub.defaultHotKeys});
 
 		this.state = {
 			stx: null,
-			UIContext: UIContext,
+			UIContext: null,
 			setContext: this.setContext,
 			components: {AdvancedChart: this},
 			registerComponent: (component) => { this.registerComponent(component) },
 			resize: () => { this.resizeScreen() }
 		}
+	}
+
+	componentDidMount() {
+		const UIContext = new CIQ.UI.Context(null, this.contextContainer.current);
+		new CIQ.UI.Layout(UIContext);
+		new CIQ.UI.KeystrokeHub(document.body, UIContext, { cb:CIQ.UI.KeystrokeHub.defaultHotKeys });
+
+		this.state({ UIContext });
 	}
 
 	getSnapshotBeforeUpdate(prevProps, prevState) {
@@ -65,7 +68,7 @@ export default class CryptoIQWorkstation extends React.Component {
 	}
 
 	overrideChartLayout() {
-		let self = this
+		let self = this;
 		return function () {
 			this.setChartType('line');
 			this.slider.slider.setChartType('line')
@@ -90,62 +93,59 @@ export default class CryptoIQWorkstation extends React.Component {
 	}
 
 	resizeScreen() {
-		let context = Object.keys(this.context).length ? this.context : this.state
-		if(!context || !context.chartArea || !context.UIContext) return
-		let chartArea = context.chartArea
-		let sidePanel
-		if(context.UIContext.SidePanel)  sidePanel = context.UIContext.SidePanel
-		let sidePanelWidth = sidePanel? sidePanel.nonAnimatedWidth() : 0
-		chartArea.node.style.width = chartArea.width - sidePanelWidth +'px'
+		const { chartArea, UIContext, SidePanel: sidePanel } = this.state;
+		if(!chartArea || !UIContext) return
+
+		let sidePanelWidth = sidePanel? sidePanel.nonAnimatedWidth() : 0;
+		chartArea.node.style.width = chartArea.width - sidePanelWidth +'px';
 	}
 
 	render() {
-		let props = this.props
-		let quoteFeed = props.quoteFeed
-		let chartConstructor = props.chartConstructor
-		let preferences = props.preferences
-		let plugins = props.plugins || {}
-		let cryptoiq = plugins.cryptoiq 
+		const { stx } = this.state;
+		const { quoteFeed, chartConstructor, preferences, plugins = {}, cryptoiq } = this.plugins;
 
 		return (
-			<div className="cq-chart-container">
-			<ChartContext.Provider value={this.state}>
-				<UIManager />
-				<ChartNav plugins={props.plugins} />
-				<ColorPicker />
-				<ChartArea>
-					<div id="flexContainer">
-						<TradeHistory />
-						<div id="cryptoGroup2">
-							<div id="marketDepthBookmark" /> 
-							{cryptoiq.OrderBook && this.context.stx && <OrderBook 
-								amount={cryptoiq.OrderBook.amount}
-								size={cryptoiq.OrderBook.size}
-								price={cryptoiq.OrderBook.price}
-							/>}
-						</div>
-						<div id="mainChartGroup">
-							<WrappedChart
-								quoteFeed={quoteFeed}
-								chartConstructor={chartConstructor}
-								preferences={preferences}
-								staticHeadsUp={true}
-								dynamicHeadsUp={true}
-								addOns={props.addOns}
-								plugins={props.plugins}
-							/>
-						</div>						
-					</div>
-				</ChartArea>
-				<SidePanel>
-					{props.plugins && props.plugins.TFC && 
-						<TradePanel />
-					}
-				</SidePanel>				
-				<ChartFooter />
-				<ChartDialogs />
-			</ChartContext.Provider>
-			</div>
+			<cq-context ref={this.contextContainer}>
+				<div className="cq-chart-container">
+					<ChartContext.Provider value={this.state}>
+						<UIManager />
+						<ChartNav plugins={plugins} />
+						<ColorPicker />
+						<ChartArea>
+							<div id="flexContainer">
+								<TradeHistory />
+								<div id="cryptoGroup2">
+									<div id="marketDepthBookmark" /> 
+									{cryptoiq.OrderBook && this.context.stx && <OrderBook 
+										amount={cryptoiq.OrderBook.amount}
+										size={cryptoiq.OrderBook.size}
+										price={cryptoiq.OrderBook.price}
+									/>}
+								</div>
+								<div id="mainChartGroup">
+									<WrappedChart
+										quoteFeed={quoteFeed}
+										chartConstructor={chartConstructor}
+										preferences={preferences}
+										staticHeadsUp={true}
+										dynamicHeadsUp={true}
+										addOns={props.addOns}
+										plugins={props.plugins}
+									/>
+								</div>
+							</div>
+						</ChartArea>
+						<SidePanel>
+							{props.plugins && props.plugins.TFC && 
+								<TradePanel />
+							}
+						</SidePanel>
+						<ChartFooter />
+						<ChartDialogs />
+					</ChartContext.Provider>
+				</div>
+			</cq-context>
+
 		)
 	}
 }

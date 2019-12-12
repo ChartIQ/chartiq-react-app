@@ -15,7 +15,8 @@ import ChartDialogs from '../components/Dialogs/ChartDialogs';
 import ScriptIQ from '../components/Plugins/ScriptIQ/ScriptIQ';
 import MarketDepth from '../components/Plugins/CryptoIQ/MarketDepth';
 
-import { ChartContext } from '../ChartContext';
+import { ChartContext } from '../context/ChartContext';
+import { getDefaultConfig } from '../_config';
 
 /**
  * This is a fully functional example showing how to load a chart with complete user interface.
@@ -44,7 +45,7 @@ export default class AdvancedChart extends React.Component {
 		const self = this;
 		const { chartInitialized } = this.props;
 		this.state = {
-			config: this.props.config,
+			config: this.props.config || getDefaultConfig(),
 			stx: null,
 			UIContext: null,
 			components: { AdvancedChart: this },

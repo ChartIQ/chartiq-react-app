@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChartContext } from '../../../ChartContext';
+import { ChartContext } from '../../../context/ChartContext';
 
 export default class TradePanel extends React.Component {
 	constructor() {

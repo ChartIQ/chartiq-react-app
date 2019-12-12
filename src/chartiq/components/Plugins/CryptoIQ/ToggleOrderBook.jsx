@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChartContext } from '../../../ChartContext';
+import { ChartContext } from '../../../context/ChartContext';
 
 export default class ToggleOrderBook extends React.Component {
 	constructor(props) {
@@ -8,7 +8,7 @@ export default class ToggleOrderBook extends React.Component {
 	}
 
 	componentDidMount() {
-		let node = this.toggle.current;
+		const node = this.toggle.current;
 		this.setToggleCallback(node);
 		if (this.props.addToChart) {
 			node.parentElement.removeChild(node);
@@ -17,7 +17,7 @@ export default class ToggleOrderBook extends React.Component {
 	}
 
 	setToggleCallback(node) {
-		let stx = this.context.stx;
+		const { stx } = this.context.stx;
 		node.registerCallback(function() {
 			stx.marketDepth.marketDepth.orderbook.open();
 		}, false);

@@ -4,6 +4,7 @@ import 'chartiq/js/components'
 import 'chartiq/plugins/cryptoiq/orderbook'
 import 'chartiq/examples/feeds/L2_simulator'
 import UIManager from '../components/Core/UIManager'
+import { relative } from 'path'
 
 /**
  * Stand alone OrderBook component `<OrderBook />`.
@@ -19,48 +20,55 @@ export default class OrderBook extends React.Component {
 	constructor(props) {
 		super(props);
 
-		this.createOrderBook = orderbook => {
-			this.stx = new CIQ.ChartEngine({container: this.engineRef.current})
+		this.createOrderBook = container => {
+			const stx = new CIQ.ChartEngine({ container })
 			// If in development allow access to globals for easy debugging
 			if(process.env.NODE_ENV !== 'production') {
 				if(!window.cq_debug) {
 					window.cq_debug = {
 						CIQ: CIQ,
-						stx_ob: this.stx
+						stx_ob: stx
 					}
 				}
-				else window.cq_debug.stx_ob = this.stx
 			}
+			return stx;
 		}
 
-		this.engineRef = React.createRef()
-		this.orderBookRef = React.createRef()
+		this.chartContainer = React.createRef();
 	}
 
 	componentDidMount() {
-		this.createOrderBook(this.orderBookRef.current);
-		const props = this.props;
-		let quoteFeed = props.quoteFeed;
-		let stxx = this.stx;
+		const { symbol, quoteFeed, quoteFeedBehavior } = this.props;
 
+		const chartContainer = this.chartContainer.current;
+		const stx = this.createOrderBook(chartContainer);
+		this.stx = stx;
+		
 		// initialize the UI context
-		let UIContext=new CIQ.UI.Context(stxx, document.querySelector("*[cq-context]"));
+		const contextContainer = getContextContainer(chartContainer);
+		new CIQ.UI.Context(stx, contextContainer);
 
 		// attach a quoteFeed if one is passed down as a prop
 		if(quoteFeed) {
-			stxx.attachQuoteFeed(quoteFeed, props.quoteFeedBehavior);
+			stx.attachQuoteFeed(quoteFeed, quoteFeedBehavior);
 			// initialize the sample data feed
-			if(CIQ.simulateL2) CIQ.simulateL2({stx:stxx, onTrade:true});
+			if(CIQ.simulateL2) CIQ.simulateL2({ stx, onTrade: true });
 		} 
 
-
 		// load a symbol so the OrderBook loads
-		stxx.loadChart(props.symbol || "^BTCUSD")
+		stx.loadChart(symbol || "^BTCUSD");
+
+		function getContextContainer(el) {
+			let node = el;
+			while (node && !/cq-context/i.test(node.tagName + node.className)){
+				node = node.parentNode;
+			}
+			return node;
+		}
 	}
 
 	componentDidUpdate() {
-		let self=this;
-		this.stx.loadChart(self.props.symbol, null, self.symbolChangeCallback)
+		this.stx.loadChart(this.props.symbol, null, this.symbolChangeCallback)
 	}
 
 	/**
@@ -78,11 +86,19 @@ export default class OrderBook extends React.Component {
 	} 
 
 	render() {
+		const orderBookStyle = {
+			top: 40,
+			bottom: 16, 
+			left: 16,
+			right: 16,
+			border: 'solid 1px #ccc'
+		}
 		return(
-			<React.Fragment>
-				<UIManager />
-				<div className="chartContainer" style={{"width":"800px","height":"460px","position":"relative", "visibility":"hidden"}} ref={this.engineRef}></div>
-				<cq-orderbook cq-active ref={this.orderBookRef}>
+			<cq-context>
+				<UIManager  />
+				<div className="chartContainer" style={{ visibility: 'hidden' }} ref={this.chartContainer}></div>
+				
+				<cq-orderbook cq-active style={orderBookStyle}>
 					<cq-orderbook-table reverse>
 						<cq-scroll cq-no-claim>
 							<cq-orderbook-bids></cq-orderbook-bids>
@@ -103,7 +119,7 @@ export default class OrderBook extends React.Component {
 						</cq-item>
 					</template>
 				</cq-orderbook>
-			</React.Fragment>
+				</cq-context>
 		)
 	}
 }

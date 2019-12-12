@@ -1,6 +1,6 @@
 import React from 'react';
 import { CIQ } from 'chartiq';
-import { ChartContext } from '../../ChartContext';
+import { ChartContext } from '../../context/ChartContext';
 
 /**
  * Chart menu component `<ContextMenuDrawing>`

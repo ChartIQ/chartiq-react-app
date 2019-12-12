@@ -2,7 +2,7 @@ import React from 'react';
 import ToggleCrosshair from './ToggleCrosshair';
 import ToggleDrawing from './ToggleDrawing';
 import ToggleHUD from './ToggleHUD';
-import { ChartContext } from '../../ChartContext';
+import { ChartContext } from '../../context/ChartContext';
 
 import { CIQ } from 'chartiq/js/chartiq';
 

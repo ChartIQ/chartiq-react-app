@@ -1,8 +1,10 @@
 import React from 'react';
+
+import { CIQ } from 'chartiq/js/chartiq';
 import ChartLookup from '../Features/ChartLookup';
 import ChartMenus from '../Menus/ChartMenus';
 import { ChartToggles, TradeToggles } from '../Toggles';
-import { ChartContext } from '../../ChartContext';
+import { ChartContext } from '../../context/ChartContext';
 
 /**
  * Chart nav component ``<ChartNav>
@@ -15,14 +17,14 @@ import { ChartContext } from '../../ChartContext';
  */
 export default class ChartNav extends React.Component {
 	render() {
-		const { plugins } = this.props;
+		const { plugins = {} } = this.props;
 		const nav = (
 			<div className={'ciq-nav'}>
 				<ChartLookup />
 				<ChartToggles />
 				<div className="ciq-menu-section">
 					<ChartMenus plugins={plugins} />
-					{plugins && (
+					{plugins.tfc && CIQ.TFC && (
 						<div className="trade-toggles ciq-toggles">
 							<TradeToggles {...plugins} />
 						</div>

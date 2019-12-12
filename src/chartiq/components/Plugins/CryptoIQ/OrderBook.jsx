@@ -3,7 +3,7 @@ import { CIQ } from 'chartiq';
 import 'chartiq/plugins/cryptoiq/orderbook';
 import 'chartiq/examples/feeds/L2_simulator';
 
-import { ChartContext } from '../../../ChartContext';
+import { ChartContext } from '../../../context/ChartContext';
 
 export default class OrderBook extends React.Component {
 	constructor() {
@@ -12,9 +12,8 @@ export default class OrderBook extends React.Component {
 	}
 
 	componentDidMount() {
-		let stx = this.context.stx;
-		let marketDepth = stx.marketDepth;
-		let orderbook = this.orderBookRef.current;
+		const { stx, stx: { marketDepth} } = this.context;
+		const orderbook = this.orderBookRef.current;
 
 		if (this.props.addToChart) {
 			orderbook.parentElement.removeChild(orderbook);

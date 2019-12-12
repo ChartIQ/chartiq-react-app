@@ -1,9 +1,9 @@
 import React from 'react'
-import { CIQ } from 'chartiq'
+import { CIQ } from 'chartiq/js/chartiq'
 import 'chartiq/js/components'
 import 'chartiq/plugins/cryptoiq/marketdepth'
-import UIManager from '../components/Core/UIManager'
 import 'chartiq/examples/feeds/L2_simulator'
+import UIManager from '../components/Core/UIManager'
 
 /**
  * Stand alone MarketDepth chart component `<MarketDepth/>`.
@@ -20,72 +20,72 @@ export default class MarketDepth extends React.Component {
 	constructor(props) {
 		super(props);
 
+		const { quoteFeed, quoteFeedBehavior } = this.props;
+
+		this.themesRef = React.createRef();
+		this.chartContainer = React.createRef();
+
 		this.createEngine = container => {
-			this.stx = new CIQ.ChartEngine({container: this.engineRef.current})
+			const stx = new CIQ.ChartEngine({ container });
+
 			// If in development allow access to globals for easy debugging
 			if(process.env.NODE_ENV !== 'production') {
 				if(!window.cq_debug) {
 					window.cq_debug = {
 						CIQ: CIQ,
-						stx_md: this.stx
+						stx_md: stx
 					}
 				}
-				else window.cq_debug.stx_md = this.stx
 			}
-			container.startChart(this.stx, this.props.quoteFeed, this.props.quoteFeedBehavior, {})
-			this.stx.addEventListener("symbolImport", this.overrideChartLayout())
+			container.startChart(stx, quoteFeed, quoteFeedBehavior, {});
+			// stx.addEventListener("symbolImport", overrideChartLayout);
+			overrideChartLayout();
+
+			return stx;
+
+			function overrideChartLayout() {
+				stx.setChartType("marketdepth");
+		
+				// stx.layout.crosshair = true;
+				stx.changeOccurred("layout");
+			}
 		}
 
-		this.themesRef = React.createRef()
-		this.engineRef = React.createRef()
-		this.state = {}
 	}
 
 	componentDidMount() {
-		if(localStorage.myChartLayout) delete localStorage.myChartLayout
-		this.createEngine(this.engineRef.current);
-		const props = this.props;
-		let quoteFeed = props.quoteFeed;
-		let stxx = this.stx;
+		if(localStorage.myChartLayout) delete localStorage.myChartLayout;
 
-		let UIStorage=new CIQ.NameValueStore();
+		const container = this.chartContainer.current;
+		const stx = this.createEngine(container);
+		this.stx = stx;
+		const { quoteFeed, symbol } = this.props;
 
-		let themes = this.themesRef.current
+		const UIStorage=new CIQ.NameValueStore();
+
+		const themes = this.themesRef.current
 		themes.initialize({
-			builtInThemes: {"ciq-day":"Day","ciq-night":"Night"},
-			defaultTheme: "ciq-night",
+			builtInThemes: {
+				'ciq-day': 'Day',
+				'ciq-night': 'Night'
+			},
+			defaultTheme: 'ciq-night',
 			nameValueStore: UIStorage
 		});
 
-		let defaultState = {
-			engine: this.stx,
-			theme: themes.currentTheme
-		}
-
-		this.setState((state) => Object.assign(state, defaultState))
-
 		// Setup the L2 Simulator if using the quoteFeedSimulator
 		if(CIQ.simulateL2) {
-			CIQ.simulateL2({stx:stxx, onTrade:true});
+			CIQ.simulateL2({stx, onTrade:true});
 		}
 
 		// load a symbol so the OrderBook loads
-		stxx.loadChart(props.symbol || "^BTCUSD")
+		stx.loadChart(symbol || "^BTCUSD")
 	}
 
 	componentDidUpdate() {
-		let self=this;
-		this.stx.loadChart(self.props.symbol, null, self.symbolChangeCallback)
+		this.stx.loadChart(this.props.symbol, null, this.symbolChangeCallback);
 	}
 
-	overrideChartLayout() {
-		let stx = this.stx
-		stx.setChartType("marketdepth")
-		Object.assign(stx.layout, {
-			crosshair: true,
-		})
-		stx.changeOccurred("layout")
-	}
 	/**
 	 * Overwrite me with any function to be called when the symbol changes
 	 */
@@ -102,22 +102,26 @@ export default class MarketDepth extends React.Component {
 	}
 
 	render() {
-		let displayThemes = this.props.displayThemes?"":"none"
+		const display  = this.props.displayThemes ? '' : 'none'
+		const { symbol = "^BTCUSD" } = this.props
 		return(
-			<div className="cq-chart-container">
-			<UIManager />
-			<cq-themes ref={this.themesRef} style={{display: displayThemes}}>
-				<cq-themes-builtin>
-					<template><cq-item></cq-item></template>
-				</cq-themes-builtin>
-			</cq-themes>
-			<div className={"ciq-chart-area"} style={{height: '100%'}}>
-				<div className={"ciq-chart"}>
-					<chartiq-chart class="chartContainer" defer-start="true" animations="false" style={{height: "100%"}} ref={this.engineRef}>
-					</chartiq-chart>
+			<cq-context>
+				<div className="cq-chart-container">
+					<UIManager />
+					<h2 style={{ color: '#888', marginLeft: 16 }}>Market Depth: {symbol}</h2>
+					<cq-themes ref={this.themesRef} style={{display}}>
+						<cq-themes-builtin>
+							<template><cq-item></cq-item></template>
+						</cq-themes-builtin>
+					</cq-themes>
+					<div className={"ciq-chart-area"}>
+						<div className={"ciq-chart"}>
+							<chartiq-chart class="chartContainer" defer-start="true" animations="false" style={{ height: '90%' }} ref={this.chartContainer}>
+							</chartiq-chart>
+						</div>
+					</div>
 				</div>
-			</div>
-			</div>
+			</cq-context>
 		)
 	}
 }

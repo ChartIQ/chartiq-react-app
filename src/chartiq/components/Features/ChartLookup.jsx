@@ -1,7 +1,7 @@
 import React from 'react';
 import { CIQ } from 'chartiq';
 import 'chartiq/examples/feeds/symbolLookupChartIQ';
-import { ChartContext } from '../../ChartContext';
+import { ChartContext } from '../../context/ChartContext';
 
 /**
  * Chart lookup component
@@ -55,8 +55,8 @@ export default class ChartLookup extends React.Component {
 
 		this.tabItems = symbolLookupTabs.map((name, index) => {
 			return index 
-			? <cq-filter>{name}</cq-filter>
-			: <cq-filter class="true">{name}</cq-filter>;
+			? <cq-filter key={name}>{name}</cq-filter>
+			: <cq-filter class="true" key={name}>{name}</cq-filter>;
 		});
 	}
 
@@ -92,12 +92,6 @@ export default class ChartLookup extends React.Component {
 						<cq-lookup-results>
 							<cq-lookup-filters cq-no-close>
 								{this.tabItems}
-								{/* <cq-filter class="true">ALL</cq-filter>
-								<cq-filter>STOCKS</cq-filter>
-								<cq-filter>FX</cq-filter>
-								<cq-filter>INDEXES</cq-filter>
-								<cq-filter>FUNDS</cq-filter>
-								<cq-filter>FUTURES</cq-filter> */}
 							</cq-lookup-filters>
 							<cq-scroll></cq-scroll>
 						</cq-lookup-results>

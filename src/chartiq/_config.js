@@ -14,6 +14,10 @@ export function getDefaultConfig() {
 		breakpointLabels: ['sm', 'md', 'lg'], // ui container classes for various break points
 		breakpointSymbolPlaceholders: ['', 'Symbol', 'Enter Symbol'],
 		defaultSymbol: 'AAPL',
+		// headerLeft: {
+		// 	symbolLookup: true,
+		// 	toggles: ['drawing', 'crosshair', 'info']
+		// },
 		symbolLookupTabs: ['ALL', 'STOCKS', 'FX', 'INDEXES', 'FUNDS', 'FEATURES'],
 		// quote refresh interval
 		quoteFeed,

@@ -244,25 +244,22 @@ document.querySelector("#app")
 
 	configureAddOns(addOns) {
 		const { stx } = this;
-		CIQ.debugErrors = true;
 
 		Object.entries(addOns)
 			.filter(([, params]) => !!params)
 			.forEach(([addOn, params]) => {
-			console.log({addOn})
 			const addOnObjectName = addOn[0].toUpperCase() + addOn.substr(1);
 
 			try {
 				if (!CIQ[addOnObjectName]) {
-					if (CIQ.debugErrors) {
+					if (CIQ.debug) {
 						console.log('Plugin ' + addOnObjectName + ' not availble for ' + addOn + ' with params ', params)
 					}
 					return;
 				}
-				console.log('setting ', addOn, params)
 				new CIQ[addOnObjectName]({ stx, ...(typeof params === 'object' ? params : {})})
 			} catch (err) {
-				if (CIQ.debugErrors) {
+				if (CIQ.debug) {
 					console.error('Error configuring ' + addOn + ' using params ', params, 'error', err);
 				}
 			}

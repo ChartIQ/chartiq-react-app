@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { CIQ, MarkersSample } from 'chartiq/examples/markers/markersSample';
-import { ChartContext } from '../../ChartContext';
+import { ChartContext } from '../../context/ChartContext';
 
 /**
  * Chart menu component `<MenuEvents>`

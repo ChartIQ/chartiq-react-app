@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { CIQ } from 'chartiq/js/chartiq';
-import { ChartContext } from '../../ChartContext';
+import { ChartContext } from '../../context/ChartContext';
 
 // import MenuStudyLegend from './MenuStudyLegend';
 import '../../webcomponent-containers/study-legend';
@@ -44,7 +44,6 @@ export default class MenuStudies extends React.Component {
 				}
 				return acc;
 			}, {});
-		console.log({ excludedStudies });
 
 		var studyParams = { template: '#studies', excludedStudies };
 		studies.initialize(studyParams);

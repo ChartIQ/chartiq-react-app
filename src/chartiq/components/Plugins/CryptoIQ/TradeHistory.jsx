@@ -1,5 +1,5 @@
 import React from 'react'
-import { ChartContext } from '../../../react-chart-context'
+import { ChartContext } from '../../../context/ChartContext'
 
 export default class TradeHistory extends React.Component {
 	constructor(props) {

@@ -9,7 +9,7 @@ import DialogTimezone from './DialogTimezone';
 import DialogLanguage from './DialogLanguage';
 import DialogShare from './DialogShare';
 import DialogTheme from './DialogTheme';
-import { ChartContext } from '../../ChartContext';
+import { ChartContext } from '../../context/ChartContext';
 
 /**
  * Chart dialogs component `<ChartDialogs>`

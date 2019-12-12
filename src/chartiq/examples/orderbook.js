@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDom from 'react-dom'
-import MarketDepth from './containers/MarketDepth'
+import OrderBook from '../containers/OrderBook'
 
 import { quoteFeedSimulator } from 'chartiq/examples/feeds/quoteFeedSimulator'
 
@@ -10,11 +10,11 @@ import 'chartiq/css/perfect-scrollbar.css'
 import 'chartiq/css/stx-chart.css'
 import 'chartiq/css/chartiq.css'
 import 'chartiq/plugins/cryptoiq/cryptoiq.css'
-import './chartiq-react-components.css'
+import '../styles/chartiq-react-components.css'
 
 ReactDom.render(
-	React.createElement(MarketDepth, {
-		symbol: "^BTCUSD",
+	React.createElement(OrderBook, {
+		symbol: "^USDBTC",
 		quoteFeed: quoteFeedSimulator,
 		quoteFeedBehavior: {refreshInterval: 1}
 	}),

@@ -14,7 +14,7 @@ import {
 	DataAttribution
 } from '../Features/';
 
-import { ChartContext } from '../../ChartContext';
+import { ChartContext } from '../../context/ChartContext';
 
 /**
  * Wrapped chart component `<WrappedChart/>`.
