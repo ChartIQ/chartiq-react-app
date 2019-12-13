@@ -15,7 +15,7 @@ export default class ShareChart extends React.Component {
 		// take a bit time to load canvas allowing other items load
 		// with additonal UI notificatio this could also be implemented with on demand loading
 		setTimeout(() => {
-			import(/** webpackChunkName: html2canvas */ 'chartiq/js/thirdparty/html2canvas')
+			import(/* webpackChunkName: "html2canvas" */ 'chartiq/js/thirdparty/html2canvas')
 			.then(html2canvas => {
 				CIQ.Share.html2canvasLocation = 'dist'
 				window.html2canvas = html2canvas;

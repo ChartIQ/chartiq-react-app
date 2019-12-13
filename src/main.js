@@ -1,6 +1,10 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 
+import { CIQ } from 'chartiq/js/chartiq';
+
+CIQ.debug = true;
+
 import { AdvancedChart } from './chartiq';
 // chart style sheets
 import './chartiq/styles/base-imports';
@@ -9,7 +13,7 @@ import './chartiq/styles/base-imports';
 import './custom_chartiq_config/chart_styles.css';
 
 // import custom configuration selector function
-import { getConfiguration } from './custom_chartiq_config';
+import { getConfiguration, pluginsToLoadLazy } from './custom_chartiq_config';
 
 const config = getConfiguration();
 
@@ -19,9 +23,14 @@ const config = getConfiguration();
 const chartInitialized = ({ chartEngine, uiContext }) => {
 	// access to chart engine and uiContext
 	// console.log(chartEngine, uiContext);
+	// setTimeout(() => lazyLoadPlugins(pluginLoaded), 4000);
+	
+	function pluginLoaded (name) {
+		uiContext.plugins = { ...uiContext.plugins, [name]: 'loaded' }; 
+	}
 };
 
 ReactDom.render(
-	<AdvancedChart config={config} chartInitialized={chartInitialized} />,
+	<AdvancedChart config={config} chartInitialized={chartInitialized} pluginsToLoadLazy={pluginsToLoadLazy} />,
 	document.querySelector('#app')
 );

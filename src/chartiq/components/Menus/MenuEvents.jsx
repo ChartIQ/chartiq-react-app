@@ -21,6 +21,7 @@ export default class MenuEvents extends React.Component {
 			activeEvent: 'none'
 		}
 		this.markerImplementation = {};
+		this.menuEl = React.createRef();
 	}
 
 	componentDidMount() {
@@ -53,8 +54,8 @@ export default class MenuEvents extends React.Component {
 		const self = this;
 
 		Promise.all([
-			import('chartiq/examples/markers/tradeAnalyticsSample'),
-			import('chartiq/examples/markers/tradeAnalyticsSample.css')
+			import(/* webpackChunkName: "tradeAnalyticsMarkers" */ 'chartiq/examples/markers/tradeAnalyticsSample'),
+			import(/* webpackChunkName: "tradeAnalyticsMarkers" */ 'chartiq/examples/markers/tradeAnalyticsSample.css')
 		]).then(items => {
 			const [{ MarkersSample }] = items; 
 			const { stx } = self.context;
@@ -62,6 +63,11 @@ export default class MenuEvents extends React.Component {
 			this.markerImplementation = new MarkersSample(stx);
 		})
 		.catch(err => console.error(err));
+	}
+
+	componentDidUpdate() {
+		// re-bind as timespan events are loaded lazy
+		CIQ.UI.BaseComponent.buildReverseBindings(this.menuEl.current);
 	}
 
 	render() {
@@ -83,12 +89,12 @@ export default class MenuEvents extends React.Component {
 		});
 
 		return (
-			<cq-menu class="ciq-menu stx-markers collapse">
+			<cq-menu class="ciq-menu stx-markers collapse" ref={this.menuEl}>
 				<span>Events</span>
 				<cq-menu-dropdown ref={this.markerDropdown}>
 					{ menuItems }
-					{plugins && plugins.timeSpanEvents &&
-						<div className="timespanevent-ui">
+					{plugins && plugins.timeSpanEvents && CIQ.UI.TimeSpanEvent && 
+						<div className="timespanevent-ui" >
 							<cq-separator></cq-separator>
 							<cq-heading>Panel Events</cq-heading>
 							<cq-item class="time-span-panel" stxsetget="Layout.TimeSpanEventPanel()" cq-no-close>Show Panel<span className="ciq-checkbox ciq-active"><span></span></span></cq-item>

@@ -79,8 +79,6 @@ export default class WrappedChart extends React.Component {
 		return stx;
 	}
 
-
-
 	render() {
 		const { stx } = this.context;
 		const { headsUpDisplayTypes } = this.props;

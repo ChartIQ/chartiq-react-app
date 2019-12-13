@@ -45,7 +45,7 @@ export default class MenuStudies extends React.Component {
 				return acc;
 			}, {});
 
-		var studyParams = { template: '#studies', excludedStudies };
+		const studyParams = { template: '#studies', excludedStudies };
 		studies.initialize(studyParams);
 	}
 
@@ -56,7 +56,7 @@ export default class MenuStudies extends React.Component {
 				<cq-menu-dropdown cq-no-scroll>
 					{/* <MenuStudyLegend heading={"Current Studies"} clearAll={true} ref={this.studyLegendRef}/> */}
 					<cq-study-legend-container />
-					{this.props.plugins.scriptIQ && (
+					{this.props.plugins.scriptIQ && CIQ.Scripting && (
 						<>
 							<cq-heading>ScriptIQ</cq-heading>
 							<cq-item onClick={this.context.resize}>

@@ -2,7 +2,7 @@
  * Custom chart configuration and import plugins here
  * Multiple configuration sets can be created and exported
  */
-import './plugins';
+export * from './plugins';
 
 import { getDefaultConfig } from '../chartiq/_config';
 

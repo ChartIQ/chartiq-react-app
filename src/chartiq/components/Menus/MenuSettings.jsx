@@ -1,4 +1,5 @@
 import React from 'react';
+import { CIQ } from 'chartiq/js/chartiq';
 import { ChartContext } from '../../context/ChartContext';
 
 /**
@@ -15,7 +16,8 @@ import { ChartContext } from '../../context/ChartContext';
 export default class MenuSettings extends React.Component {
 	constructor (){
 		super()
-		this.themesRef = React.createRef()
+		this.themesRef = React.createRef();
+		this.menuEl = React.createRef();
 	}
 	
 	componentDidMount () {
@@ -36,16 +38,21 @@ export default class MenuSettings extends React.Component {
 	;
 	}
 
+	componentDidUpdate() {
+		CIQ.UI.BaseComponent.buildReverseBindings(this.menuEl.current);
+	}
+
 	getMenuItems() {
 		const self = this;
-		const { items, plugins = {}} = this.props || {};
+		const { items, pluginsInstalled = {}} = this.props || {};
+
 		if (!items) {
 			return null;
 		}
 
-		if (this.menuItems) {
-			return this.menuItems;
-		}
+		// if (this.menuItems) {
+		// 	return this.menuItems;
+		// }
 
 		this.menuItems = items.map(itemToMarkup);
 		return this.menuItems;
@@ -58,14 +65,18 @@ export default class MenuSettings extends React.Component {
 				return (<cq-separator key={index}></cq-separator>);
 			}
 			if (type === 'checkbox') {
-				if (required && !plugins[required]) {
-					if (CIQ.debug) {
-						console.log(`Menu ${label} disabled due to ${required} plugin not enabled`);
-					}
+				const style = { 
+					opacity: 1,
+					display: ''
+				}
+				if (required && !pluginsInstalled[required]) {
 					return null;
 				}
 				return (
-					<cq-item stxsetget={action} key={label}>{label}<span className="ciq-checkbox ciq-active"><span></span></span></cq-item>
+					<cq-item stxsetget={action} key={label} >
+						{label}
+						<span className="ciq-checkbox ciq-active"><span></span></span>
+					</cq-item>
 				);
 			}
 			if (type === 'radio') {
@@ -114,7 +125,7 @@ export default class MenuSettings extends React.Component {
 
 	render () {
 		return (
-			<cq-menu class="ciq-menu ciq-display collapse">
+			<cq-menu class="ciq-menu ciq-display collapse" ref={this.menuEl}>
 				<span>Display</span>
 				<cq-menu-dropdown>
 					{this.getMenuItems()}

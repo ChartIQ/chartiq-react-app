@@ -43,7 +43,7 @@ export default class AdvancedChart extends React.Component {
 		};
 
 		const self = this;
-		const { chartInitialized } = this.props;
+		const { chartInitialized, pluginsToLoadLazy = {} } = this.props;
 		this.state = {
 			config: this.props.config || getDefaultConfig(),
 			stx: null,
@@ -65,8 +65,20 @@ export default class AdvancedChart extends React.Component {
 				if (chartInitialized) {
 					chartInitialized({ chartEngine: stx, uiContext: self.state.UIContext });
 				}
+				setTimeout(() => loadPlugins(stx), 1);
 			}
 		};
+
+		function loadPlugins(stx) {
+			Object.entries(pluginsToLoadLazy)
+				.forEach(([name, loadFunction]) => {
+					if (CIQ.debug) console.log('loading ' + name);
+					loadFunction().then(() => {
+						if (CIQ.debug)console.log('plugin ' + name + ' loaded');
+						self.configurePlugins(stx);
+					});
+				}) 
+		}
 	}
 
 	componentDidMount() {
@@ -80,7 +92,16 @@ export default class AdvancedChart extends React.Component {
 
 		this.setState({ UIContext, UILayout });
 
+		const self = this;
 		CIQ.UI.observeProperty('uiLayout', UIContext, this.resizeScreen);
+		CIQ.UI.observeProperty('plugins', UIContext, ({ value }) => {
+			const { stx } = this.state;
+			if (!stx) {
+				return;
+			}
+			self.setState({ plugins: value });
+			self.configurePlugins(stx);
+		});
 
 		this.resizeScreen = this.resizeScreen.bind(this);
 		window.addEventListener('resize', this.updateContainerSize);
@@ -97,32 +118,47 @@ export default class AdvancedChart extends React.Component {
 		}
 	}
 
+	/**
+	 * Initiate plugins
+	 * It is invoked on startup and once for every lazy loaded plugin
+	 * requiring to keep track of loaded plguins
+	 * @param {CIQ.ChartEngine} stx 
+	 */
 	configurePlugins(stx) {
 		const { plugins, marketDepth, simulateL2 } = this.props.config;
-		const { UIContext } = this.state;
+		const { UIContext, pluginsInstalled = {} } = this.state;
 		if (!plugins) return;
 
-		if (plugins.cryptoiq) {
+		if (plugins.cryptoiq && CIQ.MarketDepth && !pluginsInstalled.cryptoiq) {
 			new CIQ.MarketDepth({
 				stx,
 				...marketDepth,
 				...plugins.cryptoiq.marketDepth
 			});
 			simulateL2(stx);
+			pluginsInstalled.cryptoiq = true;
 		}
-		if (plugins.tfc && CIQ.TFC) {
-			new CIQ.TFC({
+		if (plugins.tfc && CIQ.TFC  && !pluginsInstalled.tfc) {
+			
+			const tfc = new CIQ.TFC({
 				stx,
 				account: plugins.tfc.account,
-				context: this.context.UIContext
+				context: UIContext
 			});
+			pluginsInstalled.tfc = true;
 		}
 
-		if(plugins.timeSpanEvents && CIQ.TimeSpanEventPanel) {
+		if(plugins.timeSpanEvents && CIQ.TimeSpanEventPanel && !pluginsInstalled.timeSpanEvents) {
 			new CIQ.TimeSpanEventPanel({stx: stx, context: UIContext});
-			let helper = new CIQ.UI.TimeSpanEvent(UIContext, {menuItemSelector: ".stx-markers cq-item.span-event"});
+			const helper = new CIQ.UI.TimeSpanEvent(UIContext, {menuItemSelector: ".stx-markers cq-item.span-event"});
 			helper.implementation = new CIQ.TimeSpanEventSample(stx);
+			pluginsInstalled.timeSpanEvents = true;
 		}
+
+		// there is nothing to start for ScriptIQ just mark it as loaded
+
+		this.setState({ pluginsInstalled: {...pluginsInstalled} });
+		stx.changeOccurred('layout');
 	}
 
 	/**
@@ -216,7 +252,7 @@ export default class AdvancedChart extends React.Component {
 			headsUpDisplayTypes,
 			plugins 
 		} = this.props.config;
-		const { UIContext, breakpointSize, chartAreaLeft, chartAreaRight } = this.state;
+		const { stx, UIContext, breakpointSize, chartAreaLeft, chartAreaRight } = this.state;
 		const breakpointClass = `cq-chart-container break-${breakpointSize}`;
 
 		return (
@@ -227,7 +263,7 @@ export default class AdvancedChart extends React.Component {
 							<div className={breakpointClass} ref={this.chartContainer}>
 								<ColorPicker />
 								{header && <ChartNav plugins={plugins} />}
-								{plugins && this.state.stx && <Plugins {...plugins} />}
+								{plugins && stx && <Plugins {...plugins} />}
 								<ChartArea 
 									{ ... {header, footer, left: chartAreaLeft, right: chartAreaRight}}>
 									<WrappedChart 
