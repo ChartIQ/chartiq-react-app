@@ -24,10 +24,6 @@ const chartInitialized = ({ chartEngine, uiContext }) => {
 	// access to chart engine and uiContext
 	// console.log(chartEngine, uiContext);
 	// setTimeout(() => lazyLoadPlugins(pluginLoaded), 4000);
-	
-	function pluginLoaded (name) {
-		uiContext.plugins = { ...uiContext.plugins, [name]: 'loaded' }; 
-	}
 };
 
 ReactDom.render(
