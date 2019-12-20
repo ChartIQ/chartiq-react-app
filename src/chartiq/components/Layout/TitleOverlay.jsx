@@ -1,5 +1,6 @@
 import React from 'react';
 import ChartTitle from '../Core/ChartTitle';
+import ChartControlGroup from '../Features/ChartControlGroup';
 import ChartComparison from '../Features/ChartComparison';
 import MenuStudyLegend from '../Menus/MenuStudyLegend';
 import { ChartContext } from '../../context/ChartContext';
@@ -67,6 +68,7 @@ export default class TitleOverlay extends React.Component {
 				}}
 			>
 				<ChartTitle />
+				<ChartControlGroup />
 				<ChartComparison />
 				{menuStudyLegend}
 			</div>

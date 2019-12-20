@@ -19,7 +19,7 @@ export default class ChartNav extends React.Component {
 	render() {
 		const { plugins = {} } = this.props;
 		const nav = (
-			<div className={'ciq-nav'}>
+			<div className={'ciq-nav full-screen-hide'}>
 				<ChartLookup />
 				<ChartToggles />
 				<div className="ciq-menu-section">
