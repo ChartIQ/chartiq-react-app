@@ -22,20 +22,14 @@ export default class MenuSettings extends React.Component {
 	
 	componentDidMount () {
 		const themes = this.themesRef.current;
-		if (!themes) {
-			setTimeout(() => this.initThemes(), 10);
-			return;
-		}
-		const themeParams = {
-			builtInThemes: { "ciq-day":"Day", "ciq-night":"Night" },
-			defaultTheme: "ciq-night",
-			// nameValueStore: UIStorage
-		}
-		themes.initialize(themeParams)
-	}
-
-	initThemes () {
-	;
+	
+		themes.initialize({
+			builtInThemes: {
+				'ciq-day': 'Day',
+				'ciq-night': 'Night'
+			},
+			defaultTheme: 'ciq-night',
+		});
 	}
 
 	componentDidUpdate() {
@@ -49,10 +43,6 @@ export default class MenuSettings extends React.Component {
 		if (!items) {
 			return null;
 		}
-
-		// if (this.menuItems) {
-		// 	return this.menuItems;
-		// }
 
 		this.menuItems = items.map(itemToMarkup);
 		return this.menuItems;
@@ -69,7 +59,7 @@ export default class MenuSettings extends React.Component {
 					opacity: 1,
 					display: ''
 				}
-				if (required && !pluginsInstalled[required]) {
+				if (required && !(pluginsInstalled[required] || CIQ[required])) {
 					return null;
 				}
 				return (

@@ -251,3 +251,7 @@ cq-drawing-palette.list .tool-group .ciq-tool label,
 	top: inherit;
 	right: inherit;
 }
+
+cq-item > cq-clickable {
+	display: block;
+}

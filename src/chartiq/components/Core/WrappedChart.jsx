@@ -80,14 +80,14 @@ export default class WrappedChart extends React.Component {
 	}
 
 	render() {
-		const { stx } = this.context;
+		const { stx, drawingActive } = this.context;
 		const { headsUpDisplayTypes } = this.props;
 		const dynamicHeadsUp = headsUpDisplayTypes.includes('dynamic');
 		const staticHeadsUp = headsUpDisplayTypes.includes('static');
 
 		return (
 			<>
-				<div className="ciq-chart">
+				<div className={`ciq-chart ${drawingActive ? 'toolbar-on' : ''}`}>
 					{stx && (
 						<>
 							<PaletteDrawing />
@@ -99,6 +99,7 @@ export default class WrappedChart extends React.Component {
 						defer-start="true"
 						animations="false"
 						ref={this.engineRef}
+						toolbar-active={drawingActive ? true : false}
 					>
 						{stx && <TitleOverlay refProp={this.engineRef} />}
 						<LoadingWidget />

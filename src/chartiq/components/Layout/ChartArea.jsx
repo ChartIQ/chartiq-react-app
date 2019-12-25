@@ -18,8 +18,6 @@ export default class ChartArea extends React.Component {
 		});
 	}
 
-	resizeChart() {}
-
 	render() {
 		const { left, right, header, footer } = this.props;
 		const style = { 

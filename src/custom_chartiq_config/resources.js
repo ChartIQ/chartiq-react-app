@@ -1,9 +1,23 @@
 // manage plugins here
+import 'chartiq/js/chartiq';
+import 'chartiq/js/components';
+import 'chartiq/examples/markets/marketDefinitionsSample';
+import 'chartiq/examples/markets/marketSymbologySample';
+
+
+// import event markers from examples
+import ('chartiq/examples/markers/videoSample');
+import ('chartiq/examples/markers/videoSample.css');
 
 
 export const pluginsToLoadLazy = {
 	// comment following line if cryptoiq plugin is not available
-	cryptoiq: () => import(/* webpackChunkName: "cryptoiq" */ 'chartiq/plugins/cryptoiq/cryptoiq'),
+	cryptoiq: () => Promise.all([
+		import( /* webpackChunkName: "cryptoiq" */ 'chartiq/plugins/cryptoiq/cryptoiq'),
+		import( /* webpackChunkName: "marketdepth" */'chartiq/plugins/cryptoiq/marketdepth'),
+		import( /* webpackChunkName: "orderbook" */'chartiq/plugins/cryptoiq/orderbook'),
+		import( /* webpackChunkName: "L2_simulator" */'chartiq/examples/feeds/L2_simulator'),
+	]),
 	
 	// comment following line if scriptiq plugin is not available
 	scriptiq: () => import(/* webpackChunkName: "scriptiq" */ 'chartiq/plugins/scriptiq/scriptiq'),
@@ -24,3 +38,5 @@ export const pluginsToLoadLazy = {
 
 	// add additional plugins here
 }
+
+

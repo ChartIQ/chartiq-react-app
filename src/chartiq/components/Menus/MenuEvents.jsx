@@ -40,7 +40,7 @@ export default class MenuEvents extends React.Component {
 		UIContext.advertiseAs(Markers, 'Markers');
 		this.loadAdditionalHandlers();
 	}
-
+	
 	loadAdditionalHandlers() {
 		const { menu_events } = this.context.config;
 
@@ -48,7 +48,7 @@ export default class MenuEvents extends React.Component {
 			return;
 		}
 		// load trade event markers only when requested in menu configuration
-		if (menu_events.find(({ markertype }) => markertype === 'trade')) {
+		if (!menu_events.find(({ markertype }) => markertype === 'trade')) {
 			return;
 		}
 		const self = this;
@@ -78,11 +78,10 @@ export default class MenuEvents extends React.Component {
 		}
 		
 		const menuItems = (menu_events || []).map((item, index) => {
-			// as menu item is using stxtap all items need to be created at once
-			// or binding will not apply
-			// hide not applicable nodes
+			// hiding items will allow to bind to stxtap event at once without
+			// requiring additional binding request
 			const style = {
-				display: item.require && !this.markerImplementation[item.require] ? 'none' : ''
+				display: item.required && !this.markerImplementation[item.required] ? 'none' : ''
 			};
 			
 			return <MenuItem {...item} selected={activeEvent === item.markertype} key={index} style={style} />

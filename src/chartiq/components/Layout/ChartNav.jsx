@@ -17,11 +17,17 @@ import { ChartContext } from '../../context/ChartContext';
  */
 export default class ChartNav extends React.Component {
 	render() {
-		const { plugins = {} } = this.props;
+		const { 
+			headerLeft: { 
+				symbolLookup,
+				toggles,
+			},
+			plugins
+		} = this.props.config;
 		const nav = (
 			<div className={'ciq-nav'}>
-				<ChartLookup />
-				<ChartToggles />
+				{symbolLookup && <ChartLookup /> }
+				{toggles && toggles.length && <ChartToggles toggles={toggles} />}
 				<div className="ciq-menu-section">
 					<ChartMenus plugins={plugins} />
 					{plugins.tfc && CIQ.TFC && (

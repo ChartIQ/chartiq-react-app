@@ -39,11 +39,6 @@ export default class ChartMenus extends PureComponent {
 		return (
 			<div className="ciq-dropdowns">
 				{menuComponents}
-				{/* {menu_periodicity && <MenuPeriodicity />}
-				{menu_views && <MenuViews />}
-				{menu_display && <MenuSettings plugins={this.props.plugins} />}
-				{menu_studies && <MenuStudies plugins={this.props.plugins} filter={menu_studies} />}
-				{menu_events && <MenuEvents />} */}
 			</div>
 		);
 	}

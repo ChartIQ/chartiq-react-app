@@ -57,6 +57,7 @@ npm run build
 The sample use of a highly configurable chart component is available in [src/chartiq/main.js](.src/chartiq/main.js). It is using AdvancedChart component that provides following optional properties
 - config (configuration with around 200 configuration properties) 
 - chartInialized (callback function providing access to chartEngine and context objects once chart is initialized)
+- pluginsToLoadLazy (object with keys of plugin names and values function invoking dynamic import)
 
 List of default properties are available in [src/chartiq/_config.js](.src/chartiq/_config.js) and can be used as a guide to create custom configurations as well understanding of the inner composition structure for the AdvanceChart component.
 
@@ -142,7 +143,7 @@ By default the Advanced Chart will fall back to using simulated data from the qu
 // src/main.js
 const config = getConfiguration();
 
-config.quoteFeed = new CIQ.QuoteFeed.Xignite( null, { useSuperQuotes:true });
+config.quoteFeed = new CIQ.QuoteFeed.Xignite(null, { useSuperQuotes: true });
 
 ReactDom.render(<AdvancedChart config={config}), document.querySelector("#app"))
 	
@@ -165,7 +166,7 @@ one will be able to see list of plugins and configuration loaded in browser deve
 
 ## Configuring Plugins
 
-Similar to the way addOns work, you can configure the plugin options using configuration passed to AdvancedChart component. Plugins imports are managed in the [src/custom_chariq_config/plugins.js](.src/custom_chariq_config/plugins.js) file. Not all library licenses include plugins included in this file, to avoid compilation errors you will need to delete or comment out not available imports. Commenting out unused plugins will also reduce bundle size. The main.js file includes CryptoIQ, ScriptIQ, and TradeFromChart (TFC) plugins, additional plugins should be imported here as well.
+Similar to the way addOns work, you can configure the plugin options using configuration passed to AdvancedChart component. Plugins imports are managed in the [src/custom_chariq_config/resources.js](.src/custom_chariq_config/resources.js) file. Not all library licenses include plugins included in this file, to avoid compilation errors you will need to delete or comment out not available imports. Commenting out unused plugins will also reduce bundle size. The main.js file includes CryptoIQ, ScriptIQ, and TradeFromChart (TFC) plugins, additional plugins should be imported here as well. To increase responsivenes time to interaction on load time most plugins are loaded lazy.
 
 ## Notes
 - This application will only run from `127.0.0.1`, `localhost`, and the explicit list of domains set on your particular ChartIQ library license. If you need to bind webpack dev server to a different host, like `http://0.0.0.0`, please contact your Account Manager to have those additional domains added to your license.

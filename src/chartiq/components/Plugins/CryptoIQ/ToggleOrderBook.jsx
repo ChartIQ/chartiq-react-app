@@ -8,18 +8,15 @@ export default class ToggleOrderBook extends React.Component {
 	}
 
 	componentDidMount() {
-		const node = this.toggle.current;
-		this.setToggleCallback(node);
-		if (this.props.addToChart) {
-			node.parentElement.removeChild(node);
-			this.context.stx.marketDepth.marketDepth.container.appendChild(node);
-		}
-	}
-
-	setToggleCallback(node) {
-		const { stx } = this.context.stx;
-		node.registerCallback(function() {
-			stx.marketDepth.marketDepth.orderbook.open();
+		const toggle = this.toggle.current;
+		const { marketDepth } = this.context.stx.marketDepth;
+		
+		toggle.parentElement.removeChild(toggle);
+		marketDepth.container.appendChild(toggle);
+		
+		// registered callback will respond to click and touch events
+		toggle.registerCallback(() => {
+			marketDepth.orderbook.open();
 		}, false);
 	}
 

@@ -44,15 +44,38 @@ export default class ChartToggles extends React.Component {
 		this.setState({ sidenavActive: value === 'sidenavOn' ? 'active' : '' });
 	}
 
+	getToggleButtons() {
+		if (this.toggles) {
+			return this.toggles;
+		}
+		
+		const { 
+			headerLeft: { toggles },
+			headsUpDisplayTypes,
+		} = this.context.config;
+
+		const toggleMapping = {
+			drawing:		<ToggleDrawing key='drawing' />,
+			crosshair: 	<ToggleCrosshair key='crosshair' />,
+			info: 			<ToggleHUD headsUpDisplayTypes={headsUpDisplayTypes} key='info' />
+		}
+
+		this.toggles = toggles.map(name => toggleMapping[name]);
+		return this.toggles;
+	}
+
 	render() {
 		const { sidenavActive } = this.state;
 		const { sidenavAvailable } = this.context;
 
 		const sidenavBtnClass = `ciq-sidenav ${sidenavActive}`;
-		const sidenavClass = `icon-toggles ${
-			sidenavAvailable ? 'sidenav' : 'ciq-toggles'
-		} ${sidenavActive} `;
+		const sidenavClass = `
+			icon-toggles
+			${sidenavAvailable ? 'sidenav' : 'ciq-toggles'}
+			${sidenavActive}
+		`;
 
+		
 		return (
 			<>
 				<div className="sidenav-toggle ciq-toggles">
@@ -68,9 +91,7 @@ export default class ChartToggles extends React.Component {
 				</div>
 
 				<div className={sidenavClass}>
-					<ToggleDrawing />
-					<ToggleCrosshair />
-					<ToggleHUD />
+					{this.getToggleButtons()}
 				</div>
 			</>
 		);

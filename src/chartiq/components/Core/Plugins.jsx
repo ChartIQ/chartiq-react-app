@@ -19,7 +19,7 @@ export default class Plugins extends React.Component {
 					&& pluginsInstalled.cryptoiq
 					&& (<>
 						<OrderBook {...cryptoiq.orderBook} />
-						<ToggleOrderBook {...cryptoiq.orderBook} />
+						<ToggleOrderBook />
 					</>)
 				}
 			</React.Fragment>
