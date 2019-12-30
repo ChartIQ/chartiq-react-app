@@ -47,6 +47,7 @@ export default class TitleOverlay extends React.Component {
 	}
 
 	render() {
+		let fullScreenAddOn = this.props.refProp.current.CIQ['FullScreen'];
 		let menuStudyLegend;
 		if (Object.keys(this.context.stx.overlays).length > 0) {
 			// Only render the <MenuStudyLegend.../> component if there are overlay studies present in the chart
@@ -68,7 +69,7 @@ export default class TitleOverlay extends React.Component {
 				}}
 			>
 				<ChartTitle />
-				<ChartControlGroup />
+				{fullScreenAddOn && <ChartControlGroup />}
 				<ChartComparison />
 				{menuStudyLegend}
 			</div>
