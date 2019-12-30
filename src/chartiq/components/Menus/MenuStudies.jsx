@@ -54,18 +54,19 @@ export default class MenuStudies extends React.Component {
 			<cq-menu class="ciq-menu ciq-studies collapse">
 				<span>Studies</span>
 				<cq-menu-dropdown cq-no-scroll>
-					{/* <MenuStudyLegend heading={"Current Studies"} clearAll={true} ref={this.studyLegendRef}/> */}
 					<cq-study-legend-container />
 					{this.props.plugins.scriptIQ && CIQ.Scripting && (
 						<>
 							<cq-heading>ScriptIQ</cq-heading>
 							<cq-item onClick={this.context.resize}>
+								{/* finds cq-scriptiq-editor and invokes open method */ }
 								<cq-clickable cq-selector="cq-scriptiq-editor" cq-method="open">
 									New Script
 								</cq-clickable>
 							</cq-item>
 							<cq-scriptiq-menu>
 								<cq-scriptiq-content>
+									{/* template for the cq-script-menu to create new menu items */}
 									<template>
 										<cq-item>
 											<cq-label></cq-label>
@@ -84,6 +85,7 @@ export default class MenuStudies extends React.Component {
 					<cq-scroll cq-no-maximize="true">
 						<cq-studies ref={this.studiesRef}>
 							<cq-studies-content>
+								{/* template for the cq-studies to create new menu items */}
 								<template id="studies">
 									<cq-item>
 										<cq-label></cq-label>

@@ -1,8 +1,6 @@
 import React from 'react';
-import { CIQ } from 'chartiq';
-import 'chartiq/plugins/cryptoiq/orderbook';
-import 'chartiq/examples/feeds/L2_simulator';
 
+import ToggleOrderBook from './ToggleOrderBook';
 import { ChartContext } from '../../../context/ChartContext';
 
 export default class OrderBook extends React.Component {
@@ -21,8 +19,6 @@ export default class OrderBook extends React.Component {
 
 			marketDepth.marketDepth.orderbook = orderbook;
 		}
-
-		if (CIQ.simulateL2) CIQ.simulateL2({ stx: stx, onTrade: true });
 	}
 
 	render() {

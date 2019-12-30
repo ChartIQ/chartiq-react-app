@@ -11,8 +11,7 @@ export default class ToggleDrawing extends React.Component {
 	}
 
 	componentDidMount() {
-		let chart = this.context.stx.container;
-		let ciqChart = chart.parentElement;
+		const { setContext, stx, stx: { container: chartContainer }} = this.context;
 
 		this.toggle.current.registerCallback(function(value) {
 			if (value) {
@@ -35,13 +34,14 @@ export default class ToggleDrawing extends React.Component {
 					drawingToggles[drawToggleIdx].node.removeClass("active");
 				}
 			}
-			chart.setHeight();
 			var stx = this.context.stx;
 			stx.resizeChart();
 			document.querySelector('cq-palette-dock').handleResize();
+			setContext({ drawingActive: value });
+			chartContainer.setHeight();
 
-			// a little code here to remember what the previous drawing tool was
-			// and to re-enable it when the toolbar is reopened
+			// remember what the previous drawing tool was
+			// and re-enable it when the toolbar is reopened
 			if (value) {
 				stx.changeVectorType(this.priorVectorType);
 			} else {
@@ -52,8 +52,9 @@ export default class ToggleDrawing extends React.Component {
 	}
 
 	render() {
+		const { drawingActive } = this.context;
 		return (
-			<cq-toggle class="ciq-draw" ref={this.toggle}>
+			<cq-toggle class={`ciq-draw ${drawingActive ? 'active' : ''}`} ref={this.toggle}>
 				<span></span>
 				<cq-tooltip>Draw</cq-tooltip>
 			</cq-toggle>

@@ -1,3 +1,11 @@
+/**
+ * Default configuration for the AdvancedChart component
+ * 
+ * The recommended way of using this configuration is by overriding
+ * configuration object obtained from the getDefaultConfig function
+ * Examples of extension and overrides ar provided in src/custom_chartiq_config folder
+ */
+
 import { CIQ } from 'chartiq/js/chartiq';
 import { quoteFeedSimulator as quoteFeed } from 'chartiq/examples/feeds/quoteFeedSimulator';
 
@@ -5,35 +13,35 @@ export default getDefaultConfig();
 
 export function getDefaultConfig() {
 	return {
-		header: true,  	// chart header will show / hide top navigation
-		footer: true,	// chart footer
-		/**
-		 * breakpoints define changes in layout
-		 */
-		breakpoints: [584, 700],
-		breakpointLabels: ['sm', 'md', 'lg'], // ui container classes for various break points
-		breakpointSymbolPlaceholders: ['', 'Symbol', 'Enter Symbol'],
-		defaultSymbol: 'AAPL',
-		// headerLeft: {
-		// 	symbolLookup: true,
-		// 	toggles: ['drawing', 'crosshair', 'info']
-		// },
-		symbolLookupTabs: ['ALL', 'STOCKS', 'FX', 'INDEXES', 'FUNDS', 'FEATURES'],
 		// quote refresh interval
-		quoteFeed,
-		refreshInterval: 1, // referesh interval is required for MarketDepth simulation
+		quoteFeed,					// comment out or set to null to disable (quoteFeed: null)
+		refreshInterval: 1, // defaults to 1 if not set. Referesh interval is required for MarketDepth simulation
 		bufferSize: 200,
-
-		headsUpDisplayTypes: ['dynamic', 'static'],
 		chartConfig: {
-			preferences: { labels: false, currentPriceLine: true, whitespace: 0 }
+			preferences: {
+				labels: false, 
+				currentPriceLine: true, 
+				whitespace: 0
+			}
 		},
+		header: true,													// chart header will show / hide top navigation
+		footer: true,													// chart footer
+		breakpoints: [584, 700],							// breakpoints define changes in layout
+		breakpointLabels: ['sm', 'md', 'lg'], // ui container classe suffixes for various break points
+		breakpointSymbolPlaceholders: ['', 'Symbol', 'Enter Symbol'],
+		headerLeft: {
+			symbolLookup: true,
+			toggles: ['drawing', 'crosshair', 'info']
+		},
+		defaultSymbol: 'AAPL',
+		symbolLookupTabs: ['ALL', 'STOCKS', 'FX', 'INDEXES', 'FUNDS', 'FEATURES'],
+		headsUpDisplayTypes: ['dynamic', 'static'],
 		menus: ['menu_periodicity', 'menu_views', 'menu_display', 'menu_studies', 'menu_events'],
 		menu_periodicity: [
 			{ label: '1 D', periodicity: 1, interval: 1, timeUnit: 'day' },
 			{ label: '1 W', periodicity: 1, interval: 1, timeUnit: 'week' },
 			{ label: '1 Mo', periodicity: 1, interval: 1, timeUnit: 'month' },
-			{},
+			{ type: 'separator' },
 			{ label: '1 Min', periodicity: 1, interval: 1, timeUnit: 'minute' },
 			{ label: '5 Min', periodicity: 1, interval: 5, timeUnit: 'minute' },
 			{ label: '10 Min', periodicity: 1, interval: 10, timeUnit: 'minute' },
@@ -41,10 +49,9 @@ export function getDefaultConfig() {
 			{ label: '30 Min', periodicity: 1, interval: 30, timeUnit: 'minute' },
 			{ label: '1 Hour', periodicity: 2, interval: 30, timeUnit: 'minute' },
 			{ label: '4 Hour', periodicity: 8, interval: 30, timeUnit: 'minute' },
-			{},
-			{ label: '1 Sec', periodicity: 1, interval: 1, timeUnit: 'sec' }
+			{ type: 'separator' },
+			{ label: '1 Sec', periodicity: 1, interval: 1, timeUnit: 'second' }
 		],
-		menu_views: true,
 		menu_display: [
 			{ label: 'Chart Style', type: 'heading'},
 			{ label: 'Candle', action: "Layout.ChartType('candle')", type: 'radio' },
@@ -66,9 +73,11 @@ export function getDefaultConfig() {
 			{ label: 'Chart Preferences', type: 'heading'},
 			{ label: 'Log Scale', action: "Layout.ChartScale('log')", type: 'checkbox' },
 			{ label: 'Invert Y-Axis', action: "Layout.FlippedChart()", type: 'checkbox' },
-			{ label: 'Extended Hours', action: "Layout.ExtendedHours()", type: 'checkbox' },
-			{ label: 'Range Selector', action: "Layout.RangeSlider()", type: 'checkbox' },
-			{ label: 'Market Depth', action: "Layout.MarketDepth()", type: 'checkbox', required: 'cryptoiq' },
+			{ label: 'Extended Hours', action: "Layout.ExtendedHours()", type: 'checkbox', required: 'ExtendedHours' },
+			{ label: 'Range Selector', action: "Layout.RangeSlider()", type: 'checkbox', required: 'RangeSlider' },
+			// Layout.MarketDepth() binds and sets chart engine layout marketDepth propery that can be observed to initiat L2 data streaming
+			{ label: 'Market Depth', action: "Layout.MarketDepth()", type: 'checkbox', required: 'cryptoiq' }, // absence of required resource will hide menu item until available
+			// Layout.L2Heatmap() binds and sets chart engine layout l2heatmap propery that can be observed to initiat L2 data streaming
 			{ label: 'L2 Heat Map', action: "Layout.L2Heatmap()", type: 'checkbox', required: 'cryptoiq' },
 			{ type: 'separator'},
 			{ label: 'Locale', type: 'heading'},
@@ -86,7 +95,8 @@ export function getDefaultConfig() {
 			{ label: 'Simple Square', markertype: 'square' },
 			{ label: 'Simple Circle', markertype: 'circle' },
 			{ label: 'Callouts', markertype: 'callout' },
-			{ label: 'Trade', markertype: 'trade', require: 'showTradeAnalytics'},
+			{ label: 'Trade', markertype: 'trade', required: 'showTradeAnalytics', load: ['chartiq/examples/markers/tradeAnalyticsSample', 'chartiq/examples/markers/tradeAnalyticsSample.css'] },
+			{ label: 'Video', markertype: 'video', required: 'showVideoMarkers', load: ['chartiq/examples/markers/videoSample.js', 'chartiq/examples/markers/videoSample.css'] },
 			{ label: 'Abstract', markertype: 'abstract' },
 			{ type: 'separator'},
 			{ label: 'None', markertype: 'none' }
@@ -141,6 +151,9 @@ export function getDefaultConfig() {
 			{ tool: 'vertical', group: 'lines', label: 'Vertical' }
 		],
 		drawingToolGrouping: {
+			// order of the drawing tool grouping
+			// groupings marked with true will be present
+			// undefined value groupings will be added based on available tools 
 			All: true,
 			Favorites: true,
 			Text: undefined,
@@ -159,42 +172,29 @@ export function getDefaultConfig() {
 			'Palatino',
 			'Times New Roman'
 		],
-		// is supplemented and overriden by plugins.cryptoiq.MarketDepth
-		marketDepth: {
-			volume: true,
-			mountain: true,
-			step: true,
-			record: true,
-			height: '50%'
-		},
-		simulateL2(stx) {
-			if (!CIQ.simulateL2) {
-				console.error('Error: L2 simulation not availabe');
-				return;
-			}
-			CIQ.simulateL2({ stx, onTrade: true });
-		},
-		addOns: {
+		// addOns will be initiated with chart engine and following parameters
+		// using capitalized property such as: extendedHours -> CIQ.ExtendedHours(...)
+		addOns: {  
 			inactivityTimer: { minutes: 30 },
 			extendedHours: { filter: true },
-			rangeSlider: true,
+			rangeSlider: { },
 			animation: { tension: 0.3 },
 			continuousZoom: {
 				periodicities:
 				[
 					// daily interval data
-					{period:1,   interval:"month"},
-					{period:1,   interval:"week"},
-					{period:1,   interval:"day"},
+					{ period: 1,		interval: 'month' },
+					{ period: 1,		interval: 'week' },
+					{ period: 1,		interval: 'day' },
 					// 30 minute interval data
-					{period:8,   interval:30},
-					{period:1,   interval:30},
+					{ period: 8,		interval: 30 },
+					{ period: 1,		interval: 30 },
 					// 1 minute interval data
-					{period:5,   interval:1},
-					{period:1,   interval:1},
+					{ period: 5,		interval: 1 },
+					{ period: 1,		interval: 1 },
 					// one second interval data
-					{period:10,  interval:1,  timeUnit:"second"},
-					{period:1,   interval:1,  timeUnit:"second"},
+					{ period: 10,	interval: 1, timeUnit: 'second' },
+					{ period: 1,		interval:1 , timeUnit: 'second' },
 				],
 				boundaries:{
 					maxCandleWidth: 15,
@@ -218,24 +218,36 @@ export function getDefaultConfig() {
 			scriptIQ: true,
 			timeSpanEvents: true, // available starting 7.3
 			cryptoiq: {
-				// supplements and overrides root MarketDepth
 				marketDepth: {
 					volume: true,
 					mountain: true,
 					step: true,
 					record: true,
 					height: '50%',
-					precedingContainer: '.market-depth-bookmark'
+					// market depth panel will be created after element with precedingConainer element if found
+					// or will default to element with .market-depth-bookmark selector
+					// if selector element is not found market depth panel will not be created
+					precedingContainer: '.market-depth-bookmark', // default
 				},
 				orderBook: {
 					addToChart: true,
 					closeButton: true,
-					size: true,
-					amount: true,
 					price: true,
+					size: true,
+					totalSize: true,
+					amount: true,
 					totalAmount: true,
-					totalSize: true
-				}
+				},
+				// override or delete in customization simulateL2 function to prevent L2 simulation
+				// when not in the simulation mode stx layout marketDepth and l2heatmap properties can be
+				// observed to start and stop L2 data addition
+				simulateL2(stx) {
+					if (!CIQ.simulateL2) {
+						console.error('Error: L2 simulation not availabe');
+						return;
+					}
+					CIQ.simulateL2({ stx, onTrade: true });
+				},
 			}
 		}
 	}

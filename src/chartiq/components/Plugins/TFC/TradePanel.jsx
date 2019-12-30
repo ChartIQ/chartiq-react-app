@@ -8,51 +8,32 @@ export default class TradePanel extends React.Component {
 	}
 
 	componentDidMount() {
-		let context = this.context;
-		context.registerComponent({ TradePanel: this });
+		this.context.registerComponent({ TradePanel: this });
 	}
 
 	render() {
 		return (
 			<React.Fragment>
+				<h2>THis is not rendered</h2>
 				<div className="stx-panel-side stx-trade-panel" ref={this.tradePanel}>
 					<div className="stx-wrapper stx-trade-nav">
 						<ul className="stx-orders">
-							<li className="stx-market" style={{ display: 'none' }}>
-								<a>MKT</a>
-							</li>
-							<li className="stx-buy" style={{ display: 'none' }}>
-								<a>Buy</a>
-							</li>
-							<li className="stx-sell" style={{ display: 'none' }}>
-								<a>Sell</a>
-							</li>
-							<li className="stx-short" style={{ display: 'none' }}>
-								<a>Short</a>
-							</li>
-							<li className="stx-cover" style={{ display: 'none' }}>
-								<a>Cover</a>
-							</li>
+							<li className="stx-market" style={{ display: 'none' }}><a>MKT</a></li>
+							<li className="stx-buy" style={{ display: 'none' }}><a>Buy</a></li>
+							<li className="stx-sell" style={{ display: 'none' }}><a>Sell</a></li>
+							<li className="stx-short" style={{ display: 'none' }}><a>Short</a></li>
+							<li className="stx-cover" style={{ display: 'none' }}><a>Cover</a></li>
 							<li className="stx-strangle" style={{ display: 'none' }}>
 								<a>Strangle</a>
-								<div className="stx-tooltip left">
-									<div>Strangle</div>
-									<span></span>
-								</div>
+								<div className="stx-tooltip left"><div>Strangle</div><span></span></div>
 							</li>
 							<li className="stx-straddle" style={{ display: 'none' }}>
 								<a>Straddle</a>
-								<div className="stx-tooltip left">
-									<div>Straddle</div>
-									<span></span>
-								</div>
+								<div className="stx-tooltip left"><div>Straddle</div><span></span></div>
 							</li>
 							<li className="stx-bracket" style={{ display: 'none' }}>
 								<a>Bracket</a>
-								<div className="stx-tooltip left">
-									<div>Bracket</div>
-									<span></span>
-								</div>
+								<div className="stx-tooltip left">	<div>Bracket</div><span></span></div>
 							</li>
 						</ul>
 						<ul className="stx-account">
@@ -78,41 +59,22 @@ export default class TradePanel extends React.Component {
 
 					<div className="stx-wrapper stx-trade-info active">
 						<ul className="stx-orders">
-							<li className="stx-market" style={{ display: 'none' }}>
-								<a>MKT</a>
-							</li>
-							<li className="stx-buy" style={{ display: 'none' }}>
-								<a>Buy</a>
-							</li>
-							<li className="stx-sell" style={{ display: 'none' }}>
-								<a>Sell</a>
-							</li>
-							<li className="stx-short" style={{ display: 'none' }}>
-								<a>Short</a>
-							</li>
-							<li className="stx-cover" style={{ display: 'none' }}>
-								<a>Cover</a>
-							</li>
+							<li className="stx-market" style={{ display: 'none' }}><a>MKT</a></li>
+							<li className="stx-buy" style={{ display: 'none' }}><a>Buy</a></li>
+							<li className="stx-sell" style={{ display: 'none' }}><a>Sell</a></li>
+							<li className="stx-short" style={{ display: 'none' }}><a>Short</a></li>
+							<li className="stx-cover" style={{ display: 'none' }}><a>Cover</a></li>
 							<li className="stx-strangle" style={{ display: 'none' }}>
 								<a>Strangle</a>
-								<div className="stx-tooltip left">
-									<div>Strangle</div>
-									<span></span>
-								</div>
+								<div className="stx-tooltip left"><div>Strangle</div><span></span></div>
 							</li>
 							<li className="stx-straddle" style={{ display: 'none' }}>
 								<a>Straddle</a>
-								<div className="stx-tooltip left">
-									<div>Straddle</div>
-									<span></span>
-								</div>
+								<div className="stx-tooltip left"><div>Straddle</div><span></span></div>
 							</li>
 							<li className="stx-bracket" style={{ display: 'none' }}>
 								<a>Bracket</a>
-								<div className="stx-tooltip left">
-									<div>Bracket</div>
-									<span></span>
-								</div>
+								<div className="stx-tooltip left"><div>Bracket</div><span></span></div>
 							</li>
 						</ul>
 
