@@ -58,6 +58,15 @@ cq-comparison-add {
 	z-index: 25;
 }
 
+.title-overlay-controls cq-chartcontrol-group cq-lookup cq-lookup-icon {
+	right: 0;
+	background-position: -50px -25px;
+}
+
+.ciq-night .title-overlay-controls cq-chartcontrol-group cq-lookup cq-lookup-icon {
+	background-position: -50px -50px;
+}
+
 .title-overlay-controls cq-study-legend {
 	float: left;
 	clear: left;
