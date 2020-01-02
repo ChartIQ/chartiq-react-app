@@ -4,6 +4,7 @@ import ChartControlGroup from '../Features/ChartControlGroup';
 import ChartComparison from '../Features/ChartComparison';
 import MenuStudyLegend from '../Menus/MenuStudyLegend';
 import { ChartContext } from '../../context/ChartContext';
+import { CIQ } from 'chartiq';
 
 /**
  * Presentational component that holds the ChartTitle and other components. This component is designed to keep the ChartTitle in the same position with the top of the main chart panel.
@@ -47,7 +48,6 @@ export default class TitleOverlay extends React.Component {
 	}
 
 	render() {
-		let fullScreenAddOn = this.props.refProp.current.CIQ['FullScreen'];
 		let menuStudyLegend;
 		if (Object.keys(this.context.stx.overlays).length > 0) {
 			// Only render the <MenuStudyLegend.../> component if there are overlay studies present in the chart
@@ -69,7 +69,7 @@ export default class TitleOverlay extends React.Component {
 				}}
 			>
 				<ChartTitle />
-				{fullScreenAddOn && <ChartControlGroup />}
+				{CIQ.FullScreen && <ChartControlGroup />}
 				<ChartComparison />
 				{menuStudyLegend}
 			</div>

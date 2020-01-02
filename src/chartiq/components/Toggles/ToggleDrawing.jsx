@@ -17,6 +17,13 @@ export default class ToggleDrawing extends React.Component {
 			setContext({ drawingActive: value });
 			chartContainer.setHeight();
 
+			// Sync up the internal state between all drawing toggle web components
+			var drawingToggles=document.querySelectorAll(".ciq-draw");
+			for(var drawToggleIdx=0; drawToggleIdx<drawingToggles.length; drawToggleIdx++){
+				// Setting currentValue directly so the callback isn't triggered
+				drawingToggles[drawToggleIdx].currentValue = value;
+			}
+
 			// remember what the previous drawing tool was
 			// and re-enable it when the toolbar is reopened
 			if (value) {

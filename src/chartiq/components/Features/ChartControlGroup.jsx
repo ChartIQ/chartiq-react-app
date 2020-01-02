@@ -22,18 +22,20 @@ export default class ChartControlGroup extends PureComponent {
 		} = this.context;
 
 		const mapping = {
-			chart_lookup: 			<ChartLookup />,
-			toggle_drawing: 		<ToggleDrawing />,
-			toggle_crosshair: 	<ToggleCrosshair />,
-			menu_periodicity: 	<MenuPeriodicity items={menu_periodicity} />
+			chart_lookup: 			<ChartLookup key='lookup' />,
+			toggle_drawing: 		<ToggleDrawing key='drawing' />,
+			toggle_crosshair: 	<ToggleCrosshair key='crosshair' />,
+			menu_periodicity: 	<MenuPeriodicity items={menu_periodicity} key='periodicity' />
 		}
 
 		const controlComponents = (chartControlGroup || []).map(control => mapping[control]);
 
 		return (
-			<cq-chartcontrol-group class="full-screen-show">
-				{controlComponents}
-			</cq-chartcontrol-group>
+			<>
+				{ controlComponents.length && 
+					<cq-chartcontrol-group class="full-screen-show">{controlComponents}</cq-chartcontrol-group>
+					|| null }
+			</>
 			)
 	}
 }

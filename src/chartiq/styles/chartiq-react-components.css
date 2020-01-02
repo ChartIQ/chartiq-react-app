@@ -64,17 +64,17 @@ cq-comparison-add {
 
 .title-overlay-controls cq-chartcontrol-group cq-lookup cq-lookup-icon {
 	right: 0;
-	background-position: -50px -25px;
+	background-position-x: -50px;
 }
 
 .ciq-night .title-overlay-controls cq-chartcontrol-group cq-lookup cq-lookup-icon {
-	background-position: -50px -50px;
+	background-position-x: -50px;
 }
 
 .title-overlay-controls cq-study-legend {
 	float: left;
 	clear: left;
-	display: inline-block;
+	display: block;
 	z-index: 23;
 }
 
