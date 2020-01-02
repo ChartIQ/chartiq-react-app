@@ -208,7 +208,7 @@ export function getDefaultConfig() {
 				series: true,
 				studies: true
 			},
-			fullScreen: true,
+			fullScreen: { },
 		},
 		/**
 		 * Not all plugins may be available, import required plugins to make 
