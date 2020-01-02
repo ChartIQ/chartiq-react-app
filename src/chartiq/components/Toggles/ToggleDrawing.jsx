@@ -14,29 +14,6 @@ export default class ToggleDrawing extends React.Component {
 		const { setContext, stx, stx: { container: chartContainer }} = this.context;
 
 		this.toggle.current.registerCallback(function(value) {
-			if (value) {
-				//this.classList.add('active');
-				chartContainer.setAttribute('toolbar-active', true);
-				chartContainer.parentElement.classList.add('toolbar-on');
-			} else {
-				//this.classList.remove('active');
-				chartContainer.setAttribute('toolbar-active', false);
-				chartContainer.parentElement.classList.remove('toolbar-on');
-			}
-			var drawingToggles=document.querySelectorAll(".ciq-draw");
-			for(var drawToggleIdx=0; drawToggleIdx<drawingToggles.length; drawToggleIdx++){
-				// Setting currentValue directly so the callback isn't triggered
-				drawingToggles[drawToggleIdx].currentValue = value;
-				// Update the toggle's active class
-				if(value){
-					drawingToggles[drawToggleIdx].node.addClass("active");
-				}else{
-					drawingToggles[drawToggleIdx].node.removeClass("active");
-				}
-			}
-			var stx = this.context.stx;
-			stx.resizeChart();
-			document.querySelector('cq-palette-dock').handleResize();
 			setContext({ drawingActive: value });
 			chartContainer.setHeight();
 
