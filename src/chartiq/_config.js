@@ -14,7 +14,7 @@ export default getDefaultConfig();
 export function getDefaultConfig() {
 	return {
 		// quote refresh interval
-		quoteFeed,					// comment out or set to null to disable (quoteFeed: null)
+		quoteFeed,          // comment out or set to null to disable (quoteFeed: null)
 		refreshInterval: 1, // defaults to 1 if not set. Referesh interval is required for MarketDepth simulation
 		bufferSize: 200,
 		// Optionally set a market factory to the chart to make it market hours aware. Otherwise it will operate in 24x7 mode.
@@ -33,9 +33,9 @@ export function getDefaultConfig() {
 				whitespace: 0
 			}
 		},
-		header: true,													// chart header will show / hide top navigation
-		footer: true,													// chart footer
-		breakpoints: [584, 700],							// breakpoints define changes in layout
+		header: true,                         // chart header will show / hide top navigation
+		footer: true,                         // chart footer
+		breakpoints: [584, 700],              // breakpoints define changes in layout
 		breakpointLabels: ['sm', 'md', 'lg'], // ui container classe suffixes for various break points
 		breakpointSymbolPlaceholders: ['', 'Symbol', 'Enter Symbol'],
 		headerLeft: {
@@ -97,8 +97,8 @@ export function getDefaultConfig() {
 			{ label: 'New Theme', type: 'themes'}
 		],
 		menu_studies: {
-			include_only: [],		// add names to have as only included
-			exclude: []					// exclude names from list of available studies
+			include_only: [],   // add names to have as only included
+			exclude: []         // exclude names from list of available studies
 		},
 		menu_events: [
 			{ label: 'Simple Square', markertype: 'square' },
