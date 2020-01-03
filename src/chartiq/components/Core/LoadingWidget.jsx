@@ -14,6 +14,5 @@ export default class LoadingWidget extends React.Component {
 		return (
 			<cq-loader></cq-loader>
 		)
-		
 	}
 }

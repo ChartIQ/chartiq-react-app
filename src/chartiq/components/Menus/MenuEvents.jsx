@@ -33,37 +33,14 @@ export default class MenuEvents extends React.Component {
 		const Markers = {
 			show(node, item) { 
 				self.setState({ activeEvent: item });
+				self.markerImplementation.hideMarkers();
 				self.markerImplementation.showMarkers(item.replace('none', ''));
 			}
 		};
 
 		UIContext.advertiseAs(Markers, 'Markers');
-		this.loadAdditionalHandlers();
 	}
-	
-	loadAdditionalHandlers() {
-		const { menu_events } = this.context.config;
 
-		if (!menu_events) {
-			return;
-		}
-		// load trade event markers only when requested in menu configuration
-		if (!menu_events.find(({ markertype }) => markertype === 'trade')) {
-			return;
-		}
-		const self = this;
-
-		Promise.all([
-			import(/* webpackChunkName: "tradeAnalyticsMarkers" */ 'chartiq/examples/markers/tradeAnalyticsSample'),
-			import(/* webpackChunkName: "tradeAnalyticsMarkers" */ 'chartiq/examples/markers/tradeAnalyticsSample.css')
-		]).then(items => {
-			const [{ MarkersSample }] = items; 
-			const { stx } = self.context;
-			self.setState({ tradeAnalyticsEventAvailable: true  });
-			this.markerImplementation = new MarkersSample(stx);
-		})
-		.catch(err => console.error(err));
-	}
 
 	componentDidUpdate() {
 		// re-bind as timespan events are loaded lazy
@@ -96,8 +73,6 @@ export default class MenuEvents extends React.Component {
 						<div className="timespanevent-ui" >
 							<cq-separator></cq-separator>
 							<cq-heading>Panel Events</cq-heading>
-							<cq-item class="time-span-panel" stxsetget="Layout.TimeSpanEventPanel()" cq-no-close>Show Panel<span className="ciq-checkbox ciq-active"><span></span></span></cq-item>
-							<cq-separator></cq-separator>
 							<cq-item class="span-event" stxtap="TimeSpanEvent.showMarkers('Order')" cq-no-close>Order<span className="ciq-checkbox ciq-active" ><span></span></span></cq-item>
 							<cq-item class="span-event" stxtap="TimeSpanEvent.showMarkers('CEO')" cq-no-close>CEO<span className="ciq-checkbox ciq-active" ><span></span></span></cq-item>
 							<cq-item class="span-event" stxtap="TimeSpanEvent.showMarkers('News')" cq-no-close>News<span className="ciq-checkbox ciq-active" ><span></span></span></cq-item>

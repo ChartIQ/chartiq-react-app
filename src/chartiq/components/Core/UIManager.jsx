@@ -1,10 +1,9 @@
 import React from 'react'
-import { ChartContext } from '../../context/ChartContext'
 
 /**
  * User interface management component `<UIManager/>`
  * 
- * IMPORTANT: The UIManager component is required for proper operation of any ChartIQ UI element.
+ * IMPORTANT: A single UIManager component is required in document for proper operation of any ChartIQ UI element.
  * 
  * Manages user input for all UI elements surrounding the chart, such as menus and dialogs.
  *
@@ -13,17 +12,9 @@ import { ChartContext } from '../../context/ChartContext'
  * @extends {React.Component}
  */
 export default class UIManager extends React.Component {
-	constructor(props) {
-		super(props)
-		let context = this.context
-		this.setContext = (update) => { this.context = update }
-	}
-
 	render() {
 		return (
 			<cq-ui-manager></cq-ui-manager>
 		)		
 	}
 }
-
-UIManager.contextType = ChartContext;

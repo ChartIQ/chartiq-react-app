@@ -17,7 +17,7 @@ export default class ContextMenuStudy extends React.Component {
 		this.contextMenuRef = React.createRef();
 	}
 	componentDidMount() {
-		let studyContext = this.contextMenuRef.current;
+		const studyContext = this.contextMenuRef.current;
 		this.context.UIContext.advertised['StudyEdit'].contextDialog = [
 			studyContext
 		];

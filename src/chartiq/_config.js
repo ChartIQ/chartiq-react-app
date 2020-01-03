@@ -17,6 +17,13 @@ export function getDefaultConfig() {
 		quoteFeed,					// comment out or set to null to disable (quoteFeed: null)
 		refreshInterval: 1, // defaults to 1 if not set. Referesh interval is required for MarketDepth simulation
 		bufferSize: 200,
+		// Optionally set a market factory to the chart to make it market hours aware. Otherwise it will operate in 24x7 mode.
+		// This is required for the simulator, or if you intend to also enable Extended hours trading zones.
+		// Please note that, this method is set to use the CIQ.Market.Symbology functions by default,
+		// which must be reviewed and adjust to comply with your quote feed and symbology format before they can be used.
+		// Default implementation can be found in examples/markets/marketDefinitionsSample.js that by default is imported in resources.js file
+		// Please review and override the functions in there to match the symbol format of your quotefeed or results will be unpredictable.
+		marketFactory: CIQ.Market.Symbology.factory,
 		chartConfig: {
 			preferences: {
 				labels: false, 

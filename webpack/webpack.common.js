@@ -71,7 +71,14 @@ module.exports = {
 		new MiniCssExtractPlugin({
 			fileNname: '[name].css'
 		}),
-		new CopyPlugin([{ from: 'public' }])
+		new CopyPlugin([
+			{ from: 'public' },
+			// copy plugin resources
+			{
+				from: 'node_modules/chartiq/plugins/timespanevent/images',
+				to: 'plugins/timespanevent/images'
+			}
+		])
 	],
 	resolve: {
 		extensions: ['.js', '.jsx']

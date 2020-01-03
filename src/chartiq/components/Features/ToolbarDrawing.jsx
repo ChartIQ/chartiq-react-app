@@ -56,33 +56,15 @@ export default class ToolbarDrawing extends React.Component {
 							className="ciq-line ciq-selected"
 						></span>
 						<cq-menu-dropdown class="ciq-line-style-menu">
-							<cq-item stxtap="setStyle(1, 'solid')">
-								<span className="ciq-line-style-option ciq-solid-1"></span>
-							</cq-item>
-							<cq-item stxtap="setStyle(3, 'solid')">
-								<span className="ciq-line-style-option ciq-solid-3"></span>
-							</cq-item>
-							<cq-item stxtap="setStyle(5, 'solid')">
-								<span className="ciq-line-style-option ciq-solid-5"></span>
-							</cq-item>
-							<cq-item stxtap="setStyle(1, 'dotted')">
-								<span className="ciq-line-style-option ciq-dotted-1"></span>
-							</cq-item>
-							<cq-item stxtap="setStyle(3, 'dotted')">
-								<span className="ciq-line-style-option ciq-dotted-3"></span>
-							</cq-item>
-							<cq-item stxtap="setStyle(5, 'dotted')">
-								<span className="ciq-line-style-option ciq-dotted-5"></span>
-							</cq-item>
-							<cq-item stxtap="setStyle(1, 'dashed')">
-								<span className="ciq-line-style-option ciq-dashed-1"></span>
-							</cq-item>
-							<cq-item stxtap="setStyle(3, 'dashed')">
-								<span className="ciq-line-style-option ciq-dashed-3"></span>
-							</cq-item>
-							<cq-item stxtap="setStyle(5, 'dashed')">
-								<span className="ciq-line-style-option ciq-dashed-5"></span>
-							</cq-item>
+							<cq-item stxtap="setStyle(1, 'solid')"><span className="ciq-line-style-option ciq-solid-1"></span></cq-item>
+							<cq-item stxtap="setStyle(3, 'solid')"><span className="ciq-line-style-option ciq-solid-3"></span></cq-item>
+							<cq-item stxtap="setStyle(5, 'solid')"><span className="ciq-line-style-option ciq-solid-5"></span></cq-item>
+							<cq-item stxtap="setStyle(1, 'dotted')"><span className="ciq-line-style-option ciq-dotted-1"></span></cq-item>
+							<cq-item stxtap="setStyle(3, 'dotted')"><span className="ciq-line-style-option ciq-dotted-3"></span></cq-item>
+							<cq-item stxtap="setStyle(5, 'dotted')"><span className="ciq-line-style-option ciq-dotted-5"></span></cq-item>
+							<cq-item stxtap="setStyle(1, 'dashed')"><span className="ciq-line-style-option ciq-dashed-1"></span></cq-item>
+							<cq-item stxtap="setStyle(3, 'dashed')"><span className="ciq-line-style-option ciq-dashed-3"></span></cq-item>
+							<cq-item stxtap="setStyle(5, 'dashed')"><span className="ciq-line-style-option ciq-dashed-5"></span></cq-item>
 						</cq-menu-dropdown>
 					</cq-menu>
 				</cq-line-style>
@@ -95,118 +77,44 @@ export default class ToolbarDrawing extends React.Component {
 					<cq-menu-dropdown>
 						<cq-item stxtap="noTool()">None</cq-item>
 						<cq-item stxtap="clearDrawings()">Clear Drawings</cq-item>
-						<cq-item stxtap="restoreDefaultConfig(true)">
-							Restore Default Parameters
-						</cq-item>
-						<cq-item cq-tool="measure" stxtap="tool()">
-							Measure
-						</cq-item>
+						<cq-item stxtap="restoreDefaultConfig(true)">Restore Default Parameters</cq-item>
+						<cq-item cq-tool="measure" stxtap="tool()">Measure</cq-item>
 						<cq-separator></cq-separator>
-						<cq-item cq-tool="annotation" stxtap="tool()">
-							Annotation
-						</cq-item>
-						<cq-item cq-tool="average" stxtap="tool()">
-							Average Line
-						</cq-item>
-						<cq-item cq-tool="callout" stxtap="tool()">
-							Callout
-						</cq-item>
-						<cq-item cq-tool="channel" stxtap="tool()">
-							Channel
-						</cq-item>
-						<cq-item cq-tool="continuous" stxtap="tool()">
-							Continuous
-						</cq-item>
-						<cq-item cq-tool="crossline" stxtap="tool()">
-							Crossline
-						</cq-item>
-						<cq-item cq-tool="freeform" stxtap="tool()">
-							Doodle
-						</cq-item>
-						<cq-item cq-tool="ellipse" stxtap="tool()">
-							Ellipse
-						</cq-item>
-						<cq-item cq-tool="retracement" stxtap="tool()">
-							Fib Retracement
-						</cq-item>
-						<cq-item cq-tool="fibprojection" stxtap="tool()">
-							Fib Projection
-						</cq-item>
-						<cq-item cq-tool="fibarc" stxtap="tool()">
-							Fib Arc
-						</cq-item>
-						<cq-item cq-tool="fibfan" stxtap="tool()">
-							Fib Fan
-						</cq-item>
-						<cq-item cq-tool="fibtimezone" stxtap="tool()">
-							Fib Time Zone
-						</cq-item>
-						<cq-item cq-tool="gannfan" stxtap="tool()">
-							Gann Fan
-						</cq-item>
-						<cq-item cq-tool="gartley" stxtap="tool()">
-							Gartley
-						</cq-item>
-						<cq-item cq-tool="horizontal" stxtap="tool()">
-							Horizontal
-						</cq-item>
-						<cq-item cq-tool="line" stxtap="tool()">
-							Line
-						</cq-item>
-						<cq-item cq-tool="pitchfork" stxtap="tool()">
-							Pitchfork
-						</cq-item>
-						<cq-item cq-tool="quadrant" stxtap="tool()">
-							Quadrant Lines
-						</cq-item>
-						<cq-item cq-tool="ray" stxtap="tool()">
-							Ray
-						</cq-item>
-						<cq-item cq-tool="rectangle" stxtap="tool()">
-							Rectangle
-						</cq-item>
-						<cq-item cq-tool="regression" stxtap="tool()">
-							Regression Line
-						</cq-item>
-						<cq-item cq-tool="segment" stxtap="tool()">
-							Segment
-						</cq-item>
-						<cq-item cq-tool="arrow" stxtap="tool()">
-							Shape - Arrow
-						</cq-item>
-						<cq-item cq-tool="check" stxtap="tool()">
-							Shape - Check
-						</cq-item>
-						<cq-item cq-tool="xcross" stxtap="tool()">
-							Shape - Cross
-						</cq-item>
-						<cq-item cq-tool="focusarrow" stxtap="tool()">
-							Shape - Focus
-						</cq-item>
-						<cq-item cq-tool="heart" stxtap="tool()">
-							Shape - Heart
-						</cq-item>
-						<cq-item cq-tool="star" stxtap="tool()">
-							Shape - Star
-						</cq-item>
-						<cq-item cq-tool="speedarc" stxtap="tool()">
-							Speed Resistance Arc
-						</cq-item>
-						<cq-item cq-tool="speedline" stxtap="tool()">
-							Speed Resistance Line
-						</cq-item>
-						<cq-item cq-tool="timecycle" stxtap="tool()">
-							Time Cycle
-						</cq-item>
-						<cq-item cq-tool="tirone" stxtap="tool()">
-							Tirone Levels
-						</cq-item>
-						<cq-item cq-tool="trendline" stxtap="tool()">
-							Trend Line
-						</cq-item>
-						<cq-item cq-tool="vertical" stxtap="tool()">
-							Vertical
-						</cq-item>
+						<cq-item cq-tool="annotation" stxtap="tool()">Annotation</cq-item>
+						<cq-item cq-tool="average" stxtap="tool()">Average Line</cq-item>
+						<cq-item cq-tool="callout" stxtap="tool()">Callout</cq-item>
+						<cq-item cq-tool="channel" stxtap="tool()">Channel</cq-item>
+						<cq-item cq-tool="continuous" stxtap="tool()">Continuous</cq-item>
+						<cq-item cq-tool="crossline" stxtap="tool()">Crossline</cq-item>
+						<cq-item cq-tool="freeform" stxtap="tool()">Doodle</cq-item>
+						<cq-item cq-tool="ellipse" stxtap="tool()">Ellipse</cq-item>
+						<cq-item cq-tool="retracement" stxtap="tool()">Fib Retracement</cq-item>
+						<cq-item cq-tool="fibprojection" stxtap="tool()">Fib Projection</cq-item>
+						<cq-item cq-tool="fibarc" stxtap="tool()">Fib Arc</cq-item>
+						<cq-item cq-tool="fibfan" stxtap="tool()">Fib Fan</cq-item>
+						<cq-item cq-tool="fibtimezone" stxtap="tool()">Fib Time Zone</cq-item>
+						<cq-item cq-tool="gannfan" stxtap="tool()">Gann Fan</cq-item>
+						<cq-item cq-tool="gartley" stxtap="tool()">Gartley</cq-item>
+						<cq-item cq-tool="horizontal" stxtap="tool()">Horizontal</cq-item>
+						<cq-item cq-tool="line" stxtap="tool()">Line</cq-item>
+						<cq-item cq-tool="pitchfork" stxtap="tool()">Pitchfork</cq-item>
+						<cq-item cq-tool="quadrant" stxtap="tool()">Quadrant Lines</cq-item>
+						<cq-item cq-tool="ray" stxtap="tool()">Ray</cq-item>
+						<cq-item cq-tool="rectangle" stxtap="tool()">Rectangle</cq-item>
+						<cq-item cq-tool="regression" stxtap="tool()">Regression Line</cq-item>
+						<cq-item cq-tool="segment" stxtap="tool()">Segment</cq-item>
+						<cq-item cq-tool="arrow" stxtap="tool()">Shape - Arrow</cq-item>
+						<cq-item cq-tool="check" stxtap="tool()">Shape - Check</cq-item>
+						<cq-item cq-tool="xcross" stxtap="tool()">Shape - Cross</cq-item>
+						<cq-item cq-tool="focusarrow" stxtap="tool()">Shape - Focus</cq-item>
+						<cq-item cq-tool="heart" stxtap="tool()">Shape - Heart</cq-item>
+						<cq-item cq-tool="star" stxtap="tool()">Shape - Star</cq-item>
+						<cq-item cq-tool="speedarc" stxtap="tool()">Speed Resistance Arc</cq-item>
+						<cq-item cq-tool="speedline" stxtap="tool()">Speed Resistance Line</cq-item>
+						<cq-item cq-tool="timecycle" stxtap="tool()">Time Cycle</cq-item>
+						<cq-item cq-tool="tirone" stxtap="tool()">Tirone Levels</cq-item>
+						<cq-item cq-tool="trendline" stxtap="tool()">Trend Line</cq-item>
+						<cq-item cq-tool="vertical" stxtap="tool()">Vertical</cq-item>
 					</cq-menu-dropdown>
 				</cq-menu>
 				<cq-toolbar-settings>
@@ -235,36 +143,16 @@ export default class ToolbarDrawing extends React.Component {
 									className="ciq-line ciq-selected"
 								></span>
 								<cq-menu-dropdown class="ciq-line-style-menu">
-									<cq-item stxtap="setLine(1,'solid')">
-										<span className="ciq-line-style-option ciq-solid-1"></span>
-									</cq-item>
-									<cq-item stxtap="setLine(3,'solid')">
-										<span className="ciq-line-style-option ciq-solid-3"></span>
-									</cq-item>
-									<cq-item stxtap="setLine(5,'solid')">
-										<span className="ciq-line-style-option ciq-solid-5"></span>
-									</cq-item>
-									<cq-item stxtap="setLine(1,'dotted')">
-										<span className="ciq-line-style-option ciq-dotted-1"></span>
-									</cq-item>
-									<cq-item stxtap="setLine(3,'dotted')">
-										<span className="ciq-line-style-option ciq-dotted-3"></span>
-									</cq-item>
-									<cq-item stxtap="setLine(5,'dotted')">
-										<span className="ciq-line-style-option ciq-dotted-5"></span>
-									</cq-item>
-									<cq-item stxtap="setLine(1,'dashed')">
-										<span className="ciq-line-style-option ciq-dashed-1"></span>
-									</cq-item>
-									<cq-item stxtap="setLine(3,'dashed')">
-										<span className="ciq-line-style-option ciq-dashed-3"></span>
-									</cq-item>
-									<cq-item stxtap="setLine(5,'dashed')">
-										<span className="ciq-line-style-option ciq-dashed-5"></span>
-									</cq-item>
-									<cq-item stxtap="setLine(0,'none')" className="ciq-none">
-										None
-									</cq-item>
+									<cq-item stxtap="setLine(1,'solid')"><span className="ciq-line-style-option ciq-solid-1"></span></cq-item>
+									<cq-item stxtap="setLine(3,'solid')"><span className="ciq-line-style-option ciq-solid-3"></span></cq-item>
+									<cq-item stxtap="setLine(5,'solid')"><span className="ciq-line-style-option ciq-solid-5"></span></cq-item>
+									<cq-item stxtap="setLine(1,'dotted')"><span className="ciq-line-style-option ciq-dotted-1"></span></cq-item>
+									<cq-item stxtap="setLine(3,'dotted')"><span className="ciq-line-style-option ciq-dotted-3"></span></cq-item>
+									<cq-item stxtap="setLine(5,'dotted')"><span className="ciq-line-style-option ciq-dotted-5"></span></cq-item>
+									<cq-item stxtap="setLine(1,'dashed')"><span className="ciq-line-style-option ciq-dashed-1"></span></cq-item>
+									<cq-item stxtap="setLine(3,'dashed')"><span className="ciq-line-style-option ciq-dashed-3"></span></cq-item>
+									<cq-item stxtap="setLine(5,'dashed')"><span className="ciq-line-style-option ciq-dashed-5"></span></cq-item>
+									<cq-item stxtap="setLine(0,'none')" className="ciq-none">None</cq-item>
 								</cq-menu-dropdown>
 							</cq-menu>
 						</cq-line-style>
