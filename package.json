@@ -47,6 +47,7 @@
     "@babel/polyfill": "^7.4.4",
     "@babel/preset-env": "^7.4.4",
     "@webcomponents/webcomponentsjs": "^2.3.0",
+    "chartiq": "file:chartiq-7.2.0.tgz",
     "lit-html": "^1.1.2",
     "react": "^16.7.0",
     "react-dom": "^16.7.0"

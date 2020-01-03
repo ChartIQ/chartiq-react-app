@@ -24,6 +24,8 @@ export function getDefaultConfig() {
 		// Default implementation can be found in examples/markets/marketDefinitionsSample.js that by default is imported in resources.js file
 		// Please review and override the functions in there to match the symbol format of your quotefeed or results will be unpredictable.
 		marketFactory: CIQ.Market.Symbology.factory,
+		
+		// configuration passed to chart engine 
 		chartConfig: {
 			preferences: {
 				labels: false, 
