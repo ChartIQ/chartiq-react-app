@@ -57,18 +57,19 @@ export default class PaletteDrawing extends React.Component {
 			</cq-item>
 		));
 
-		const capitalize = word => word[0].toUpperCase() + word.substr(1);
-		drawingTools.forEach(
-			({ group }) => (drawingToolGrouping[capitalize(group)] = true)
-		);
+		// const capitalize = word => word[0].toUpperCase() + word.substr(1);
+		// drawingTools.forEach(
+		// 	({ group }) => (drawingToolGrouping[capitalize(group)] = true)
+		// );
 		this.groupDropdown = (
 			<cq-menu-dropdown class="ciq-tool-group-selection">
 				{drawingToolGrouping
-					.map(group => (
-						<cq-item stxtap={`setToolGroup('${group.toLowerCase()}')`} cq-tool-group={group.toLowerCase()} key={group}>
+					.map(group => {
+						const groupProperty = group.toLowerCase().replace('markings', 'marking').replace('lines', 'line');
+						return <cq-item stxtap={`setToolGroup('${groupProperty}')`} cq-tool-group={groupProperty} key={group}>
 							{group}
-						</cq-item>
-					))}
+						</cq-item>;
+					})}
 			</cq-menu-dropdown>
 		);
 		this.fontFamilyMenu = <cq-menu-dropdown class="ciq-font-family">
