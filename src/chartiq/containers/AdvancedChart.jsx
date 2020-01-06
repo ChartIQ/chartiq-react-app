@@ -84,10 +84,14 @@ export default class AdvancedChart extends React.Component {
 		function loadPlugins() {
 			Object.entries(pluginsToLoadLazy).forEach(([name, loadFunction]) => {
 				if (CIQ.debug) console.log('loading ' + name);
-				loadFunction().then(() => {
-					if (CIQ.debug) console.log('plugin ' + name + ' loaded');
-					self.configureLoadedPlugins();
-				});
+				loadFunction()
+					.then(() => {
+						if (CIQ.debug) console.log('plugin ' + name + ' loaded');
+						self.configureLoadedPlugins();
+					})
+					.catch((e) => {
+						if (CIQ.debug) console.log('failed to load plugin ' + name);
+					}) ;
 			});
 		}
 	}

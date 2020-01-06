@@ -25,12 +25,12 @@ export default class MenuStudies extends React.Component {
 
 	componentDidMount() {
 		const studies = this.studiesRef.current;
-		const { include_only = [], exclude = [] } = this.props.filter || {};
+		const { includeOnly = [], exclude = [] } = this.props.filter || {};
 
 		const excludedStudies = Object.entries(CIQ.Studies.studyLibrary).reduce(
 			(acc, [key, { name }]) => {
-				if (include_only.length) {
-					if (!include_only.includes(name)) {
+				if (includeOnly.length) {
+					if (!includeOnly.includes(name)) {
 						// not on included list
 						acc[key] = name;
 					}

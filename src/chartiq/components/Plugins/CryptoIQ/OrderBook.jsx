@@ -10,23 +10,23 @@ export default class OrderBook extends React.Component {
 	}
 
 	componentDidMount() {
-		const { stx, stx: { marketDepth} } = this.context;
+		const { marketDepth } = this.context.stx;
 		const orderbook = this.orderBookRef.current;
 
 		if (this.props.addToChart) {
-			orderbook.parentElement.removeChild(orderbook);
+			// attach orderbook to marketDepth container
 			marketDepth.marketDepth.container.appendChild(orderbook);
-
+			// provide reference to orderbook in marketDepth so orderbook can be opened from it
 			marketDepth.marketDepth.orderbook = orderbook;
 		}
 	}
 
 	render() {
-		const props = this.props;
+		const { closeButton, price, size, totalSize, amount, totalAmount} = this.props;
 		return (
 			<React.Fragment>
 				<cq-orderbook cq-active ref={this.orderBookRef}>
-					{props.closeButton && <cq-close></cq-close>}
+					{closeButton && <cq-close></cq-close>}
 					<cq-orderbook-table reverse>
 						<cq-scroll cq-no-claim>
 							<cq-orderbook-bids></cq-orderbook-bids>
@@ -39,11 +39,11 @@ export default class OrderBook extends React.Component {
 					</cq-orderbook-table>
 					<template>
 						<cq-item cq-size-shading>
-							{props.price && <div col="price">Price</div>}
-							{props.size && <div col="size">Size</div>}
-							{props.totalSize && <div col="cum_size">Total Size</div>}
-							{props.amount && <div col="amount">Amount</div>}
-							{props.totalAmount && <div col="cum_amount">Total Amount</div>}
+							{price && <div col="price">Price</div>}
+							{size && <div col="size">Size</div>}
+							{totalSize && <div col="cum_size">Total Size</div>}
+							{amount && <div col="amount">Amount</div>}
+							{totalAmount && <div col="cum_amount">Total Amount</div>}
 						</cq-item>
 					</template>
 				</cq-orderbook>

@@ -49,12 +49,12 @@ export default class MenuEvents extends React.Component {
 
 	render() {
 		const { activeEvent } = this.state;
-		const { menu_events, plugins } = this.context.config;
-		if (!menu_events) {
+		const { menuEvents, plugins } = this.context.config;
+		if (!menuEvents) {
 			return null;
 		}
 		
-		const menuItems = (menu_events || []).map((item, index) => {
+		const menuItems = (menuEvents || []).map((item, index) => {
 			// hiding items will allow to bind to stxtap event at once without
 			// requiring additional binding request
 			const style = {

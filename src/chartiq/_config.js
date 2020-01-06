@@ -45,8 +45,8 @@ export function getDefaultConfig() {
 		defaultSymbol: 'AAPL',
 		symbolLookupTabs: ['ALL', 'STOCKS', 'FX', 'INDEXES', 'FUNDS', 'FEATURES'],
 		headsUpDisplayTypes: ['dynamic', 'static'],
-		menus: ['menu_periodicity', 'menu_views', 'menu_display', 'menu_studies', 'menu_events'],
-		menu_periodicity: [
+		menus: ['menuPeriodicity', 'menuViews', 'menuDisplay', 'menuStudies', 'menuEvents'],
+		menuPeriodicity: [
 			{ label: '1 D', periodicity: 1, interval: 1, timeUnit: 'day' },
 			{ label: '1 W', periodicity: 1, interval: 1, timeUnit: 'week' },
 			{ label: '1 Mo', periodicity: 1, interval: 1, timeUnit: 'month' },
@@ -61,7 +61,7 @@ export function getDefaultConfig() {
 			{ type: 'separator' },
 			{ label: '1 Sec', periodicity: 1, interval: 1, timeUnit: 'second' }
 		],
-		menu_display: [
+		menuDisplay: [
 			{ label: 'Chart Style', type: 'heading'},
 			{ label: 'Candle', action: "Layout.ChartType('candle')", type: 'radio' },
 			{ label: 'Bar', action: "Layout.ChartType('bar')", type: 'radio' },
@@ -96,11 +96,11 @@ export function getDefaultConfig() {
 			{ label: 'Themes', type: 'heading'},
 			{ label: 'New Theme', type: 'themes'}
 		],
-		menu_studies: {
-			include_only: [],   // add names to have as only included
+		menuStudies: {
+			includeOnly: [],   // add names to have as only included
 			exclude: []         // exclude names from list of available studies
 		},
-		menu_events: [
+		menuEvents: [
 			{ label: 'Simple Square', markertype: 'square' },
 			{ label: 'Simple Circle', markertype: 'circle' },
 			{ label: 'Callouts', markertype: 'callout' },
@@ -110,8 +110,8 @@ export function getDefaultConfig() {
 			{ type: 'separator'},
 			{ label: 'None', markertype: 'none' }
 		],
-		footer_share: true,
-		footer_range: [
+		footerShare: true,
+		footerRange: [
 			{ label: '1D', multiplier: 1, base: 'today', available: 'always' },
 			{ label: '5D', multiplier: 5, base: 'day', interval: 30, period: 2, timeUnit: 'minute', available: 'always' },
 			{ label: '1M', multiplier: 1, base: 'month', interval: 30, period: 8, timeUnit: 'minute', available: 'always' },
@@ -192,18 +192,18 @@ export function getDefaultConfig() {
 				periodicities:
 				[
 					// daily interval data
-					{ period: 1,		interval: 'month' },
-					{ period: 1,		interval: 'week' },
-					{ period: 1,		interval: 'day' },
+					{ period: 1, interval: 'month' },
+					{ period: 1, interval: 'week' },
+					{ period: 1, interval: 'day' },
 					// 30 minute interval data
-					{ period: 8,		interval: 30 },
-					{ period: 1,		interval: 30 },
+					{ period: 8, interval: 30 },
+					{ period: 1, interval: 30 },
 					// 1 minute interval data
-					{ period: 5,		interval: 1 },
-					{ period: 1,		interval: 1 },
+					{ period: 5, interval: 1 },
+					{ period: 1, interval: 1 },
 					// one second interval data
-					{ period: 10,	interval: 1, timeUnit: 'second' },
-					{ period: 1,		interval:1 , timeUnit: 'second' },
+					{ period: 10, interval: 1, timeUnit: 'second' },
+					{ period: 1,  interval:1,  timeUnit: 'second' },
 				],
 				boundaries:{
 					maxCandleWidth: 15,
@@ -232,7 +232,7 @@ export function getDefaultConfig() {
 					step: true,
 					record: true,
 					height: '50%',
-					// market depth panel will be created after element with precedingConainer element if found
+					// if preceeding conainer is found, market depth panel will be created after that element
 					// or will default to element with .market-depth-bookmark selector
 					// if selector element is not found market depth panel will not be created
 					precedingContainer: '.market-depth-bookmark', // default

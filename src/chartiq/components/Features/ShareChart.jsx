@@ -12,8 +12,10 @@ import { CIQ } from 'chartiq';
  */
 export default class ShareChart extends React.Component {
 	componentDidMount() {
-		// take a bit time to load canvas allowing other items load
-		// with additonal UI notificatio this could also be implemented with on demand loading
+		// take a moment before loading html2canvas library to reduce resource request congestion
+		// at application startup as sharing is not likely to be first item used so delay would be acceptable
+		// with additional UI elements, this could also be implemented using on demand loading
+		const msToDelayLoading = 1000;
 		setTimeout(() => {
 			import(
 				/* webpackChunkName: "html2canvas" */ 'chartiq/js/thirdparty/html2canvas'
@@ -25,7 +27,7 @@ export default class ShareChart extends React.Component {
 				.catch(err =>
 					console.error('Error: failed to load html2canvas for screen sharing')
 				);
-		}, 1000);
+		}, msToDelayLoading);
 	}
 
 	render() {

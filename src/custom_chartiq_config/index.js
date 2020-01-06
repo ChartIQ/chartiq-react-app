@@ -23,10 +23,10 @@ export function getConfiguration() {
 	// config.footer = null;
 	
 	// turning off individual menus or re-ordering
-	// config.menus = ['menu_display', 'menu_periodicity', 'menu_views', 'menu_studies', 'menu_events'];
+	// config.menus = ['menuDisplay', 'menuPeriodicity', 'menuViews', 'menuStudies', 'menuEvents'];
 	
 	// show only few studies
-	// config.menu_studies.include_only = ['ATR Bands', 'MACD', 'Moving Average'];
+	// config.menuStudies.includeOnly = ['ATR Bands', 'MACD', 'Moving Average'];
 	return config;
 }
 

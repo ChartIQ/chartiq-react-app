@@ -1,16 +1,17 @@
 // manage plugins here
-import 'chartiq/js/chartiq';
+import { CIQ } from 'chartiq/js/chartiq';
 import 'chartiq/js/components';
 
 // market definition and symbology sample overrides abstract function CIQ.Market.Symbology.factory
 import 'chartiq/examples/markets/marketDefinitionsSample';
 import 'chartiq/examples/markets/marketSymbologySample';
 
-// import event markers from examples 
-import 'chartiq/examples/markers/videoSample';
+// import event markers from examples
+// dynamic import along with webapck ignore comment is used here to prevent compile errors for missing resources
+import('chartiq/examples/markers/videoSample').catch(onFail('videoSample markers'));  
 import 'chartiq/examples/markers/videoSample.css';
 
-import 'chartiq/examples/markers/tradeAnalyticsSample';
+import ('chartiq/examples/markers/tradeAnalyticsSample').catch(onFail('tradeAnalyticsSample'));
 import 'chartiq/examples/markers/tradeAnalyticsSample.css';
 
 // comment any properties if plugins are not needed or not available to prevent compilation errors
@@ -36,3 +37,9 @@ export const pluginsToLoadLazy = {
 		import('chartiq/plugins/timespanevent/examples/timeSpanEventSample')
 	])
 };
+
+function onFail(description) {
+	return function (err) {
+		if (CIQ.debug) console.log(' Error loading ' + description + '\n', err.message);
+	}
+}
