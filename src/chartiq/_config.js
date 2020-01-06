@@ -159,19 +159,7 @@ export function getDefaultConfig() {
 			{ tool: 'trendline', group: 'text', label: 'Trend Line' },
 			{ tool: 'vertical', group: 'lines', label: 'Vertical' }
 		],
-		drawingToolGrouping: {
-			// order of the drawing tool grouping
-			// groupings marked with true will be present
-			// undefined value groupings will be added based on available tools 
-			All: true,
-			Favorites: true,
-			Text: undefined,
-			Statistics: undefined,
-			Technicals: undefined,
-			Fibonacci: undefined,
-			Markings: undefined,
-			Lines: undefined
-		},
+		drawingToolGrouping: ['All', 'Favorites', 'Text', 'Statistics', 'Technicals', 'Fibonacci', 'Markings', 'Lines'],
 		drawingFontSizes: [8, 10, 12, 13, 14, 16, 18, 20, 28, 36, 48, 64],
 		drawingFonts: [
 			'Default',

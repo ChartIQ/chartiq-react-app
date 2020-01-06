@@ -63,8 +63,7 @@ export default class PaletteDrawing extends React.Component {
 		);
 		this.groupDropdown = (
 			<cq-menu-dropdown class="ciq-tool-group-selection">
-				{Object.keys(drawingToolGrouping)
-					.filter(key => drawingToolGrouping[key])
+				{drawingToolGrouping
 					.map(group => (
 						<cq-item stxtap={`setToolGroup('${group.toLowerCase()}')`} cq-tool-group={group.toLowerCase()} key={group}>
 							{group}
