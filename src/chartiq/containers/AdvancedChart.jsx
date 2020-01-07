@@ -90,7 +90,7 @@ export default class AdvancedChart extends React.Component {
 						self.configureLoadedPlugins();
 					})
 					.catch((e) => {
-						if (CIQ.debug) console.log('failed to load plugin ' + name);
+						if (CIQ.debug) console.warn('failed to load plugin ' + name);
 					}) ;
 			});
 		}

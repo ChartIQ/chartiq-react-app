@@ -103,6 +103,6 @@ function checkResource(resource, context) {
 	) {
 		return false;
 	}
-	console.log('ERROR finding ' + resource);
+	console.warn('ERROR finding ' + resource);
 	return true;
 }
