@@ -65,7 +65,7 @@ export default class PaletteDrawing extends React.Component {
 			<cq-menu-dropdown class="ciq-tool-group-selection">
 				{drawingToolGrouping
 					.map(group => {
-						const groupProperty = group.toLowerCase().replace('markings', 'marking').replace('lines', 'line');
+						const groupProperty = group.toLowerCase();
 						return <cq-item stxtap={`setToolGroup('${groupProperty}')`} cq-tool-group={groupProperty} key={group}>
 							{group}
 						</cq-item>;

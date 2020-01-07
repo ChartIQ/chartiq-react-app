@@ -238,6 +238,17 @@ html
 *[cq-context] .break-sm .stx-trade-ticket-toggle {
 	display: none;
 }
+
+/* style additions */
+cq-drawing-palette .tool-group[tool-group-filter=favorites] [cq-tool-group*=favorite] {
+  display: inline-block; }
+
+cq-drawing-palette .tool-group[tool-group-filter=lines] [cq-tool-group*=lines] {
+  display: inline-block; }
+
+cq-drawing-palette .tool-group[tool-group-filter=markings] [cq-tool-group*=markings] {
+  display: inline-block; }
+
 /**
 	end overrides
 */
@@ -255,3 +266,6 @@ cq-drawing-palette.list .tool-group .ciq-tool label,
 cq-item > cq-clickable {
 	display: block;
 }
+
+
+
