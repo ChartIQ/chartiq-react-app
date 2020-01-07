@@ -220,7 +220,7 @@ export function getDefaultConfig() {
 					step: true,
 					record: true,
 					height: '50%',
-					// if preceeding conainer is found, market depth panel will be created after that element
+					// if preceding container is found, market depth panel will be created after that element
 					// or will default to element with .market-depth-bookmark selector
 					// if selector element is not found market depth panel will not be created
 					precedingContainer: '.market-depth-bookmark', // default

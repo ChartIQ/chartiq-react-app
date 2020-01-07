@@ -11,7 +11,7 @@ class ChartIQChartContainer extends HTMLElement {
 	startChartUI({
 		stx,
 		quoteFeed,
-		quoteFeedBehaviour = {},
+		quoteFeedBehavior = {},
 		addOns,
 		marketFactory
 	}) {
@@ -21,7 +21,7 @@ class ChartIQChartContainer extends HTMLElement {
 			);
 		this.stx = stx;
 		if (quoteFeed) {
-			stx.attachQuoteFeed(quoteFeed, quoteFeedBehaviour);
+			stx.attachQuoteFeed(quoteFeed, quoteFeedBehavior);
 		}
 		if (marketFactory) {
 			stx.setMarketFactory(marketFactory);
