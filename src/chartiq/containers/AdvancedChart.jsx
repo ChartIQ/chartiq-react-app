@@ -261,8 +261,7 @@ export default class AdvancedChart extends React.Component {
 				chartConfig,
 				addOns,
 				quoteFeed,
-				refreshInterval,
-				bufferSize,
+				quoteFeedBehavior,
 				marketFactory,
 				headsUpDisplayTypes,
 				plugins = {}
@@ -301,8 +300,7 @@ export default class AdvancedChart extends React.Component {
 											chartConfig,
 											addOns,
 											quoteFeed,
-											refreshInterval,
-											bufferSize,
+											quoteFeedBehavior,
 											marketFactory,
 											headsUpDisplayTypes
 										}}

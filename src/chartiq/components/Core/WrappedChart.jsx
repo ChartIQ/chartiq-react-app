@@ -45,8 +45,7 @@ export default class WrappedChart extends React.Component {
 			chartConfig,
 			addOns,
 			quoteFeed,
-			refreshInterval,
-			bufferSize,
+			quoteFeedBehavior,
 			marketFactory
 		} = this.props;
 
@@ -64,7 +63,7 @@ export default class WrappedChart extends React.Component {
 		container.startChartUI({
 			stx,
 			quoteFeed,
-			quoteFeedBehavior: { refreshInterval, bufferSize },
+			quoteFeedBehavior,
 			addOns,
 			marketFactory
 		});
