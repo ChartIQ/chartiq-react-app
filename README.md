@@ -9,7 +9,7 @@ It wraps ChartIQ's native [Web Components](https://documentation.chartiq.com/tut
 
 ## Table of contents
 - [Installation and getting started](#installation-and-getting-started)
-- [Customization and configuration](#customization-and-configuration)
+- [Component customization and configuration](#component-customization-and-configuration)
 - [Project structure](#project-structure)
 - [Building the project](#building-the-project)
 - [Accessing the Chart Engine](#accessing-the-chart-engine)
@@ -45,7 +45,7 @@ Once the library is installed it can be viewed at http://localhost:4002 by runni
 npm run start
 ```
 
-To built for production with resulting bundle in /dist folder use
+To build for production with resulting bundle in /dist folder use
 ```
 npm run build
 ```
