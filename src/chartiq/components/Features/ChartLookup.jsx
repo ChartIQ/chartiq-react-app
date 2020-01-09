@@ -77,7 +77,6 @@ export default class ChartLookup extends React.Component {
 					>
 						<cq-lookup-input cq-no-close>
 							<input
-								id="symbol"
 								type="text"
 								spellCheck="off"
 								autoComplete="off"
