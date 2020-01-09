@@ -107,13 +107,16 @@ cq-comparison-add {
 }
 
 .title-overlay-controls cq-study-legend cq-section-dynamic cq-heading {
-	color: #398dff;
+	color: #a2a8ad;
 	padding: 0;
-	color: #fff;
 	font-size: 12px;
 	text-transform: initial;
 	font-weight: normal;
 	font-family: Roboto, Helvetica, sans-serif;
+}
+
+.title-overlay-controls cq-study-legend:hover cq-section-dynamic cq-heading {
+	color: black;
 }
 
 .title-overlay-controls cq-study-legend cq-heading:after {
@@ -175,8 +178,14 @@ cq-comparison-add {
 	cursor: pointer;
 }
 
-.ciq-night .title-overlay-controls cq-study-legend cq-item {
-	color: #fff;
+.ciq-night .title-overlay-controls cq-study-legend cq-item,
+.ciq-night .title-overlay-controls cq-study-legend cq-heading {
+	color: #a2a8ad;
+}
+
+.ciq-night .title-overlay-controls:hover cq-study-legend cq-item,
+.ciq-night .title-overlay-controls:hover cq-study-legend cq-heading {
+	color: white;
 }
 
 .ciq-night .title-overlay-controls cq-study-legend cq-item:hover {
