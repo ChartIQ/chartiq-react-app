@@ -79,7 +79,6 @@ src
 ├── custom_chartiq_config        # custom configuration folder
 ├── examples.js                  # example application
 ├── main.js                      # main AdvancedChart component application
-├── polyfill.js
 ├── .babelrc
 ├── index.html                   # template for webpack
 ├── webpack                      # configurations for webpack
@@ -90,8 +89,6 @@ src
 ## Building the project
 
 If you wish to use the ChartIQ `<AdvancedChart />` sample in its default state, you may build the component right away and use in your own React project. Simply run the npm script `npm run build` to generate the javascript bundle file, which can be found in the `dist/` folder.
-
-In order to keep the bundle size as small as possible this project does not, by default, support older browsers. You may optionally include polyfills for legacy browser support by running the npm script `npm run build:polyfill`. This script is identical to `npm run build` but will attach polyfills to the javascript bundle file for legacy browser support.
 
 In addition to the `<AdvancedChart />` you can also build several other components in example folder by running `npm run watch:unified` and viewing them [http://localhost:4002](http://localhost:4002).
 
