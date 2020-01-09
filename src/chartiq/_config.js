@@ -38,7 +38,6 @@ export function getDefaultConfig() {
 		header: true,                         // chart header will show / hide top navigation
 		footer: true,                         // chart footer
 		breakpoints: [584, 700],              // breakpoints define changes in layout
-		breakpointLabels: ['sm', 'md', 'lg'], // ui container classe suffixes for various break points
 		breakpointSymbolPlaceholders: ['', 'Symbol', 'Enter Symbol'],
 		headerLeft: {
 			symbolLookup: true,

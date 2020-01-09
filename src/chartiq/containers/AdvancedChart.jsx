@@ -187,12 +187,12 @@ export default class AdvancedChart extends React.Component {
 		const { UIContext } = this.state;
 		const {
 			breakpoints: size,
-			breakpointLabels: label,
 			breakpointSymbolPlaceholders: symbolPlaceholders
 		} = this.props.config;
 
+		const labels = ['sm', 'md', 'lg']; // ui container class suffixes for various break points
 		const breakpointSize =
-			width < size[0] ? label[0] : width < size[1] ? label[1] : label[2];
+			width < size[0] ? labels[0] : width < size[1] ? labels[1] : labels[2];
 
 		const symbolPlaceholder =
 			width < size[0]
