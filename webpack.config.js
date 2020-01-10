@@ -2,7 +2,6 @@ const merge = require('webpack-merge')
 
 const configs = {
     common: require('./webpack/webpack.common.js'),
-    legacy: require('./webpack/webpack.legacy.js'),
 
     advanced: require('./webpack/webpack.advanced-chart.js'),
     marketDepth: require('./webpack/webpack.market-depth.js'),
@@ -11,13 +10,12 @@ const configs = {
 }
 
 module.exports = env => {
-    let environment, polyfill, build
+    let environment, build
     let extras = {}
 
     console.log("Webpack env: ", env)
     if(env) {
         environment = env.production ? 'production' : 'development'
-        polyfill = env.production === 'polyfill' ? true : false
         build = configs[env.build]
     }
     else {
@@ -31,10 +29,7 @@ module.exports = env => {
     extras.devtool = environment === 'development' ? 'source-maps' : ''
     
     let output = merge(configs.common, build, extras)
-    if(polyfill) {
-        console.log('legacy config: ',configs.legacy)
-        output = merge(output, configs.legacy)
-    }
+    
     console.log('final merged webpack config: ',output)
 
     return output  
