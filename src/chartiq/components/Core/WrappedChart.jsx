@@ -45,8 +45,8 @@ export default class WrappedChart extends React.Component {
 			chartConfig,
 			addOns,
 			quoteFeed,
-			refreshInterval,
-			bufferSize
+			quoteFeedBehavior,
+			marketFactory
 		} = this.props;
 
 		const stx = new CIQ.ChartEngine({ container, ...chartConfig });
@@ -60,12 +60,13 @@ export default class WrappedChart extends React.Component {
 
 		// ciq webcomponent initialization chart and connecting to quote feed
 		// attaches chart engine stx to UIContext
-		container.startChartUI(
+		container.startChartUI({
 			stx,
 			quoteFeed,
-			{ refreshInterval, bufferSize },
-			addOns
-		);
+			quoteFeedBehavior,
+			addOns,
+			marketFactory
+		});
 
 		// If in development allow access to globals for easy debugging
 		if (process.env.NODE_ENV !== 'production') {
@@ -97,7 +98,6 @@ export default class WrappedChart extends React.Component {
 					<chartiq-chart-container
 						class="chartContainer"
 						defer-start="true"
-						animations="false"
 						ref={this.engineRef}
 						toolbar-active={drawingActive ? true : false}
 					>

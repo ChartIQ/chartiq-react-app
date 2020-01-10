@@ -1,6 +1,8 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('extract-css-chunks-webpack-plugin'); // used for packaging css into bundles
 const CopyPlugin = require('copy-webpack-plugin');
+const webpack = require('webpack');
+const fs = require('fs');
 
 module.exports = {
 	devServer: {
@@ -51,7 +53,7 @@ module.exports = {
 			/* Javascript and JSX loading */
 			{
 				test: /\.(js|jsx)$/,
-				include: [/src/, /node_modules\/(lit-html|@polymer)/],
+				include: [/src/, /node_modules/],
 				exclude: [/translationSample/],
 				// exclude: [/node_modules/,/\.spec\.js$/, /translationSample/, /webcomponent-containers/],
 				use: {
@@ -68,12 +70,39 @@ module.exports = {
 	},
 
 	plugins: [
+		// ignores not available chartiq resource due to not all licenses having
+		// the same number of addOns or plugins
+		new webpack.IgnorePlugin({
+			checkResource 
+		}),
 		new MiniCssExtractPlugin({
 			fileNname: '[name].css'
 		}),
-		new CopyPlugin([{ from: 'public' }])
+		new CopyPlugin([
+			{ from: 'public' },
+			// copy plugin resources
+			{
+				from: 'node_modules/chartiq/plugins/timespanevent/images',
+				to: 'plugins/timespanevent/images'
+			}
+		])
 	],
 	resolve: {
 		extensions: ['.js', '.jsx']
 	}
 };
+
+function checkResource(resource, context) {
+	if (!/^chartiq\//.test(resource)) {
+		return false;
+	}
+
+	if (
+		fs.existsSync('./node_modules/' + resource)
+		|| fs.existsSync('./node_modules/' + resource + '.js')
+	) {
+		return false;
+	}
+	console.warn('ERROR finding ' + resource);
+	return true;
+}

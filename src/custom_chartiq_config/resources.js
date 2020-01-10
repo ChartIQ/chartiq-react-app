@@ -1,42 +1,45 @@
 // manage plugins here
-import 'chartiq/js/chartiq';
+import { CIQ } from 'chartiq/js/chartiq';
 import 'chartiq/js/components';
+
+// market definition and symbology sample overrides abstract function CIQ.Market.Symbology.factory
 import 'chartiq/examples/markets/marketDefinitionsSample';
 import 'chartiq/examples/markets/marketSymbologySample';
 
-
 // import event markers from examples
-import ('chartiq/examples/markers/videoSample');
-import ('chartiq/examples/markers/videoSample.css');
+// dynamic import along with webapck ignore comment is used here to prevent compile errors for missing resources
+import('chartiq/examples/markers/videoSample').catch(onFail('videoSample markers'));  
+import 'chartiq/examples/markers/videoSample.css';
 
+import ('chartiq/examples/markers/tradeAnalyticsSample').catch(onFail('tradeAnalyticsSample'));
+import 'chartiq/examples/markers/tradeAnalyticsSample.css';
 
+// comment any properties if plugins are not needed or not available to prevent compilation errors
 export const pluginsToLoadLazy = {
-	// comment following line if cryptoiq plugin is not available
 	cryptoiq: () => Promise.all([
-		import( /* webpackChunkName: "cryptoiq" */ 'chartiq/plugins/cryptoiq/cryptoiq'),
-		import( /* webpackChunkName: "marketdepth" */'chartiq/plugins/cryptoiq/marketdepth'),
-		import( /* webpackChunkName: "orderbook" */'chartiq/plugins/cryptoiq/orderbook'),
-		import( /* webpackChunkName: "L2_simulator" */'chartiq/examples/feeds/L2_simulator'),
+		import(/* webpackChunkName: "cryptoiq" */ 'chartiq/plugins/cryptoiq/cryptoiq'),
+		import(/* webpackChunkName: "marketdepth" */ 'chartiq/plugins/cryptoiq/marketdepth'),
+		import(/* webpackChunkName: "orderbook" */ 'chartiq/plugins/cryptoiq/orderbook'),
+		import(/* webpackChunkName: "L2_simulator" */ 'chartiq/examples/feeds/L2_simulator')
 	]),
-	
-	// comment following line if scriptiq plugin is not available
+
 	scriptiq: () => import(/* webpackChunkName: "scriptiq" */ 'chartiq/plugins/scriptiq/scriptiq'),
-	
-	// comment following 5 lines if tfc plugin is not available
+
 	tfc: () => Promise.all([
 		import('chartiq/plugins/tfc/tfc-loader'),
-		// Be sure to load some account file or TFC will not work
-		import('chartiq/plugins/tfc/tfc-demo')
+		import('chartiq/plugins/tfc/tfc-demo') // Be sure to load some account file or TFC will not work
 	]),
 
 	// comment following line if timespan events are not available
 	// Timespan events available starting 7.3
 	timeSpanEvents: () => Promise.all([
-		import ('chartiq/plugins/timespanevent/timespanevent'),
-		import ('chartiq/plugins/timespanevent/examples/timeSpanEventSample')
+		import('chartiq/plugins/timespanevent/timespanevent'),
+		import('chartiq/plugins/timespanevent/examples/timeSpanEventSample')
 	])
+};
 
-	// add additional plugins here
+function onFail(description) {
+	return function (err) {
+		if (CIQ.debug) console.log(' Error loading ' + description + '\n', err.message);
+	}
 }
-
-

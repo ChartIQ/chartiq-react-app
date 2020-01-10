@@ -12,7 +12,7 @@ import { ChartContext } from '../../context/ChartContext';
  */
 export default class RangeBar extends React.Component {
 	render() {
-		const { footer_range: rangeItems } = this.context.config;
+		const { footerRange: rangeItems } = this.context.config;
 		if (!rangeItems) return null;
 		const toString = value => value && JSON.stringify(value);
 

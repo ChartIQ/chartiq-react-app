@@ -25,53 +25,38 @@ export default class TitleOverlay extends React.Component {
 	}
 
 	componentDidMount() {
-		let stx = this.context.stx;
+		const { stx } = this.context;
 		this.listener = stx.addEventListener(
 			'layout',
-			this.UpdateOverlayPosition.bind(this)
+			this.updateOverlayPosition.bind(this)
 		);
-		this.UpdateOverlayPosition();
+		this.updateOverlayPosition();
 	}
 
 	componentWillUnmount() {
-		let stx = this.context.stx;
-		stx.removeEventListener(this.listener);
+		this.context.stx.removeEventListener(this.listener);
 	}
 
-	UpdateOverlayPosition() {
-		this.setState({
-			position: {
-				top: this.context.stx.chart.panel.top,
-				left: this.context.stx.chart.panel.left
-			}
-		});
+	updateOverlayPosition() {
+		const { top, left } = this.context.stx.chart.panel;
+		this.setState({ position: { top, left } });
 	}
 
 	render() {
-		let menuStudyLegend;
-		if (Object.keys(this.context.stx.overlays).length > 0) {
-			// Only render the <MenuStudyLegend.../> component if there are overlay studies present in the chart
-			menuStudyLegend = (
-				<MenuStudyLegend
-					clearAll={false}
-					heading={'Overlays'}
-					icon={true}
-					only={'overlays'}
-				/>
-			);
-		}
+		const { top, left } = this.state.position;
 		return (
-			<div
-				className="title-overlay-controls"
-				style={{
-					top: this.state.position.top + 'px',
-					left: this.state.position.left + 'px'
-				}}
-			>
+			<div className="title-overlay-controls" style={{ top, left }}>
 				<ChartTitle />
 				{CIQ.FullScreen && <ChartControlGroup />}
 				<ChartComparison />
-				{menuStudyLegend}
+				{!!Object.keys(this.context.stx.overlays).length && (
+					<MenuStudyLegend
+						clearAll={false}
+						heading={'Overlays'}
+						icon={true}
+						only={'overlays'}
+					/>
+				)}
 			</div>
 		);
 	}

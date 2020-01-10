@@ -1,5 +1,4 @@
 import React from 'react';
-import { ChartContext } from '../../context/ChartContext';
 
 /**
  * Chart symbol comparison component `<ChartComparison>`
@@ -11,20 +10,9 @@ import { ChartContext } from '../../context/ChartContext';
  * @class ChartComparison
  * @extends {React.Component}
  */
-export default class ChartComparison extends React.Component {
-	componentDidMount() {
-		// let context = this.context.UIContext
-		// let engine = this.context.stx
-		// let comparison = $$$('cq-comparison')
-		// let lookupTemplate = $$$('[cq-lookup]', comparison)
-		// var lookup = CIQ.UI.makeFromTemplate(lookupTemplate);
-		// lookupTemplate.firstElementChild.remove()
-		// $$$('cq-comparison-lookup-frame',comparison).appendChild(lookup[0])
-	}
-
+export default class ChartComparison extends React.PureComponent {
+	
 	render() {
-		let context = this.context.UIContext;
-
 		return (
 			<cq-comparison marker="true">
 				<cq-menu className="cq-comparison-new">
@@ -84,5 +72,3 @@ export default class ChartComparison extends React.Component {
 		);
 	}
 }
-
-ChartComparison.contextType = ChartContext;

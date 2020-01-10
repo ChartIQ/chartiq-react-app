@@ -1,245 +1,33 @@
 import { CIQ } from 'chartiq/js/componentUI';
 
-import { quoteFeedSimulator } from 'chartiq/examples/feeds/quoteFeedSimulator';
-
-const {
-	Tooltip,
-	UI: { KeystrokeHub }
-} = CIQ;
-
 /**
- * Chart setup web component `<chartiq-chart>`.
- * 
- * A formalized set of framework-independent reusable methods designed to initialize the different elements and configurations within a chart page.<br>
- * Things such as instantiating a chart engine, setting up a quote feed, loading up the UI, setting up market definitions, etc. are all managed here.<br>
- * 
- * This is used on our Frameworks applications, such  as our [React Application](https://github.com/ChartIQ/chartiq-react-app), 
- * in lieu of the script tags and standalone chart configuration functions you can see in our `sample-template-advanced.html` template. 
- * 
- * Please overwrite individual methods as needed to achieve your desired use case.
- *
- * @namespace WebComponents.chartiq-chart
- * @since 7.0.0
- * @example <caption>React example from WrappedChart.jsx to render the ChartIQ chart canvas and associated DOM elements</caption>
-import React from 'react'
-import { CIQ } from 'chartiq'
-import { ChartIQChart } from 'components'
-import TitleOverlay from '../Layout/TitleOverlay'
-import ToolbarDrawing from '../Features/ToolbarDrawing'
-import LoadingWidget from './LoadingWidget'
-import HeadsUpStatic from '../Features/HeadsUpStatic'
-import HeadsUpDynamic from '../Features/HeadsUpDynamic'
-import MarkerAbstract from '../Features/MarkerAbstract'
-import DataAttribution from '../Features/DataAttribution'
-import { ChartContext } from '../../react-chart-context'
-
-export default class WrappedChart extends React.Component {
-
-	constructor (props) {
-		super(props)
-
-		this.createEngine = container => {
-			var config = {container: container, chart: props.chartConstructor, preferences: props.preferences}
-			this.stxx = container.stxx = new CIQ.ChartEngine(config)
-			container.CIQ = CIQ
-			container.$$$ = $$$
-			let addOns = props.addOns
-			container.startChart(this.stxx, this.feed, {refreshInterval: 1, bufferSize: 200}, addOns)
-			this.context.setContext({stx: this.stxx})
-		}
-
-		this.engineRef = React.createRef()
-		this.feed = this.props.quoteFeed || quoteFeedSimulator
-	}
-
-	componentDidMount() {
-		this.createEngine(this.engineRef.current);
-		window.addEventListener("resize", this.resizeScreen.bind(this));
-		this.resizeScreen();
-	}
-
-	resizeScreen(){
-		let containerWidth = document.querySelector('.cq-chart-container').offsetWidth;
-
-		document.body.classList.remove('break-lg','break-md','break-sm')
-		if (containerWidth> 700) {
-			document.body.classList.add('break-lg');
-		}
-		else if (containerWidth <= 700 && containerWidth > 584) {
-			document.body.classList.add('break-md');
-		}
-		else if (containerWidth <= 584) {
-			document.body.classList.add('break-sm');
-		}
-	}
-
-	render () {
-		const Comparison = React.forwardRef((props, ref) => (
-			ref.current && <ChartComparison forwardeRef={ref} />
-		))
-
-		return (
-			<React.Fragment>
-			<div className={"ciq-chart-area"}>
-				<div className={"ciq-chart"}>
-					{ this.context.stx && <ToolbarDrawing /> }
-					<chartiq-chart class="chartContainer" defer-start="true" animations="false" ref={this.engineRef}>
-						{ this.context.stx && <TitleOverlay refProp={this.engineRef} /> }
-						<LoadingWidget />
-						{this.props.dynamicHeadsUp && this.context.stx && <HeadsUpDynamic />
-						}
-
-						{this.props.staticHeadsUp && this.context.stx && <HeadsUpStatic />
-						}
-						<DataAttribution />
-					</chartiq-chart>
-					{ this.context.stx && <MarkerAbstract /> }
-				</div>
-			</div>
-			</React.Fragment>
-		)
-	}
-}
-
-WrappedChart.contextType = ChartContext;
-*/
+ * Chart setup web component `<chartiq-chart-container>`.
+ */
 class ChartIQChartContainer extends HTMLElement {
-	get config() {
-		return JSON.parse(this.getAttribute('chart-constructor'));
-	}
-
-	get defer() {
-		return JSON.parse(this.getAttribute('defer-start'));
-	}
-
-	get drawingToolbar() {
-		return JSON.parse(this.getAttribute('toolbar-active'));
-	}
-
-	constructor() {
-		super();
-	}
-
-	connectedCallback() {
-		if (this.defer) return;
-		const config = Object.assign(
-			{ container: document.querySelector('.chartContainer') },
-			this.config
-		);
-		if (this.preferences) config.preferences = this.preferences;
-		this.stx = new CIQ.ChartEngine(config);
-
-		this.startChart();
-	}
-
 	disconnectedCallback() {
 		this.stx.destroy();
 	}
 
-	/**
-	 * Main method to start the charts addOns, plugins, etc.
-	 * By default will be called on the connected callback unless defer-start attribute is set to true.
-	 * Should be called by another function to start the chart.
-	 *
-	 * Expects a copy of the engine to be saved to this element.
-	 * 
-	 * @alias startChart
-	 * @memberof WebComponents.chartiq-chart
-	 * @since 7.0.0
-	 * @example
-	CIQ.UI.Container.prototype.startChart = function(engine, feed, behavior) {
-		if (!this.stx) this.stx=engine;
-		if (!this.stx) throw new Error('no CIQ.ChartEngine created!\nDouble check that you have passed an engine into this function.');
-		this.configureDataSource(feed, behavior);
-		this.configureMarkets();
-		this.configureAddOns();
-		this.startUI();
-	}
-	 */
-	startChartUI(engine, feed, feedBehavior, addonOptions) {
-		if (!this.stx) this.stx = engine;
-		if (!this.stx)
+	startChartUI({
+		stx,
+		quoteFeed,
+		quoteFeedBehavior = {},
+		addOns,
+		marketFactory
+	}) {
+		if (!stx)
 			throw new Error(
-				'no CIQ.ChartEngine created!\nDouble check that you have passed an engine into this function.'
+				'CIQ.ChartEngine has not been created!\nCheck that you have passed an chartiq engine into this function.'
 			);
-		this.configureDataSource(feed, feedBehavior);
-		this.configureMarkets();
-		this.configureAddOns(addonOptions);
-		this.startUI();
-	}
-
-	/**
-	 * Overwrite this method to extend and attach your own quoteFeed.
-	 * This function should call CIQ.ChartEngine#attachQuoteFeed with the quoteFeed you wish to use or start streaming your data.
-	 * 
-	 * @alias configureDataSource
-	 * @memberof WebComponents.chartiq-chart
-	 * @since 7.0.0
-	 * @example
-	CIQ.UI.Container.prototype.configureDataSource = function(feed, behavior) {
-		if (feed) this.stx.attachQuoteFeed(feed, behavior);
-		else this.stx.attachQuoteFeed(quoteFeedSimulator, {refreshInterval: 1});
-	}
-	 */
-	configureDataSource(feed, behavior) {
-		const { stx } = this;
-		if (feed) {
-			stx.attachQuoteFeed(feed, behavior);
-			return;
+		this.stx = stx;
+		if (quoteFeed) {
+			stx.attachQuoteFeed(quoteFeed, quoteFeedBehavior);
 		}
-		// attach default feed only if feed not set to null
-		if (feed !== null) {
-			stx.attachQuoteFeed(quoteFeedSimulator, { refreshInterval: 1 });
+		if (marketFactory) {
+			stx.setMarketFactory(marketFactory);
 		}
-	}
-
-	/**
-	 * Overwrite this method to extend and start your own custom chart UI here.
-	 * Called by the connectedCallback so you are guaranteed to have access to the DOM. Initialize anything you need for your UI here.
-	 * 
-	 * @alias startUI
-	 * @memberof WebComponents.chartiq-chart
-	 * @since 7.0.0
-	 * @example
-	CIQ.UI.Container.prototype.startUI = function() {
-		this.setHeight();
-		this.startComponentUI();
-	}
-	 */
-	startUI() {
-		this.setHeight();
-		this.startComponentUI();
-	}
-
-	/**
-	 * Overwrite this method to set up your chart with custom market classes.
-	 * 
-	 * @alias configureMarkets
-	 * @memberof WebComponents.chartiq-chart
-	 * @since 7.0.0
-	 * @example <caption>Default function</caption>
-	CIQ.UI.ChartIQChart.prototype.configureMarkets = function() {
-		this.stx.setMarketFactory(CIQ.Market.Symbology.factory);
-	}
-	 * @example <caption>React example (from main.js file) on how to set the chart to 24 hours mode by removing the this.stx.setMarketFactory call. </caption>	
-import React from 'react'
-import ReactDom from 'react-dom'
-import { CIQ, $$$ } from 'chartiq'
-// import { quoteFeedSimulator } from 'examples/feeds/quoteFeedSimulator'
-import AdvancedChart from './containers/AdvancedChart'
-let constructor = {}
-let preferences = {labels:false, currentPriceLine:true, whitespace:0}
-let enableAddOns = {InactivityTimer: {minutes:30}, ExtendedHours: {filter:true}, RangeSlider:true}
-
-CIQ.UI.ChartIQChart.prototype.configureMarkets = function(){};
-​
-ReactDom.render(
-React.createElement(AdvancedChart, {chartConstructor:constructor, preferences: preferences, addOns: enableAddOns}),
-document.querySelector("#app")
-)
-	 */
-	configureMarkets() {
-		this.stx.setMarketFactory(CIQ.Market.Symbology.factory);
+		this.configureAddOns(addOns);
+		this.startComponentUI(stx);
 	}
 
 	configureAddOns(addOns) {
@@ -248,26 +36,36 @@ document.querySelector("#app")
 		Object.entries(addOns)
 			.filter(([, params]) => !!params)
 			.forEach(([addOn, params]) => {
-			const addOnObjectName = addOn[0].toUpperCase() + addOn.substr(1);
+				const addOnObjectName = addOn[0].toUpperCase() + addOn.substr(1);
 
-			try {
-				if (!CIQ[addOnObjectName]) {
-					if (CIQ.debug) {
-						console.log('Plugin ' + addOnObjectName + ' not availble for ' + addOn + ' with params ', params)
+				try {
+					if (!CIQ[addOnObjectName]) {
+						if (CIQ.debug) {
+							console.log(
+								`Plugin ${addOnObjectName} not availble for ${addOn} with params:`,
+								params
+							);
+						}
+						return;
 					}
-					return;
+					new CIQ[addOnObjectName]({
+						stx,
+						...(typeof params === 'object' ? params : {})
+					});
+				} catch (err) {
+					if (CIQ.debug) {
+						console.error(
+							'Error configuring ' + addOn + ' using params ',
+							params,
+							'error',
+							err
+						);
+					}
 				}
-				new CIQ[addOnObjectName]({ stx, ...(typeof params === 'object' ? params : {})})
-			} catch (err) {
-				if (CIQ.debug) {
-					console.error('Error configuring ' + addOn + ' using params ', params, 'error', err);
-				}
-			}
-		});
+			});
 	}
 
-	startComponentUI() {
-		const { stx } = this;
+	startComponentUI(stx) {
 		const UIContext = CIQ.UI.getMyContext(stx.container);
 		if (!UIContext) {
 			const contextContainer = findContextElement(this);
@@ -281,9 +79,11 @@ document.querySelector("#app")
 		new CIQ.UI.StudyEdit(null, UIContext);
 		// new CIQ.UI.DrawingEdit(null, UIContext);
 
-		new KeystrokeHub(document.body, UIContext, {
-			cb: KeystrokeHub.defaultHotKeys
+		new CIQ.UI.KeystrokeHub(document.body, UIContext, {
+			cb: CIQ.UI.KeystrokeHub.defaultHotKeys
 		});
+
+		this.setHeight();
 
 		if (UIContext.loader) UIContext.loader.show();
 		if (CIQ.I18N.wordlists) CIQ.I18N.localize(stx, stx.preferences.language);
@@ -370,6 +170,10 @@ document.querySelector("#app")
 
 		this.style.height = height + 'px';
 		this.style.height = height - (this.drawingToolbar ? 45 : 0) + 'px';
+	}
+
+	get drawingToolbar() {
+		return JSON.parse(this.getAttribute('toolbar-active'));
 	}
 }
 

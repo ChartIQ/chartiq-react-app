@@ -14,9 +14,20 @@ export default getDefaultConfig();
 export function getDefaultConfig() {
 	return {
 		// quote refresh interval
-		quoteFeed,					// comment out or set to null to disable (quoteFeed: null)
-		refreshInterval: 1, // defaults to 1 if not set. Referesh interval is required for MarketDepth simulation
-		bufferSize: 200,
+		quoteFeed,          // comment out or set to null to disable (quoteFeed: null)
+		quoteFeedBehavior: {
+			refreshInterval: 1, // defaults to 1 if not set. Referesh interval is required for MarketDepth simulation
+			bufferSize: 200,
+		},
+		// Optionally set a market factory to the chart to make it market hours aware. Otherwise it will operate in 24x7 mode.
+		// This is required for the simulator, or if you intend to also enable Extended hours trading zones.
+		// Please note that, this method is set to use the CIQ.Market.Symbology functions by default,
+		// which must be reviewed and adjust to comply with your quote feed and symbology format before they can be used.
+		// Default implementation can be found in examples/markets/marketDefinitionsSample.js that by default is imported in resources.js file
+		// Please review and override the functions in there to match the symbol format of your quotefeed or results will be unpredictable.
+		marketFactory: CIQ.Market.Symbology.factory,
+		
+		// configuration passed to chart engine 
 		chartConfig: {
 			preferences: {
 				labels: false, 
@@ -24,10 +35,9 @@ export function getDefaultConfig() {
 				whitespace: 0
 			}
 		},
-		header: true,													// chart header will show / hide top navigation
-		footer: true,													// chart footer
-		breakpoints: [584, 700],							// breakpoints define changes in layout
-		breakpointLabels: ['sm', 'md', 'lg'], // ui container classe suffixes for various break points
+		header: true,                         // chart header will show / hide top navigation
+		footer: true,                         // chart footer
+		breakpoints: [584, 700],              // breakpoints define changes in layout
 		breakpointSymbolPlaceholders: ['', 'Symbol', 'Enter Symbol'],
 		headerLeft: {
 			symbolLookup: true,
@@ -36,8 +46,8 @@ export function getDefaultConfig() {
 		defaultSymbol: 'AAPL',
 		symbolLookupTabs: ['ALL', 'STOCKS', 'FX', 'INDEXES', 'FUNDS', 'FEATURES'],
 		headsUpDisplayTypes: ['dynamic', 'static'],
-		menus: ['menu_periodicity', 'menu_views', 'menu_display', 'menu_studies', 'menu_events'],
-		menu_periodicity: [
+		menus: ['menuPeriodicity', 'menuViews', 'menuDisplay', 'menuStudies', 'menuEvents'],
+		menuPeriodicity: [
 			{ label: '1 D', periodicity: 1, interval: 1, timeUnit: 'day' },
 			{ label: '1 W', periodicity: 1, interval: 1, timeUnit: 'week' },
 			{ label: '1 Mo', periodicity: 1, interval: 1, timeUnit: 'month' },
@@ -52,7 +62,7 @@ export function getDefaultConfig() {
 			{ type: 'separator' },
 			{ label: '1 Sec', periodicity: 1, interval: 1, timeUnit: 'second' }
 		],
-		menu_display: [
+		menuDisplay: [
 			{ label: 'Chart Style', type: 'heading'},
 			{ label: 'Candle', action: "Layout.ChartType('candle')", type: 'radio' },
 			{ label: 'Bar', action: "Layout.ChartType('bar')", type: 'radio' },
@@ -87,11 +97,11 @@ export function getDefaultConfig() {
 			{ label: 'Themes', type: 'heading'},
 			{ label: 'New Theme', type: 'themes'}
 		],
-		menu_studies: {
-			include_only: [],		// add names to have as only included
-			exclude: []					// exclude names from list of available studies
+		menuStudies: {
+			includeOnly: [],   // add names to have as only included
+			exclude: []         // exclude names from list of available studies
 		},
-		menu_events: [
+		menuEvents: [
 			{ label: 'Simple Square', markertype: 'square' },
 			{ label: 'Simple Circle', markertype: 'circle' },
 			{ label: 'Callouts', markertype: 'callout' },
@@ -101,8 +111,8 @@ export function getDefaultConfig() {
 			{ type: 'separator'},
 			{ label: 'None', markertype: 'none' }
 		],
-		footer_share: true,
-		footer_range: [
+		footerShare: true,
+		footerRange: [
 			{ label: '1D', multiplier: 1, base: 'today', available: 'always' },
 			{ label: '5D', multiplier: 5, base: 'day', interval: 30, period: 2, timeUnit: 'minute', available: 'always' },
 			{ label: '1M', multiplier: 1, base: 'month', interval: 30, period: 8, timeUnit: 'minute', available: 'always' },
@@ -150,19 +160,7 @@ export function getDefaultConfig() {
 			{ tool: 'trendline', group: 'text', label: 'Trend Line' },
 			{ tool: 'vertical', group: 'lines', label: 'Vertical' }
 		],
-		drawingToolGrouping: {
-			// order of the drawing tool grouping
-			// groupings marked with true will be present
-			// undefined value groupings will be added based on available tools 
-			All: true,
-			Favorites: true,
-			Text: undefined,
-			Statistics: undefined,
-			Technicals: undefined,
-			Fibonacci: undefined,
-			Markings: undefined,
-			Lines: undefined
-		},
+		drawingToolGrouping: ['All', 'Favorites', 'Text', 'Statistics', 'Technicals', 'Fibonacci', 'Markings', 'Lines'],
 		drawingFontSizes: [8, 10, 12, 13, 14, 16, 18, 20, 28, 36, 48, 64],
 		drawingFonts: [
 			'Default',
@@ -184,18 +182,18 @@ export function getDefaultConfig() {
 				periodicities:
 				[
 					// daily interval data
-					{ period: 1,		interval: 'month' },
-					{ period: 1,		interval: 'week' },
-					{ period: 1,		interval: 'day' },
+					{ period: 1, interval: 'month' },
+					{ period: 1, interval: 'week' },
+					{ period: 1, interval: 'day' },
 					// 30 minute interval data
-					{ period: 8,		interval: 30 },
-					{ period: 1,		interval: 30 },
+					{ period: 8, interval: 30 },
+					{ period: 1, interval: 30 },
 					// 1 minute interval data
-					{ period: 5,		interval: 1 },
-					{ period: 1,		interval: 1 },
+					{ period: 5, interval: 1 },
+					{ period: 1, interval: 1 },
 					// one second interval data
-					{ period: 10,	interval: 1, timeUnit: 'second' },
-					{ period: 1,		interval:1 , timeUnit: 'second' },
+					{ period: 10, interval: 1, timeUnit: 'second' },
+					{ period: 1,  interval:1,  timeUnit: 'second' },
 				],
 				boundaries:{
 					maxCandleWidth: 15,
@@ -225,7 +223,7 @@ export function getDefaultConfig() {
 					step: true,
 					record: true,
 					height: '50%',
-					// market depth panel will be created after element with precedingConainer element if found
+					// if preceding container is found, market depth panel will be created after that element
 					// or will default to element with .market-depth-bookmark selector
 					// if selector element is not found market depth panel will not be created
 					precedingContainer: '.market-depth-bookmark', // default

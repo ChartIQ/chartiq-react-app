@@ -9,7 +9,7 @@ It wraps ChartIQ's native [Web Components](https://documentation.chartiq.com/tut
 
 ## Table of contents
 - [Installation and getting started](#installation-and-getting-started)
-- [Customization and configuration](#customization-and-configuration)
+- [Component customization and configuration](#component-customization-and-configuration)
 - [Project structure](#project-structure)
 - [Building the project](#building-the-project)
 - [Accessing the Chart Engine](#accessing-the-chart-engine)
@@ -45,7 +45,7 @@ Once the library is installed it can be viewed at http://localhost:4002 by runni
 npm run start
 ```
 
-To built for production with resulting bundle in /dist folder use
+To build for production with resulting bundle in /dist folder use
 ```
 npm run build
 ```
@@ -79,7 +79,6 @@ src
 ├── custom_chartiq_config        # custom configuration folder
 ├── examples.js                  # example application
 ├── main.js                      # main AdvancedChart component application
-├── polyfill.js
 ├── .babelrc
 ├── index.html                   # template for webpack
 ├── webpack                      # configurations for webpack
@@ -90,8 +89,6 @@ src
 ## Building the project
 
 If you wish to use the ChartIQ `<AdvancedChart />` sample in its default state, you may build the component right away and use in your own React project. Simply run the npm script `npm run build` to generate the javascript bundle file, which can be found in the `dist/` folder.
-
-In order to keep the bundle size as small as possible this project does not, by default, support older browsers. You may optionally include polyfills for legacy browser support by running the npm script `npm run build:polyfill`. This script is identical to `npm run build` but will attach polyfills to the javascript bundle file for legacy browser support.
 
 In addition to the `<AdvancedChart />` you can also build several other components in example folder by running `npm run watch:unified` and viewing them [http://localhost:4002](http://localhost:4002).
 
@@ -134,7 +131,6 @@ const chartInitialized = ({ chartEngine }) => {
 }
 ```
 
-
 ## Integrating a QuoteFeed
 
 By default the Advanced Chart will fall back to using simulated data from the quoteFeedSimulater (designed for local development) in the ChartIQ SDK. The Advanced Chart component is designed to take your custom quoteFeed from configuration. For example, to use the XigniteQuoteFeed included in the ChartIQ SDK, you would need to import Xignite quote feed make the following changes to *src/main.js* in your React project: 
@@ -168,10 +164,15 @@ one will be able to see list of plugins and configuration loaded in browser deve
 
 Similar to the way addOns work, you can configure the plugin options using configuration passed to AdvancedChart component. Plugins imports are managed in the [src/custom_chariq_config/resources.js](.src/custom_chariq_config/resources.js) file. Not all library licenses include plugins included in this file, to avoid compilation errors you will need to delete or comment out not available imports. Commenting out unused plugins will also reduce bundle size. The main.js file includes CryptoIQ, ScriptIQ, and TradeFromChart (TFC) plugins, additional plugins should be imported here as well. To increase responsivenes time to interaction on load time most plugins are loaded lazy.
 
+
+
 ## Notes
 - This application will only run from `127.0.0.1`, `localhost`, and the explicit list of domains set on your particular ChartIQ library license. If you need to bind webpack dev server to a different host, like `http://0.0.0.0`, please contact your Account Manager to have those additional domains added to your license.
 
+- Download size can be reduced if webcomponent polyfill is not required for supported browsers by removing polyfill script tag in index.html file
+
 - Plugins require a library version of 7.2+
+
 - If you are not using the ChartIQ library as a node package, you will need to make some additions to the webpack.common.js file in order to load the library. You will need to change the resolve key to include the following in order to tell Webpack where to resolve the library files:
 ```js
 	resolve: {

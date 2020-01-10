@@ -11,7 +11,11 @@ export default class ToggleDrawing extends React.Component {
 	}
 
 	componentDidMount() {
-		const { setContext, stx, stx: { container: chartContainer }} = this.context;
+		const {
+			setContext,
+			stx,
+			stx: { container: chartContainer }
+		} = this.context;
 
 		this.toggle.current.registerCallback(function(value) {
 			setContext({ drawingActive: value });
@@ -31,7 +35,10 @@ export default class ToggleDrawing extends React.Component {
 	render() {
 		const { drawingActive } = this.context;
 		return (
-			<cq-toggle cq-member="drawing" class={`ciq-draw ${drawingActive ? 'active' : ''}`} ref={this.toggle}>
+			<cq-toggle cq-member="drawing" 
+				class={`ciq-draw ${drawingActive ? 'active' : ''}`}
+				ref={this.toggle}
+			>
 				<span></span>
 				<cq-tooltip>Draw</cq-tooltip>
 			</cq-toggle>

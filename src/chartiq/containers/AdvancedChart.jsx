@@ -45,14 +45,13 @@ export default class AdvancedChart extends React.Component {
 			config: this.props.config || getDefaultConfig(),
 			setContext: update => this.setState(update),
 			components: {},
-			registerComponent: component => this.setState({ components: {...this.components, component }}),
+			registerComponent: component =>
+				this.setState({ components: { ...this.components, component } }),
 			resize: () => this.resizeScreen(),
 			setChartEngine: stx => {
-				this.setState(
-					() => ({ stx }), 
-					this.afterChartIntitalized
-				)},
-			updateChartSize: this.updateChartSize,
+				this.setState(() => ({ stx }), this.afterChartIntitalized);
+			},
+			updateChartSize: this.updateChartSize
 		};
 	}
 
@@ -60,10 +59,12 @@ export default class AdvancedChart extends React.Component {
 		const { stx, UIContext } = this.state;
 		const { chartInitialized, pluginsToLoadLazy = {} } = this.props;
 		const self = this;
-		
+
 		initListeners();
 		this.configureLoadedPlugins();
-		delay(loadPlugins, 100);
+
+		const msToWaitToLoadPlugins = 100;
+		setTimeout(loadPlugins, msToWaitToLoadPlugins);
 
 		// initiate chartiq element binding
 		CIQ.UI.begin();
@@ -81,32 +82,17 @@ export default class AdvancedChart extends React.Component {
 		}
 
 		function loadPlugins() {
-			Object.entries(pluginsToLoadLazy)
-				.forEach(([name, loadFunction]) => {
-					if (CIQ.debug) console.log('loading ' + name);
-					loadFunction().then(() => {
-						if (CIQ.debug)console.log('plugin ' + name + ' loaded');
+			Object.entries(pluginsToLoadLazy).forEach(([name, loadFunction]) => {
+				if (CIQ.debug) console.log('loading ' + name);
+				loadFunction()
+					.then(() => {
+						if (CIQ.debug) console.log('plugin ' + name + ' loaded');
 						self.configureLoadedPlugins();
-					});
-				}) 
-		}
-
-		function loadMarkers() {
-			const { menu_events } = this.props.config;
-			const markerTypeToResource = {
-				trade : [
-					'chartiq/examples/markers/tradeAnalyticsSample',
-					'chartiq/examples/markers/tradeAnalyticsSample.css'
-				]
-			}
-
-			// check if trade event is in menu
-			// const item = 
-
-		}
-
-		function delay(fn, ms) {
-			setTimeout(fn, ms);
+					})
+					.catch((e) => {
+						if (CIQ.debug) console.warn('failed to load plugin ' + name);
+					}) ;
+			});
 		}
 	}
 
@@ -114,8 +100,10 @@ export default class AdvancedChart extends React.Component {
 		addUIManager();
 
 		const contexContainer = this.chartContextEl.current;
+
 		// the first parameter, currently set to null chart engine element, will be attached in WrappedChart mount
 		const UIContext = new CIQ.UI.Context(null, contexContainer);
+
 		// create layout helper class
 		const UILayout = new CIQ.UI.Layout(UIContext);
 
@@ -133,13 +121,14 @@ export default class AdvancedChart extends React.Component {
 	 * Initiate plugins
 	 * It is invoked on startup and once for every lazy loaded plugin
 	 * requiring to keep track of loaded plugins
-	 * @param {CIQ.ChartEngine} stx 
+	 * @param {CIQ.ChartEngine} stx
 	 */
 	configureLoadedPlugins() {
-		const { plugins, marketDepth, simulateL2 } = this.props.config;
+		const { plugins, marketDepth } = this.props.config;
 		const { stx, UIContext, pluginsInstalled = {} } = this.state;
 		if (!plugins) return;
 
+		// this function is invoked every time a plugin resource is loaded so check if plugin is already installed
 		if (plugins.cryptoiq && CIQ.MarketDepth && !pluginsInstalled.cryptoiq) {
 			new CIQ.MarketDepth({
 				stx,
@@ -151,9 +140,8 @@ export default class AdvancedChart extends React.Component {
 			}
 			pluginsInstalled.cryptoiq = true;
 		}
-		if (plugins.tfc && CIQ.TFC  && !pluginsInstalled.tfc) {
-			
-			const tfc = new CIQ.TFC({
+		if (plugins.tfc && CIQ.TFC && !pluginsInstalled.tfc) {
+			new CIQ.TFC({
 				stx,
 				account: plugins.tfc.account,
 				context: UIContext
@@ -161,16 +149,20 @@ export default class AdvancedChart extends React.Component {
 			pluginsInstalled.tfc = true;
 		}
 
-		if(plugins.timeSpanEvents && CIQ.TimeSpanEventPanel && !pluginsInstalled.timeSpanEvents) {
-			new CIQ.TimeSpanEventPanel({stx: stx, context: UIContext});
-			const helper = new CIQ.UI.TimeSpanEvent(UIContext, {menuItemSelector: ".stx-markers cq-item.span-event"});
+		if (
+			plugins.timeSpanEvents &&
+			CIQ.TimeSpanEventPanel &&
+			!pluginsInstalled.timeSpanEvents
+		) {
+			new CIQ.TimeSpanEventPanel({ stx: stx, context: UIContext });
+			const helper = new CIQ.UI.TimeSpanEvent(UIContext, {
+				menuItemSelector: '.stx-markers cq-item.span-event'
+			});
 			helper.implementation = new CIQ.TimeSpanEventSample(stx);
 			pluginsInstalled.timeSpanEvents = true;
 		}
 
-		// there is nothing to start for ScriptIQ just mark it as loaded
-
-		this.setState({ pluginsInstalled: {...pluginsInstalled} });
+		this.setState({ pluginsInstalled: { ...pluginsInstalled } });
 		stx.changeOccurred('layout');
 	}
 
@@ -181,28 +173,33 @@ export default class AdvancedChart extends React.Component {
 		const chartContainer = this.chartContainer.current;
 
 		if (!chartContainer) {
-			// chartContainer will not be rendered on the first invocation 
+			// chartContainer will not be rendered on the first invocation as
 			// context (cq-context element) needs to be available first
 			// wait until it is available and try again
 			setTimeout(this.updateContainerSize, 10);
 			return;
 		}
 
-		const { clientWidth: width, clientHeight: containerHeight } = chartContainer;
+		const {
+			clientWidth: width,
+			clientHeight: containerHeight
+		} = chartContainer;
 		const { UIContext } = this.state;
-		const { 
-			breakpoints: size, 
-			breakpointLabels: label, 
-			breakpointSymbolPlaceholders: symbolPlaceholders 
+		const {
+			breakpoints: size,
+			breakpointSymbolPlaceholders: symbolPlaceholders
 		} = this.props.config;
 
-		const breakpointSize = width < size[0] 
-			? label[0] 
-			: (width < size[1] ? label[1] : label[2]);
+		const labels = ['sm', 'md', 'lg']; // ui container class suffixes for various break points
+		const breakpointSize =
+			width < size[0] ? labels[0] : width < size[1] ? labels[1] : labels[2];
 
-		const symbolPlaceholder =  width < size[0] 
-			? symbolPlaceholders[0] 
-			: (width < size[1] ? symbolPlaceholders[1] : symbolPlaceholders[2]);
+		const symbolPlaceholder =
+			width < size[0]
+				? symbolPlaceholders[0]
+				: width < size[1]
+				? symbolPlaceholders[1]
+				: symbolPlaceholders[2];
 
 		UIContext.uiLayout = {
 			...UIContext.uiLayout,
@@ -224,7 +221,11 @@ export default class AdvancedChart extends React.Component {
 			return;
 		}
 
-		const { SidePanel, PaletteDock, uiLayout: { breakpointSize } } = UIContext;
+		const {
+			SidePanel,
+			PaletteDock,
+			uiLayout: { breakpointSize }
+		} = UIContext;
 
 		// sidenav is set only for small screen size
 		const sidenavAvailable = breakpointSize === 'sm';
@@ -234,14 +235,14 @@ export default class AdvancedChart extends React.Component {
 
 		// adjust for side nav and side panel (tfc)
 		const chartAreaLeft = stx.layout.sidenav === 'sidenavOn' ? 40 : 0;
-		const chartAreaRight = SidePanel && SidePanel.nonAnimatedWidth() || 0;
+		const chartAreaRight = (SidePanel && SidePanel.nonAnimatedWidth()) || 0;
 
 		this.setState(
 			state => ({
 				breakpointSize,
 				sidenavAvailable,
 				chartAreaLeft,
-				chartAreaRight,
+				chartAreaRight
 			}),
 			() => {
 				PaletteDock.handleResize();
@@ -250,23 +251,29 @@ export default class AdvancedChart extends React.Component {
 		);
 	}
 
-
 	render() {
-		const { 
+		const {
 			config,
-			config: {  // where possible provide explicitly specific config properties
+			config: {
+				// where possible provide explicitly specific config properties
 				header,
 				footer,
 				chartConfig,
 				addOns,
 				quoteFeed,
-				refreshInterval,
-				bufferSize,
+				quoteFeedBehavior,
+				marketFactory,
 				headsUpDisplayTypes,
 				plugins = {}
 			}
 		} = this.props;
-		const { stx, UIContext, breakpointSize, chartAreaLeft, chartAreaRight } = this.state;
+		const {
+			stx,
+			UIContext,
+			breakpointSize,
+			chartAreaLeft,
+			chartAreaRight
+		} = this.state;
 		const breakpointClass = `cq-chart-container break-${breakpointSize}`;
 
 		return (
@@ -277,23 +284,30 @@ export default class AdvancedChart extends React.Component {
 							<div className={breakpointClass} ref={this.chartContainer}>
 								<ColorPicker />
 								{header && <ChartNav config={config} />}
-								{plugins.cryptoiq && stx && <Plugins cryptoiq={plugins.cryptoiq} />}
-								<ChartArea 
-									{ ... {header, footer, left: chartAreaLeft, right: chartAreaRight}}>
-									<WrappedChart 
+								{plugins.cryptoiq && stx && (
+									<Plugins cryptoiq={plugins.cryptoiq} />
+								)}
+								<ChartArea
+									{...{
+										header,
+										footer,
+										left: chartAreaLeft,
+										right: chartAreaRight
+									}}
+								>
+									<WrappedChart
 										{...{
 											chartConfig,
 											addOns,
 											quoteFeed,
-											refreshInterval,
-											bufferSize,
+											quoteFeedBehavior,
+											marketFactory,
 											headsUpDisplayTypes
-										}} />
+										}}
+									/>
 									<MarketDepthBookmark />
 								</ChartArea>
-								<BottomPanel>
-									{plugins.scriptIQ && <ScriptIQ />}
-								</BottomPanel>
+								<BottomPanel>{plugins.scriptIQ && <ScriptIQ />}</BottomPanel>
 								<SidePanel />
 								<ChartDialogs />
 								{footer && <ChartFooter />}

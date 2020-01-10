@@ -22,16 +22,16 @@ import MenuEvents from './MenuEvents';
 export default class ChartMenus extends PureComponent {
 	render() {
 		const { 
-			config: { menus, menu_periodicity, menu_views, menu_display, menu_studies, menu_events, plugins },
+			config: { menus, menuPeriodicity, menuViews, menuDisplay, menuStudies, menuEvents, plugins },
 			pluginsInstalled 
 		} = this.context;
 
 		const mapping = {
-			menu_periodicity: 	<MenuPeriodicity items={menu_periodicity} key={1} />,
-			menu_views: 				<MenuViews items={menu_views} key={2}/>,
-			menu_display: 			<MenuSettings items={menu_display} pluginsInstalled={pluginsInstalled} key={3} />,
-			menu_studies: 			<MenuStudies plugins={plugins} filter={menu_studies} key={4} />,
-			menu_events: 				<MenuEvents items={menu_events} key={5} />
+			menuPeriodicity: 	<MenuPeriodicity items={menuPeriodicity} key={1} />,
+			menuViews: 				<MenuViews items={menuViews} key={2}/>,
+			menuDisplay: 			<MenuSettings items={menuDisplay} pluginsInstalled={pluginsInstalled} key={3} />,
+			menuStudies: 			<MenuStudies plugins={plugins} filter={menuStudies} key={4} />,
+			menuEvents: 				<MenuEvents items={menuEvents} key={5} />
 		}
 
 		const menuComponents = (menus || []).map(menu => mapping[menu]);

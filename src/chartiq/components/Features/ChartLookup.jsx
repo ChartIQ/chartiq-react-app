@@ -1,6 +1,6 @@
 import React from 'react';
 import { CIQ } from 'chartiq';
-import 'chartiq/examples/feeds/symbolLookupChartIQ';
+import 'chartiq/examples/feeds/symbolLookupChartIQ'; // adds CIQ.ChartEngine.Driver.Lookup.ChartIQ constructor
 import { ChartContext } from '../../context/ChartContext';
 
 /**
@@ -29,9 +29,9 @@ export default class ChartLookup extends React.Component {
 	componentDidMount() {
 		const {
 			UIContext,
+			UIContext: { stx },
 			config: { defaultSymbol, symbolLookupTabs = ['ALL'] }
 		} = this.context;
-		const { stx } = UIContext;
 
 		UIContext.changeSymbol = function(data) {
 			if (this.loader) this.loader.show();
@@ -54,17 +54,19 @@ export default class ChartLookup extends React.Component {
 		}
 
 		this.tabItems = symbolLookupTabs.map((name, index) => {
-			return index 
-			? <cq-filter key={name}>{name}</cq-filter>
-			: <cq-filter class="true" key={name}>{name}</cq-filter>;
+			return index ? (
+				<cq-filter class="true" key={name}>
+					{name}
+				</cq-filter>
+			) : (
+				<cq-filter key={name}>{name}</cq-filter>
+			);
 		});
 	}
 
 	render() {
 		const {
-			UIContext: {
-				uiLayout: { symbolPlaceholder = 'Enter Symbol' } = {}
-			},
+			UIContext: { uiLayout: { symbolPlaceholder = 'Enter Symbol' } = {} }
 		} = this.context;
 
 		return (
@@ -89,9 +91,7 @@ export default class ChartLookup extends React.Component {
 							<cq-lookup-icon></cq-lookup-icon>
 						</cq-lookup-input>
 						<cq-lookup-results>
-							<cq-lookup-filters cq-no-close>
-								{this.tabItems}
-							</cq-lookup-filters>
+							<cq-lookup-filters cq-no-close>{this.tabItems}</cq-lookup-filters>
 							<cq-scroll></cq-scroll>
 						</cq-lookup-results>
 					</cq-lookup>

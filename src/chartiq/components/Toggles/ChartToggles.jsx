@@ -45,20 +45,21 @@ export default class ChartToggles extends React.Component {
 	}
 
 	getToggleButtons() {
+		// if already created return results
 		if (this.toggles) {
 			return this.toggles;
 		}
-		
-		const { 
+
+		const {
 			headerLeft: { toggles },
-			headsUpDisplayTypes,
+			headsUpDisplayTypes
 		} = this.context.config;
 
 		const toggleMapping = {
-			drawing:		<ToggleDrawing key='drawing' />,
-			crosshair: 	<ToggleCrosshair key='crosshair' />,
-			info: 			<ToggleHUD headsUpDisplayTypes={headsUpDisplayTypes} key='info' />
-		}
+			drawing: <ToggleDrawing key="drawing" />,
+			crosshair: <ToggleCrosshair key="crosshair" />,
+			info: <ToggleHUD headsUpDisplayTypes={headsUpDisplayTypes} key="info" />
+		};
 
 		this.toggles = toggles.map(name => toggleMapping[name]);
 		return this.toggles;
@@ -75,7 +76,6 @@ export default class ChartToggles extends React.Component {
 			${sidenavActive}
 		`;
 
-		
 		return (
 			<>
 				<div className="sidenav-toggle ciq-toggles">
@@ -90,9 +90,7 @@ export default class ChartToggles extends React.Component {
 					</cq-toggle>
 				</div>
 
-				<div className={sidenavClass}>
-					{this.getToggleButtons()}
-				</div>
+				<div className={sidenavClass}>{this.getToggleButtons()}</div>
 			</>
 		);
 	}

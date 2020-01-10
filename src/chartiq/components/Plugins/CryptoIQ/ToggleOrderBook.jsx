@@ -11,7 +11,6 @@ export default class ToggleOrderBook extends React.Component {
 		const toggle = this.toggle.current;
 		const { marketDepth } = this.context.stx.marketDepth;
 		
-		toggle.parentElement.removeChild(toggle);
 		marketDepth.container.appendChild(toggle);
 		
 		// registered callback will respond to click and touch events

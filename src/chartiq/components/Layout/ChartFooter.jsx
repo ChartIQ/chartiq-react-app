@@ -15,10 +15,10 @@ import { ShareChart, RangeBar } from '../Features';
 export default class ChartFooter extends React.Component {
 	
 	render() {
-		const { footer_share } = this.context.config;
+		const { footerShare } = this.context.config;
 		const footer = (
 			<div className="ciq-footer full-screen-hide">
-				{footer_share && <ShareChart />}
+				{footerShare && <ShareChart />}
 				<RangeBar />
 			</div>
 		);

@@ -25,25 +25,29 @@ export default class MenuStudies extends React.Component {
 
 	componentDidMount() {
 		const studies = this.studiesRef.current;
-		const { include_only = [], exclude = [] } = this.props.filter || {};
+		const { includeOnly = [], exclude = [] } = this.props.filter || {};
 
-		const excludedStudies = Object.entries(CIQ.Studies.studyLibrary)
-			.reduce((acc, [key, { name }]) => {
-				if (include_only.length) {
-					if (!include_only.includes(name)) {  // not on included list
-						acc[key] = name
+		const excludedStudies = Object.entries(CIQ.Studies.studyLibrary).reduce(
+			(acc, [key, { name }]) => {
+				if (includeOnly.length) {
+					if (!includeOnly.includes(name)) {
+						// not on included list
+						acc[key] = name;
 					}
 					return acc;
 				}
 
 				if (exclude.length) {
-					if (exclude.includes(name)) {  // not on included list
-						acc[key] = name
+					if (exclude.includes(name)) {
+						// not on included list
+						acc[key] = name;
 					}
 					return acc;
 				}
 				return acc;
-			}, {});
+			},
+			{}
+		);
 
 		const studyParams = { template: '#studies', excludedStudies };
 		studies.initialize(studyParams);
@@ -59,7 +63,7 @@ export default class MenuStudies extends React.Component {
 						<>
 							<cq-heading>ScriptIQ</cq-heading>
 							<cq-item onClick={this.context.resize}>
-								{/* finds cq-scriptiq-editor and invokes open method */ }
+								{/* finds cq-scriptiq-editor and invokes open method */}
 								<cq-clickable cq-selector="cq-scriptiq-editor" cq-method="open">
 									New Script
 								</cq-clickable>
@@ -81,7 +85,7 @@ export default class MenuStudies extends React.Component {
 							<cq-separator></cq-separator>
 						</>
 					)}
-					<cq-heading cq-filter="true">Studies</cq-heading>
+					<cq-heading cq-filter="">Studies</cq-heading>
 					<cq-scroll cq-no-maximize="true">
 						<cq-studies ref={this.studiesRef}>
 							<cq-studies-content>

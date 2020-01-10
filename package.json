@@ -5,7 +5,6 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --config=webpack.config.js --env.production --env.build=advanced",
-    "build:polyfill": "webpack --config=webpack.config.js --env.production=polyfill",
     "start": "npm run watch -- --host=127.0.0.1 --disable-host-check=true",
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "webpack-dev-server --inline --config=webpack.config.js --watch=true",
@@ -47,6 +46,7 @@
     "@babel/polyfill": "^7.4.4",
     "@babel/preset-env": "^7.4.4",
     "@webcomponents/webcomponentsjs": "^2.3.0",
+    "chartiq": "file:chartiq-7.2.0.tgz",
     "lit-html": "^1.1.2",
     "react": "^16.7.0",
     "react-dom": "^16.7.0"

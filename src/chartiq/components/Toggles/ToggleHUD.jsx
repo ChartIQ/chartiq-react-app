@@ -10,31 +10,31 @@ export default class ToggleHUD extends React.Component {
 			headsUp: '',
 			active: false
 		};
+		this.updateHeadsUpValue = this.updateHeadsUpValue.bind(this);
 	}
 
 	componentDidMount() {
-		const {
-			config: { headsUpDisplayTypes },
-			UIContext: {
-				stx: { layout }
-			}
-		} = this.context;
+		if (!this.context.config.headsUpDisplayTypes) return;
 
-		if (headsUpDisplayTypes) {
-			this.updateHeadsUpValue = this.updateHeadsUpValue.bind(this);
-			CIQ.UI.observeProperty('headsUp', layout, this.updateHeadsUpValue);
-		}
+		CIQ.UI.observeProperty(
+			'headsUp',
+			this.context.stx.layout,
+			this.updateHeadsUpValue
+		);
 	}
 
 	updateHeadsUpValue({ value }) {
-		this.setState(state => ({
-			headsUp: value
-		}));
+		this.setState({ headsUp: value });
 	}
 
 	componentWillUnmount() {
-		const { layout } = this.context.UIContext.stx;
-		CIQ.UI.unobserveProperty('headsUp', layout, this.updateHeadsUpValue);
+		if (!this.context.config.headsUpDisplayTypes) return;
+
+		CIQ.UI.unobserveProperty(
+			'headsUp',
+			this.context.stx.layout,
+			this.updateHeadsUpValue
+		);
 	}
 
 	render() {
