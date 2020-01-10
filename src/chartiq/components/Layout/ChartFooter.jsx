@@ -17,7 +17,7 @@ export default class ChartFooter extends React.Component {
 	render() {
 		const { footerShare } = this.context.config;
 		const footer = (
-			<div className="ciq-footer">
+			<div className="ciq-footer full-screen-hide">
 				{footerShare && <ShareChart />}
 				<RangeBar />
 			</div>

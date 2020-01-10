@@ -170,6 +170,7 @@ export function getDefaultConfig() {
 			'Palatino',
 			'Times New Roman'
 		],
+		chartControlGroup: ['chart_lookup', 'toggle_drawing', 'toggle_crosshair', 'menu_periodicity'],
 		// addOns will be initiated with chart engine and following parameters
 		// using capitalized property such as: extendedHours -> CIQ.ExtendedHours(...)
 		addOns: {  
@@ -204,7 +205,8 @@ export function getDefaultConfig() {
 				volume: true,
 				series: true,
 				studies: true
-			}
+			},
+			fullScreen: { },
 		},
 		/**
 		 * Not all plugins may be available, import required plugins to make 

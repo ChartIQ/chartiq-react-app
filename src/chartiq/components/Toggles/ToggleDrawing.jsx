@@ -35,7 +35,7 @@ export default class ToggleDrawing extends React.Component {
 	render() {
 		const { drawingActive } = this.context;
 		return (
-			<cq-toggle
+			<cq-toggle cq-member="drawing" 
 				class={`ciq-draw ${drawingActive ? 'active' : ''}`}
 				ref={this.toggle}
 			>
