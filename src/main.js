@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDom from 'react-dom';
 
 import { CIQ } from 'chartiq/js/chartiq';
+// remove following line for production use
 CIQ.debug = true;
 
 import { AdvancedChart } from './chartiq';
@@ -23,7 +24,6 @@ const config = getConfiguration();
 const chartInitialized = ({ chartEngine, uiContext }) => {
 	// access to chart engine and uiContext
 	// console.log(chartEngine, uiContext);
-	// setTimeout(() => lazyLoadPlugins(pluginLoaded), 4000);
 };
 
 

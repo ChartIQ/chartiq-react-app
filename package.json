@@ -8,8 +8,7 @@
     "start": "npm run watch -- --host=127.0.0.1 --disable-host-check=true",
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "webpack-dev-server --inline --config=webpack.config.js --watch=true",
-    "watch:unified": "webpack-dev-server --inline --config=webpack.config.js --watch=true --env.build=unified",
-    "postinstall": "vendor-copy"
+    "watch:unified": "webpack-dev-server --inline --config=webpack.config.js --watch=true --env.build=unified"
   },
   "keywords": [
     "react",
@@ -45,21 +44,8 @@
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
     "@babel/preset-env": "^7.4.4",
-    "@webcomponents/webcomponentsjs": "^2.3.0",
-    "chartiq": "file:chartiq-7.2.0.tgz",
     "lit-html": "^1.1.2",
     "react": "^16.7.0",
     "react-dom": "^16.7.0"
-  },
-  "optionalDependencies": {},
-  "vendorCopy": [
-    {
-      "from": "node_modules/@webcomponents/webcomponentsjs/custom-elements-es5-adapter.js",
-      "to": "public/vendor/custom-elements-es5-adapter.js"
-    },
-    {
-      "from": "node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js",
-      "to": "public/vendor/webcomponents-bundle.js"
-    }
-  ]
+  }
 }

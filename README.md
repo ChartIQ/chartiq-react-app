@@ -1,11 +1,13 @@
 # chartiq-react-app
 
-**Requirements:** ChartIQ SDK v7.2.0+ 
+**Requirements:** ChartIQ SDK v7.3
+
 
 ## Overview
 
 This project is an implementation of ChartIQ's Advanced Chart application written for the React framework. 
 It wraps ChartIQ's native [Web Components](https://documentation.chartiq.com/tutorial-Web%20Component%20Interface.html) and is fully interoperable with the advanced HTML template (*sample-template-advanced.html*) that comes with the ChartIQ SDK.
+
 
 ## Table of contents
 - [Installation and getting started](#installation-and-getting-started)
@@ -22,7 +24,6 @@ It wraps ChartIQ's native [Web Components](https://documentation.chartiq.com/tut
 - [Contributing to this project](#contributing-to-this-project)
 
 
-
 ## Installation and getting started
 
 To use this project you will need to include a copy of the ChartIQ library. It is recommended that you install the library from the tarball that you received in your license. If you do not have a copy of the library, please contact your account manager before continuing this installation.
@@ -30,14 +31,14 @@ To use this project you will need to include a copy of the ChartIQ library. It i
 This project lists the chartiq tarball as an optional dependency from the root of the repo. If you do not keep your tarball here, you will need to specify where it is located and install manually.
 
 ```
-npm install ./path-to/chartiq-7.2.0.tgz
+npm install ./path-to/chartiq-7.3.0.tgz
 ```
 
 When you are upgrading or changing your license it is recommended that you completely remove the old tarball before reinstalling the new one
 
 ```
 npm remove chartiq
-npm install ./path-to-new/chartiq-7.2.0.tgz
+npm install ./path-to-new/chartiq-7.3.0.tgz
 ```
 
 Once the library is installed it can be viewed at http://localhost:4002 by running 
@@ -52,16 +53,21 @@ npm run build
 
 - For more about building this project see [Building the project](#building-the-project).
 
+
 ## Component customization and configuration
 
-The sample use of a highly configurable chart component is available in [src/chartiq/main.js](.src/chartiq/main.js). It is using AdvancedChart component that provides following optional properties
+The sample use of a highly configurable chart component is available in [src/main.js](./src/main.js). It is using AdvancedChart component that provides following optional properties
 - config (configuration with around 200 configuration properties) 
 - chartInialized (callback function providing access to chartEngine and context objects once chart is initialized)
 - pluginsToLoadLazy (object with keys of plugin names and values function invoking dynamic import)
 
-List of default properties are available in [src/chartiq/_config.js](.src/chartiq/_config.js) and can be used as a guide to create custom configurations as well understanding of the inner composition structure for the AdvanceChart component.
+List of default properties are available in [src/chartiq/_config.js](./src/chartiq/_config.js) and can be used as a guide to create custom configurations as well understanding of the inner composition structure for the AdvanceChart component.
 
-It is recommended to follow the pattern in the [main.js](.src/chartiq/main.js) file for customizing configuration starting with default configuration is customized or extended only in required areas. Using this approach is likely to simplify upcoming feature integration. 
+It is recommended to follow the pattern in the [main.js](./src/main.js) file for customizing configuration starting with default configuration is customized or extended only in required areas. Using this approach is likely to simplify upcoming feature integration. 
+
+Putting side by side editor and browser while running npm start will allow quickly assess configuration changes. Where available editor intelisense will provide information of available configuration options.
+
+![Configuration edit](./_resources/ChartIQ_ReactApp_config_editing.gif)
 
 ## Project Structure
 
@@ -99,7 +105,8 @@ If you would like to build for a specific component, we recommend that you add y
 "build:marketDepth": "webpack --config=webpack.config.js --env.production --env.build=marketDepth"
 ```
 
-See [customizing the project](#customizing-the-project) for more details about on custom builds.
+See [advanced customization](#advanced-customization) for more details about on custom builds.
+
 
 ## Accessing the Chart Engine
 
@@ -146,6 +153,7 @@ ReactDom.render(<AdvancedChart config={config}), document.querySelector("#app"))
 ```
 For more information about building a custom quoteFeed to provide data for your React application, see the [quoteFeed documentation on ChartIQ's developer docs](https://documentation.chartiq.com/tutorial-DataIntegrationQuoteFeeds.html).
 
+
 ## Advanced customization
 
 The Advanced Chart component is designed as a full-feature drop-in charting component providing extensive configuration. However you may want to create further customization by extending available functionality in which case it would be advisable to keep them separate if possible from /src/chartiq folder to ease upgrading to future enhancements in chartiq folder.
@@ -153,17 +161,16 @@ The Advanced Chart component is designed as a full-feature drop-in charting comp
 
 ## Configuring AddOns
 
-AddOns available in the ChartIQ SDK are compatible with this project. The `<AdvancedChart />` component takes an addOns prop that allows for each addOn to be individually configured. The addOns prop is an object where each key corresponds with the addOn from the SDK. By default the chart will attempt to enable all addOns listed in configuration.  By setting library in development mode
+AddOns available in the ChartIQ SDK are compatible with this project. The `<AdvancedChart />` component configuration has addOns property that allows for each addOn to be individually configured. The addOns property is an object where each key corresponds with the addOn from the SDK with lowercased first letter of addon name. By default the chart will attempt to enable all addOns listed in configuration.  By setting library in development mode
 ```js
 CIQ.debug = true
 ```
-one will be able to see list of plugins and configuration loaded in browser developers console.
+one will be able to see list of plugins and configuration loaded in browser developer console.
 
 
 ## Configuring Plugins
 
-Similar to the way addOns work, you can configure the plugin options using configuration passed to AdvancedChart component. Plugins imports are managed in the [src/custom_chariq_config/resources.js](.src/custom_chariq_config/resources.js) file. Not all library licenses include plugins included in this file, to avoid compilation errors you will need to delete or comment out not available imports. Commenting out unused plugins will also reduce bundle size. The main.js file includes CryptoIQ, ScriptIQ, and TradeFromChart (TFC) plugins, additional plugins should be imported here as well. To increase responsivenes time to interaction on load time most plugins are loaded lazy.
-
+Similar to the way addOns work, you can configure the plugin options using configuration passed to AdvancedChart component. Plugins imports are managed in the [src/custom_chartiq_config/resources.js](./src/custom_chartiq_config/resources.js) file. Not all library licenses include plugins included in this file, to avoid compilation errors you will need to delete or comment out not available imports. Commenting out unused plugins will also reduce bundle size. The main.js file includes CryptoIQ, ScriptIQ, and TradeFromChart (TFC) plugins, additional plugins should be imported here as well. To increase responsivenes time to interaction on load time most plugins are loaded lazy.
 
 
 ## Notes
@@ -171,32 +178,12 @@ Similar to the way addOns work, you can configure the plugin options using confi
 
 - Download size can be reduced if webcomponent polyfill is not required for supported browsers by removing polyfill script tag in index.html file
 
-- Plugins require a library version of 7.2+
-
-- If you are not using the ChartIQ library as a node package, you will need to make some additions to the webpack.common.js file in order to load the library. You will need to change the resolve key to include the following in order to tell Webpack where to resolve the library files:
-```js
-	resolve: {
-		alias: {
-			'chartiq/js/chartiq': path.join(chartiqDir,'js', 'chartiq'),
-			'chartiq/js/componentUI': path.join(chartiqDir,'js', 'componentUI'),
-			'chartiq/js/components': path.join(chartiqDir,'js', 'components'),
-			'chartiq/js/addOns': path.join(chartiqDir,'js', 'addOns'),
-			'chartiq/js/thirdparty/perfectScrollbar': path.join(chartiqDir,'thirdparty', 'perfect-scrollbar.jquery'),
-		},
-		extensions: ['.js', '.jsx'],
-		modules: [
-			'node_modules', 
-			path.join('path', 'to', 'extracted', 'library'),
-		]
-	}
-```
-Where `chartiqDir` is the path to the extracted library files, (in previous releases of this project that was the _./chartiq_ folder). If you are attempting to use an earlier release than 7.2, you will need to provide aliases for the modules `chartiq`, `componentUI`, `components`, and `addOns` as well.
-- The ScriptIQ plugin requires browser features not present in Internet Explorer; if you are transpiling the AdvancedChart be sure to remove this import.
 
 ## Questions and support
 
 - Our development support team can be reached at [support@chartiq.com](mailto:support@chartiq.com).
 - Our javascript documentation can be found at https://documentation.chartiq.com
+
 
 ## Contributing to this project
 
