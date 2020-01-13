@@ -5,7 +5,10 @@ module.exports = {
         publicPath: '/'
     },
     entry: {
-        bundle: path.join(__dirname, '..', 'src', 'advanced.js')
+        bundle: path.join(__dirname, '..', 'src', 'main.js')
+    },
+    output: {
+        chunkFilename: '[name].bundle.js'
     },
     plugins: [
         new HTMLWebpackPlugin({
