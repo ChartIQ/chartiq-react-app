@@ -85,7 +85,7 @@ export default class MenuStudies extends React.Component {
 							<cq-separator></cq-separator>
 						</>
 					)}
-					<cq-heading cq-filter="">Studies</cq-heading>
+					<cq-heading cq-filter="" cq-filter-min="-1">Studies</cq-heading> {/* cq-filter-min="-1" forces to display filter */}
 					<cq-scroll cq-no-maximize="true">
 						<cq-studies ref={this.studiesRef}>
 							<cq-studies-content>

@@ -30,8 +30,8 @@ export class StudyLegendContainer extends HTMLElement {
 				</cq-study-legend>
 			`;
 			render(content, this);
+			this.firstElementChild.begin();
 		}
-		this.firstElementChild.begin();
 	}
 }
 
