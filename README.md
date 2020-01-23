@@ -10,16 +10,16 @@
 - [Project structure](#project-structure)
 - [Building the project](#building-the-project)
 - [Accessing the chart engine](#accessing-the-chart-engine)
-- [Integrating a quote feed](#integrating-a-quotefeed)
+- [Integrating a quote feed](#integrating-a-quote-feed)
 - [Advanced customization](#advanced-customization)
-- [Configuring add-ons](#configuring-addons)
-- [Configuring plug-ins](#configuring-plugins)
+- [Configuring add-ons](#configuring-add-ons)
+- [Configuring plug-ins](#configuring-plug-ins)
 - [Notes](#notes)
 - [Questions and support](#questions-and-support)
 - [Contributing to this project](#contributing-to-this-project)
 
 
-## Overview
+## <a name="overview"></a>Overview
 
 ChartIQ's React component toolkit enables you to create custom charting applications in the React framework.
 
@@ -28,7 +28,7 @@ The toolkit was created by wrapping ChartIQ's native [web components](https://do
 This README provides an example of leveraging the React toolkit to implement ChartIQ's advanced chart application (*sample-template-advanced.html*), which comes with the ChartIQ SDK.
 
 
-## Installation and getting started
+## <a name="installation-and-getting-started"></a>Installation and getting started
 
 To use this project, you need to include a copy of the ChartIQ library. We recommend that you install the library from the tarball you received in your license. If you do not have a copy of the library, please contact your ChartIQ account manager before continuing this installation.
 
@@ -66,7 +66,7 @@ The resulting bundle will be in the */dist* folder.
 For more about building this project, see [Building the project](#building-the-project).
 
 
-## Component customization and configuration
+## <a name="component-customization-and-configuration"></a>Component customization and configuration
 
 This project illustrates the use of `AdvancedChart`, a highly configurable custom React component. `AdvancedChart` is part of the React component toolkit. See *[src/chartiq/containers/AdvancedChart.jsx](./src/chartiq/containers/AdvancedChart.jsx)* for the definition of the component.
 
@@ -79,14 +79,14 @@ The `AdvancedChart` component provides the following optional properties:
 
 A list of default properties is available in *[src/chartiq/_config.js](./src/chartiq/_config.js)*, which can be used as a guide for creating custom configurations and for understanding the inner composition structure of the `AdvancedChart` component.
 
-We highly recommend that the pattern outlined in *[main.js](./src/main.js)* and *[custom_chartiq_folder](./src/custom_chartiq_folder)* is followed when customizing configurations. We also strongly recommend that the default format is maintained as much as possible, extending and modifying required areas only. This approach will simplify future release integration.
+We strongly recommend that the pattern outlined in *[main.js](./src/main.js)* and *[src/custom_chartiq_config](./src/custom_chartiq_config)* is followed when customizing configurations. We also recommend that the default format is maintained as much as possible, extending and modifying required areas only. This approach will simplify future release integration.
 
 Displaying editor content side by side with the browser while running `npm start` enables you to quickly assess configuration changes. Editor code completion typically provides information on available configuration options.
 
 ![Configuration edit](./_resources/ChartIQ_ReactApp_config_editing.gif)
 
 
-## Project Structure
+## <a name="project-structure"></a>Project Structure
 
 ```sh
 src
@@ -109,7 +109,7 @@ src
 ```
 
 
-## Building the project
+## <a name="building-the-project"></a>Building the project
 
 If you want to use the ChartIQ advanced chart sample in its default state and use it in your own React project, simply run the following command to generate the production bundle file:
 
@@ -140,7 +140,7 @@ The following example shows how to add a script to build the `MarketDepth` compo
 See [Advanced customization](#advanced-customization) for more details on custom builds.
 
 
-## Accessing the chart engine
+## A<a name="accessing-the-chart-engine"></a>ccessing the chart engine
 
 You can access the [ChartEngine](https://documentation.chartiq.com/CIQ.ChartEngine.html) and [Context](https://documentation.chartiq.com/CIQ.UI.Context.html) objects of the application using the `chartInit` callback function property provided by the `AdvancedChart` state.
 
@@ -171,7 +171,7 @@ const chartInitialized = ({ chartEngine }) => {
 ```
 
 
-## Integrating a quote feed
+## <a name="integrating-a-quote-feed"></a>Integrating a quote feed
 
 The `AdvancedChart` component is designed to take your custom quote feed from the configuration. For example, to use the Xignite quote feed included in the ChartIQ SDK, you would need to import the quote feed and make the following changes to *src/main.js* in your React project:
 
@@ -195,12 +195,12 @@ If your application uses streaming data (see [Accessing the chart engine](#acces
 For more information about building a custom quote feed to provide data for your React application, see our [quote feed tutorial](https://documentation.chartiq.com/tutorial-DataIntegrationQuoteFeeds.html).
 
 
-## Advanced customization
+## <a name="advanced-customization"></a>Advanced customization
 
 The `AdvancedChart` component is designed as a full-featured, drop-in charting component that allows extensive configuration. However, you may want to customize the component, in which case we advise keeping the extended component separate from the toolkit folder, */src/chartiq*, to simplify future upgrades.
 
 
-## Configuring add-ons
+## <a name="configuring-add-ons"></a>Configuring add-ons
 
 Add-ons available in the ChartIQ SDK are compatible with this project. The `AdvancedChart` component configuration has an `addOns` property that allows add-ons to be individually configured. The `addOns` property is an object where each key corresponds to the add-on from the SDK with the first letter of the add-on name in lowercase. By default, the chart attempts to enable all add-ons listed in the configuration. By setting the library in development mode as follows:
 
@@ -210,7 +210,7 @@ CIQ.debug = true
 you will be able to see the list of enabled plug-ins and configurations in your browser's developer console.
 
 
-## Configuring plug-ins
+## <a name="configuring-plug-ins"></a>Configuring plug-ins
 
 Similar to the way add-ons work, plug-ins can be configured using the configuration passed to the `AdvancedChart` component.
 
@@ -226,19 +226,20 @@ The *resources.js* file includes resources such as:
 Additional plug-ins should be imported here as well. Most plug-ins use lazy loading to reduce the initial load time.
 
 
-## Notes
+## <a name="notes"></a>Notes
+
 - This application runs only from IP address `127.0.0.1`, hostname `localhost`, or the explicit list of domains set on your ChartIQ library license. If you need to bind the webpack development server to a different host, like `http://0.0.0.0`, please contact your ChartIQ account manager to have additional domains added to your license.
 
 - If the web component polyfill is not required for supported browsers, the download size can be reduced by removing the polyfill script tag in the `index.html` file.
 
 
-## Questions and support
+## <a name="questions-and-support"></a>Questions and support
 
 - Contact our development support team at [support@chartiq.com](mailto:support@chartiq.com).
 - See our SDK documentation at https://documentation.chartiq.com.
 
 
-## Contributing to this project
+## <a name="contributing-to-this-project"></a>Contributing to this project
 
 Contribute to this project. Fork it and send us a pull request.
 We'd love to see what you can do with our charting tools!
