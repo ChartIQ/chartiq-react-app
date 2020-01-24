@@ -32,7 +32,7 @@ This README provides an example of leveraging the React toolkit to implement Cha
 
 To use this project, you need to include a copy of the ChartIQ library. We recommend that you install the library from the tarball you received in your license. If you do not have a copy of the library, please contact your ChartIQ account manager before continuing this installation.
 
-**Note:** SDK version 7.3.0 (chartiq-7.3.0.tgz) or later is required to use the React component toolkit.
+**Note:** SDK version 7.3.0 (*chartiq-7.3.0.tgz*) or later is required to use the React component toolkit.
 
 To install the ChartIQ library, run the following command:
 
@@ -230,7 +230,7 @@ Additional plug-ins should be imported here as well. Most plug-ins use lazy load
 
 - This application runs only from IP address `127.0.0.1`, hostname `localhost`, or the explicit list of domains set on your ChartIQ library license. If you need to bind the webpack development server to a different host, like `http://0.0.0.0`, please contact your ChartIQ account manager to have additional domains added to your license.
 
-- If the web component polyfill is not required for supported browsers, the download size can be reduced by removing the polyfill script tag in the `index.html` file.
+- If the web component polyfill is not required for supported browsers, the download size can be reduced by removing the polyfill script tag in the *index.html* file.
 
 
 ## Questions and support
