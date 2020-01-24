@@ -1,173 +1,245 @@
 # chartiq-react-app
 
-**-- BETA RELEASE --**
+**Requirements:** ChartIQ SDK v7.3.0
 
-**Requirements:** ChartIQ SDK v7.0.1+ 
+
+## Contents
+- [Overview](#overview)
+- [Installation and getting started](#installation-and-getting-started)
+- [Component customization and configuration](#component-customization-and-configuration)
+- [Project structure](#project-structure)
+- [Building the project](#building-the-project)
+- [Accessing the chart engine](#accessing-the-chart-engine)
+- [Integrating a quote feed](#integrating-a-quote-feed)
+- [Advanced customization](#advanced-customization)
+- [Configuring add-ons](#configuring-add\-ons)
+- [Configuring plug-ins](#configuring-plug\-ins)
+- [Notes](#notes)
+- [Questions and support](#questions-and-support)
+- [Contributing to this project](#contributing-to-this-project)
+
 
 ## Overview
 
-This project provides ChartIQ's full featured advanced charting application, written for the React framework. 
-It wraps ChartIQ's native [Web Components](https://documentation.chartiq.com/tutorial-Web%20Component%20Interface.html) and is fully interoperable with the advanced HTML template (sample-template-advanced.html) that comes with the ChartIQ library package.
+ChartIQ's React component toolkit enables you to create custom charting applications in the React framework.
 
-## Table Of Contents
-- [Installing this project](#installing-this-project)
-- [Project Structure](#project-structure)
-- [Building the project](#building-the-project)
-- [Integrating a QuoteFeed](#integrating-a-quotefeed)
-- [Customizing the project](#customizing-the-project)
-- [Commands](#commands)
-- [Configuring AddOns](#configuring-addons)
-- [Notes](#notes)
+The toolkit was created by wrapping ChartIQ's native [web components](https://documentation.chartiq.com/tutorial-Web%20Component%20Interface.html) in React components, enabling them to be used natively within the React framework. The toolkit is located in the [src/chartiq](./src/chartiq) folder.
+
+This README provides an example of leveraging the React toolkit to implement ChartIQ's advanced chart application (*sample-template-advanced.html*), which comes with the ChartIQ SDK.
 
 
-## Installing this project
+## Installation and getting started
 
-To use this project you will need to include a copy of the ChartIQ library. If you do not have a copy of the library, please contact your account manager before continuing this installation.
+To use this project, you need to include a copy of the ChartIQ library. We recommend that you install the library from the tarball you received in your license. If you do not have a copy of the library, please contact your ChartIQ account manager before continuing this installation.
 
-There are a few key files that must be present in order for the project to compile correctly. They are:
- - chartiq/js/chartiq.js
- - chartiq/js/componentUI.js
- - chartiq/js/components.js
- - chartiq/examples/feeds/quoteFeedSimulator.js
- - chartiq/examples/feeds/symbolLookupChartIQ.js
- - chartiq/examples/markets/marketDefinitionSamples.js
- - chartiq/examples/markets/marketSymbologySample.js
- - chartiq/examples/translations/translationSample.js
+**Note:** SDK version 7.3.0 (*chartiq-7.3.0.tgz*) or later is required to use the React component toolkit.
 
-**IF YOU DO NOT INCLUDE THE ABOVE FILES, THE APPLICATION WILL NOT COMPILE**
-
-
-Extract your library files into the `chartiq/` folder. Then, use `npm run build` to transpile the contents into one bundle, located in the `/dist` folder, which is used by index.html.
+To install the ChartIQ library, run the following command:
 
 ```sh
-unzip your-chartiq-license.zip -d ./your-license
-cp -r ./your-license ./chartiq
+npm install ./path-to/chartiq-x.x.x.tgz
+```
+
+When you are upgrading or changing your license, we recommend that you completely remove the old library before reinstalling the new one, for example:
+
+```sh
+npm remove chartiq
+npm install ./path-to-new/chartiq-x.x.x.tgz
+```
+
+After you have installed the library, you can view the charting component created by this project by running:
+
+```sh
+npm run start
+```
+
+and then opening your browser to http://localhost:4002.
+
+To build for production, run:
+
+```sh
 npm run build
 ```
 
-- For more about building this project see [Building the project](#building-the-project).
+The resulting bundle will be in the */dist* folder.
 
-In `src/main.js` you can add React props that are passed down to the chart engine constructor. These props are set in the `chartConstructor` and `preferences` objects. Read more about the arguments that the ChartEngine accepts and the preferences of the chart at [documentation.chartiq.com](http://documentation.chartiq.com)
+For more about building this project, see [Building the project](#building-the-project).
 
-```js
-// src/main.js
-let constructor = {}
-let preferences = {}
 
-ReactDom.render(
-	React.createElement(AdvancedChart, 
-		{chartConstructor:constructor, preferences: preferences} 
-	), document.querySelector("#app")
-)
-```
+## Component customization and configuration
 
-- [ChartEngine constructor](https://documentation.chartiq.com/CIQ.ChartEngine.html#ChartEngine__anchor)
-- [ChartEngine preferences](https://documentation.chartiq.com/CIQ.ChartEngine.html#preferences)
+This project illustrates the use of `AdvancedChart`, a highly configurable custom React component. `AdvancedChart` is part of the React component toolkit. See *[src/chartiq/containers/AdvancedChart.jsx](./src/chartiq/containers/AdvancedChart.jsx)* for the definition of the component.
+
+`AdvancedChart` incorporates many of the ChartIQ React components to create ChartIQ's advanced chart application, *sample-template-advanced.html*, which is located in the *examples/templates* folder of the ChartIQ SDK.
+
+The `AdvancedChart` component provides the following optional properties:
+- `config` &mdash; Configuration object with about 200 configuration properties
+- `chartInitialized` &mdash; Callback function providing access to `chartEngine` and context objects once the chart is initialized
+- `pluginsToLoadLazy` &mdash; Object containing a list of plug-in names and corresponding resources to be loaded after the main files have been loaded
+
+A list of default properties is available in *[src/chartiq/_config.js](./src/chartiq/_config.js)*, which can be used as a guide for creating custom configurations and for understanding the inner composition structure of the `AdvancedChart` component.
+
+We strongly recommend that the pattern outlined in *[main.js](./src/main.js)* and *[src/custom_chartiq_config](./src/custom_chartiq_config)* is followed when customizing configurations. We also recommend that the default format is maintained as much as possible, extending and modifying required areas only. This approach will simplify future release integration.
+
+Displaying editor content side by side with the browser while running `npm start` enables you to quickly assess configuration changes. Editor code completion typically provides information on available configuration options.
+
+![Configuration edit](./_resources/ChartIQ_ReactApp_config_editing.gif)
+
 
 ## Project Structure
 
-This project adheres to the following structure:
-
-```
-.
-├── dist                            # output folder
-├── node_modules                    # contains npm modules used in this project
-├── package.json                    # packaging information and node scripts (see below)
-├── package-lock.json               # used for audits
-├── README.md                       # you are here
-├── index.html                      # template for using this library to reproduce the full UI implementation
-├── src                             # all React components live in this folder
-└── webpack.config.js               # configuration for loading the charting library, and building this project
-
-3 directories, 5 files
-
+```sh
 src
-├── chartiq-react-components.css    # Base CSS file for this project
-├── components                      # contains the all the reusable components
-│   ├── Core                        # necessary components for making a chart
-│   ├── Dialogs                     # all dialogs associated with chart settings
-│   ├── Features                    # individual components with specific functionality
-│   ├── Layout                      # presentational components that hold other components
-│   ├── Menus                       # all menus that go with the chart
-│   └── Toggles                     # reusable toggles for turning on and off settings
-├── containers
-│   └── AdvancedChart.jsx           # React component version of sample-template-advanced.html file that comes with ChartIQ SDK
-├── main.js
-├── polyfill.js
-└── react-chart-context.js          # React Context used as a store in this project
-
-2 directories, 4 files
+├── chartiq
+│   ├── components               # React components folder
+│   ├── containers               # React containers folder
+│   ├── context                  # React context folder
+│   ├── examples                 # Collection of composition or individual component samples
+│   ├── styles                   # Required CSS (or Sass) styles
+│   ├── webcomponent-containers  # Web components that extend the standard ChartIQ library web components
+│   ├── _config.js               # Default configuration
+│   ├── index.js                 # List of plug-in imports and React component exports
+├── custom_chartiq_config        # Custom configuration folder
+├── examples.js                  # Example application
+├── main.js                      # Main AdvancedChart component application
+├── .babelrc
+├── index.html                   # Template for webpack
+├── webpack                      # Configurations for webpack
+└── webpack.config.js            # Main webpack configuration
 ```
 
-## Building the Project
 
-If you wish to use the ChartIQ `<AdvancedChart />` sample in its default state, you may build the component right away and use in your own React project. Simply run the npm script `npm run build` to generate the javascript bundle file, which can be found in the `dist/` folder.
+## Building the project
 
-In order to keep the bundle size as small as possible this project does not, by default, support older browsers. You may optionaly include polyfills for legacy browser support by running the npm script `npm run build:polyfill`. This script is identical to `npm run build` but will attach polyfills to the javascript bundle file for legacy browser support.
+If you want to use the ChartIQ advanced chart sample in its default state and use it in your own React project, simply run the following command to generate the production bundle file:
 
-If you make adjustments to the project and want to test in development mode, use `npm start`. This will run the webpack dev server on port 4002. You may make adjustments or just explore the project. Verify all changes are functioning correctly in development mode before building the production bundle. Run `npm run build` to get your customized bundle.
+```sh
+npm run build
+```
 
-See [customizing the project](#customizing-the-project) for more details about on custom builds.
+The bundle will be created in the *dist/* folder.
 
-## Integrating a quoteFeed
+In addition to `AdvancedChart`, you can build several other components in the example folder by running:
 
-By default the Advanced Chart will fall back to using simulated data from the quoteFeedSimulater (designed for local development) in the ChartIQ SDK. The `<AdvancedChart />` component is designed to take your custom quoteFeed as a React prop. For example, to use the XigniteQuoteFeed, included in the ChartIQ SDK, you would make the following changes to `src/main.js` in your React project: 
+```sh
+npm run watch:unified
+```
 
-```js
+You can view the components at [http://localhost:4002](http://localhost:4002).
+
+This project uses [webpack-merge](https://github.com/survivejs/webpack-merge) to keep the project configurations manageable and allow each component to be built individually. The standard *webpack.config.js* file pulls in configurations for each component from the *webpack/* folder and merges them together to build the project. By default, the project builds the `AdvancedChart` component, but you can change the build target by setting the `env.build` variable that you pass into *webpack.config.js*.
+
+If you would like to build a specific component, we recommend that you add your own build script to *package.json*.
+
+The following example shows how to add a script to build the `MarketDepth` component for production. The `env.build` variable has been set to reference the *webpack/webpack.market-depth.js* file in *webpack.config.js*.
+
+```json
+"build:marketDepth": "webpack --config=webpack.config.js --env.production --env.build=marketDepth"
+```
+
+See [Advanced customization](#advanced-customization) for more details on custom builds.
+
+
+## Accessing the chart engine
+
+You can access the [ChartEngine](https://documentation.chartiq.com/CIQ.ChartEngine.html) and [Context](https://documentation.chartiq.com/CIQ.UI.Context.html) objects of the application using the `chartInit` callback function property provided by the `AdvancedChart` state.
+
+The following example shows how you would stream data into the chart instead of relying on a quote feed:
+
+```javascript
+const chartInitialized = ({ chartEngine }) => {
+	startCustomFeed();
+
+	function startCustomFeed() {
+		if (!chartEngine.quoteDriver || !chartEngine.masterData) {
+			// if quote driver has not been initialize wait and try again
+			setTimeout(startCustomFeed, 5);
+			return;
+		}
+		chartEngine.quoteDriver.die();
+		chartEngine.updateChartData(
+			{
+				Close: 102.05,
+				Volume: 100,
+				DT: new Date()
+			},
+			null,
+			{ fillGaps: true, useAsLastSale: true }
+		);
+	}
+}
+```
+
+
+## Integrating a quote feed
+
+The `AdvancedChart` component is designed to take your custom quote feed from the configuration. For example, to use the Xignite quote feed included in the ChartIQ SDK, you would need to import the quote feed and make the following changes to *src/main.js* in your React project:
+
+```javascript
 // src/main.js
-let constructor = {}
-let preferences = {}
-let Xignite = new CIQ.QuoteFeed.Xignite(null, {useSuperQuotes:true})
+const config = getConfiguration();
 
-ReactDom.render(
-	React.createElement(AdvancedChart, 
-		{chartConstructor:constructor, preferences: preferences, quoteFeed: Xignite} 
-	), document.querySelector("#app")
-)
-	
-```
-For more information about building a custom quoteFeed to provide data for your React application, see the [quoteFeed documentation on ChartIQ's developer docs](https://documentation.chartiq.com/tutorial-DataIntegrationQuoteFeeds.html).
+config.quoteFeed = new CIQ.QuoteFeed.Xignite(null, { useSuperQuotes: true });
 
-## Customizing the Project
+ReactDom.render(<AdvancedChart config={config}), document.querySelector("#app"))
 
-`<AdvancedChart />` is designed as a full feature drop in charting component. However, you may not require every feature in this project. If you wish to omit certain feature components, or change the default appearance, you are free to make adjustments to the files in `src/components/` and `src/containers`. If you chose to customize the appearance of this project, **it is strongly recommended that you run the project in development mode and verify all changes are functioning correctly before building.**
-
-Certain feature components, such as menus, have accompanying dialog components. When removing a feature component, it is best to remove all accompanying components. Though leaving unused components in the project will have no adverse impact on the user experience, removing them will keep your final build size as small as possible. For example, if you choose to remove the `<MenuViews />` component from the `<ChartMenus />` component, also be sure to remove the `<DialogView />` component from `<ChartDialogs />`.
-
-Several of the files necessary to build the project are sample files that you can replace. If you wish to use your own files for market definitions, translations, or quoteFeeds, remember to remove the references to the these files when you import your own. If you only remove the files you will break the project when you try to compile.
-
-## Commands 
-(`npm scripts`)
-
-This repo contains some basic scripts to get started quickly, you can see a full list of scripts with `npm run`. They include:
-```
-npm run build  # outputs the code bundled by webpack
-npm run build:polyfill  # outputs the code bundled by webpack including polyfills for legacy browser support
-npm run start  # starts the webpack dev server
 ```
 
-## Configuring AddOns
 
-AddOns available in the ChartIQ SDK are compatible with this project. The `<AdvancedChart />` component takes an addOns prop that allows for each addOn to be individually configured. The addOns prop is an object where each key corresponds with the addOn from the SDK. By default the project enables three addons: ExtendedHours, InactivityTimer, and RangeSlider. If you would like to change the constructors being passed into the addOns, change the value of that addOns prop. 
+The standard configuration uses the quote feed simulator from the ChartIQ SDK as the quote feed for `AdvancedChart`. If you do not provide your own quote feed, `AdvancedChart` uses simulated data from the quote feed simulator.
 
-```js
-//Set the CIQ.InactivityTimer to time out after one hour
-let enableAddOns = {InactivityTimer: {minutes:60}, ExtendedHours: {filter:true}, RangeSlider:true}
+**Note:** The quote feed simulator is intended for development only.
 
-ReactDom.render(React.createElement(AdvancedChart, {
-	addOns={enableAddOns}
-}), document.querySelector('#app'))
+If your application uses streaming data (see [Accessing the chart engine](#accessing-the-chart-engine)), a static data load, or other data source instead of a quote feed, you must disable the quote feed in *src/main.js* or *src/chartiq/index.js*.
+
+For more information about building a custom quote feed to provide data for your React application, see our [quote feed tutorial](https://documentation.chartiq.com/tutorial-DataIntegrationQuoteFeeds.html).
+
+
+## Advanced customization
+
+The `AdvancedChart` component is designed as a full-featured, drop-in charting component that allows extensive configuration. However, you may want to customize the component, in which case we advise keeping the extended component separate from the toolkit folder, */src/chartiq*, to simplify future upgrades.
+
+
+## Configuring add-ons
+
+Add-ons available in the ChartIQ SDK are compatible with this project. The `AdvancedChart` component configuration has an `addOns` property that allows add-ons to be individually configured. The `addOns` property is an object where each key corresponds to the add-on from the SDK with the first letter of the add-on name in lowercase. By default, the chart attempts to enable all add-ons listed in the configuration. By setting the library in development mode as follows:
+
+```javascript
+CIQ.debug = true
 ```
+you will be able to see the list of enabled plug-ins and configurations in your browser's developer console.
 
-By removing an object from the addOns prop, you will not be initialize that addOn. The following example starts only the RangeSlider and the Tooltip:
 
-```js
-let enableAddOns = {RangeSlider:true, Tooltip: {ohl:true, volume:true, series:true, studies:true}}
+## Configuring plug-ins
 
-ReactDom.render(React.createElement(AdvancedChart, {
-	addOns={enableAddOns}
-}), document.querySelector('#app'))
-```
+Similar to the way add-ons work, plug-ins can be configured using the configuration passed to the `AdvancedChart` component.
+
+Plug-in imports are managed in the *[src/custom_chartiq_config/resources.js](./src/custom_chartiq_config/resources.js)* file.
+
+Not all library licenses include the plug-ins listed in *resources.js*. To avoid compilation errors, you need to delete or comment out any of the plug-ins not available to you. Commenting out unused plug-ins also reduces bundle size.
+
+The *resources.js* file includes resources such as:
+- CryptoIQ
+- ScriptIQ
+- TradeFromChart (TFC)
+
+Additional plug-ins should be imported here as well. Most plug-ins use lazy loading to reduce the initial load time.
+
 
 ## Notes
-- This application will only run from `127.0.0.1`, `localhost`, and the explicit list of domains set on your particular ChartIQ library license. If you need to bind webpack dev server to a different host, like `http://0.0.0.0`, please contact your Account Manager to have those additional domains added to your license.
+
+- This application runs only from IP address `127.0.0.1`, hostname `localhost`, or the explicit list of domains set on your ChartIQ library license. If you need to bind the webpack development server to a different host, like `http://0.0.0.0`, please contact your ChartIQ account manager to have additional domains added to your license.
+
+- If the web component polyfill is not required for supported browsers, the download size can be reduced by removing the polyfill script tag in the *index.html* file.
+
+
+## Questions and support
+
+- Contact our development support team at [support@chartiq.com](mailto:support@chartiq.com).
+- See our SDK documentation at https://documentation.chartiq.com.
+
+
+## Contributing to this project
+
+Contribute to this project. Fork it and send us a pull request.
+We'd love to see what you can do with our charting tools!

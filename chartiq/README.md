@@ -1,1 +1,0 @@
-This folder is here to represent where you should extract the ChartIQ library files to in order for this project to work. Replace all of the folders here with the actual versions from your extracted license zip and Webpack will find them when the project is build.
