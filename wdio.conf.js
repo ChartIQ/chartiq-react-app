@@ -2,7 +2,7 @@ const debug = process.env.DEBUG
 
 const DEFAULT_BROWSERS = [
 	{ maxInstances: 2, browserName: 'chrome', 'goog:chromeOptions': {'args':['headless'] } },
-    // { maxInstances: 3, browserName: 'firefox', 'moz:firefoxOptions': {'args': ['-headless' ] } }
+    { maxInstances: 3, browserName: 'firefox', 'moz:firefoxOptions': {'args': ['-headless' ] } }
     //{ maxInstances: 1, browserName: 'chrome'},
     //{ maxInstances: 1, browserName: 'firefox'}
 ]
@@ -30,6 +30,10 @@ require('chai').assert
 // })
 
 exports.config = {
+	// appName is used during the test runtime to idientify which app the test suite is running
+	// against so we can tweak or skip non-applicable tests for small differences in the apps behavior.
+	// Accessed with browser.config.appName .
+	appName:	'chartiq-react-app',
 	//
     // ====================
     // Runner Configuration
@@ -292,49 +296,11 @@ exports.config = {
      * @param {Object} config wdio configuration object
      * @param {Array.<Object>} capabilities list of capabilities details
      */
-    onComplete: function(exitCode, config, capabilities) {
+    //onComplete: function(exitCode, config, capabilities) {
         // this.compiler.close(() => {
         //   console.log('Webpack watching ended.');
         // });
-    },
-    /*
-    seleniumArgs: {
-        // The selenium-standalone module specifies it's default selenium-server and browser driver versions in the default-config.js file,
-        // https://github.com/vvo/selenium-standalone/blob/HEAD/lib/default-config.js
-        baseURL: 'https://selenium-release.storage.googleapis.com',
-        version: '3.12.0',
-        drivers: {
-            // The supported Chrome versions supported by each ChromeDriver version is mentioned in the release notes, http://chromedriver.chromium.org/downloads
-            chrome: {
-                version: '2.41',
-                arch: process.arch,
-                baseURL: 'https://chromedriver.storage.googleapis.com'
-            },
-            // Version support matrix for geckodriver vs Firefox, https://firefox-source-docs.mozilla.org/testing/geckodriver/geckodriver/Support.html
-            firefox: {
-                version: '0.23.0',
-                arch: process.arch,
-                baseURL: 'https://github.com/mozilla/geckodriver/releases/download'
-            },
-        }
-    },
-    seleniumInstallArgs: {
-        baseURL: 'https://selenium-release.storage.googleapis.com',
-        version: '3.12.0',
-        drivers: {
-            chrome: {
-                version: '2.41',
-                arch: process.arch,
-                baseURL: 'https://chromedriver.storage.googleapis.com'
-            },
-            firefox: {
-                version: '0.23.0',
-                arch: process.arch,
-                baseURL: 'https://github.com/mozilla/geckodriver/releases/download'
-            },
-        }
-    }
-    */
+    //}
 }
 console.log('exporting...')
 exports.config =  Object.assign(baseConfig, exports.config)
