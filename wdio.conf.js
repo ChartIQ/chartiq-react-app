@@ -106,9 +106,6 @@ exports.config = {
     // bail (default is 0 - don't bail, run all tests).
     bail: 0,
     //
-    // Saves a screenshot to a given path if a command fails.
-    screenshotPath: './tests/errorShots/',
-    //
     // Set a base URL in order to shorten url command calls. If your `url` parameter starts
     // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
     // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
@@ -224,8 +221,8 @@ exports.config = {
      * @param {String} commandName hook command name
      * @param {Array} args arguments that command would receive
      */
-    beforeCommand: function (commandName, args) {
-    },
+    //beforeCommand: function (commandName, args) {
+    //},
     
     /**
      * Hook that gets executed before the suite starts
