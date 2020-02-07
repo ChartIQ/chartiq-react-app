@@ -140,10 +140,10 @@ export function getDefaultConfig() {
 			{ tool: 'gannfan', group: 'technicals', label: 'Gann Fan' },
 			{ tool: 'gartley', group: 'technicals', label: 'Gartley' },
 			{ tool: 'horizontal', group: 'lines', label: 'Horizontal', shortcut: 'h' },
-			{ tool: 'lines', group: 'lines', label: 'Line' },
+			{ tool: 'line', group: 'line', label: 'Line', shortcut: 'l' },
 			{ tool: 'pitchfork', group: 'technicals', label: 'Pitchfork' },
 			{ tool: 'quadrant', group: 'statistics', label: 'Quadrant Lines' },
-			{ tool: 'ray', group: 'lines', label: 'Ray', shortcut: 'l' },
+			{ tool: 'ray', group: 'lines', label: 'Ray' },
 			{ tool: 'rectangle', group: 'markings', label: 'Rectangle', shortcut: 'r' },
 			{ tool: 'regression', group: 'statistics', label: 'Regression Line' },
 			{ tool: 'segment', group: 'lines', label: 'Segment' },
@@ -158,7 +158,7 @@ export function getDefaultConfig() {
 			{ tool: 'timecycle', group: 'technicals', label: 'Time Cycle' },
 			{ tool: 'tirone', group: 'statistics', label: 'Tirone Levels' },
 			{ tool: 'trendline', group: 'text', label: 'Trend Line' },
-			{ tool: 'vertical', group: 'lines', label: 'Vertical' }
+			{ tool: 'vertical', group: 'lines', label: 'Vertical', shortcut: 'v' }
 		],
 		drawingToolGrouping: ['All', 'Favorites', 'Text', 'Statistics', 'Technicals', 'Fibonacci', 'Markings', 'Lines'],
 		drawingFontSizes: [8, 10, 12, 13, 14, 16, 18, 20, 28, 36, 48, 64],
