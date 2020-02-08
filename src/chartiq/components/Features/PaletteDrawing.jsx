@@ -50,8 +50,8 @@ export default class PaletteDrawing extends React.Component {
 			return;
 		}
 		const { drawingTools, drawingToolGrouping, drawingFonts, drawingFontSizes } = this.context.config;
-		this.drawingToolItems = drawingTools.map(({ tool, group, label }) => (
-			<cq-item class="ciq-tool" cq-tool={tool} cq-tool-group={group} stxtap={`tool('${tool}')`} key={tool}>
+		this.drawingToolItems = drawingTools.map(({ tool, group, label, shortcut }) => (
+			<cq-item class="ciq-tool" cq-tool={tool} cq-tool-shortcut={shortcut} cq-tool-group={group} stxtap={`tool('${tool}')`} key={tool}>
 				<span className={`icon ${tool}`}></span>
 				<label>{label}</label>
 			</cq-item>
@@ -127,7 +127,7 @@ export default class PaletteDrawing extends React.Component {
 		return (
 			<cq-palette-dock cq-publish-size-changes={ this.props['publish-size-changes']} ref={this.paletteDock}>
 			<div className="palette-dock-container">
-				<cq-drawing-palette class="palette-drawing grid palette-hide" docked="true" orientation="vertical" min-height="300" cq-drawing-edit="none">
+				<cq-drawing-palette cq-keystroke-claim class="palette-drawing grid palette-hide" docked="true" orientation="vertical" min-height="300" cq-drawing-edit="none">
 					<div className="palette-container">
 						<div className="drag-strip"></div>
 							<div className="mini-widget-group">
