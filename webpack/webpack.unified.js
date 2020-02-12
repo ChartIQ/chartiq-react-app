@@ -11,11 +11,11 @@ module.exports = {
 	// be created need a base entry point to start.
 	// https://webpack.js.org/configuration/entry-context/#entry
 	entry: {
-		bundle: path.join(devDir, 'main.js'),
-		advanced: path.join(devDir, 'advanced.js'),
-		orderBook: path.join(devDir, 'orderbook.js'),
-		marketDepth: path.join(devDir, 'marketdepth.js'),
-		cryptoIQWorkStation: path.join(devDir, 'cryptoiq-workstation.js'),
+		examples: path.join(devDir, 'examples.js'),
+		main: path.join(devDir, 'main.js'),
+		orderBook: path.join(devDir, 'chartiq', 'examples', 'orderbook.js'),
+		marketDepth: path.join(devDir, 'chartiq', 'examples','marketdepth.js'),
+		// cryptoIQWorkStation: path.join(devDir, 'chartiq', 'examples','cryptoiq-workstation.js'),
 	},
 	performance: {
 		maxAssetSize: 1500000,
@@ -24,25 +24,25 @@ module.exports = {
 	// mode: environment,
 	plugins: [
 		new HTMLWebpackPlugin({
-			title: 'Index',
-			filename: path.join(__dirname, '..', 'dist', 'index.html'),
-			template: path.join(__dirname, '..', 'index.html'),
-			chunks: ['bundle']
-		}),
-
-		new HTMLWebpackPlugin({
-			title: 'AdvancedChart',
+			title: 'Advanced Chart',
 			filename: path.join(__dirname, '..', 'dist', 'advanced-chart.html'),
 			template: path.join(__dirname, '..', 'index.html'),
-			chunks: ['advanced']
+			chunks: ['main']
 		}),
 
 		new HTMLWebpackPlugin({
-			title: 'CryptoIQWorkStation',
-			filename: path.join(__dirname, '..', 'dist','cryptoIQWorkStation.html'),
+			title: 'Examples',
+			filename: path.join(__dirname, '..', 'dist', 'index.html'),
 			template: path.join(__dirname, '..', 'index.html'),
-			chunks: ['cryptoIQWorkStation']
+			chunks: ['examples']
 		}),
+
+		// new HTMLWebpackPlugin({
+		// 	title: 'CryptoIQWorkStation',
+		// 	filename: path.join(__dirname, '..', 'dist','cryptoIQWorkStation.html'),
+		// 	template: path.join(__dirname, '..', 'index.html'),
+		// 	chunks: ['cryptoIQWorkStation']
+		// }),
 
 		new HTMLWebpackPlugin({
 			title: 'MarketDepth',

@@ -1,5 +1,8 @@
-const path = require('path')
-const MiniCssExtractPlugin = require('extract-css-chunks-webpack-plugin');  // used for packaging css into bundles
+const path = require('path');
+const MiniCssExtractPlugin = require('extract-css-chunks-webpack-plugin'); // used for packaging css into bundles
+const CopyPlugin = require('copy-webpack-plugin');
+const webpack = require('webpack');
+const fs = require('fs');
 
 module.exports = {
 	devServer: {
@@ -9,7 +12,7 @@ module.exports = {
 		},
 		publicPath: '/',
 		host: 'localhost',
-		port: 4002,
+		port: 4002
 	},
 	module: {
 		// Loaders are processors for verifying and transformating
@@ -19,15 +22,16 @@ module.exports = {
 			/* HTML bundling rule, used mainly for plugins UI */
 			{
 				test: /\.html/,
-				use: [
-					{loader: "html-loader"}
-				]
+				use: [{ loader: 'html-loader' }]
 			},
 			/* CSS bundling rule, using SASS */
 			{
 				test: /\.(s)?css$/,
 				use: [
-					{loader: MiniCssExtractPlugin.loader, options: {publicPath: 'css/'}},
+					{
+						loader: MiniCssExtractPlugin.loader,
+						options: { publicPath: 'css/' }
+					},
 					'css-loader',
 					'sass-loader'
 				]
@@ -49,26 +53,56 @@ module.exports = {
 			/* Javascript and JSX loading */
 			{
 				test: /\.(js|jsx)$/,
-				exclude: [/node_modules/,/\.spec\.js$/, /translationSample/ ],
+				include: [/src/, /node_modules/],
+				exclude: [/translationSample/],
+				// exclude: [/node_modules/,/\.spec\.js$/, /translationSample/, /webcomponent-containers/],
 				use: {
 					loader: 'babel-loader',
 					options: {
-						presets: ['@babel/preset-env', '@babel/preset-react'],
-					},
+						presets: ['@babel/preset-env', '@babel/preset-react']
+					}
 				}
 			}
 		]
 	},
 	externals: {
-		jquery: 'jQuery',
+		jquery: 'jQuery'
 	},
 
 	plugins: [
-		new MiniCssExtractPlugin({
-			fileNname: '[name].css',
+		// ignores not available chartiq resource due to not all licenses having
+		// the same number of addOns or plugins
+		new webpack.IgnorePlugin({
+			checkResource 
 		}),
+		new MiniCssExtractPlugin({
+			fileNname: '[name].css'
+		}),
+		new CopyPlugin([
+			{ from: 'public' },
+			// copy plugin resources
+			{
+				from: 'node_modules/chartiq/plugins/timespanevent/images',
+				to: 'plugins/timespanevent/images'
+			}
+		])
 	],
 	resolve: {
-		extensions: ['.js', '.jsx'],
+		extensions: ['.js', '.jsx']
 	}
+};
+
+function checkResource(resource, context) {
+	if (!/^chartiq\//.test(resource)) {
+		return false;
+	}
+
+	if (
+		fs.existsSync('./node_modules/' + resource)
+		|| fs.existsSync('./node_modules/' + resource + '.js')
+	) {
+		return false;
+	}
+	console.warn('ERROR finding ' + resource);
+	return true;
 }
