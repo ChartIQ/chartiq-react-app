@@ -14,6 +14,7 @@ chartiq-*.*.*.tgz
 dist
 
 #Ignore any workspace files
+*.project
 *.code-workspace
 *.sublime-workspace
 *.sublime-project
