@@ -47,7 +47,13 @@ npm remove chartiq
 npm install ./path-to-new/chartiq-x.x.x.tgz
 ```
 
-After you have installed the library, you can view the charting component created by this project by running:
+After you have installed the library, install the dependencies required by the component toolkit:
+
+```sh
+npm install
+```
+
+You can now view the charting component created by this project by running:
 
 ```sh
 npm run start
