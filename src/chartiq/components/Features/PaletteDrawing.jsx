@@ -50,7 +50,7 @@ export default class PaletteDrawing extends React.Component {
 			return;
 		}
 		const { drawingTools, drawingToolGrouping, drawingFonts, drawingFontSizes } = this.context.config;
-		this.drawingToolItems = drawingTools.map(({ tool, group, label, shortcut }) => (
+		this.drawingToolItems = this.sortDrawings(drawingTools).map(({ tool, group, label, shortcut }) => (
 			<cq-item class="ciq-tool" cq-tool={tool} cq-tool-shortcut={shortcut} cq-tool-group={group} stxtap={`tool('${tool}')`} key={tool}>
 				<span className={`icon ${tool}`}></span>
 				<label>{label}</label>
@@ -96,6 +96,16 @@ export default class PaletteDrawing extends React.Component {
 			<cq-item stxtap="setLine(5,'dashed')"><span className="ciq-line-style-option ciq-dashed-5"></span></cq-item>
 			<cq-item stxtap="setLine(0,'none')" class="ciq-none">None</cq-item>
 		</cq-menu-dropdown>
+	}
+
+	/**
+	 * Wrapped sort function that allows you to control how to display the drawingTools from the config.
+	 * DrawingTools are passed thru this method before they are mapped to be rendered.
+	 * @param {Array} drawings Array of drawingTools from the config
+	 * @returns {Array} Sorted drawings. This array will be mapped against then rendered.
+	 */
+	sortDrawings(drawings) {
+		return drawings.sort((a, b) => { return a.label > b.label ? 1 : -1 });
 	}
 
 	render() {
