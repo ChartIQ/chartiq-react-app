@@ -271,6 +271,10 @@ cq-drawing-palette .tool-group[tool-group-filter=lines] [cq-tool-group*=lines] {
 cq-drawing-palette .tool-group[tool-group-filter=markings] [cq-tool-group*=markings] {
   display: inline-block; }
 
+cq-drawing-palette .ciq-tool .icon.elliottwave {
+  background-position: 0 -1000px;
+}
+
 /**
 	end overrides
 */

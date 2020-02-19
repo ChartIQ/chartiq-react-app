@@ -131,6 +131,7 @@ export function getDefaultConfig() {
 			{ tool: 'continuous', group: 'lines', label: 'Continuous' },
 			{ tool: 'crossline', group: 'lines', label: 'Crossline' },
 			{ tool: 'freeform', group: 'lines', label: 'Doodle' },
+			{ tool: 'elliottwave', group: 'technicals', label: 'Elliott Wave'},
 			{ tool: 'ellipse', group: 'markings', label: 'Ellipse', shortcut: 'e' },
 			{ tool: 'retracement', group: 'fibonacci', label: 'Fib Retracement' },
 			{ tool: 'fibprojection', group: 'fibonacci', label: 'Fib Projection' },
