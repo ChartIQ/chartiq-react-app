@@ -14,7 +14,8 @@ export default class ToggleDrawing extends React.Component {
 		const {
 			setContext,
 			stx,
-			stx: { container: chartContainer }
+			stx: { container: chartContainer },
+			UIContext
 		} = this.context;
 
 		this.toggle.current.registerCallback(function(value) {
@@ -29,6 +30,7 @@ export default class ToggleDrawing extends React.Component {
 				this.priorVectorType = stx.currentVectorParameters.vectorType;
 				stx.changeVectorType('');
 			}
+			if (UIContext && UIContext.PaletteDock) UIContext.PaletteDock.setChartDimensions();
 		});
 	}
 
