@@ -85,7 +85,7 @@ export function getDefaultConfig() {
 			{ label: 'Invert Y-Axis', action: "Layout.FlippedChart()", type: 'checkbox' },
 			{ label: 'Extended Hours', action: "Layout.ExtendedHours()", type: 'checkbox', required: 'ExtendedHours' },
 			{ label: 'Range Selector', action: "Layout.RangeSlider()", type: 'checkbox', required: 'RangeSlider' },
-			{ label: 'Show Outliers', action: "Layout.ShowOutliers()", type: 'checkbox' },
+			{ label: 'Hide Outliers', action: "Layout.Outliers()", type: 'checkbox' },
 			// Layout.MarketDepth() binds and sets chart engine layout marketDepth propery that can be observed to initiat L2 data streaming
 			{ label: 'Market Depth', action: "Layout.MarketDepth()", type: 'checkbox', required: 'cryptoiq' }, // absence of required resource will hide menu item until available
 			// Layout.L2Heatmap() binds and sets chart engine layout l2heatmap propery that can be observed to initiat L2 data streaming
@@ -209,6 +209,7 @@ export function getDefaultConfig() {
 				studies: true
 			},
 			fullScreen: { },
+			outliers: { }
 		},
 		/**
 		 * Not all plugins may be available, import required plugins to make 
