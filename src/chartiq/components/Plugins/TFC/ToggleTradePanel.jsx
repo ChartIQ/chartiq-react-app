@@ -15,14 +15,14 @@ export default class ToggleTradePanel extends React.Component {
 		const { stx, updateChartSize, UIContext: { node: contextContainer } } = this.context;
 
 		node.registerCallback(function(value) {
-			const sidePanel = $('cq-side-panel', contextContainer)[0];
+			const sidePanel = contextContainer.querySelector('cq-side-panel');
 			if (value) {
 				sidePanel.open({ selector: '.stx-trade-panel', className: 'active' });
-				$('.stx-trade-panel', sidePanel).removeClass('closed');
+				sidePanel.querySelector('.stx-trade-panel').classList.remove('closed');
 				stx.layout.sidenav = 'sidenavOff'; // for small screen size - break-sm hide sidenav when turning on tfc side panel
 			} else {
 				sidePanel.close();
-				$('.stx-trade-panel', sidePanel).addClass('closed');
+				sidePanel.querySelector('.stx-trade-panel').classList.add('closed');
 			}
 		});
 	}

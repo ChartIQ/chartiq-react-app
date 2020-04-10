@@ -100,11 +100,7 @@ class ChartIQChartContainer extends HTMLElement {
 		stx.addEventListener('drawing', this.saveDrawings);
 
 		function findContextElement(start) {
-			const el = $('cq-context, [cq-context]', start).closest();
-			if (el.length < 1) {
-				return;
-			}
-			return el[0];
+			return (start || document).querySelector('cq-context, [cq-context]');
 		}
 	}
 

@@ -11,7 +11,7 @@ export default class SidePanel extends React.Component {
 	componentDidMount() {
 		const sidePanel = this.sidePanelRef.current;
 		// set reference in context required for retrieving size
-		sidePanel.context.SidePanel = sidePanel;
+		this.context.SidePanel = sidePanel;
 
 		// patch resize required to detect on collapsed / expand in tfc
 		const { resizeMyself, context } = sidePanel;

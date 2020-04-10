@@ -12,9 +12,6 @@ import { ChartContext } from '../../context/ChartContext';
  * @extends {React.Component}
  */
 export default class ContextMenuDrawing extends React.Component {
-	constructor(props) {
-		super(props);
-	}
 
 	componentDidMount() {
 		let UIContext = this.context.UIContext;
@@ -26,12 +23,12 @@ export default class ContextMenuDrawing extends React.Component {
 		UIDrawingEdit.node.addEventListener(
 			'drawing-edit-begin',
 			function(event) {
-				if ($('body').hasClass('toolbar-on')) return;
+				if (document.body.classList.contains('toolbar-on')) return;
 				UIDrawingEdit.preventAutoClose = false;
 
-				$('.ciq-draw').each(function() {
-					this.priorVectorType = event.detail.tool;
-					this.set(true);
+				document.querySelectorAll('.ciq-draw').forEach(el => {
+					el.priorVectorType = event.detail['tool'];
+					el.set(true);
 				});
 			},
 			false
@@ -45,9 +42,7 @@ export default class ContextMenuDrawing extends React.Component {
 					UIDrawingEdit.preventAutoClose = true;
 				if (event.detail.action !== 'close') return;
 
-				$('.ciq-draw').each(function() {
-					this.set(false);
-				});
+				document.querySelectorAll('.ciq-draw').forEach(el => el.set(false));
 			},
 			false
 		);

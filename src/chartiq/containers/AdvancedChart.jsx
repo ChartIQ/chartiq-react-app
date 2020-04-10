@@ -1,8 +1,6 @@
 import React from 'react';
 import { CIQ } from 'chartiq';
 
-// shortcut to chartiq provided property observer
-const { observeProperty } = CIQ.UI;
 
 import {
 	ChartNav,
@@ -20,6 +18,9 @@ import MarketDepthBookmark from '../components/Plugins/CryptoIQ/MarketDepthBookm
 
 import { ChartContext } from '../context/ChartContext';
 import { getDefaultConfig } from '../_config';
+
+// shortcut to chartiq provided property observer
+const { observeProperty } = CIQ.UI;
 
 /**
  * This is a fully functional example showing how to load a chart with complete user interface.
