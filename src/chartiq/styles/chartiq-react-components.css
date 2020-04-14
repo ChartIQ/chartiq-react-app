@@ -275,6 +275,10 @@ cq-drawing-palette .ciq-tool .icon.elliottwave {
   background-position: 0 -1000px;
 }
 
+.chartContainer {
+	flex-grow: inherit;
+}
+
 /**
 	end overrides
 */
