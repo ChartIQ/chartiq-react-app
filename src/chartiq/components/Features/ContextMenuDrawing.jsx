@@ -18,7 +18,6 @@ export default class ContextMenuDrawing extends React.Component {
 
 	componentDidMount() {
 		const UIContext = this.context.UIContext;
-		const self = this;
 
 		const UIDrawingEdit = new CIQ.UI.DrawingEdit(null, UIContext);
 
@@ -35,7 +34,7 @@ export default class ContextMenuDrawing extends React.Component {
 						this.priorVectorType = event.detail.tool;
 					})
 					.each(function() { 
-						// due to the syncronous nature of observable setting needs to be run 
+						// due to the synchronous nature of observable setting needs to be run 
 						// after all toggle previousVectorTypes have been set
 						this.set(true);
 					});
