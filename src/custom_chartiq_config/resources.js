@@ -2,6 +2,8 @@
 import { CIQ } from 'chartiq/js/chartiq';
 import 'chartiq/js/components';
 
+if (CIQ.UI.ensureComponentsRegistered) CIQ.UI.ensureComponentsRegistered();
+
 // market definition and symbology sample overrides abstract function CIQ.Market.Symbology.factory
 import 'chartiq/examples/markets/marketDefinitionsSample';
 import 'chartiq/examples/markets/marketSymbologySample';

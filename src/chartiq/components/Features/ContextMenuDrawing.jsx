@@ -17,9 +17,9 @@ export default class ContextMenuDrawing extends React.Component {
 	}
 
 	componentDidMount() {
-		let UIContext = this.context.UIContext;
+		const UIContext = this.context.UIContext;
 
-		var UIDrawingEdit = new CIQ.UI.DrawingEdit(null, UIContext);
+		const UIDrawingEdit = new CIQ.UI.DrawingEdit(null, UIContext);
 
 		UIDrawingEdit.preventAutoClose = true;
 
@@ -29,10 +29,15 @@ export default class ContextMenuDrawing extends React.Component {
 				if ($('body').hasClass('toolbar-on')) return;
 				UIDrawingEdit.preventAutoClose = false;
 
-				$('.ciq-draw').each(function() {
-					this.priorVectorType = event.detail.tool;
-					this.set(true);
-				});
+				$('.ciq-draw')
+					.each(function() {
+						this.priorVectorType = event.detail.tool;
+					})
+					.each(function() { 
+						// due to the synchronous nature of observable setting needs to be run 
+						// after all toggle previousVectorTypes have been set
+						this.set(true);
+					});
 			},
 			false
 		);

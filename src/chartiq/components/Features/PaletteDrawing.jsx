@@ -50,8 +50,8 @@ export default class PaletteDrawing extends React.Component {
 			return;
 		}
 		const { drawingTools, drawingToolGrouping, drawingFonts, drawingFontSizes } = this.context.config;
-		this.drawingToolItems = drawingTools.map(({ tool, group, label }) => (
-			<cq-item class="ciq-tool" cq-tool={tool} cq-tool-group={group} stxtap={`tool('${tool}')`} key={tool}>
+		this.drawingToolItems = this.sortDrawings(drawingTools).map(({ tool, group, label, shortcut }) => (
+			<cq-item class="ciq-tool" cq-tool={tool} cq-tool-shortcut={shortcut} cq-tool-group={group} stxtap={`tool('${tool}')`} key={tool}>
 				<span className={`icon ${tool}`}></span>
 				<label>{label}</label>
 			</cq-item>
@@ -98,6 +98,16 @@ export default class PaletteDrawing extends React.Component {
 		</cq-menu-dropdown>
 	}
 
+	/**
+	 * Wrapped sort function that allows you to control how to display the drawingTools from the config.
+	 * DrawingTools are passed thru this method before they are mapped to be rendered.
+	 * @param {Array} drawings Array of drawingTools from the config
+	 * @returns {Array} Sorted drawings. This array will be mapped against then rendered.
+	 */
+	sortDrawings(drawings) {
+		return drawings.sort((a, b) => { return a.label > b.label ? 1 : -1 });
+	}
+
 	render() {
 		this.buildLists();
 		const { magnet } = this.context.stx.preferences;
@@ -124,10 +134,73 @@ export default class PaletteDrawing extends React.Component {
 			</cq-line-style>
 			</>;
 
+		const waveParametersTemplate = 
+			<>
+			<div className="ciq-wave-template" cq-section="true">
+				<div className="ciq-heading">WAVE TEMPLATE</div>
+				<cq-menu class="ciq-select">
+					<span className="ciq-active-template">WAVE TEMPLATE</span>
+					<cq-menu-dropdown>
+						<cq-item stxtap="update('template','Grand Supercycle')">Grand Supercycle</cq-item>
+						<cq-item stxtap="update('template','Supercycle')">Supercycle</cq-item>
+						<cq-item stxtap="update('template','Cycle')">Cycle</cq-item>
+						<cq-item stxtap="update('template','Primary')">Primary</cq-item>
+						<cq-item stxtap="update('template','Intermediate')">Intermediate</cq-item>
+						<cq-item stxtap="update('template','Minor')">Minor</cq-item>
+						<cq-item stxtap="update('template','Minute')">Minute</cq-item>
+						<cq-item stxtap="update('template','Minuette')">Minuette</cq-item>
+						<cq-item stxtap="update('template','Sub-Minuette')">Sub-Minuette</cq-item>
+						<cq-item stxtap="update('template','Custom')">Custom</cq-item>
+					</cq-menu-dropdown>
+				</cq-menu>
+			</div>
+			<div className="ciq-wave-impulse" cq-section="true">
+				<div className="ciq-heading">IMPULSE</div>
+				<cq-menu class="ciq-select">
+					<span className="ciq-active-impulse">IMPULSE</span>
+					<cq-menu-dropdown>
+						<cq-item stxTap="update('impulse',null)">- - -</cq-item>
+						<cq-item stxtap="update('impulse','I,II,III,IV,V')">I II III IV V</cq-item>
+						<cq-item stxtap="update('impulse','i,ii,iii,iv,v')">i ii iii iv v</cq-item>
+						<cq-item stxtap="update('impulse','1,2,3,4,5')">1 2 3 4 5</cq-item>
+						<cq-item stxtap="update('impulse','A,B,C,D,E')">A B C D E</cq-item>
+						<cq-item stxtap="update('impulse','a,b,c,d,e')">a b c d e</cq-item>
+						<cq-item stxtap="update('impulse','W,X,Y,X,Z')">W X Y X Z</cq-item>
+						<cq-item stxtap="update('impulse','w,x,y,x,z')">w x y x z</cq-item>
+					</cq-menu-dropdown>
+				</cq-menu>
+			</div>
+			<div className="ciq-wave-corrective" cq-section="true">
+				<div className="ciq-heading">CORRECTIVE</div>
+				<cq-menu class="ciq-select">
+					<span className="ciq-active-corrective">CORRECTIVE</span>
+					<cq-menu-dropdown>
+						<cq-item stxtap="update('corrective',null)">- - -</cq-item>
+						<cq-item stxtap="update('corrective','A,B,C')">A B C</cq-item>
+						<cq-item stxtap="update('corrective','a,b,c')">a b c</cq-item>
+						<cq-item stxtap="update('corrective','W,X,Y')">W X Y</cq-item>
+						<cq-item stxtap="update('corrective','w,x,y')">w x y</cq-item>
+					</cq-menu-dropdown>
+				</cq-menu>
+			</div>
+			<span className="ciq-icon-btn ciq-btn" decoration="none" stxtap="update('decoration',null)" cq-section="true">
+				<cq-tooltip>None</cq-tooltip>
+			</span>
+			<span className="ciq-icon-btn ciq-btn" decoration="parentheses" stxtap="update('decoration','parentheses')" cq-section="true">
+				<cq-tooltip>Parentheses</cq-tooltip>
+			</span>
+			<span className="ciq-icon-btn ciq-btn" decoration="enclosed" stxtap="update('decoration','enclosed')" cq-section="true">
+				<cq-tooltip>Enclosed</cq-tooltip>
+			</span>
+			<div className="ciq-heading ciq-show-lines"  cq-section="true">
+				Show Lines: <span stxtap="toggleLines()" className="ciq-checkbox ciq-active"><span></span></span>
+			</div>
+			</>;
+
 		return (
 			<cq-palette-dock cq-publish-size-changes={ this.props['publish-size-changes']} ref={this.paletteDock}>
 			<div className="palette-dock-container">
-				<cq-drawing-palette class="palette-drawing grid palette-hide" docked="true" orientation="vertical" min-height="300" cq-drawing-edit="none">
+				<cq-drawing-palette cq-keystroke-claim class="palette-drawing grid palette-hide" docked="true" orientation="vertical" min-height="300" cq-drawing-edit="none">
 					<div className="palette-container">
 						<div className="drag-strip"></div>
 							<div className="mini-widget-group">
@@ -170,8 +243,8 @@ export default class PaletteDrawing extends React.Component {
 									<cq-item class="ciq-mini-widget" cq-view="attach" stxtap="dock()"><span className="icon"></span><label>Attach</label></cq-item>
 								</div>
 								<cq-clickable class="ciq-select ciq-mobile-palette-toggle" stxtap="togglePalette()"><span>Select Tool</span></cq-clickable>
-								<div className="ciq-active-tool-label ciq-heading"></div>
 								<cq-toolbar-settings>
+									<div className="ciq-active-tool-label ciq-heading"></div>
 									<cq-fill-color cq-section="true" class="ciq-color" stxbind="getFillColor()" stxtap="pickFillColor()">
 										<span></span>
 									</cq-fill-color>
@@ -207,6 +280,11 @@ export default class PaletteDrawing extends React.Component {
 									<div className="ciq-drawing-edit-only" cq-section="true">
 										<div cq-toolbar-action="done_edit" stxtap="DrawingEdit.endEdit('close')" cq-section="true"><cq-tooltip>Done Editing</cq-tooltip></div>
 									</div>
+									<br cq-section="true" cq-wave-parameters="true"></br>
+									<cq-wave-parameters cq-section></cq-wave-parameters>
+									<template cq-wave-parameters="true">
+										{waveParametersTemplate}
+									</template>
 									<div className="ciq-drawing-edit-hidden" cq-section="true">
 										<div cq-toolbar-action="save" stxtap="saveConfig()" cq-section="true"><div cq-toolbar-dirty="true"></div><cq-tooltip>Save Config</cq-tooltip></div>
 										<div cq-toolbar-action="restore" stxtap="restoreDefaultConfig()" cq-section="true"><cq-tooltip>Restore Config</cq-tooltip></div>

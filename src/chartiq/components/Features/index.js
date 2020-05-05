@@ -11,4 +11,3 @@ export { default as MarkerAbstract } from './MarkerAbstract';
 export { default as PaletteDrawing } from './PaletteDrawing';
 export { default as RangeBar } from './RangeBar';
 export { default as ShareChart } from './ShareChart';
-export { default as ToolbarDrawing } from './ToolbarDrawing';
