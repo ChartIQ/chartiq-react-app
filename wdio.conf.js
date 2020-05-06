@@ -12,6 +12,7 @@ const DEBUG_BROWSERS = [
     // {browserName: 'firefox', maxInstances: 1}
 ]
 
+let child_process = require('child_process')
 const baseConfig = require('@chartiq/ui-tests/index').baseSettings
 const webpack = require('webpack')
 const webpackConfig = require('./webpack.config.js')
@@ -193,11 +194,13 @@ exports.config = {
      * @param {Array.<Object>} capabilities list of capabilities details
      */
     onPrepare: function (config, capabilities) {
-            const server = new devServer(webpack(webpackConfig()), {logLevel: 'info'});
+    	child_process.execSync('mkdir -p ./test-output/screenshots');
 
-            server.listen(4040, 'localhost', () => {
-              console.log('Starting server on http://localhost:4040');
-            });
+        const server = new devServer(webpack(webpackConfig()), {logLevel: 'info'});
+
+        server.listen(4040, 'localhost', () => {
+          console.log('Starting server on http://localhost:4040');
+        });
     },
     /**
      * Gets executed just before initialising the webdriver session and test framework. It allows you
