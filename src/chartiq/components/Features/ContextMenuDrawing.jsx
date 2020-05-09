@@ -1,5 +1,5 @@
 import React from 'react';
-import { CIQ } from 'chartiq';
+import { CIQ } from 'chartiq/js/chartiq';
 import { ChartContext } from '../../context/ChartContext';
 
 /**
@@ -12,27 +12,22 @@ import { ChartContext } from '../../context/ChartContext';
  * @extends {React.Component}
  */
 export default class ContextMenuDrawing extends React.Component {
-	constructor(props) {
-		super(props);
-	}
 
 	componentDidMount() {
-		let UIContext = this.context.UIContext;
-
-		var UIDrawingEdit = new CIQ.UI.DrawingEdit(null, UIContext);
+		const UIContext = this.context.UIContext;
+		const UIDrawingEdit = new CIQ.UI.DrawingEdit(null, UIContext);
 
 		UIDrawingEdit.preventAutoClose = true;
 
 		UIDrawingEdit.node.addEventListener(
 			'drawing-edit-begin',
 			function(event) {
-				if ($('body').hasClass('toolbar-on')) return;
+				if (document.body.classList.contains('toolbar-on')) return;
 				UIDrawingEdit.preventAutoClose = false;
 
-				$('.ciq-draw').each(function() {
-					this.priorVectorType = event.detail.tool;
-					this.set(true);
-				});
+				const drawToggles = UIContext.topNode.querySelectorAll('.ciq-draw');
+				drawToggles.forEach(toggle => toggle.priorVectorType = event.detail.tool);
+				drawToggles.forEach(toggle => toggle.set(true));
 			},
 			false
 		);
@@ -45,9 +40,8 @@ export default class ContextMenuDrawing extends React.Component {
 					UIDrawingEdit.preventAutoClose = true;
 				if (event.detail.action !== 'close') return;
 
-				$('.ciq-draw').each(function() {
-					this.set(false);
-				});
+				UIContext.topNode.querySelectorAll('.ciq-draw')
+					.forEach(toggle => toggle.set(false));
 			},
 			false
 		);

@@ -1,5 +1,4 @@
 import React from 'react'
-import { CIQ } from 'chartiq/js/chartiq';
 
 import { ChartContext } from '../../context/ChartContext';
 

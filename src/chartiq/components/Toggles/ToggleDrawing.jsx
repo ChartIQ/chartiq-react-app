@@ -14,7 +14,8 @@ export default class ToggleDrawing extends React.Component {
 		const {
 			setContext,
 			stx,
-			stx: { container: chartContainer }
+			stx: { container: chartContainer },
+			UIContext
 		} = this.context;
 
 		this.toggle.current.registerCallback(function(value) {
@@ -29,13 +30,14 @@ export default class ToggleDrawing extends React.Component {
 				this.priorVectorType = stx.currentVectorParameters.vectorType;
 				stx.changeVectorType('');
 			}
+			if (UIContext && UIContext.PaletteDock) UIContext.PaletteDock.setChartDimensions();
 		});
 	}
 
 	render() {
 		const { drawingActive } = this.context;
 		return (
-			<cq-toggle
+			<cq-toggle cq-member="drawing" 
 				class={`ciq-draw ${drawingActive ? 'active' : ''}`}
 				ref={this.toggle}
 			>

@@ -66,7 +66,7 @@ class ChartIQChartContainer extends HTMLElement {
 	}
 
 	startComponentUI(stx) {
-		const UIContext = CIQ.UI.getMyContext(stx.container);
+		let UIContext = CIQ.UI.getMyContext(stx.container);
 		if (!UIContext) {
 			const contextContainer = findContextElement(this);
 			if (!contextContainer) {
@@ -100,11 +100,7 @@ class ChartIQChartContainer extends HTMLElement {
 		stx.addEventListener('drawing', this.saveDrawings);
 
 		function findContextElement(start) {
-			const el = $('cq-context, [cq-context]', start).closest();
-			if (el.length < 1) {
-				return;
-			}
-			return el[0];
+			return start.querySelector('cq-context, [cq-context]');
 		}
 	}
 

@@ -70,8 +70,8 @@ export function getDefaultConfig() {
 			{ label: 'Line', action: "Layout.ChartType('line')", type: 'radio' },
 			{ label: 'Hollow Candle', action: "Layout.ChartType('hollow_candle')", type: 'radio' },
 			{ label: 'Mountain', action: "Layout.ChartType('mountain')", type: 'radio' },
-			{ label: 'Baseline', action: "Layout.ChartType('baseline_delta')", label: 'Baseline', type: 'radio' },
-			{ label: 'Volume Candle', action: "Layout.ChartType('volume_candle')", label: 'Volume Candle', type: 'radio' },
+			{ label: 'Baseline', action: "Layout.ChartType('baseline_delta')", type: 'radio' },
+			{ label: 'Volume Candle', action: "Layout.ChartType('volume_candle')", type: 'radio' },
 			{ type: 'separator'},
 			{ label: 'Heikin Ashi', action: "Layout.ChartType('heikinashi')", type: 'radio' },
 			{ label: 'Kagi', option: "Layout.showAggregationEdit('kagi')", action: "Layout.ChartType('kagi')", type: 'radio' },
@@ -85,6 +85,7 @@ export function getDefaultConfig() {
 			{ label: 'Invert Y-Axis', action: "Layout.FlippedChart()", type: 'checkbox' },
 			{ label: 'Extended Hours', action: "Layout.ExtendedHours()", type: 'checkbox', required: 'ExtendedHours' },
 			{ label: 'Range Selector', action: "Layout.RangeSlider()", type: 'checkbox', required: 'RangeSlider' },
+			{ label: 'Hide Outliers', action: "Layout.Outliers()", type: 'checkbox', required: 'Outliers'  },
 			// Layout.MarketDepth() binds and sets chart engine layout marketDepth propery that can be observed to initiat L2 data streaming
 			{ label: 'Market Depth', action: "Layout.MarketDepth()", type: 'checkbox', required: 'cryptoiq' }, // absence of required resource will hide menu item until available
 			// Layout.L2Heatmap() binds and sets chart engine layout l2heatmap propery that can be observed to initiat L2 data streaming
@@ -124,14 +125,15 @@ export function getDefaultConfig() {
 			{ label: 'All', multiplier: 1, base: 'all' }
 		],
 		drawingTools: [
-			{ tool: 'annotation', group: 'text', label: 'Annotation' },
+			{ tool: 'annotation', group: 'text', label: 'Annotation', shortcut: 't' },
 			{ tool: 'callout', group: 'text', label: 'Callout' },
 			{ tool: 'average', group: 'statistics', label: 'Average Line' },
 			{ tool: 'channel', group: 'lines', label: 'Channel' },
 			{ tool: 'continuous', group: 'lines', label: 'Continuous' },
 			{ tool: 'crossline', group: 'lines', label: 'Crossline' },
 			{ tool: 'freeform', group: 'lines', label: 'Doodle' },
-			{ tool: 'ellipse', group: 'markings', label: 'Ellipse' },
+			{ tool: 'elliottwave', group: 'technicals', label: 'Elliott Wave'},
+			{ tool: 'ellipse', group: 'markings', label: 'Ellipse', shortcut: 'e' },
 			{ tool: 'retracement', group: 'fibonacci', label: 'Fib Retracement' },
 			{ tool: 'fibprojection', group: 'fibonacci', label: 'Fib Projection' },
 			{ tool: 'fibarc', group: 'fibonacci', label: 'Fib Arc' },
@@ -139,15 +141,15 @@ export function getDefaultConfig() {
 			{ tool: 'fibtimezone', group: 'fibonacci', label: 'Fib Time Zone' },
 			{ tool: 'gannfan', group: 'technicals', label: 'Gann Fan' },
 			{ tool: 'gartley', group: 'technicals', label: 'Gartley' },
-			{ tool: 'horizontal', group: 'lines', label: 'Horizontal' },
-			{ tool: 'lines', group: 'lines', label: 'Line' },
+			{ tool: 'horizontal', group: 'lines', label: 'Horizontal', shortcut: 'h' },
+			{ tool: 'line', group: 'line', label: 'Line', shortcut: 'l' },
 			{ tool: 'pitchfork', group: 'technicals', label: 'Pitchfork' },
 			{ tool: 'quadrant', group: 'statistics', label: 'Quadrant Lines' },
 			{ tool: 'ray', group: 'lines', label: 'Ray' },
-			{ tool: 'rectangle', group: 'markings', label: 'Rectangle' },
+			{ tool: 'rectangle', group: 'markings', label: 'Rectangle', shortcut: 'r' },
 			{ tool: 'regression', group: 'statistics', label: 'Regression Line' },
 			{ tool: 'segment', group: 'lines', label: 'Segment' },
-			{ tool: 'arrow', group: 'markings', label: 'Arrow' },
+			{ tool: 'arrow', group: 'markings', label: 'Arrow', shortcut: 'a' },
 			{ tool: 'check', group: 'markings', label: 'Check' },
 			{ tool: 'xcross', group: 'markings', label: 'Cross' },
 			{ tool: 'focusarrow', group: 'markings', label: 'Focus' },
@@ -158,7 +160,7 @@ export function getDefaultConfig() {
 			{ tool: 'timecycle', group: 'technicals', label: 'Time Cycle' },
 			{ tool: 'tirone', group: 'statistics', label: 'Tirone Levels' },
 			{ tool: 'trendline', group: 'text', label: 'Trend Line' },
-			{ tool: 'vertical', group: 'lines', label: 'Vertical' }
+			{ tool: 'vertical', group: 'lines', label: 'Vertical', shortcut: 'v' }
 		],
 		drawingToolGrouping: ['All', 'Favorites', 'Text', 'Statistics', 'Technicals', 'Fibonacci', 'Markings', 'Lines'],
 		drawingFontSizes: [8, 10, 12, 13, 14, 16, 18, 20, 28, 36, 48, 64],
@@ -170,6 +172,7 @@ export function getDefaultConfig() {
 			'Palatino',
 			'Times New Roman'
 		],
+		chartControlGroup: ['chart_lookup', 'toggle_drawing', 'toggle_crosshair', 'menu_periodicity'],
 		// addOns will be initiated with chart engine and following parameters
 		// using capitalized property such as: extendedHours -> CIQ.ExtendedHours(...)
 		addOns: {  
@@ -204,7 +207,9 @@ export function getDefaultConfig() {
 				volume: true,
 				series: true,
 				studies: true
-			}
+			},
+			fullScreen: { },
+			outliers: { }
 		},
 		/**
 		 * Not all plugins may be available, import required plugins to make 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { CIQ } from 'chartiq'
+import { CIQ } from 'chartiq/js/chartiq'
 import 'chartiq/js/addOns'
 import 'chartiq/examples/markets/marketDefinitionsSample'
 import 'chartiq/examples/markets/marketSymbologySample'

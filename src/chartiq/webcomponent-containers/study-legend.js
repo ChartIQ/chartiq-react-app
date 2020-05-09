@@ -1,5 +1,3 @@
-import { html, render } from 'lit-html';
-
 /**
  * Study legend container provides markup and sidesteps template creation issue in React
  */
@@ -10,8 +8,7 @@ export class StudyLegendContainer extends HTMLElement {
 
 	initInner() {
 		if (!this.firstChild) {
-			this.innerHTML = this.constructor.template;
-			const content = html`
+			this.innerHTML = `
 				<cq-study-legend cq-no-close>
 					<cq-section-dynamic>
 						<cq-study-legend-content>
@@ -29,8 +26,6 @@ export class StudyLegendContainer extends HTMLElement {
 					</cq-section-dynamic>
 				</cq-study-legend>
 			`;
-			render(content, this);
-			this.firstElementChild.begin();
 		}
 	}
 }

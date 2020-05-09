@@ -1,5 +1,5 @@
 import React from 'react';
-import { CIQ } from 'chartiq';
+import { CIQ } from 'chartiq/js/chartiq';
 
 /**
  * Share chart button component `<ShareChart/>`
@@ -18,7 +18,7 @@ export default class ShareChart extends React.Component {
 		const msToDelayLoading = 1000;
 		setTimeout(() => {
 			import(
-				/* webpackChunkName: "html2canvas" */ 'chartiq/js/thirdparty/html2canvas'
+				/* webpackChunkName: "html2canvas" */ 'chartiq/js/thirdparty/html2canvas.min.js'
 			)
 				.then(html2canvas => {
 					CIQ.Share.html2canvasLocation = 'dist';

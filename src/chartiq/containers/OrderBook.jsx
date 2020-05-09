@@ -1,5 +1,5 @@
 import React from 'react'
-import { CIQ } from 'chartiq'
+import { CIQ } from 'chartiq/js/chartiq'
 import 'chartiq/js/components'
 import 'chartiq/plugins/cryptoiq/orderbook'
 import 'chartiq/examples/feeds/L2_simulator'
