@@ -1,10 +1,10 @@
+import { getDefaultConfig } from '../chartiq/_config';
+
 /**
  * Custom chart configuration and import plugins here
  * Multiple configuration sets can be created and exported
  */
 export * from './resources';
-
-import { getDefaultConfig } from '../chartiq/_config';
 
 export default getConfiguration();
 
@@ -36,4 +36,3 @@ export function getNoFooterConfig() {
 	config.footer = null;
 	return config;
 }
-

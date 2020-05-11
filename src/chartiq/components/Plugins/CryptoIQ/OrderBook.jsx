@@ -1,6 +1,5 @@
 import React from 'react';
 
-import ToggleOrderBook from './ToggleOrderBook';
 import { ChartContext } from '../../../context/ChartContext';
 
 export default class OrderBook extends React.Component {

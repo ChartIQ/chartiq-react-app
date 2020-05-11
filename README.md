@@ -1,6 +1,6 @@
 # chartiq-react-app
 
-**Requirements:** ChartIQ SDK v7.3.0
+**Requirements:** ChartIQ SDK v7.5.0
 
 
 ## Contents
@@ -14,6 +14,8 @@
 - [Advanced customization](#advanced-customization)
 - [Configuring add-ons](#configuring-add\-ons)
 - [Configuring plug-ins](#configuring-plug\-ins)
+- [Using components in Create React App](#using-components-in-create-react-app)
+- [Using plug-ins in Create React App](#using-plug\-ins-in-create-react-app)
 - [Notes](#notes)
 - [Questions and support](#questions-and-support)
 - [Contributing to this project](#contributing-to-this-project)
@@ -21,18 +23,18 @@
 
 ## Overview
 
-ChartIQ's React component toolkit enables you to create custom charting applications in the React framework.
+ChartIQ's React component toolkit enables you to create custom charting applications using the React JavaScript library.
 
-The toolkit was created by wrapping ChartIQ's native [web components](https://documentation.chartiq.com/tutorial-Web%20Component%20Interface.html) in React components, enabling them to be used natively within the React framework. The toolkit is located in the [src/chartiq](./src/chartiq) folder.
+The toolkit was created by wrapping ChartIQ's custom [web components](https://documentation.chartiq.com/tutorial-Web%20Component%20Interface.html) in React components, enabling the web components to be used natively in React. The toolkit is located in the [src/chartiq](./src/chartiq) folder.
 
-This README provides an example of leveraging the React toolkit to implement ChartIQ's advanced chart application (*sample-template-advanced.html*), which comes with the ChartIQ SDK.
+This README provides an example of using the React toolkit to create the equivalent of ChartIQ's advanced chart application (*sample-template-advanced.html*), which is included in the ChartIQ SDK (see an [example implementation](https://demo.chartiq.com)).
 
 
 ## Installation and getting started
 
-To use this project, you need to include a copy of the ChartIQ library. We recommend that you install the library from the tarball you received in your license. If you do not have a copy of the library, please contact your ChartIQ account manager before continuing this installation.
+To use this project, you need to install a copy of the ChartIQ library. If you do not have a copy of the library, please contact your ChartIQ account manager.
 
-**Note:** SDK version 7.3.0 (*chartiq-7.3.0.tgz*) or later is required to use the React component toolkit.
+**Note:** SDK version 7.5.0 (*chartiq-7.5.0.tgz*) or later is required to use the React component toolkit.
 
 To install the ChartIQ library, run the following command:
 
@@ -76,18 +78,18 @@ For more about building this project, see [Building the project](#building-the-p
 
 This project illustrates the use of `AdvancedChart`, a highly configurable custom React component. `AdvancedChart` is part of the React component toolkit. See *[src/chartiq/containers/AdvancedChart.jsx](./src/chartiq/containers/AdvancedChart.jsx)* for the definition of the component.
 
-`AdvancedChart` incorporates many of the ChartIQ React components to create ChartIQ's advanced chart application, *sample-template-advanced.html*, which is located in the *examples/templates* folder of the ChartIQ SDK.
+`AdvancedChart` incorporates many of the ChartIQ React components to create the equivalent of ChartIQ's advanced chart application, *sample-template-advanced.html*, which is located in the *examples/templates* folder of the ChartIQ SDK.
 
 The `AdvancedChart` component provides the following optional properties:
 - `config` &mdash; Configuration object with about 200 configuration properties
 - `chartInitialized` &mdash; Callback function providing access to `chartEngine` and context objects once the chart is initialized
 - `pluginsToLoadLazy` &mdash; Object containing a list of plug-in names and corresponding resources to be loaded after the main files have been loaded
 
-A list of default properties is available in *[src/chartiq/_config.js](./src/chartiq/_config.js)*, which can be used as a guide for creating custom configurations and for understanding the inner composition structure of the `AdvancedChart` component.
+A list of default properties is available in *[src/chartiq/_config.js](./src/chartiq/_config.js)*, which can be used as a guide for creating custom configurations and for understanding the inner structure of the `AdvancedChart` component.
 
-We strongly recommend that the pattern outlined in *[main.js](./src/main.js)* and *[src/custom_chartiq_config](./src/custom_chartiq_config)* is followed when customizing configurations. We also recommend that the default format is maintained as much as possible, extending and modifying required areas only. This approach will simplify future release integration.
+We strongly recommend that the pattern outlined in *[main.js](./src/main.js)* and *[src/chartiq_config](./src/chartiq_config)* is followed when customizing configurations. We also recommend that the default format is maintained as much as possible, extending and modifying required areas only. This approach will simplify future release integration.
 
-Displaying editor content side by side with the browser while running `npm start` enables you to quickly assess configuration changes. Editor code completion typically provides information on available configuration options.
+Displaying editor contents side by side with the browser while running `npm start` enables you to quickly assess configuration changes. Editor code completion typically provides information on available configuration options.
 
 ![Configuration edit](./_resources/ChartIQ_ReactApp_config_editing.gif)
 
@@ -105,7 +107,7 @@ src
 │   ├── webcomponent-containers  # Web components that extend the standard ChartIQ library web components
 │   ├── _config.js               # Default configuration
 │   ├── index.js                 # List of plug-in imports and React component exports
-├── custom_chartiq_config        # Custom configuration folder
+├── chartiq_config               # Custom configuration folder
 ├── examples.js                  # Example application
 ├── main.js                      # Main AdvancedChart component application
 ├── .babelrc
@@ -191,7 +193,6 @@ ReactDom.render(<AdvancedChart config={config}), document.querySelector("#app"))
 
 ```
 
-
 The standard configuration uses the quote feed simulator from the ChartIQ SDK as the quote feed for `AdvancedChart`. If you do not provide your own quote feed, `AdvancedChart` uses simulated data from the quote feed simulator.
 
 **Note:** The quote feed simulator is intended for development only.
@@ -208,7 +209,9 @@ The `AdvancedChart` component is designed as a full-featured, drop-in charting c
 
 ## Configuring add-ons
 
-Add-ons available in the ChartIQ SDK are compatible with this project. The `AdvancedChart` component configuration has an `addOns` property that allows add-ons to be individually configured. The `addOns` property is an object where each key corresponds to the add-on from the SDK with the first letter of the add-on name in lowercase. By default, the chart attempts to enable all add-ons listed in the configuration. By setting the library in development mode as follows:
+Add-ons available in the ChartIQ SDK are compatible with this project. The `AdvancedChart` component configuration has an `addOns` property that allows add-ons to be individually configured. The `addOns` property is an object where each key corresponds to the add-on from the SDK with the first letter of the add-on name in lowercase. By default, the chart attempts to enable all add-ons listed in the configuration.
+
+By setting the library in development mode as follows:
 
 ```javascript
 CIQ.debug = true
@@ -220,7 +223,7 @@ you will be able to see the list of enabled plug-ins and configurations in your 
 
 Similar to the way add-ons work, plug-ins can be configured using the configuration passed to the `AdvancedChart` component.
 
-Plug-in imports are managed in the *[src/custom_chartiq_config/resources.js](./src/custom_chartiq_config/resources.js)* file.
+Preconfigured sets of plug-in resources are available in the *src/main.js* file. An alternative is to manage resources and plug-in imports in a single file such as the *[src/chartiq_config/resources.js](./src/chartiq_config/resources.js)* file.
 
 Not all library licenses include the plug-ins listed in *resources.js*. To avoid compilation errors, you need to delete or comment out any of the plug-ins not available to you. Commenting out unused plug-ins also reduces bundle size.
 
@@ -231,6 +234,59 @@ The *resources.js* file includes resources such as:
 
 Additional plug-ins should be imported here as well. Most plug-ins use lazy loading to reduce the initial load time.
 
+
+## Using components in Create React App
+
+To use this project's components with the Create React App build tool:
+
+- Copy the *chartiq* and *chartiq_config* folders from the project *src* folder to the application *src* folder
+- Install the ChartIQ tarball:
+  ```sh
+  npm install chartiq-x.x.x.tgz
+  ```
+- Install jQuery:
+  ```sh
+  npm install jquery
+  ```
+- Copy the contents of the project *[main.js](./src/main.js)* file to the application *src/App.js* file, and then delete the following code block from *App.js*:
+  ```javascript
+  // Comment rendering to DOM if used only as export for example in CRA App.js.
+  const el = document.querySelector('#app');
+  if (el) {
+	  ReactDom.render(<AdvancedChart
+		  config={config}
+		  chartInitialized={chartInitialized}
+		  pluginsToLoadLazy={pluginsToLoadLazy}
+		  />,
+		  el
+	  );
+  }
+  ```
+
+## Using plug-ins in Create React App
+
+Using ChartIQ plug-ins with Create React App requires extension of the tool's webpack capabilities.
+
+Among other options, you can [rewire](https://github.com/timarney/react-app-rewired) your application as follows:
+
+- Install the `react-app-rewired`, `html-loader`, and `node-sass` modules:
+  ```sh
+  npm install -D react-app-rewired html-loader node-sass
+  ```
+- Copy [config-overrides.js](./config-overrides.js) to the root directory of your project
+- Replace the following *package.json* scripts:
+  ```json
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+  ```
+  with:
+  ```json
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
+  ```
+  to enable use of `react-app-rewired`.
 
 ## Notes
 

@@ -1,36 +1,54 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 
-import { CIQ } from 'chartiq/js/chartiq';
-// remove following line for production use
-CIQ.debug = true;
+import
+// { CIQ } from  // Enable to access CIQ namespace
+'./chartiq_config/presets/base';
+import './chartiq_config/presets/examples';
 
-import { AdvancedChart } from './chartiq';
-// chart style sheets
-import './chartiq/styles/base-imports';
+// Include plugins
+// import timespanevent from './chartiq_config/presets/timespanevents';
+// import crypto from './chartiq_config/presets/cryptoiq';
+// import scriptiq from './chartiq_config/presets/scriptiq';
+// import tfc from './chartiq_config/presets/tfc';
 
-// custom css styles following base style sheets
-import './custom_chartiq_config/chart_styles.css';
+import { AdvancedChart, getDefaultConfig } from './chartiq';
 
-// import custom configuration selector function
-import { getConfiguration, pluginsToLoadLazy } from './custom_chartiq_config';
+// CIQ.debug = true; // Enables debugging
 
-const config = getConfiguration();
+const pluginsToLoadLazy = {
+	// timespanevent,
+	// crypto,
+	// scriptiq,
+	// tfc
+}
 
+const config = getDefaultConfig();
 
-/**
- * Optional callback function to access chart engine and uiContext
- */
+// Update chart configuration by modifying default configuration
+config.chartConfig.preferences.currentPriceLine = true;
+config.addOns.tooltip = null;
+
+// Optional callback function to access chart engine and uiContext
 const chartInitialized = ({ chartEngine, uiContext }) => {
-	// access to chart engine and uiContext
-	// console.log(chartEngine, uiContext);
+	// chartEngine provides access to chart engine CIQ.ChartEngine
+	// uiContext provides access to UI component interaction CIQ.UI.Context
 };
 
-
-ReactDom.render(<AdvancedChart
-			config={config}
-			chartInitialized={chartInitialized}
-			pluginsToLoadLazy={pluginsToLoadLazy}
+// comment rendering to DOM if used only as export for example in CRA App.js
+const el = document.querySelector('#app');
+if (el) {
+	ReactDom.render(<AdvancedChart
+		config={config}
+		chartInitialized={chartInitialized}
+		pluginsToLoadLazy={pluginsToLoadLazy}
 		/>,
-	document.querySelector('#app')
-);
+		el
+	);
+}
+
+export default (props) => (<AdvancedChart
+	config={config}
+	chartInitialized={chartInitialized}
+	pluginsToLoadLazy={pluginsToLoadLazy}
+	/>);

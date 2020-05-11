@@ -34,7 +34,7 @@ export default class PaletteDrawing extends React.Component {
 			if (!isNaN(parseInt(value, 10))) {
 				magnetToggle.classList.add('active');
 				magnetToggle.classList.remove('strong');
-			} else if (!value || value == 'false') {
+			} else if (!value || value === 'false') {
 				magnetToggle.classList.remove('active');
 				magnetToggle.classList.remove('strong');
 			} else {

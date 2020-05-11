@@ -31,12 +31,9 @@ export default class ChartControlGroup extends PureComponent {
 		const controlComponents = (chartControlGroup || []).map(control => mapping[control]);
 
 		return (
-			<>
-				{ controlComponents.length && 
-					<cq-chartcontrol-group class="full-screen-show">{controlComponents}</cq-chartcontrol-group>
-					|| null }
-			</>
-			)
+			controlComponents.length && 
+			<cq-chartcontrol-group class="full-screen-show">{controlComponents}</cq-chartcontrol-group>
+		) || null;
 	}
 }
 

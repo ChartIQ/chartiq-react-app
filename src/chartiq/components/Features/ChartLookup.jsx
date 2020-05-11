@@ -1,5 +1,5 @@
 import React from 'react';
-import { CIQ } from 'chartiq';
+import { CIQ } from 'chartiq/js/chartiq';
 import 'chartiq/examples/feeds/symbolLookupChartIQ'; // adds CIQ.ChartEngine.Driver.Lookup.ChartIQ constructor
 import { ChartContext } from '../../context/ChartContext';
 
