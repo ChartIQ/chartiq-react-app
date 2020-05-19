@@ -70,8 +70,7 @@ export default class ChartLookup extends React.Component {
 		} = this.context;
 
 		return (
-			<React.Fragment>
-				<cq-menu class="ciq-search">
+			<cq-menu class="ciq-search">
 					<cq-lookup
 						cq-keystroke-claim
 						cq-keystroke-default
@@ -96,7 +95,6 @@ export default class ChartLookup extends React.Component {
 						</cq-lookup-results>
 					</cq-lookup>
 				</cq-menu>
-			</React.Fragment>
 		);
 	}
 }

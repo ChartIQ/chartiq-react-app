@@ -32,7 +32,7 @@ export default class ChartControlGroup extends PureComponent {
 
 		return (
 			controlComponents.length && 
-			<cq-chartcontrol-group class="full-screen-show">{controlComponents}</cq-chartcontrol-group>
+			<cq-chartcontrol-group cq-marker class="full-screen-show">{controlComponents}</cq-chartcontrol-group>
 		) || null;
 	}
 }
