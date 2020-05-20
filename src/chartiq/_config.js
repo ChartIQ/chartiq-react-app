@@ -7,11 +7,12 @@
  */
 
 import { CIQ } from 'chartiq/js/chartiq';
-import { quoteFeedSimulator as quoteFeed } from 'chartiq/examples/feeds/quoteFeedSimulator';
+import quoteFeed from 'chartiq/examples/feeds/quoteFeedSimulator';
 
 export default getDefaultConfig();
 
 export function getDefaultConfig() {
+
 	return {
 		// quote refresh interval
 		quoteFeed,          // comment out or set to null to disable (quoteFeed: null)
