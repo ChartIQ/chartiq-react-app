@@ -5,12 +5,14 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --config=webpack.config.js --env.production --env.build=advanced",
+    "build:chartiq": "sh build-scripts/build-chartiq.sh",
+    "build:test": "sh build-scripts/build-test.sh",
     "start": "npm run watch -- --host=127.0.0.1 --disable-host-check=true",
-    "test": "wdio",
-    "test:debug": "DEBUG=true wdio",
-    "test:debug:spec": "DEBUG=true wdio --spec",
-    "test:spec": "wdio --spec",
-    "test:watch": "wdio --watch",
+    "test": "npm run build:test && wdio",
+    "test:debug": "DEBUG=true npm run build:test && wdio",
+    "test:debug:spec": "npm run build:test && DEBUG=true wdio --spec",
+    "test:spec": "npm run build:test && wdio --spec",
+    "test:watch": "npm run build:test && wdio --watch",
     "watch": "webpack-dev-server --inline --config=webpack.config.js --watch=true",
     "watch:unified": "webpack-dev-server --inline --config=webpack.config.js --watch=true --env.build=unified"
   },
@@ -29,7 +31,6 @@
     "@babel/core": "^7.1.2",
     "@babel/plugin-syntax-dynamic-import": "^7.7.4",
     "@babel/preset-react": "^7.0.0",
-    "@chartiq/ui-tests": "file:chartiq-ui-tests-1.0.0.tgz",
     "babel-loader": "^8.0.4",
     "copy-webpack-plugin": "^5.0.5",
     "css-loader": "^3.0.0",
@@ -49,6 +50,8 @@
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
     "@babel/preset-env": "^7.4.4",
+    "@chartiq/ui-tests": "file:chartiq-ui-tests-1.0.0.tgz",
+    "chartiq": "file:chartiq-7.5.0.tgz",
     "lit-html": "^1.1.2",
     "react": "^16.7.0",
     "react-dom": "^16.7.0"
