@@ -38,7 +38,7 @@ export default class ChartLookup extends React.Component {
 			data.symbol = data.symbol.toUpperCase(); // set a pretty display version
 
 			var self = this;
-			stx.newChart(data, null, null, function(err) {
+			stx.loadChart(data, null, null, function(err) {
 				if (self.loader) self.loader.hide();
 			});
 		};
