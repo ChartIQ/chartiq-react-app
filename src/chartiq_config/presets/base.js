@@ -9,10 +9,10 @@ import 'chartiq/js/components';
 import PerfectScrollbar from "chartiq/js/thirdparty/perfect-scrollbar.esm.js";
 
 CIQ.UI.scrollbarStyling = {
-	enabled: true,
-	init: (component) => new PerfectScrollbar(component, {suppressScrollX:true}),
-	update: (component) => component.scrollRenderer.update()
+	refresh(component) {
+		if (!component.__ps) component.__ps = new PerfectScrollbar(component, {suppressScrollX:true});
+		component.__ps.update(component);
+	}
 }
-
 
 export { CIQ };
