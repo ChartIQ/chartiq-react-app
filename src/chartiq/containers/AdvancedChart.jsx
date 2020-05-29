@@ -1,8 +1,5 @@
 import React from 'react';
-import { CIQ } from 'chartiq';
-
-// shortcut to chartiq provided property observer
-const { observeProperty } = CIQ.UI;
+import { CIQ } from 'chartiq/js/chartiq';
 
 import {
 	ChartNav,
@@ -20,6 +17,9 @@ import MarketDepthBookmark from '../components/Plugins/CryptoIQ/MarketDepthBookm
 
 import { ChartContext } from '../context/ChartContext';
 import { getDefaultConfig } from '../_config';
+
+// shortcut to chartiq provided property observer
+const { observeProperty } = CIQ.UI;
 
 /**
  * This is a fully functional example showing how to load a chart with complete user interface.
@@ -124,8 +124,12 @@ export default class AdvancedChart extends React.Component {
 	 * @param {CIQ.ChartEngine} stx
 	 */
 	configureLoadedPlugins() {
-		const { plugins, marketDepth } = this.props.config;
-		const { stx, UIContext, pluginsInstalled = {} } = this.state;
+		const { 
+			stx,
+			UIContext,
+			pluginsInstalled = {},
+			config: { plugins, marketDepth }
+		} = this.state;
 		if (!plugins) return;
 
 		// this function is invoked every time a plugin resource is loaded so check if plugin is already installed
@@ -188,7 +192,7 @@ export default class AdvancedChart extends React.Component {
 		const {
 			breakpoints: size,
 			breakpointSymbolPlaceholders: symbolPlaceholders
-		} = this.props.config;
+		} = this.state.config;
 
 		const labels = ['sm', 'md', 'lg']; // ui container class suffixes for various break points
 		const breakpointSize =
@@ -222,9 +226,11 @@ export default class AdvancedChart extends React.Component {
 		}
 
 		const {
-			SidePanel,
 			PaletteDock,
-			uiLayout: { breakpointSize }
+			uiLayout: { 
+				breakpointSize,
+				sidepanelWidth: chartAreaRight = 0
+			}
 		} = UIContext;
 
 		// sidenav is set only for small screen size
@@ -235,8 +241,6 @@ export default class AdvancedChart extends React.Component {
 
 		// adjust for side nav and side panel (tfc)
 		const chartAreaLeft = stx.layout.sidenav === 'sidenavOn' ? 40 : 0;
-		const chartAreaRight = (SidePanel && SidePanel.nonAnimatedWidth()) || 0;
-
 		this.setState(
 			state => ({
 				breakpointSize,
@@ -264,16 +268,15 @@ export default class AdvancedChart extends React.Component {
 				quoteFeedBehavior,
 				marketFactory,
 				headsUpDisplayTypes,
-				plugins = {}
-			}
-		} = this.props;
-		const {
+				plugins = {},
+			},
 			stx,
 			UIContext,
 			breakpointSize,
 			chartAreaLeft,
-			chartAreaRight
+			chartAreaRight,
 		} = this.state;
+
 		const breakpointClass = `cq-chart-container break-${breakpointSize}`;
 
 		return (

@@ -7,11 +7,12 @@
  */
 
 import { CIQ } from 'chartiq/js/chartiq';
-import { quoteFeedSimulator as quoteFeed } from 'chartiq/examples/feeds/quoteFeedSimulator';
+import quoteFeed from 'chartiq/examples/feeds/quoteFeedSimulator';
 
 export default getDefaultConfig();
 
 export function getDefaultConfig() {
+
 	return {
 		// quote refresh interval
 		quoteFeed,          // comment out or set to null to disable (quoteFeed: null)
@@ -70,8 +71,8 @@ export function getDefaultConfig() {
 			{ label: 'Line', action: "Layout.ChartType('line')", type: 'radio' },
 			{ label: 'Hollow Candle', action: "Layout.ChartType('hollow_candle')", type: 'radio' },
 			{ label: 'Mountain', action: "Layout.ChartType('mountain')", type: 'radio' },
-			{ label: 'Baseline', action: "Layout.ChartType('baseline_delta')", label: 'Baseline', type: 'radio' },
-			{ label: 'Volume Candle', action: "Layout.ChartType('volume_candle')", label: 'Volume Candle', type: 'radio' },
+			{ label: 'Baseline', action: "Layout.ChartType('baseline_delta')", type: 'radio' },
+			{ label: 'Volume Candle', action: "Layout.ChartType('volume_candle')", type: 'radio' },
 			{ type: 'separator'},
 			{ label: 'Heikin Ashi', action: "Layout.ChartType('heikinashi')", type: 'radio' },
 			{ label: 'Kagi', option: "Layout.showAggregationEdit('kagi')", action: "Layout.ChartType('kagi')", type: 'radio' },

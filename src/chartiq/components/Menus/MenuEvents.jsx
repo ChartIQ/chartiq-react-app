@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { CIQ, MarkersSample } from 'chartiq/examples/markers/markersSample';
+import { CIQ } from 'chartiq/js/chartiq';
+import markers from 'chartiq/examples/markers/markersSample';
 import { ChartContext } from '../../context/ChartContext';
 
 /**
@@ -26,7 +27,7 @@ export default class MenuEvents extends React.Component {
 
 	componentDidMount() {
 		const { UIContext, stx } = this.context;
-		this.markerImplementation = new MarkersSample(stx);
+		this.markerImplementation = new markers.MarkersSample(stx);
 
 		// set up helper for forwarding marker handling events
 		const self = this;

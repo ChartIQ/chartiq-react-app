@@ -14,7 +14,7 @@ export default class DialogAggregation extends React.Component {
 		return(
 <cq-dialog>
 	<cq-aggregation-dialog>
-		<h4 className="title"></h4>
+		<h4 className="title">_</h4>
 		<div stxtap="hide()" className="ciq-icon ciq-close"></div>
 		<div style={{textAlign:"center", marginTop:"10px"}}>
 			<div className="ciqkagi">

@@ -55,10 +55,6 @@ export default class MenuSettings extends React.Component {
 				return (<cq-separator key={index}></cq-separator>);
 			}
 			if (type === 'checkbox') {
-				const style = { 
-					opacity: 1,
-					display: ''
-				}
 				if (required && !(pluginsInstalled[required] || CIQ[required])) {
 					return null;
 				}
