@@ -19,11 +19,6 @@ module.exports = {
 		// files that match the given "test" regex
 		// https://webpack.js.org/concepts/loaders/
 		rules: [
-			/* HTML bundling rule, used mainly for plugins UI */
-			{
-				test: /\.html/,
-				use: [{ loader: 'html-loader' }]
-			},
 			/* CSS bundling rule, using SASS */
 			{
 				test: /\.(s)?css$/,
