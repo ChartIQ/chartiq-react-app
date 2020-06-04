@@ -4,6 +4,8 @@ import ReactDom from 'react-dom';
 import
 // { CIQ } from  // Enable to access CIQ namespace
 './chartiq_config/presets/base';
+import 'chartiq/js/advanced';
+
 import './chartiq_config/presets/examples';
 
 // Include plugins
