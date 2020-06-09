@@ -54,10 +54,6 @@ export default class WrappedChart extends React.Component {
 		// provides chart engine reference to React context
 		this.context.setChartEngine(stx);
 
-		// ciq webcomponents require reference to stxx and CIQ in chart container node
-		container.stxx = stx;
-		container.CIQ = CIQ;
-
 		// ciq webcomponent initialization chart and connecting to quote feed
 		// attaches chart engine stx to UIContext
 		container.startChartUI({
