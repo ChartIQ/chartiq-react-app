@@ -15,7 +15,6 @@
 - [Configuring add-ons](#configuring-add\-ons)
 - [Configuring plug-ins](#configuring-plug\-ins)
 - [Using components in Create React App](#using-components-in-create-react-app)
-- [Using plug-ins in Create React App](#using-plug\-ins-in-create-react-app)
 - [Notes](#notes)
 - [Questions and support](#questions-and-support)
 - [Contributing to this project](#contributing-to-this-project)
@@ -244,8 +243,9 @@ To use this project's components with the Create React App build tool:
   ```sh
   npm install chartiq-x.x.x.tgz
   ```
-- Install jQuery:
+- Install node-sass and jQuery:
   ```sh
+  npm install node-sass -D
   npm install jquery
   ```
 - Copy the contents of the project *[main.js](./src/main.js)* file to the application *src/App.js* file, and then delete the following code block from *App.js*:
@@ -262,31 +262,6 @@ To use this project's components with the Create React App build tool:
 	  );
   }
   ```
-
-## Using plug-ins in Create React App
-
-Using ChartIQ plug-ins with Create React App requires extension of the tool's webpack capabilities.
-
-Among other options, you can [rewire](https://github.com/timarney/react-app-rewired) your application as follows:
-
-- Install the `react-app-rewired`, `html-loader`, and `node-sass` modules:
-  ```sh
-  npm install -D react-app-rewired html-loader node-sass
-  ```
-- Copy [config-overrides.js](./config-overrides.js) to the root directory of your project
-- Replace the following *package.json* scripts:
-  ```json
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-  ```
-  with:
-  ```json
-    "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
-    "test": "react-app-rewired test",
-  ```
-  to enable use of `react-app-rewired`.
 
 ## Notes
 
