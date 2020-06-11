@@ -47,7 +47,7 @@ export function getDefaultConfig() {
 		defaultSymbol: 'AAPL',
 		symbolLookupTabs: ['ALL', 'STOCKS', 'FX', 'INDEXES', 'FUNDS', 'FEATURES'],
 		headsUpDisplayTypes: ['dynamic', 'static'],
-		menus: ['menuPeriodicity', 'menuViews', 'menuDisplay', 'menuStudies', 'menuEvents'],
+		menus: ['menuPeriodicity', 'menuViews', 'menuDisplay', 'menuStudies', 'menuEvents', 'menuPreferences'],
 		menuPeriodicity: [
 			{ label: '1 D', periodicity: 1, interval: 1, timeUnit: 'day' },
 			{ label: '1 W', periodicity: 1, interval: 1, timeUnit: 'week' },
@@ -80,24 +80,6 @@ export function getDefaultConfig() {
 			{ label: 'Renko', action: "Layout.ChartType('renko')", option: "Layout.showAggregationEdit('renko')", type: 'radio' },
 			{ label: 'Range Bars', action: "Layout.ChartType('rangebars')", option: "Layout.showAggregationEdit('rangebars')", type: 'radio' },
 			{ label: 'Point & Figure', action: "Layout.ChartType('pandf')", option: "Layout.showAggregationEdit('pandf')", type: 'radio' },
-			{ type: 'separator'},
-			{ label: 'Chart Preferences', type: 'heading'},
-			{ label: 'Log Scale', action: "Layout.ChartScale('log')", type: 'checkbox' },
-			{ label: 'Invert Y-Axis', action: "Layout.FlippedChart()", type: 'checkbox' },
-			{ label: 'Extended Hours', action: "Layout.ExtendedHours()", type: 'checkbox', required: 'ExtendedHours' },
-			{ label: 'Range Selector', action: "Layout.RangeSlider()", type: 'checkbox', required: 'RangeSlider' },
-			{ label: 'Hide Outliers', action: "Layout.Outliers()", type: 'checkbox', required: 'Outliers'  },
-			// Layout.MarketDepth() binds and sets chart engine layout marketDepth propery that can be observed to initiat L2 data streaming
-			{ label: 'Market Depth', action: "Layout.MarketDepth()", type: 'checkbox', required: 'cryptoiq' }, // absence of required resource will hide menu item until available
-			// Layout.L2Heatmap() binds and sets chart engine layout l2heatmap propery that can be observed to initiat L2 data streaming
-			{ label: 'L2 Heat Map', action: "Layout.L2Heatmap()", type: 'checkbox', required: 'cryptoiq' },
-			{ type: 'separator'},
-			{ label: 'Locale', type: 'heading'},
-			{ label: 'Change Timezone', type: 'timezone'},
-			{ label: 'Change Language', type: 'languages'},
-			{ type: 'separator'},
-			{ label: 'Themes', type: 'heading'},
-			{ label: 'New Theme', type: 'themes'}
 		],
 		menuStudies: {
 			includeOnly: [],   // add names to have as only included
@@ -112,6 +94,27 @@ export function getDefaultConfig() {
 			{ label: 'Abstract', markertype: 'abstract' },
 			{ type: 'separator'},
 			{ label: 'None', markertype: 'none' }
+		],
+		menuPreferences: [
+			{ label: 'Chart Preferences', type: 'heading'},
+			{ label: 'Range Selector', action: "Layout.RangeSlider()", type: 'checkbox', required: 'RangeSlider' },
+			{ label: 'Market Depth', action: "Layout.MarketDepth()", type: 'checkbox', required: 'cryptoiq' }, // absence of required resource will hide menu item until available
+			{ label: 'Extended Hours', action: "Layout.ExtendedHours()", type: 'checkbox', required: 'ExtendedHours' },
+			{ label: 'Hide Outliers', action: "Layout.Outliers()", type: 'checkbox', required: 'Outliers'  },
+			{ label: 'L2 Heat Map', action: "Layout.L2Heatmap()", type: 'checkbox', required: 'cryptoiq' },
+			{ type: 'separator'},
+			{ label: 'Y-Axis Preferences', type: 'heading'},
+			{ label: 'Log Scale', action: "Layout.ChartScale('log')", type: 'checkbox' },
+			{ label: 'Invert', action: "Layout.FlippedChart()", type: 'checkbox' },
+			// Layout.MarketDepth() binds and sets chart engine layout marketDepth propery that can be observed to initiat L2 data streaming
+			// Layout.L2Heatmap() binds and sets chart engine layout l2heatmap propery that can be observed to initiat L2 data streaming
+			{ type: 'separator'},
+			{ label: 'Locale', type: 'heading'},
+			{ label: 'Change Timezone', type: 'timezone'},
+			{ label: 'Change Language', type: 'languages'},
+			{ type: 'separator'},
+			{ label: 'Themes', type: 'heading'},
+			{ label: 'New Theme', type: 'themes'}
 		],
 		footerShare: true,
 		footerRange: [
