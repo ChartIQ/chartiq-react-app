@@ -9,8 +9,6 @@
 import { CIQ } from 'chartiq/js/chartiq';
 import quoteFeed from 'chartiq/examples/feeds/quoteFeedSimulator';
 
-export default getDefaultConfig();
-
 export function getDefaultConfig() {
 
 	return {
