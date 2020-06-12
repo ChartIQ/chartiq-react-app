@@ -19,8 +19,6 @@ const webpackConfig = require('./webpack.config.js')
 
 const devServer = require('webpack-dev-server/lib/Server')
 
-require('chai').assert
-
 // const compiler = webpack(webpackConfig, (err, stats)=>{
 //     if (err || stats.hasErrors()){
 //         console.error('Webpack could not build correctly, tests will not run')
@@ -178,7 +176,7 @@ exports.config = {
     // See the full list at http://mochajs.org/
     mochaOpts: {
         ui: 'bdd',
-        timeout: 86400000
+        timeout: debug ? 86400000 :60000
     },
     //
     // =====

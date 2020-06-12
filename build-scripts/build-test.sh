@@ -7,8 +7,8 @@ npm run prepare && npm pack && \
 
 echo "Copy tarball files from stx" && \
 cd ../../chartiq-react-app-private && \
-cp ../stx/spec/chartiq-ui-tests-1.0.0.tgz ./ && \
+cp ../stx/spec/chartiq-ui-tests-*.*.*.tgz ./ && \
 
 echo "Install tests" && \
 npm uninstall selenium-standalone @chartiq/ui-tests && \
-npm i chartiq-ui-tests-1.0.0.tgz
+npm i chartiq-ui-tests-*.*.*.tgz
