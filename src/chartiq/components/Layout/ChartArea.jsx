@@ -28,11 +28,9 @@ export default class ChartArea extends React.Component {
 		}
 		
 		return (
-			<React.Fragment>
-				<div className="ciq-chart-area" ref={this.chartAreaRef} style={style}>
-					{this.props.children}
-				</div>
-			</React.Fragment>
+			<div className="ciq-chart-area" ref={this.chartAreaRef} style={style}>
+				{this.props.children}
+			</div>
 		);
 	}
 }
