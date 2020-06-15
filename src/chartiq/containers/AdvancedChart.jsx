@@ -49,6 +49,7 @@ export default class AdvancedChart extends React.Component {
 				this.setState({ components: { ...this.components, component } }),
 			resize: () => this.resizeScreen(),
 			setChartEngine: stx => {
+				stx.uiContext = this.state.UIContext;
 				this.setState(() => ({ stx }), this.afterChartIntitalized);
 			},
 			updateChartSize: this.updateChartSize

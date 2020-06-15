@@ -20,9 +20,7 @@ export default class ChartToggles extends React.Component {
 		super();
 		this.state = {
 			sidenavActive: '',
-			sidenavAvailable: false
 		};
-		this.toggleSidenav = React.createRef();
 	}
 
 	componentDidMount() {
@@ -31,8 +29,6 @@ export default class ChartToggles extends React.Component {
 		this.updateSidenav = this.updateSidenav.bind(this);
 		CIQ.UI.observeProperty('sidenav', layout, this.updateSidenav);
 
-		// toggle button requires registering callback or it will manage active class for nonempty value
-		this.toggleSidenav.current.registerCallback(() => {});
 	}
 
 	componentWillUnmount() {
@@ -77,21 +73,7 @@ export default class ChartToggles extends React.Component {
 		`;
 
 		return (
-			<>
-				<div className="sidenav-toggle ciq-toggles">
-					<cq-toggle
-						class={sidenavBtnClass}
-						cq-member="sidenav"
-						cq-toggles="sidenavOn,sidenavOff"
-						ref={this.toggleSidenav}
-					>
-						<span></span>
-						<cq-tooltip>More</cq-tooltip>
-					</cq-toggle>
-				</div>
-
-				<div className={sidenavClass}>{this.getToggleButtons()}</div>
-			</>
+			<div className={sidenavClass}>{this.getToggleButtons()}</div>
 		);
 	}
 }
