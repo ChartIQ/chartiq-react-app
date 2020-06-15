@@ -174,10 +174,10 @@ exports.config = {
     //
     // Options to be passed to Mocha.
     // See the full list at http://mochajs.org/
-    mochaOpts: {
-        ui: 'bdd',
-        timeout: debug ? 86400000 :60000
-    },
+    //mochaOpts: {
+    //    ui: 'bdd',
+    //    timeout: debug ? 86400000 :60000
+    //},
     //
     // =====
     // Hooks
