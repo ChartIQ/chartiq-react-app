@@ -11,8 +11,7 @@ import React from 'react'
 export default class ChartTitle extends React.PureComponent {
 	render () {
 		return (
-			<>
-			<cq-chart-title>
+			<cq-chart-title cq-marker>
 				<cq-symbol></cq-symbol>
 				<cq-chart-price>
 					<cq-current-price cq-animate></cq-current-price>
@@ -23,7 +22,6 @@ export default class ChartTitle extends React.PureComponent {
 					</cq-change>
 				</cq-chart-price>
 			</cq-chart-title>
-			</>
-			)
+		)
 	}
 }

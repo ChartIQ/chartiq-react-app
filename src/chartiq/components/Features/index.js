@@ -1,5 +1,7 @@
 export { default as ChartComparison } from './ChartComparison';
 export { default as ChartLookup } from './ChartLookup';
+export { default as ChartLegend } from './ChartLegend';
+export { default as ChartControlGroup } from './ChartControlGroup';
 export { default as ColorPicker } from './ColorPicker';
 export { default as ColorSwatch } from './ColorSwatch';
 export { default as ContextMenuDrawing } from './ContextMenuDrawing';

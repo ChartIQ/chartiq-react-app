@@ -6,6 +6,7 @@ import MenuViews from './MenuViews';
 import MenuSettings from './MenuSettings';
 import MenuStudies from './MenuStudies';
 import MenuEvents from './MenuEvents';
+import MenuPreferences from './MenuPreferences';
 
 /**
  * Chart menu component `<ChartMenus>`
@@ -22,16 +23,17 @@ import MenuEvents from './MenuEvents';
 export default class ChartMenus extends PureComponent {
 	render() {
 		const { 
-			config: { menus, menuPeriodicity, menuViews, menuDisplay, menuStudies, menuEvents, plugins },
+			config: { menus, menuPeriodicity, menuViews, menuDisplay, menuStudies, menuEvents, menuPreferences, plugins },
 			pluginsInstalled 
 		} = this.context;
 
 		const mapping = {
-			menuPeriodicity: 	<MenuPeriodicity items={menuPeriodicity} key={1} />,
-			menuViews: 				<MenuViews items={menuViews} key={2}/>,
-			menuDisplay: 			<MenuSettings items={menuDisplay} pluginsInstalled={pluginsInstalled} key={3} />,
-			menuStudies: 			<MenuStudies plugins={plugins} filter={menuStudies} key={4} />,
-			menuEvents: 				<MenuEvents items={menuEvents} key={5} />
+			menuPeriodicity: <MenuPeriodicity items={menuPeriodicity} key={1} />,
+			menuViews:       <MenuViews items={menuViews} key={2}/>,
+			menuDisplay:     <MenuSettings items={menuDisplay} pluginsInstalled={pluginsInstalled} key={3} />,
+			menuStudies:     <MenuStudies plugins={plugins} filter={menuStudies} key={4} />,
+			menuEvents:      <MenuEvents items={menuEvents} key={5} />,
+			menuPreferences: <MenuPreferences items={menuPreferences} pluginsInstalled={pluginsInstalled} key={6} />,
 		}
 
 		const menuComponents = (menus || []).map(menu => mapping[menu]);
