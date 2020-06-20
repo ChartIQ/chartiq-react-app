@@ -34,9 +34,9 @@ export default class ToggleDrawing extends React.Component {
 				// enable previous drawing tool
 				if (priorVectorType) stx.changeVectorType(priorVectorType);
 			} else {
-				stx.changeVectorType('');
+				if (stx.currentVectorParameters.vectorType) priorVectorType = stx.currentVectorParameters.vectorType;
 				// delay setting prior vector type to prevent multiple toggles writing different values
-				setTimeout(() => priorVectorType = stx.currentVectorParameters.vectorType)
+				setTimeout(() => stx.changeVectorType(''));
 			}
 			if (UIContext && UIContext.PaletteDock) UIContext.PaletteDock.setChartDimensions();
 			stx.resizeChart();

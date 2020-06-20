@@ -1,14 +1,11 @@
 import React from 'react';
-import { ChartContext } from '../../context/ChartContext';
-
 import { CIQ } from 'chartiq/js/chartiq';
 
 export default class SidenavToggle extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-			sidenavActive: '',
-			sidenavAvailable: false
+			sidenavActive: ''
 		};
 		this.toggleSidenav = React.createRef();
 	}
@@ -34,14 +31,7 @@ export default class SidenavToggle extends React.Component {
 
 	render() {
 		const { sidenavActive } = this.state;
-		const { sidenavAvailable } = this.context;
-
 		const sidenavBtnClass = `ciq-sidenav ${sidenavActive}`;
-		const sidenavClass = `
-			icon-toggles
-			${sidenavAvailable ? 'sidenav' : 'ciq-toggles'}
-			${sidenavActive}
-		`;
 
 		return (
 			<div className="sidenav-toggle ciq-toggles">
@@ -58,5 +48,3 @@ export default class SidenavToggle extends React.Component {
 		);
 	}
 }
-
-SidenavToggle.contextType = ChartContext;
