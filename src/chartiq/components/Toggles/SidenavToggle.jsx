@@ -1,6 +1,8 @@
 import React from 'react';
 import { CIQ } from 'chartiq/js/chartiq';
 
+import { ChartContext } from '../../context/ChartContext';
+
 export default class SidenavToggle extends React.Component {
 	constructor() {
 		super();
@@ -48,3 +50,5 @@ export default class SidenavToggle extends React.Component {
 		);
 	}
 }
+
+SidenavToggle.contextType = ChartContext;
