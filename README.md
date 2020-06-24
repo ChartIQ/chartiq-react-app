@@ -2,6 +2,7 @@
 
 **Requirements:** ChartIQ SDK v8.0.0
 
+**Note:** As of version 8.0.0 of the charting library, this project no longer supports Internet Explorer 11. Please contact support@chartiq.com for instructions on using version 7.5.0 of the charting library to enable support for IE 11 on this project.
 
 ## Contents
 - [Overview](#overview)
@@ -171,6 +172,7 @@ To add the `AdvancedChart` component to your React application,
    );
    ```
 
+**Note:** By default, the `AdvancedChart` component takes up 100% of the width and height of the parent element. If the parent element (such as a table cell) does not have a defined height, the chart has the minimum possible height, making the chart appear squashed.
 
 ## Accessing the chart engine
 
