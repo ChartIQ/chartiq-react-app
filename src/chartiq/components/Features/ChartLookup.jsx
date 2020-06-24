@@ -54,7 +54,7 @@ export default class ChartLookup extends React.Component {
 		}
 
 		this.tabItems = symbolLookupTabs.map((name, index) => {
-			return index ? (
+			return !index ? (
 				<cq-filter class="true" key={name}>
 					{name}
 				</cq-filter>

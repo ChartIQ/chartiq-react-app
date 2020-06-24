@@ -3,7 +3,7 @@ import React from 'react';
 import { CIQ } from 'chartiq/js/chartiq';
 import ChartLookup from '../Features/ChartLookup';
 import ChartMenus from '../Menus/ChartMenus';
-import { ChartToggles, TradeToggles } from '../Toggles';
+import { SidenavToggle, ChartToggles, TradeToggles } from '../Toggles';
 import { ChartContext } from '../../context/ChartContext';
 
 /**
@@ -26,8 +26,9 @@ export default class ChartNav extends React.Component {
 		} = this.props.config;
 		const nav = (
 			<div className="ciq-nav full-screen-hide">
-				{toggles && toggles.length && <ChartToggles toggles={toggles} />}
+				<SidenavToggle />
 				{symbolLookup && <ChartLookup /> }
+				{toggles && toggles.length && <ChartToggles toggles={toggles} />}
 				<div className="ciq-menu-section">
 					<ChartMenus plugins={plugins} />
 					{plugins.tfc && CIQ.TFC && (
