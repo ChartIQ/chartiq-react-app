@@ -13,6 +13,9 @@ chartiq-*.*.*.tgz
 # Ignore built files
 dist
 
+# Ignore error screenshots
+tests/errorShots
+
 #Ignore any workspace files
 *.project
 *.code-workspace
