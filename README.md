@@ -2,20 +2,23 @@
 
 **Requirements:** ChartIQ SDK v8.0.0
 
-**Note:** As of version 8.0.0 of the charting library, this project no longer supports Internet Explorer 11. Please contact support@chartiq.com for instructions on using version 7.5.0 of the charting library to enable support for IE 11 on this project.
+**Note:** As of version 8.0.0 of the charting library, this project no longer supports Internet Explorer 11. Please contact [support@chartiq.com](mailto:support@chartiq.com) for information on using version 7.5.0 of the charting library to enable IE 11 support.
 
 ## Contents
+
 - [Overview](#overview)
 - [Installation and getting started](#installation-and-getting-started)
 - [Component customization and configuration](#component-customization-and-configuration)
 - [Project structure](#project-structure)
 - [Building the project](#building-the-project)
+- [Adding a chart to an application](#adding-a-chart-to-an-application)
 - [Accessing the chart engine](#accessing-the-chart-engine)
 - [Integrating a quote feed](#integrating-a-quote-feed)
 - [Advanced customization](#advanced-customization)
 - [Configuring add-ons](#configuring-add\-ons)
 - [Configuring plug-ins](#configuring-plug\-ins)
 - [Using components in Create React App](#using-components-in-create-react-app)
+- [Customizing ChartIQ web components](#customizing-chartiq-web-components)
 - [Notes](#notes)
 - [Questions and support](#questions-and-support)
 - [Contributing to this project](#contributing-to-this-project)
@@ -172,7 +175,7 @@ To add the `AdvancedChart` component to your React application,
    );
    ```
 
-**Note:** By default, the `AdvancedChart` component takes up 100% of the width and height of the parent element. If the parent element (such as a table cell) does not have a defined height, the chart has the minimum possible height, making the chart appear squashed.
+**Note:** By default, the `AdvancedChart` component takes up 100% of the width and height of its parent element. If the parent element (such as a table cell) does not have defined height or width, the chart height or width (respectively) is set to the minimum possible value, which can distort the appearance of the chart.
 
 ## Accessing the chart engine
 
@@ -289,6 +292,37 @@ To use this project's components with the Create React App build tool:
 	  );
   }
   ```
+
+## Customizing ChartIQ web components
+
+ChartIQ web components can be customized by extending the web component classes. Customization code should run at the time the chart and user interface are created. We recommend keeping all customization code in a single file or folder to simplify library version upgrades.
+
+Here's an example of customizing the `cq-chart-title` component:
+
+```ts
+// Access the web component classes.
+import { CIQ } from 'chartiq/js/componentUI';
+
+// Access the class definition of the web component.
+const ChartTitle = CIQ.UI.components('cq-chart-title')[0].classDefinition;
+
+// Extend the web component class.
+class CustomChartTitle extends ChartTitle {
+    update() {
+        // Execute the original method.
+        super.update();
+        // Update the chart title.
+        const { symbol, symbolDisplay } = this.context.stx.chart;
+        // If symbolDisplay is available, use it in the document title.
+        if (symbolDisplay) {
+            document.title = document.title.replace(symbol, symbolDisplay);
+        }
+    }
+}
+
+// Update the web component definition.
+CIQ.UI.addComponentDefinition('cq-chart-title', CustomChartTitle);
+```
 
 ## Notes
 
