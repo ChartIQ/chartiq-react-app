@@ -12,7 +12,7 @@ import './chartiq_config/presets/examples';
 // import timespanevent from './chartiq_config/presets/timespanevents';
 // import crypto from './chartiq_config/presets/cryptoiq';
 // import scriptiq from './chartiq_config/presets/scriptiq';
-// import tfc from './chartiq_config/presets/tfc';
+import tfc from './chartiq_config/presets/tfc';
 
 import { AdvancedChart, getDefaultConfig } from './chartiq';
 
@@ -22,7 +22,7 @@ const pluginsToLoadLazy = {
 	// timespanevent,
 	// crypto,
 	// scriptiq,
-	// tfc
+	tfc
 }
 
 const config = getDefaultConfig();
