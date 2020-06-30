@@ -33,7 +33,7 @@ export default class ChartLookup extends React.Component {
 			config: { defaultSymbol, symbolLookupTabs = ['ALL'] }
 		} = this.context;
 
-		UIContext.changeSymbol = function(data) {
+		UIContext.changeSymbol = function(context, data) {
 			if (this.loader) this.loader.show();
 			data.symbol = data.symbol.toUpperCase(); // set a pretty display version
 
@@ -46,7 +46,7 @@ export default class ChartLookup extends React.Component {
 		UIContext.setLookupDriver(new CIQ.ChartEngine.Driver.Lookup.ChartIQ());
 		UIContext.UISymbolLookup = this.lookupRef.current;
 		UIContext.UISymbolLookup.setCallback(function(context, data) {
-			context.changeSymbol(data);
+			context.changeSymbol(context, data);
 		});
 
 		if (!stx.chart.symbol) {
