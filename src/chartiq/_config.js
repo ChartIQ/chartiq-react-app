@@ -11,9 +11,6 @@ import quoteFeed from 'chartiq/examples/feeds/quoteFeedSimulator';
 
 export function getDefaultConfig() {
 
-	console.log("getDefaultConfig -> CIQ.ChartEngine.Driver.Lookup.ChartIQ", CIQ.ChartEngine.Driver.Lookup.ChartIQ)
-  console.log("getDefaultConfig -> CIQ", CIQ.ChartEngine.Driver.Lookup.ChartIQ)
-
 	return {
 			// Symbol can be string or 
 			// or an object containing property symbol of string type along with other properties
