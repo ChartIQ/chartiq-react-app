@@ -14,7 +14,7 @@ import './chartiq_config/presets/examples';
 // import scriptiq from './chartiq_config/presets/scriptiq';
 // import tfc from './chartiq_config/presets/tfc';
 
-import { AdvancedChart, getDefaultConfig } from './chartiq';
+import { AdvancedChartNew, getDefaultConfig } from './chartiq';
 
 // CIQ.debug = true; // Enables debugging
 
@@ -28,8 +28,9 @@ const pluginsToLoadLazy = {
 const config = getDefaultConfig();
 
 // Update chart configuration by modifying default configuration
-config.chartConfig.preferences.currentPriceLine = true;
-config.addOns.tooltip = null;
+// TODO: update this
+//config.chartConfig.preferences.currentPriceLine = true;
+//config.addOns.tooltip = null;
 
 // Optional callback function to access chart engine and uiContext
 const chartInitialized = ({ chartEngine, uiContext }) => {
@@ -40,7 +41,7 @@ const chartInitialized = ({ chartEngine, uiContext }) => {
 // comment rendering to DOM if used only as export for example in CRA App.js
 const el = document.querySelector('#app');
 if (el) {
-	ReactDom.render(<AdvancedChart
+	ReactDom.render(<AdvancedChartNew
 		config={config}
 		chartInitialized={chartInitialized}
 		pluginsToLoadLazy={pluginsToLoadLazy}
@@ -49,7 +50,7 @@ if (el) {
 	);
 }
 
-export default (props) => (<AdvancedChart
+export default (props) => (<AdvancedChartNew
 	config={config}
 	chartInitialized={chartInitialized}
 	pluginsToLoadLazy={pluginsToLoadLazy}

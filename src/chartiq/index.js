@@ -1,3 +1,3 @@
 import './preload';
-export { default as AdvancedChart } from './containers/AdvancedChart';
+export { default as AdvancedChartNew } from './containers/AdvancedChartNew';
 export { getDefaultConfig } from './_config';
