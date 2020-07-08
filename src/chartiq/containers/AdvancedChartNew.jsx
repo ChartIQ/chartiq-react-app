@@ -1,5 +1,19 @@
 import React from 'react';
-import { CIQ } from 'chartiq/js/componentUI';
+import { CIQ as CIQUI } from 'chartiq/js/componentUI';
+
+import {
+	ChartNav,
+	ChartArea,
+	SidePanel,
+	BottomPanel,
+	ChartFooter
+} from '../components/Layout';
+
+//import { WrappedChart, Plugins } from '../components/Core';
+import ColorPicker from '../components/Features/ColorPicker';
+import ChartDialogs from '../components/Dialogs/ChartDialogs';
+import ScriptIQ from '../components/Plugins/ScriptIQ/ScriptIQ';
+import MarketDepthBookmark from '../components/Plugins/CryptoIQ/MarketDepthBookmark';
 
 import { ChartContext } from '../context/ChartContext';
 import { getDefaultConfig } from '../_config';
@@ -17,7 +31,7 @@ import { getDefaultConfig } from '../_config';
 export default class AdvancedChartNew extends React.Component {
 	constructor(props) {
 		super(props);
-    this.engineRef = React.createRef();
+    //this.engineRef = React.createRef();
     this.chartContextEl = React.createRef();
 
     this.state = {
@@ -36,20 +50,22 @@ export default class AdvancedChartNew extends React.Component {
 	createChartAndUI(container) {
   console.log("AdvancedChartNew -> createChartAndUI -> container", container)
     
-    const chart = new CIQ.UI.Chart();
+    //const stx = new CIQ.ChartEngine.create({ container, ...this.state.config });
+    //let stxx = this.state.config.createChart();
+    const chart = new CIQUI.UI.Chart();
+    console.log("AdvancedChartNew -> createChartAndUI -> chart", chart)
 
-    window.chart = chart;
+    const config = getDefaultConfig();
+    console.log("AdvancedChartNew -> createChartAndUI -> config", config)
 
-    //this.stx = chart.createChartAndUI({container: container, config: this.state.config});
-    //console.log("AdvancedChartNew -> createChartAndUI -> stx", this.stx)
-    //CIQ.ChartEngine.create({ container: container, config: this.state.config });
+    this.stx = (new CIQUI.UI.Chart()).createChartAndUI({ container, config });
+    console.log("AdvancedChartNew -> createChartAndUI -> stx", this.stx)
 
-    const stx = CIQ.ChartEngine.create({
-			container: this.engineRef,
-			config,
-			deferLoad: true
-		});
+
+    
     return;
+
+
 
 	}
 
@@ -62,19 +78,25 @@ export default class AdvancedChartNew extends React.Component {
     const breakpointSize = 'lg';
     const breakpointClass = `cq-chart-container break-${breakpointSize}`;
 
+    var divStyle = {
+      width: '500px',
+      height: '500px'
+    };
+
 		return (
 			<ChartContext.Provider value={this.state}>
-        <cq-context ref={this.chartContextEl} class={breakpointClass}>
+        <cq-context ref={this.chartContextEl} className={breakpointClass}>
         <div className="ciq-chart-area">
-            <div className="ciq-chart">
-        
+          <div className="ciq-chart">
+    
 
-              <div className="chartContainer" ref={this.engineRef}>
+            <div className="chartContainer">
 
 
-              </div>
             </div>
           </div>
+        </div>
+
 				</cq-context>
 			</ChartContext.Provider>
 		);

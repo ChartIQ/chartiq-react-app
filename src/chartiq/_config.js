@@ -11,6 +11,9 @@ import quoteFeed from 'chartiq/examples/feeds/quoteFeedSimulator';
 
 export function getDefaultConfig() {
 
+	console.log("getDefaultConfig -> CIQ.ChartEngine.Driver.Lookup.ChartIQ", CIQ.ChartEngine.Driver.Lookup.ChartIQ)
+  console.log("getDefaultConfig -> CIQ", CIQ.ChartEngine.Driver.Lookup.ChartIQ)
+
 	return {
 			// Symbol can be string or 
 			// or an object containing property symbol of string type along with other properties
@@ -51,6 +54,7 @@ export function getDefaultConfig() {
 
 			// default lookup driver is defined in examples/feeds/symbolLookupChartIQ.js, it needs to be loaded to be available
 			lookupDriver: CIQ.ChartEngine.Driver.Lookup.ChartIQ,
+      
 
 			// Optionally set a market factory to the chart to make it market hours aware. Otherwise it will operate in 24x7 mode.
 			// This is required for the simulator, or if you intend to also enable Extended hours trading zones.
