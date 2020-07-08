@@ -38,11 +38,17 @@ export default class AdvancedChartNew extends React.Component {
     
     const chart = new CIQ.UI.Chart();
 
-    this.stx = chart.createChartAndUI({container: container, config: this.state.config});
-    console.log("AdvancedChartNew -> createChartAndUI -> stx", this.stx)
+    window.chart = chart;
 
+    //this.stx = chart.createChartAndUI({container: container, config: this.state.config});
+    //console.log("AdvancedChartNew -> createChartAndUI -> stx", this.stx)
+    //CIQ.ChartEngine.create({ container: container, config: this.state.config });
 
-    
+    const stx = CIQ.ChartEngine.create({
+			container: this.engineRef,
+			config,
+			deferLoad: true
+		});
     return;
 
 	}
@@ -58,49 +64,17 @@ export default class AdvancedChartNew extends React.Component {
 
 		return (
 			<ChartContext.Provider value={this.state}>
-        <cq-context ref={this.chartContextEl} className={breakpointClass}>
-        <div className="ciq-nav full-screen-hide">
-          <div className="ciq-menu-section">
-            <div className="ciq-dropdowns">
-            <cq-menu class="ciq-menu ciq-preferences collapse">
-					<span></span>
-					<cq-menu-dropdown>
-						<cq-menu-dropdown-section class="chart-preferences">
-							<cq-heading>Chart Preferences</cq-heading>
-							<cq-menu-container cq-name="menuChartPreferences"></cq-menu-container>
-							<cq-separator></cq-separator>
-						</cq-menu-dropdown-section>
-						<cq-menu-dropdown-section class="y-axis-preferences">
-							<cq-heading>Y-Axis Preferences</cq-heading>
-							<cq-menu-container cq-name="menuYAxisPreferences"></cq-menu-container>
-							<cq-separator></cq-separator>
-						</cq-menu-dropdown-section>
-						<cq-menu-dropdown-section class="chart-theme">
-							<cq-heading>Themes</cq-heading>
-							<cq-themes></cq-themes>
-							<cq-separator></cq-separator>
-						</cq-menu-dropdown-section>
-						<cq-menu-dropdown-section class="chart-locale">
-							<cq-heading>Locale</cq-heading>
-							<cq-item><cq-clickable cq-selector="cq-timezone-dialog" cq-method="open">Change Timezone</cq-clickable></cq-item>
-							<cq-item stxsetget="Layout.Language()"><cq-flag></cq-flag><cq-language-name>Change Language</cq-language-name></cq-item>
-						</cq-menu-dropdown-section>
-					</cq-menu-dropdown>
-				</cq-menu>
-            </div>
-          </div>
-        </div>
+        <cq-context ref={this.chartContextEl} class={breakpointClass}>
         <div className="ciq-chart-area">
-          <div className="ciq-chart">
-    
+            <div className="ciq-chart">
+        
 
-            <div className="chartContainer" ref={this.engineRef}>
+              <div className="chartContainer" ref={this.engineRef}>
 
 
+              </div>
             </div>
           </div>
-        </div>
-
 				</cq-context>
 			</ChartContext.Provider>
 		);

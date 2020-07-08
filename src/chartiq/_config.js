@@ -434,7 +434,7 @@ export function getDefaultConfig() {
 					//TODO: Update
 					//if (typeof resources.scrollStyle !== "function") return;
 					//if (!component.__ps) component.__ps = new resources.scrollStyle(component, {suppressScrollX:true});
-					component.__ps.update(component);
+					//component.__ps.update(component);
 				}
 			},
 
