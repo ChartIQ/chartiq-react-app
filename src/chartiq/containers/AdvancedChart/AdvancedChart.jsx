@@ -17,19 +17,12 @@ export default class AdvancedChart extends React.Component {
     console.log("AdvancedChart -> constructor -> props", props)
 		//this.engineRef = React.createRef();
 		this.container = React.createRef();
-
-		// Update chart configuration by modifying default configuration
-		config.initialSymbol = {
+		this.chartId = props.chartId || '_advanced-chart';
+		this.initialSymbol = props.symbol || {
 			symbol: "APPL",
 			name: "Apple Inc",
 			exchDisp: "NASDAQ"
 		};
-		// config.quoteFeeds[0].behavior.refreshInterval = 0;
-
-		// Enable any extra addOns here before creating the chart
-		// const { tooltip, continuousZoom, outliers } = config.addOns;
-		// const activeAddOns = { continuousZoom, outliers, tooltip };
-		// config.enabledAddOns = Object.assign(activeAddOns, config.enabledAddOns);
 
 		this.state = {
 			chart: new CIQ.UI.Chart(),
@@ -44,6 +37,17 @@ export default class AdvancedChart extends React.Component {
 
 		const container  = this.container.current;
 		const { chart, chartInitializedCallback } = this.state;
+
+		// Update chart configuration by modifying default configuration
+		config.chartId = this.chartId;
+		config.initialSymbol = this.initialSymbol;
+		// config.quoteFeeds[0].behavior.refreshInterval = 0;
+
+		// Enable any extra addOns here before creating the chart
+		// const { tooltip, continuousZoom, outliers } = config.addOns;
+		// const activeAddOns = { continuousZoom, outliers, tooltip };
+		// config.enabledAddOns = Object.assign(activeAddOns, config.enabledAddOns);
+		
 
 		const uiContext = chart.createChartAndUI({ container, config });
 		const chartEngine = uiContext.stx;
@@ -64,7 +68,9 @@ export default class AdvancedChart extends React.Component {
 
 		this.setState({chart: chart, stx: chartEngine, UIContext: uiContext});
 
-		chartInitializedCallback({ chartEngine, uiContext })
+		if(chartInitializedCallback){
+			chartInitializedCallback({ chartEngine, uiContext });
+		} 
 
 	}
 
@@ -72,7 +78,7 @@ export default class AdvancedChart extends React.Component {
 
 		return (
 			<ChartContext.Provider value={this.state}>
-				<cq-context ref={this.chartContextEl}>
+				<cq-context ref={this.container}>
 				<div className="ciq-nav full-screen-hide">
 
 

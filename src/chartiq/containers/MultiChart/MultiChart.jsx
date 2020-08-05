@@ -1,4 +1,5 @@
 import React from 'react';
+import { default as AdvancedChart } from '../AdvancedChart/AdvancedChart';
 
 /**
  * This is a fully functional example showing how to load a chart with complete user interface.
@@ -11,8 +12,6 @@ export default class MultiChart extends React.Component {
 	constructor(props) {
 		super(props);
 	}
-
-
 
 	render() {
 
@@ -30,8 +29,8 @@ export default class MultiChart extends React.Component {
 
 		return (
       <>
-        <div style={leftColumn}><cq-advanced-chart chartId="chart0" symbol="AAPL"></cq-advanced-chart></div>
-        <div style={rightColumn}><cq-advanced-chart chartId="chart1" symbol="MSFT"></cq-advanced-chart></div>
+        <div style={leftColumn}><AdvancedChart chartId="chart0" symbol="AAPL"></AdvancedChart></div>
+        <div style={rightColumn}><AdvancedChart chartId="chart1" symbol="MSFT"></AdvancedChart></div>
       </>
 		);
 	}
