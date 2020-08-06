@@ -3,24 +3,23 @@ import { CIQ } from 'chartiq/js/componentUI';
 
 import { ChartContext } from '../../context/ChartContext';
 import { config } from './resources'; // ChartIQ library resources
+const { channelWrite } = CIQ.UI.BaseComponent.prototype;
+
+import './ActiveTraderWorkstation.css';
 
 /**
  * This is a fully functional example showing how to load a chart with complete user interface.
  *
  * @export
- * @class AdvancedChart
+ * @class ActiveTraderWorkstation
  * @extends {React.Component}
  */
-export default class AdvancedChart extends React.Component {
+export default class ActiveTraderWorkstation extends React.Component {
 	constructor(props) {
 		super(props);
 		this.container = React.createRef();
-		this.chartId = props.chartId || '_advanced-chart';
-		this.initialSymbol = props.symbol || {
-			symbol: "APPL",
-			name: "Apple Inc",
-			exchDisp: "NASDAQ"
-		};
+		this.chartId = props.chartId || '_active-trader-chart';
+		this.initialSymbol = '^USDAUD';
 
 		this.state = {
 			chart: new CIQ.UI.Chart(),
@@ -46,6 +45,18 @@ export default class AdvancedChart extends React.Component {
 		// const activeAddOns = { continuousZoom, outliers, tooltip };
 		// config.enabledAddOns = Object.assign(activeAddOns, config.enabledAddOns);
 		
+		config.plugins.marketDepth = {
+			volume:true,
+			mountain:true,
+			step:true,
+			record:true,
+			height:"40%",
+			precedingContainer:"#marketDepthBookmark"
+		};
+
+		config.menuChartPreferences = config.menuChartPreferences.filter(item => (
+			item.label !== 'Market Depth' && item.label !== 'Extended Hours'
+		));
 
 		const uiContext = chart.createChartAndUI({ container, config });
 		const chartEngine = uiContext.stx;
@@ -64,6 +75,17 @@ export default class AdvancedChart extends React.Component {
 		// 	console.log('layout changed', layout);
 		// });
 
+		if (window['d3']) {
+			this.cryptoSetup(uiContext.stx);
+		} else {
+			CIQ.loadScript('https://d3js.org/d3.v5.min.js', () => {
+				this.cryptoSetup(uiContext.stx);
+			})
+		}
+
+		// Request TFC channel open
+		channelWrite(config.channels.tfc, true, uiContext.stx);		
+
 		this.setState({chart: chart, stx: chartEngine, UIContext: uiContext});
 
 		if(chartInitializedCallback){
@@ -72,13 +94,69 @@ export default class AdvancedChart extends React.Component {
 
 	}
 
+	cryptoSetup(stx) {
+		stx.setChartType("line");
+		CIQ.extend(stx.layout,{
+			crosshair:true,
+			headsUp:"static",
+			l2heatmap:true,
+			rangeSlider:true,
+			marketDepth:true,
+			extended:false
+		});
+		stx.changeOccurred("layout");
+
+		// Simulate L2 data using https://documentation.chartiq.com/CIQ.ChartEngine.html#updateCurrentMarketData
+		CIQ.simulateL2({ stx, onInterval: 1000, onTrade: true });
+
+		stx.moneyFlowChart=moneyFlowChart(stx);
+
+		function moneyFlowChart(stx){
+			const initialPieData = {
+				Up: { index: 1 },
+				Down: { index: 2 },
+				Even: { index: 3 }
+			};
+
+			const pieChart=new CIQ.Visualization({
+				container: "cq-tradehistory-table div[pie-chart] div",
+				renderFunction: CIQ.SVGChart.renderPieChart,
+				colorRange: ["#8cc176","#b82c0c","#7c7c7c"],
+				className: "pie",
+				valueFormatter: CIQ.condenseInt
+			}).updateData(CIQ.clone(initialPieData));
+
+			let last = null;
+			stx.append("updateCurrentMarketData",function(data, chart, symbol, params){
+				if(symbol) return;
+				const items = document.querySelectorAll("cq-tradehistory-body cq-item");
+				var d = {};
+				for(var i = 0;i < items.length; i++){
+					const item = items[i];
+					if (item === last) break;
+					var dir= item.getAttribute("dir");
+					if(!dir) dir="even";
+					dir = CIQ.capitalize(dir);
+					if (!d[dir]) d[dir] = 0;
+					d[dir] += parseFloat(item.querySelector("[col=amount]").getAttribute("rawval"));
+				}
+				if(i) pieChart.updateData(d, "add");
+				last = items[0];
+			});
+			stx.addEventListener("symbolChange",function(obj){
+				pieChart.updateData(CIQ.clone(initialPieData));
+			});
+			return pieChart;
+		}
+	}
+
 	render() {
 
 		return (
 			<ChartContext.Provider value={this.state}>
 				<cq-context ref={this.container}>
-				<div className="ciq-nav full-screen-hide">
 
+				<div className="ciq-nav full-screen-hide">
 
 					<div className="sidenav-toggle ciq-toggles">
 						<cq-toggle 
@@ -178,8 +256,6 @@ export default class AdvancedChart extends React.Component {
 									</cq-item>
 									<cq-item class="video_markers-ui" stxtap="Markers.showMarkers('video')">Video<span className="ciq-radio"><span></span></span>
 									</cq-item>
-									<cq-item stxtap="Markers.showMarkers('abstract')">Abstract<span className="ciq-radio"><span></span></span>
-									</cq-item>
 									<cq-separator></cq-separator>
 									<cq-item stxtap="Markers.showMarkers()" class="ciq-active">None<span className="ciq-radio"><span></span></span>
 									</cq-item>
@@ -222,8 +298,7 @@ export default class AdvancedChart extends React.Component {
 
 						<div className="trade-toggles ciq-toggles">
 							<cq-toggle class="tfc-ui sidebar stx-trade" cq-member="tfc"><span></span><cq-tooltip>Trade</cq-tooltip></cq-toggle>
-							<cq-toggle class="tc-ui stx-tradingcentral" cq-member="tc"><span></span><cq-tooltip>Analysis</cq-tooltip></cq-toggle>
-							<cq-toggle class="recognia-ui stx-recognia" cq-member="recognia"><span></span><cq-tooltip>Analysis</cq-tooltip></cq-toggle>
+							<cq-toggle class="tc-ui stx-tradingcentral"><span></span><cq-tooltip>Analyst Views</cq-tooltip></cq-toggle>
 						</div>
 
 					</div>
@@ -233,36 +308,82 @@ export default class AdvancedChart extends React.Component {
 
 					<cq-tradingcentral class="tc-ui" token="eZOrIVNU3KR1f0cf6PTUYg==" partner="1000" disabled></cq-tradingcentral>
 
-					<cq-recognia uid="" lang="en" disabled></cq-recognia> 
-
-					<cq-recent-symbols>
 					<div className="ciq-chart-area">
-						<div className="ciq-chart">
-
-							<cq-palette-dock>
-								<div className="palette-dock-container">
-									<cq-drawing-palette class="palette-drawing grid palette-hide" docked="true" orientation="vertical" min-height="300" cq-drawing-edit="none"></cq-drawing-palette>
-									<cq-drawing-settings class="palette-settings" docked="true" hide="true" orientation="horizontal" min-height="40" cq-drawing-edit="none"></cq-drawing-settings>
+					<div chartarea="true">
+						<div id="flexContainer">
+							<div id="cryptoGroup1">
+								<div id="tradeHistoryContainer">
+									<cq-tradehistory cq-active>
+										<cq-tradehistory-table>
+											<cq-scroll cq-no-claim>
+												<cq-tradehistory-body maxrows="500"></cq-tradehistory-body>
+											</cq-scroll>
+											<div pie-chart="true">
+												<span>Money Flow</span>
+												<div></div>
+											</div>
+										</cq-tradehistory-table>
+										<template>
+											<cq-item>
+												<div col="time">Time</div>
+												<div col="qty">Qty</div>
+												<div col="price">Price</div>
+												<div col="amount">Amount</div>
+											</cq-item>
+										</template>
+									</cq-tradehistory>
 								</div>
-							</cq-palette-dock>
-
-							<div className="chartContainer">
-
-								<cq-chart-title cq-marker cq-browser-tab></cq-chart-title>
-
-								<cq-chartcontrol-group class="full-screen-show" cq-marker></cq-chartcontrol-group>
-
-								<cq-comparison-lookup-fix></cq-comparison-lookup-fix>
-
-								<cq-chart-legend></cq-chart-legend>
-
-								<cq-loader></cq-loader>
 							</div>
+							<div id="cryptoGroup2">
+								<div id="marketDepthBookmark"></div>
+								<div id="orderBookContainer">
+									<cq-orderbook cq-active>
+										<cq-orderbook-table reverse>
+											<cq-scroll cq-no-claim>
+												<cq-orderbook-bids></cq-orderbook-bids>
+											</cq-scroll>
+										</cq-orderbook-table>
+										<cq-orderbook-table>
+											<cq-scroll cq-no-claim>
+												<cq-orderbook-asks></cq-orderbook-asks>
+											</cq-scroll>
+										</cq-orderbook-table>
+										<template>
+											<cq-item cq-size-shading>
+												<div col="price">Price</div>
+												<div col="size">Size</div>
+												<div col="amount">Amount</div>
+											</cq-item>
+										</template>
+									</cq-orderbook>
+								</div>
+							</div>
+						
+							<div id="mainChartGroup" packager-append-child="div.ciq-chart-area div.ciq-chart">
+								<div className="ciq-chart">
+
+									<cq-palette-dock>
+										<div className="palette-dock-container">
+											<cq-drawing-palette class="palette-drawing grid palette-hide" docked="true" orientation="vertical" min-height="300" cq-drawing-edit="none"></cq-drawing-palette>
+											<cq-drawing-settings class="palette-settings" docked="true" hide="true" orientation="horizontal" min-height="40" cq-drawing-edit="none"></cq-drawing-settings>
+										</div>
+									</cq-palette-dock>
+						
+									<div className="chartContainer">
+						
+										<cq-chart-title cq-marker cq-browser-tab></cq-chart-title>
+						
+										<cq-comparison-lookup></cq-comparison-lookup>
+										<cq-chart-legend></cq-chart-legend>
+						
+									</div>
+								</div>
+							</div>
+
 						</div>
 					</div>
-					</cq-recent-symbols>
 
-					<cq-abstract-marker cq-type="helicopter"></cq-abstract-marker>
+					</div>
 
 					<cq-attribution></cq-attribution>
 
@@ -282,10 +403,9 @@ export default class AdvancedChart extends React.Component {
 					</div>
 
 					<cq-side-panel></cq-side-panel>
-
 				</cq-context>
 			</ChartContext.Provider>
 		);
 	}
 }
-AdvancedChart.contextType = ChartContext;
+ActiveTraderWorkstation.contextType = ChartContext;
