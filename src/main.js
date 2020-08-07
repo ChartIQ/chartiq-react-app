@@ -4,7 +4,7 @@ import ReactDom from 'react-dom';
 // Base styles required for all charts
 import './chartiq/styles/base-imports';
 
-import { AdvancedChart, MultiChart, ActiveTraderWorkstation } from './chartiq';
+import { AdvancedChart, MultiChart, ActiveTraderWorkstation, CustomChart } from './chartiq';
 
 // CIQ.debug = true; // Enables debugging
 
@@ -17,13 +17,13 @@ const chartInitialized = ({ chartEngine, uiContext }) => {
 // comment rendering to DOM if used only as export for example in CRA App.js
 const el = document.querySelector('#app');
 if (el) {
-	ReactDom.render(<ActiveTraderWorkstation
+	ReactDom.render(<CustomChart
 		chartInitialized={chartInitialized}
 		/>,
 		el
 	);
 }
 
-export default (props) => (<ActiveTraderWorkstation
+export default (props) => (<CustomChart
 	chartInitialized={chartInitialized}
 	/>);
