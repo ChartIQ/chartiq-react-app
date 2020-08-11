@@ -252,7 +252,7 @@ export default class AdvancedChart extends React.Component {
 
 								<cq-chartcontrol-group class="full-screen-show" cq-marker></cq-chartcontrol-group>
 
-								<cq-comparison-lookup-fix></cq-comparison-lookup-fix>
+								<cq-comparison-lookup></cq-comparison-lookup>
 
 								<cq-chart-legend></cq-chart-legend>
 
