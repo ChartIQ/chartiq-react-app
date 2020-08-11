@@ -5,6 +5,7 @@ import { ChartContext } from '../../context/ChartContext';
 import { config } from './resources'; // ChartIQ library resources
 import './CustomChart.css';
 import { default as ShortcutDialog } from './ShortcutDialog/ShortcutDialog';
+import { default as RecentSymbols } from './RecentSymbols/RecentSymbols';
 
 /**
  * This is a fully functional example showing how to load a chart with complete user interface.
@@ -25,6 +26,7 @@ export default class CustomChart extends React.Component {
 		};
 
 		this.store = new CIQ.NameValueStore();
+		this.symbolStorageName = 'recentSymbols';
 		this.shortcutStorageName = 'customDrawingToolShortcuts';
 		this.drawingToolsInfo = null;
 		// Additional description for a drawing tool that will be injected into the shortcuts listing
@@ -80,6 +82,20 @@ export default class CustomChart extends React.Component {
 		});
 		portalizeContextDialogs(container);
 
+		const self = this;
+		const isForecasting = symbol => /_fcst$/.test(symbol);
+		uiContext.stx.addEventListener(
+			'symbolChange',
+			({ symbol, symbolObject, action }) => {
+				if (
+					!isForecasting(symbol) &&
+					(action === 'master' || action === 'add-series')
+				) {
+					self.updateSymbolStore(symbol, symbolObject);
+				}
+			}
+		);
+
 	}
 
 	// Update chart configuration with drawing tool shortcuts stored
@@ -94,6 +110,22 @@ export default class CustomChart extends React.Component {
 				item.shortcut = shortcuts[item.tool] || '';
 			});
 		});
+	}
+
+	updateSymbolStore(symbol, { name = '', exchDisp = '' } = {}) {
+		return this.getRecentSymbols().then(list => {
+			const count = ((list.symbol && list.symbol.count) || 0) + 1;
+			list[symbol] = { symbol, name, exchDisp, count, last: +new Date() };
+			return this.updateRecentSymbols(list);
+		});
+	}
+
+	getRecentSymbols() {
+		return this.getValue(this.symbolStorageName);
+	}
+
+	updateRecentSymbols(value) {
+		return this.setValue(this.symbolStorageName, value);
 	}
 
 	// Get a value from localStorage
@@ -217,7 +249,9 @@ export default class CustomChart extends React.Component {
 						</div>
 
 						<cq-menu class="ciq-search">
-							<cq-lookup cq-keystroke-claim cq-keystroke-default cq-uppercase></cq-lookup>
+							<RecentSymbols getRecentSymbols={()=>this.getRecentSymbols()}>
+								<cq-lookup cq-keystroke-claim cq-keystroke-default cq-uppercase></cq-lookup>
+							</RecentSymbols>
 						</cq-menu>
 
 						<cq-side-nav cq-on="sidenavOn">
