@@ -112,7 +112,7 @@ exports.config = {
     baseUrl: 'http://localhost:4040',
     basePath: 'node_modules/@chartiq/ui-tests/',
     templates: {
-        'advancedChart': 'advancedchart'
+        'advancedChart': 'technical-analysis'
     },
     //
     // Default timeout for all waitFor* commands.

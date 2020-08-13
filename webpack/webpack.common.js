@@ -12,7 +12,8 @@ module.exports = {
 		},
 		publicPath: '/',
 		host: 'localhost',
-		port: 4002
+		port: 4002,
+		historyApiFallback: true
 	},
 	module: {
 		// Loaders are processors for verifying and transformating
