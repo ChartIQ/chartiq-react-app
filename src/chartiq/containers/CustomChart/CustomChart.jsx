@@ -8,7 +8,7 @@ import { default as ShortcutDialog } from './ShortcutDialog/ShortcutDialog';
 import { default as RecentSymbols } from './RecentSymbols/RecentSymbols';
 
 /**
- * This is a fully functional example showing how to load a chart with complete user interface.
+ * This is an example of the ChartIQ web component UI with added custom react components
  *
  * @export
  * @class CustomChart
@@ -67,7 +67,7 @@ export default class CustomChart extends React.Component {
 
 		this.postInit(container, uiContext) ;
 
-		this.setState({chart: chart, stx: chartEngine, uiContext: uiContext});
+		this.setState({stx: chartEngine, uiContext: uiContext});
 
 		if(chartInitializedCallback){
 			chartInitializedCallback({ chartEngine, uiContext });
@@ -212,17 +212,17 @@ export default class CustomChart extends React.Component {
 				<div className="info">
 					<h2>Custom chart</h2>
 
-					<div>...is a customization of the AdvancedChartComponent template, featuring the addition of:
+					<div>...is a customization of the AdvancedChart template, featuring the addition of:
 						<ul>
 							<li>
-								A native Angular component that enhances the ChartIQ symbol lookup web component
+								A native React component that enhances the ChartIQ symbol lookup web component
 								by storing previously entered symbols and making them accessible in the lookup's
 								RECENT tab.
 								<br/><span className="instruction">Select Enter Symbol in the upper left corner
 								of the chart or + Compare...</span>
 							</li>
 							<li>
-								A dialog box implemented in Angular to add
+								A dialog box implemented in React to add
 								<a href="https://documentation.chartiq.com/tutorial-Navigation.html#drawing_palette_keyboard_shortcuts"
 									target="shortcuts">keystroke shortcuts</a> to the chart drawing
 								tools and display information about the tools.

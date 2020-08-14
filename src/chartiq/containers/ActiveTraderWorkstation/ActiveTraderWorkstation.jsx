@@ -8,7 +8,7 @@ const { channelWrite } = CIQ.UI.BaseComponent.prototype;
 import './ActiveTraderWorkstation.css';
 
 /**
- * This is a fully functional example showing how to load a chart with complete user interface.
+ * This is a fully functional example showing how to load a chart with the Active Trader plugin and UI.
  *
  * @export
  * @class ActiveTraderWorkstation
@@ -86,7 +86,7 @@ export default class ActiveTraderWorkstation extends React.Component {
 		// Request TFC channel open
 		channelWrite(config.channels.tfc, true, uiContext.stx);		
 
-		this.setState({chart: chart, stx: chartEngine, UIContext: uiContext});
+		this.setState({stx: chartEngine, UIContext: uiContext});
 
 		if(chartInitializedCallback){
 			chartInitializedCallback({ chartEngine, uiContext });

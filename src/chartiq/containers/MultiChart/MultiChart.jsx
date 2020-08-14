@@ -2,7 +2,7 @@ import React from 'react';
 import { default as AdvancedChart } from '../AdvancedChart/AdvancedChart';
 
 /**
- * This is a fully functional example showing how to load a chart with complete user interface.
+ * This is an example of two AdvancedChart comonents on the same page.
  *
  * @export
  * @class MultiChart

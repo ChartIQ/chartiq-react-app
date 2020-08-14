@@ -4,6 +4,13 @@ import { CIQ } from 'chartiq/js/componentUI';
 import { ChartContext } from '../../context/ChartContext';
 import { config } from './resources'; // ChartIQ library resources
 
+// Base styles required by the library to render color correctly.
+// If for some reason you are not including base-styles.css add these here.
+//import 'chartiq/css/stx-chart.css'; // Chart API
+//import 'chartiq/css/chartiq.css'; // Chart UI
+
+import './AdvancedChart.css';
+
 /**
  * This is a fully functional example showing how to load a chart with complete user interface.
  *
@@ -47,8 +54,20 @@ export default class AdvancedChart extends React.Component {
 		// config.enabledAddOns = Object.assign(activeAddOns, config.enabledAddOns);
 		
 
-		const uiContext = chart.createChartAndUI({ container, config });
+		const uiContext = this.createChartAndUI({container, config});
 		const chartEngine = uiContext.stx;
+
+		this.setState({stx: chartEngine, UIContext: uiContext});
+
+		if(chartInitializedCallback){
+			chartInitializedCallback({ chartEngine, uiContext });
+		} 
+
+	}
+
+	createChartAndUI({ container, config }) {
+
+		const uiContext = this.state.chart.createChartAndUI({ container, config });
 
 		// Methods for capturing state changes in chart engine and UI
 		
@@ -64,12 +83,13 @@ export default class AdvancedChart extends React.Component {
 		// 	console.log('layout changed', layout);
 		// });
 
-		this.setState({chart: chart, stx: chartEngine, UIContext: uiContext});
+		this.postInit(container);
 
-		if(chartInitializedCallback){
-			chartInitializedCallback({ chartEngine, uiContext });
-		} 
+		return uiContext;
+	}
 
+	postInit(container) {
+		portalizeContextDialogs(container);
 	}
 
 	render() {
@@ -289,3 +309,23 @@ export default class AdvancedChart extends React.Component {
 	}
 }
 AdvancedChart.contextType = ChartContext;
+
+/**
+ * For applications that have more then one chart, keep single dialog of the same type
+ * and move it outside context node to be shared by all chart components
+ */
+function portalizeContextDialogs(container) {
+	container.querySelectorAll('cq-dialog').forEach(dialog => {
+		dialog.remove();
+		if (!dialogPortalized(dialog)) {
+			document.body.appendChild(dialog);
+		}
+	});
+}
+
+function dialogPortalized(el) {
+	const tag = el.firstChild.nodeName.toLowerCase();
+	return Array.from(document.querySelectorAll(tag)).some(
+		el => !CIQ.findClosestParent(el, 'cq-context')
+	);
+}

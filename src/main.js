@@ -7,7 +7,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import './chartiq/styles/base-imports';
 
 import { default as RouteList } from './chartiq/containers/RouteList/RouteList';
-import { AdvancedChart, MultiChart, ActiveTraderWorkstation, CustomChart } from './chartiq';
+import { AdvancedChart, MultiChart, ActiveTraderWorkstation, CustomChart, HelloWorld } from './chartiq';
 
 // CIQ.debug = true; // Enables debugging
 
@@ -27,6 +27,7 @@ if (el) {
 			<Route path="/multi-chart" exact component={MultiChart}></Route>
 			<Route path="/active-trader" exact render={()=><ActiveTraderWorkstation chartInitialized={chartInitialized}/>}></Route>
 			<Route path="/custom-chart" exact render={()=><CustomChart chartInitialized={chartInitialized}/>}></Route>
+			<Route path="/hello-world" exact component={HelloWorld}></Route>
 		</BrowserRouter>,
 		el
 	);
