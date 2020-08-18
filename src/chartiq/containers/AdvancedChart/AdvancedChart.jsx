@@ -36,6 +36,9 @@ export default class AdvancedChart extends React.Component {
 			chartInitializedCallback: props.chartInitialized
 		};
 
+		// Display UI elements used by plugins. Set to true when enabling plugins.
+		this.showPluginUI = false;
+
 	}
 
 	componentDidMount() {
@@ -47,6 +50,15 @@ export default class AdvancedChart extends React.Component {
 		config.chartId = this.chartId;
 		config.initialSymbol = this.initialSymbol;
 		// config.quoteFeeds[0].behavior.refreshInterval = 0;
+
+		// This hides menu items added by plugins used in the Active Trader example
+		// If you use the Active Trader plugin in the advanced chart you can set
+		// this.showPluginUI to true in the constructor or this block all together.
+		if(!this.showPluginUI){
+			config.menuChartPreferences = config.menuChartPreferences.filter(item => (
+				item.label !== 'Market Depth' && item.label !== 'L2 Heat Map'
+			));
+		}
 
 		// Enable any extra addOns here before creating the chart
 		// const { tooltip, continuousZoom, outliers } = config.addOns;
@@ -93,6 +105,17 @@ export default class AdvancedChart extends React.Component {
 	}
 
 	render() {
+
+		let tradeToggles = null;
+		if(this.showPluginUI){
+			tradeToggles = (
+				<div className="trade-toggles ciq-toggles">
+					<cq-toggle class="tfc-ui sidebar stx-trade" cq-member="tfc"><span></span><cq-tooltip>Trade</cq-tooltip></cq-toggle>
+					<cq-toggle class="tc-ui stx-tradingcentral" cq-member="tc"><span></span><cq-tooltip>Analysis</cq-tooltip></cq-toggle>
+					<cq-toggle class="recognia-ui stx-recognia" cq-member="recognia"><span></span><cq-tooltip>Analysis</cq-tooltip></cq-toggle>
+				</div>
+			);
+		}
 
 		return (
 			<ChartContext.Provider value={this.state}>
@@ -240,11 +263,7 @@ export default class AdvancedChart extends React.Component {
 							</cq-menu>
 						</div>
 
-						<div className="trade-toggles ciq-toggles">
-							<cq-toggle class="tfc-ui sidebar stx-trade" cq-member="tfc"><span></span><cq-tooltip>Trade</cq-tooltip></cq-toggle>
-							<cq-toggle class="tc-ui stx-tradingcentral" cq-member="tc"><span></span><cq-tooltip>Analysis</cq-tooltip></cq-toggle>
-							<cq-toggle class="recognia-ui stx-recognia" cq-member="recognia"><span></span><cq-tooltip>Analysis</cq-tooltip></cq-toggle>
-						</div>
+						{tradeToggles}
 
 					</div>
 					</div>

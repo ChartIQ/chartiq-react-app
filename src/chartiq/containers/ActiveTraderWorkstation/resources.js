@@ -41,9 +41,7 @@ import 'chartiq/plugins/activetrader/cryptoiq';
 // import 'chartiq/plugins/scriptiq/scriptiq';
 
 // TFC plugin
-//import 'chartiq/plugins/tfc/tfc-loader';
-import "chartiq/plugins/tfc/tfc";
-import "chartiq/plugins/tfc/tfc.css";
+import 'chartiq/plugins/tfc/tfc-loader';
 import 'chartiq/plugins/tfc/tfc-demo';   /* if using demo account class */
 
 // Time Span Events
