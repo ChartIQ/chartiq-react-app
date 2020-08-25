@@ -96,6 +96,12 @@ export default class ActiveTraderWorkstation extends React.Component {
 
 	}
 
+	componentWillUnmount(){
+		// Destroy the ChartEngine instance when unloading the component. 
+		// This will stop internal processes such as quotefeed polling.
+		this.state.stx.destroy();
+	}
+
 	cryptoSetup(stx) {
 		stx.setChartType("line");
 		CIQ.extend(stx.layout,{
