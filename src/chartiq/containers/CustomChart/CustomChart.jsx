@@ -1,7 +1,6 @@
 import React from 'react';
 import { CIQ } from 'chartiq/js/componentUI';
 
-import { ChartContext } from '../../context/ChartContext';
 import { config } from './resources'; // ChartIQ library resources
 import './CustomChart.css';
 import { default as ShortcutDialog } from './ShortcutDialog/ShortcutDialog';
@@ -237,7 +236,7 @@ export default class CustomChart extends React.Component {
 		);
 
 		return (
-			<ChartContext.Provider value={this.state}>
+			<>
 				<div className="info">
 					<h2>Custom chart</h2>
 
@@ -476,11 +475,10 @@ export default class CustomChart extends React.Component {
 
 					</cq-context>
 				</div>
-			</ChartContext.Provider>
+			</>
 		);
 	}
 }
-CustomChart.contextType = ChartContext;
 
 /**
  * For applications that have more then one chart, keep single dialog of the same type

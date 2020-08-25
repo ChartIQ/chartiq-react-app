@@ -1,7 +1,6 @@
 import React from 'react';
 import { CIQ } from 'chartiq/js/componentUI';
 
-import { ChartContext } from '../../context/ChartContext';
 import { config } from './resources'; // ChartIQ library resources
 
 // Base styles required by the library to render color correctly.
@@ -124,7 +123,6 @@ export default class AdvancedChart extends React.Component {
 		}
 
 		return (
-			<ChartContext.Provider value={this.state}>
 				<cq-context ref={this.container}>
 				<div className="ciq-nav full-screen-hide">
 
@@ -329,11 +327,9 @@ export default class AdvancedChart extends React.Component {
 					<cq-side-panel></cq-side-panel>
 
 				</cq-context>
-			</ChartContext.Provider>
 		);
 	}
 }
-AdvancedChart.contextType = ChartContext;
 
 /**
  * For applications that have more then one chart, keep single dialog of the same type

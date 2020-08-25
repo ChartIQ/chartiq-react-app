@@ -2,7 +2,6 @@ import React from 'react';
 import { CIQ } from 'chartiq/js/componentUI';
 
 import html from "chartiq/plugins/tfc/tfcHtml";
-import { ChartContext } from '../../context/ChartContext';
 import { config } from './resources'; // ChartIQ library resources
 const { channelWrite } = CIQ.UI.BaseComponent.prototype;
 
@@ -234,7 +233,6 @@ export default class ActiveTraderWorkstation extends React.Component {
 	render() {
 
 		return (
-			<ChartContext.Provider value={this.state}>
 				<cq-context ref={this.container}>
 
 				<div className="ciq-nav full-screen-hide">
@@ -485,8 +483,6 @@ export default class ActiveTraderWorkstation extends React.Component {
 
 					<cq-side-panel></cq-side-panel>
 				</cq-context>
-			</ChartContext.Provider>
 		);
 	}
 }
-ActiveTraderWorkstation.contextType = ChartContext;
