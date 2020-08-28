@@ -9,8 +9,6 @@ import './chartiq/styles/base-imports';
 import { default as RouteList } from './chartiq/containers/RouteList/RouteList';
 import { AdvancedChart, MultiChart, ActiveTraderWorkstation, CustomChart, HelloWorld } from './chartiq';
 
-// CIQ.debug = true; // Enables debugging
-
 // Optional callback function to access chart engine and uiContext
 const chartInitialized = ({ chartEngine, uiContext }) => {
 	// chartEngine provides access to chart engine CIQ.ChartEngine
@@ -26,7 +24,7 @@ if (el) {
 			<Route path="/technical-analysis" exact render={()=><AdvancedChart chartInitialized={chartInitialized}/>}></Route>
 			<Route path="/multi-chart" exact component={MultiChart}></Route>
 			<Route path="/active-trader" exact render={()=><ActiveTraderWorkstation chartInitialized={chartInitialized}/>}></Route>
-			<Route path="/custom-chart" exact render={()=><CustomChart chartInitialized={chartInitialized}/>}></Route>
+			<Route path="/custom-chart" exact component={CustomChart}></Route>
 			<Route path="/hello-world" exact component={HelloWorld}></Route>
 		</BrowserRouter>,
 		el

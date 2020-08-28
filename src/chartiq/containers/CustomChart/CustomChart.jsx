@@ -216,7 +216,7 @@ export default class CustomChart extends React.Component {
 								of the chart or + Compare...</span>
 							</li>
 							<li>
-								A dialog box implemented in React to add
+								A dialog box implemented in React to add 
 								<a href="https://documentation.chartiq.com/tutorial-Navigation.html#drawing_palette_keyboard_shortcuts"
 									target="shortcuts">keystroke shortcuts</a> to the chart drawing
 								tools and display information about the tools.
