@@ -1,7 +1,9 @@
 import React from 'react';
 import { CIQ } from 'chartiq/js/componentUI';
 
-import { config } from './resources'; // ChartIQ library resources
+import { config } from '../AdvancedChart/resources'; // ChartIQ library resources
+import { default as AdvancedChart } from '../AdvancedChart/AdvancedChart';
+
 import './CustomChart.css';
 import { default as ShortcutDialog } from './ShortcutDialog/ShortcutDialog';
 import { default as RecentSymbols } from './RecentSymbols/RecentSymbols';
@@ -16,13 +18,6 @@ import { default as RecentSymbols } from './RecentSymbols/RecentSymbols';
 export default class CustomChart extends React.Component {
 	constructor(props) {
 		super(props);
-		this.container = React.createRef();
-		this.chartId = props.chartId || '_custom-chart';
-		this.initialSymbol = props.symbol || {
-			symbol: "APPL",
-			name: "Apple Inc",
-			exchDisp: "NASDAQ"
-		};
 
 		this.store = new CIQ.NameValueStore();
 		this.symbolStorageName = 'recentSymbols';
@@ -46,58 +41,21 @@ export default class CustomChart extends React.Component {
 			shortcutDialog: false,
 		};
 
-		// Display UI elements used by plugins. Set to true when enabling plugins.
-		this.showPluginUI = false;
+		// // Display UI elements used by plugins. Set to true when enabling plugins.
+		// this.showPluginUI = false;
 
 	}
 
 	componentDidMount() {
 
-		const container  = this.container.current;
-		const { chart, chartInitializedCallback } = this.state;
-
-		// Update chart configuration by modifying default configuration
-		config.chartId = this.chartId;
-		config.initialSymbol = this.initialSymbol;
-
-		// This hides menu items added by plugins used in the Active Trader example
-		// If you use the Active Trader plugin in the advanced chart you can set
-		// this.showPluginUI to true in the constructor or this block all together.
-		if(!this.showPluginUI){
-			config.menuChartPreferences = config.menuChartPreferences.filter(item => (
-				item.label !== 'Market Depth' && item.label !== 'L2 Heat Map'
-			));
-		}
-		
-		// Remove forecasting addOn not used here
-		delete config.addOns.plotComplementer;
-		delete config.addOns.forecasting;
-
-		const uiContext = chart.createChartAndUI({ container, config });
-		const chartEngine = uiContext.stx;
-
-		this.postInit(container, uiContext) ;
-
-		this.setState({stx: chartEngine, uiContext: uiContext});
-
-		if(chartInitializedCallback){
-			chartInitializedCallback({ chartEngine, uiContext });
-		} 
-
 	}
 
-	componentWillUnmount(){
-		// Destroy the ChartEngine instance when unloading the component. 
-		// This will stop internal processes such as quotefeed polling.
-		this.state.stx.destroy();
-	}
-
-	postInit(container, uiContext) {
+	postInit({ chartEngine, uiContext }) {
 		this.updateCustomization(config).then(()=>{
 			this.addPreferencesHelper(uiContext);
 			this.drawingToolsInfo = this.getDrawingTools(uiContext);
 		});
-		portalizeContextDialogs(container);
+		// portalizeContextDialogs(container);
 
 		const self = this;
 		const isForecasting = symbol => /_fcst$/.test(symbol);
@@ -112,6 +70,8 @@ export default class CustomChart extends React.Component {
 				}
 			}
 		);
+
+		this.setState({stx: chartEngine, uiContext: uiContext});
 
 	}
 
@@ -214,6 +174,12 @@ export default class CustomChart extends React.Component {
 
 	render() {
 
+		let recentSymbols = (
+			<RecentSymbols getRecentSymbols={()=>this.getRecentSymbols()}>
+					<cq-lookup cq-keystroke-claim cq-keystroke-default cq-uppercase></cq-lookup>
+			</RecentSymbols>
+		);
+
 		let tradeToggles = null;
 		if(this.showPluginUI){
 			tradeToggles = (
@@ -262,10 +228,9 @@ export default class CustomChart extends React.Component {
 					</div>
 				</div>
 				<div className="chartWrapper">
-					<cq-context ref={this.container}>
-					<div className="ciq-nav full-screen-hide">
-
-
+					<AdvancedChart config={config}  chartInitialized={this.postInit.bind(this)}>
+						<div className="ciq-nav full-screen-hide">
+		
 						<div className="sidenav-toggle ciq-toggles">
 							<cq-toggle 
 								class="ciq-sidenav" 
@@ -277,9 +242,7 @@ export default class CustomChart extends React.Component {
 						</div>
 
 						<cq-menu class="ciq-search">
-							<RecentSymbols getRecentSymbols={()=>this.getRecentSymbols()}>
-								<cq-lookup cq-keystroke-claim cq-keystroke-default cq-uppercase></cq-lookup>
-							</RecentSymbols>
+							{recentSymbols}
 						</cq-menu>
 
 						<cq-side-nav cq-on="sidenavOn">
@@ -472,8 +435,7 @@ export default class CustomChart extends React.Component {
 						<cq-side-panel></cq-side-panel>
 
 						{shortcutDialog}
-
-					</cq-context>
+					</AdvancedChart>
 				</div>
 			</>
 		);

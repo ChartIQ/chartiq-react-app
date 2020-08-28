@@ -15,7 +15,6 @@ export default class ShortcutDialog extends React.Component {
 		super(props);
 
 		this.onClose = props.closeDialog;
-		this.setDrawingToolShortcuts = props.setDrawingToolShortcuts;
 
 		this.state = {
 			drawingTools: props.drawingToolsInfo,
@@ -36,8 +35,8 @@ export default class ShortcutDialog extends React.Component {
 		const tools = this.state.drawingTools.slice();
 		const shortcut = event.target.value;
 		tools
-		.filter(item => item.tool === tool)
-		.map(item => item.shortcut = shortcut);
+			.filter(item => item.tool === tool)
+			.map(item => item.shortcut = shortcut);
 		
 		this.setState({drawingTools: tools});
 
@@ -90,7 +89,7 @@ export default class ShortcutDialog extends React.Component {
 				return acc;
 			}, {});
 
-		this.setDrawingToolShortcuts(shortcuts);
+		this.props.setDrawingToolShortcuts(shortcuts);
 		this.onClose();
 	}
 

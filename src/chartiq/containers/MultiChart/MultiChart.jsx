@@ -1,4 +1,6 @@
 import React from 'react';
+
+import { config } from '../AdvancedChart/resources'; // ChartIQ library resources
 import { default as AdvancedChart } from '../AdvancedChart/AdvancedChart';
 
 /**
@@ -29,8 +31,8 @@ export default class MultiChart extends React.Component {
 
 		return (
       <>
-        <div style={leftColumn}><AdvancedChart chartId="chart0" symbol="AAPL"></AdvancedChart></div>
-        <div style={rightColumn}><AdvancedChart chartId="chart1" symbol="MSFT"></AdvancedChart></div>
+        <div style={leftColumn}><AdvancedChart config={config} chartId="chart0" symbol="AAPL"></AdvancedChart></div>
+        <div style={rightColumn}><AdvancedChart config={config} chartId="chart1" symbol="MSFT"></AdvancedChart></div>
       </>
 		);
 	}
