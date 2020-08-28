@@ -3,7 +3,6 @@ import { CIQ } from 'chartiq/js/componentUI';
 
 import ChartTemplate from './Template';
 import html from "chartiq/plugins/tfc/tfcHtml";
-import { config } from './resources'; // ChartIQ library resources
 const { channelWrite } = CIQ.UI.BaseComponent.prototype;
 
 import './ActiveTraderWorkstation.css';
@@ -35,6 +34,7 @@ export default class ActiveTraderWorkstation extends React.Component {
 
 		const container  = this.container.current;
 		const { chart, chartInitializedCallback } = this.state;
+		const { config } = this.props;
 
 		// Update chart configuration by modifying default configuration
 		config.chartId = this.chartId;
