@@ -52,8 +52,8 @@ export default class ActiveTraderWorkstation extends React.Component {
 			item.label !== 'Market Depth' && item.label !== 'Extended Hours'
 		));
 		
-		const uiContext = this.chart.createChartAndUI({ container, config });
-		const chartEngine = uiContext.stx;
+		const uiContext = this.UIContext = this.chart.createChartAndUI({ container, config });
+		const chartEngine = this.stx = uiContext.stx;
 		this.startTFC({stx: chartEngine, account: CIQ.Account.Demo, context: uiContext});
 
 		// Methods for capturing state changes in chart engine and UI
@@ -80,8 +80,6 @@ export default class ActiveTraderWorkstation extends React.Component {
 
 		// Request TFC channel open
 		channelWrite(config.channels.tfc, true, uiContext.stx);		
-
-		this.setState({stx: chartEngine, UIContext: uiContext});
 
 		if(this.props.chartInitializedCallback){
 			this.props.chartInitializedCallback({ chartEngine, uiContext });
