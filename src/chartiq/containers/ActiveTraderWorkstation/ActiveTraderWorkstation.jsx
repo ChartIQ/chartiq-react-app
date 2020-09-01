@@ -2,7 +2,6 @@ import React from 'react';
 import { CIQ } from 'chartiq/js/componentUI';
 
 import ChartTemplate from './Template';
-import html from "chartiq/plugins/tfc/tfcHtml";
 const { channelWrite } = CIQ.UI.BaseComponent.prototype;
 
 import './ActiveTraderWorkstation.css';
@@ -169,7 +168,7 @@ export default class ActiveTraderWorkstation extends React.Component {
 			config.account = new config.account();
 
 		var div = document.createElement("div");
-		CIQ.innerHTML(div, html);
+		CIQ.innerHTML(div, this.props.tfcTemplate);
 		for (var j = 0; j < div.children.length; j++) {
 			var ch = div.children[j].cloneNode(true);
 			config.context.topNode.appendChild(ch);
