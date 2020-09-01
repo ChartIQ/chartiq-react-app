@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function ({ tradeToggles }) {
+export default function ({ pluginToggles }) {
 	return (
 		<>
 			<div className="ciq-nav full-screen-hide">
@@ -144,7 +144,7 @@ export default function ({ tradeToggles }) {
 					</cq-menu>
 				</div>
 
-				{tradeToggles}
+				{pluginToggles}
 
 			</div>
 			</div>

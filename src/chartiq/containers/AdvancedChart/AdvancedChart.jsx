@@ -32,9 +32,6 @@ export default class AdvancedChart extends React.Component {
 			chartInitializedCallback: props.chartInitialized
 		};
 
-		// Display UI elements used by plugins. Set to true when enabling plugins.
-		this.showPluginUI = false;
-
 	}
 
 	componentDidMount() {
@@ -42,16 +39,15 @@ export default class AdvancedChart extends React.Component {
 		const container  = this.container.current;
 		const { chart, chartInitializedCallback } = this.state;
 		let { config } = this.props;
+    console.log("AdvancedChart -> componentDidMount -> config", config)
 
 		// Update chart configuration by modifying default configuration
 		config.chartId = this.chartId;
 		config.initialSymbol = this.initialSymbol;
 		// config.quoteFeeds[0].behavior.refreshInterval = 0;
 
-		// This hides menu items added by plugins used in the Active Trader example
-		// If you use the Active Trader plugin in the advanced chart you can set
-		// this.showPluginUI to true in the constructor or this block all together.
-		if(!this.showPluginUI){
+		// Hide manu items used by the Active Trader plugin when it is not loaded
+		if(!config.plugins.marketDepth){
 			config.menuChartPreferences = config.menuChartPreferences.filter(item => (
 				item.label !== 'Market Depth' && item.label !== 'L2 Heat Map'
 			));
@@ -61,10 +57,10 @@ export default class AdvancedChart extends React.Component {
 		// const { tooltip, continuousZoom, outliers } = config.addOns;
 		// const activeAddOns = { continuousZoom, outliers, tooltip };
 		// config.enabledAddOns = Object.assign(activeAddOns, config.enabledAddOns);
-		
 
 		const uiContext = this.createChartAndUI({container, config});
 		const chartEngine = uiContext.stx;
+    console.log("AdvancedChart -> componentDidMount -> chartEngine", chartEngine)
 
 		this.setState({stx: chartEngine, UIContext: uiContext});
 
@@ -107,21 +103,24 @@ export default class AdvancedChart extends React.Component {
 		portalizeContextDialogs(container);
 	}
 
+	// Return elements for chart plugin toggle buttons
+	getPluginToggles(){
+		const { tfc } = this.state.stx || {};
+		return (
+			<div className="trade-toggles ciq-toggles">
+				{tfc && <cq-toggle class="tfc-ui sidebar stx-trade" cq-member="tfc"><span></span><cq-tooltip>Trade</cq-tooltip></cq-toggle>}
+				<cq-toggle class="tc-ui stx-tradingcentral" cq-member="tc"><span></span><cq-tooltip>Analysis</cq-tooltip></cq-toggle>
+				<cq-toggle class="recognia-ui stx-recognia" cq-member="recognia"><span></span><cq-tooltip>Analysis</cq-tooltip></cq-toggle>
+			</div>
+		);
+	}
+
 	render() {
 
-		let chartTemplate = (<ChartTemplate tradeToggles={tradeToggles} />);
-		if(this.props.children) chartTemplate = this.props.children;
+		const pluginToggles = this.getPluginToggles();
 
-		let tradeToggles = null;
-		if(this.showPluginUI){
-			tradeToggles = (
-				<div className="trade-toggles ciq-toggles">
-					<cq-toggle class="tfc-ui sidebar stx-trade" cq-member="tfc"><span></span><cq-tooltip>Trade</cq-tooltip></cq-toggle>
-					<cq-toggle class="tc-ui stx-tradingcentral" cq-member="tc"><span></span><cq-tooltip>Analysis</cq-tooltip></cq-toggle>
-					<cq-toggle class="recognia-ui stx-recognia" cq-member="recognia"><span></span><cq-tooltip>Analysis</cq-tooltip></cq-toggle>
-				</div>
-			);
-		}
+		let chartTemplate = (<ChartTemplate pluginToggles={pluginToggles} />);
+		if(this.props.children) chartTemplate = this.props.children;
 
 		return (
 				<cq-context ref={this.container}>

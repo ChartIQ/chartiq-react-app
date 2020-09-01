@@ -41,9 +41,6 @@ export default class CustomChart extends React.Component {
 			shortcutDialog: false,
 		};
 
-		// // Display UI elements used by plugins. Set to true when enabling plugins.
-		// this.showPluginUI = false;
-
 	}
 
 	componentDidMount() {
@@ -172,18 +169,21 @@ export default class CustomChart extends React.Component {
 		this.setState({shortcutDialog: false});
 	}
 
+	// Return elements for chart plugin toggle buttons
+	getPluginToggles(){
+		const { tfc } = this.state.stx || {};
+		return (
+			<div className="trade-toggles ciq-toggles">
+				{tfc && <cq-toggle class="tfc-ui sidebar stx-trade" cq-member="tfc"><span></span><cq-tooltip>Trade</cq-tooltip></cq-toggle>}
+				<cq-toggle class="tc-ui stx-tradingcentral" cq-member="tc"><span></span><cq-tooltip>Analysis</cq-tooltip></cq-toggle>
+				<cq-toggle class="recognia-ui stx-recognia" cq-member="recognia"><span></span><cq-tooltip>Analysis</cq-tooltip></cq-toggle>
+			</div>
+		);
+	}
+
 	render() {
 
-		let tradeToggles = null;
-		if(this.showPluginUI){
-			tradeToggles = (
-				<div className="trade-toggles ciq-toggles">
-					<cq-toggle class="tfc-ui sidebar stx-trade" cq-member="tfc"><span></span><cq-tooltip>Trade</cq-tooltip></cq-toggle>
-					<cq-toggle class="tc-ui stx-tradingcentral" cq-member="tc"><span></span><cq-tooltip>Analysis</cq-tooltip></cq-toggle>
-					<cq-toggle class="recognia-ui stx-recognia" cq-member="recognia"><span></span><cq-tooltip>Analysis</cq-tooltip></cq-toggle>
-				</div>
-			);
-		}
+		const pluginToggles = this.getPluginToggles();
 
 		let shortcutDialog = null;
 		if(this.state.shortcutDialog) shortcutDialog = (
@@ -371,7 +371,7 @@ export default class CustomChart extends React.Component {
 								</cq-menu>
 							</div>
 
-							{tradeToggles}
+							{pluginToggles}
 
 						</div>
 						</div>

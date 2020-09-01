@@ -35,6 +35,7 @@ import getConfig from 'chartiq/js/defaultConfiguration';
 // Plugins
 
 // Crypto, L2 Heat Map, Market Depth, 
+// Important Note. Remove the corresponding delete statement below when enabling this plugin. 
 // import 'chartiq/plugins/activetrader/cryptoiq';
 
 // ScriptIQ 
@@ -44,6 +45,7 @@ import getConfig from 'chartiq/js/defaultConfiguration';
 // import 'chartiq/plugins/technicalinsights/components'
 
 // TFC plugin
+// Important Note. Remove the corresponding delete statement below when enabling this plugin. 
 // import 'chartiq/plugins/tfc/tfc-loader';
 // import 'chartiq/plugins/tfc/tfc-demo';   /* if using demo account class */
 
@@ -66,5 +68,9 @@ const config = getConfig({
 	markerSample: marker.MarkersSample,
 	scrollStyle: PerfectScrollbar,
 });
+
+// Important! Comment or delete these lines when enabling the corresponding plugin
+delete config.plugins.marketDepth;
+delete config.plugins.tfc;
 
 export { CIQ, config };
