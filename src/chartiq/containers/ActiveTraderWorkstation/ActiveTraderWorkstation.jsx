@@ -18,19 +18,15 @@ export default class ActiveTraderWorkstation extends React.Component {
 		this.chartId = props.chartId || '_active-trader-chart';
 		this.initialSymbol = '^USDAUD';
 
-		this.state = {
-			chart: new CIQ.UI.Chart(),
-			stx: null,
-			UIContext: null,
-			chartInitializedCallback: props.chartInitialized
-		};
+		this.chart = new CIQ.UI.Chart();
+		this.stx = null;
+		this.UIContext = null;
 
 	}
 
 	componentDidMount() {
 
 		const container  = this.container.current;
-		const { chart, chartInitializedCallback } = this.state;
 		const { config } = this.props;
 
 		// Update chart configuration by modifying default configuration
@@ -56,7 +52,7 @@ export default class ActiveTraderWorkstation extends React.Component {
 			item.label !== 'Market Depth' && item.label !== 'Extended Hours'
 		));
 		
-		const uiContext = chart.createChartAndUI({ container, config });
+		const uiContext = this.chart.createChartAndUI({ container, config });
 		const chartEngine = uiContext.stx;
 		this.startTFC({stx: chartEngine, account: CIQ.Account.Demo, context: uiContext});
 
@@ -87,8 +83,8 @@ export default class ActiveTraderWorkstation extends React.Component {
 
 		this.setState({stx: chartEngine, UIContext: uiContext});
 
-		if(chartInitializedCallback){
-			chartInitializedCallback({ chartEngine, uiContext });
+		if(this.props.chartInitializedCallback){
+			this.props.chartInitializedCallback({ chartEngine, uiContext });
 		} 
 
 	}
@@ -96,7 +92,7 @@ export default class ActiveTraderWorkstation extends React.Component {
 	componentWillUnmount(){
 		// Destroy the ChartEngine instance when unloading the component. 
 		// This will stop internal processes such as quotefeed polling.
-		this.state.stx.destroy();
+		this.stx.destroy();
 	}
 
 	cryptoSetup(stx) {
