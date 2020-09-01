@@ -155,7 +155,6 @@ export default function ({ tradeToggles }) {
 
 			<cq-recognia uid="" lang="en" disabled></cq-recognia> 
 
-			<cq-recent-symbols>
 			<div className="ciq-chart-area">
 				<div className="ciq-chart">
 
@@ -180,7 +179,6 @@ export default function ({ tradeToggles }) {
 					</div>
 				</div>
 			</div>
-			</cq-recent-symbols>
 
 			<cq-abstract-marker cq-type="helicopter"></cq-abstract-marker>
 
