@@ -174,12 +174,6 @@ export default class CustomChart extends React.Component {
 
 	render() {
 
-		let recentSymbols = (
-			<RecentSymbols getRecentSymbols={()=>this.getRecentSymbols()}>
-					<cq-lookup cq-keystroke-claim cq-keystroke-default cq-uppercase></cq-lookup>
-			</RecentSymbols>
-		);
-
 		let tradeToggles = null;
 		if(this.showPluginUI){
 			tradeToggles = (
@@ -242,7 +236,9 @@ export default class CustomChart extends React.Component {
 						</div>
 
 						<cq-menu class="ciq-search">
-							{recentSymbols}
+							<RecentSymbols getRecentSymbols={()=>this.getRecentSymbols()}>
+								<cq-lookup cq-keystroke-claim cq-keystroke-default cq-uppercase></cq-lookup>
+							</RecentSymbols>
 						</cq-menu>
 
 						<cq-side-nav cq-on="sidenavOn">
@@ -403,7 +399,7 @@ export default class CustomChart extends React.Component {
 
 									<cq-chartcontrol-group class="full-screen-show" cq-marker></cq-chartcontrol-group>
 
-									<cq-comparison-lookup-fix></cq-comparison-lookup-fix>
+									<cq-comparison-lookup></cq-comparison-lookup>
 
 									<cq-chart-legend></cq-chart-legend>
 
