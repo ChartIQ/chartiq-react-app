@@ -4,8 +4,6 @@ import { CIQ } from 'chartiq/js/componentUI';
 import ChartTemplate from './Template';
 const { channelWrite } = CIQ.UI.BaseComponent.prototype;
 
-import './ActiveTraderWorkstation.css';
-
 /**
  * This is a fully functional example showing how to load a chart with the Active Trader plugin and UI.
  *
