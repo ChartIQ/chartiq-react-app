@@ -39,7 +39,6 @@ export default class AdvancedChart extends React.Component {
 		const container  = this.container.current;
 		const { chart, chartInitializedCallback } = this.state;
 		let { config } = this.props;
-    console.log("AdvancedChart -> componentDidMount -> config", config)
 
 		// Update chart configuration by modifying default configuration
 		config.chartId = this.chartId;
@@ -60,7 +59,6 @@ export default class AdvancedChart extends React.Component {
 
 		const uiContext = this.createChartAndUI({container, config});
 		const chartEngine = uiContext.stx;
-    console.log("AdvancedChart -> componentDidMount -> chartEngine", chartEngine)
 
 		this.setState({stx: chartEngine, UIContext: uiContext});
 
