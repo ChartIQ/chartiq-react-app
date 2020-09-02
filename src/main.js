@@ -30,7 +30,3 @@ if (el) {
 		el
 	);
 }
-
-export default (props) => (<AdvancedChart
-	chartInitialized={chartInitialized}
-	/>);
