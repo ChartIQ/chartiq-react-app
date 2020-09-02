@@ -175,8 +175,8 @@ export default class CustomChart extends React.Component {
 		return (
 			<div className="trade-toggles ciq-toggles">
 				{tfc && <cq-toggle class="tfc-ui sidebar stx-trade" cq-member="tfc"><span></span><cq-tooltip>Trade</cq-tooltip></cq-toggle>}
-				<cq-toggle class="analystviews-ui stx-analystviews" cq-member="analystviews"><span></span><cq-tooltip>Analyst Views</cq-tooltip></cq-toggle>
-				<cq-toggle class="technicalinsights-ui stx-technicalinsights" cq-member="technicalinsights"><span></span><cq-tooltip>Technical Insights</cq-tooltip></cq-toggle>
+				<cq-toggle class="analystviews-ui stx-analystviews tc-ui stx-tradingcentral" cq-member="analystviews"><span></span><cq-tooltip>Analyst Views</cq-tooltip></cq-toggle>
+				<cq-toggle class="technicalinsights-ui stx-technicalinsights recognia-ui stx-recognia" cq-member="technicalinsights"><span></span><cq-tooltip>Technical Insights</cq-tooltip></cq-toggle>
 			</div>
 		);
 	}
