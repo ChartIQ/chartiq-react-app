@@ -144,6 +144,6 @@ function portalizeContextDialogs(container) {
 function dialogPortalized(el) {
 	const tag = el.firstChild.nodeName.toLowerCase();
 	return Array.from(document.querySelectorAll(tag)).some(
-		el => !CIQ.findClosestParent(el, 'cq-context')
+		el => !el.closest('cq-context')
 	);
 }
