@@ -90,6 +90,7 @@ export default class ActiveTraderWorkstation extends React.Component {
 	componentWillUnmount(){
 		// Destroy the ChartEngine instance when unloading the component. 
 		// This will stop internal processes such as quotefeed polling.
+		this.stx.moneyFlowChart.destroy();
 		this.stx.destroy();
 	}
 
