@@ -7,7 +7,6 @@
 - [Getting started](#getting-started)
 - [Customization](#customization)
 - [Enabling plug-ins](#enabling-plug\-ins)
-- [Project structure](#project-structure)
 - [Building the project](#building-the-project)
 - [Notes](#notes)
 - [Questions and support](#questions-and-support)
@@ -37,7 +36,7 @@ The application opens with a `RouteList` component that creates a home page cont
 
 - A copy of the ChartIQ library, version 8.0.0 or later.
 
-    If you do not have a copy of the library, please contact your ChartIQ account manager or send an email to [support@chartiq.com](mailto:support@chartiq.com).
+    If you do not have a copy of the library, please contact your account manager or send an email to <info@cosaic.io>.
 
 
 ## Getting started
@@ -71,9 +70,9 @@ The JSX in `AdvancedChart`, `CustomChart`, and `ActiveTraderWorkstation` compone
 
 ### Configuration
 
-You can configure a variety of chart features by modifying the configuration object provided to the component definition files of `AdvancedChart`, `CustomChart`, and `ActiveTrader`. Look for the call to `CIQ.getConfig` in the definition files.
+You can configure a variety of chart features by modifying the configuration object provided to the component definition files of `AdvancedChart`, `CustomChart`, and `ActiveTrader`. Look for the call to `getConfig` in the resources files.
 
-The default configuration is part of the ChartIQ library. See *./node_modules/chartiq/examples/templates/js/sample-config.js* for all the configuration details.
+The default configuration is part of the ChartIQ library. See *./node_modules/chartiq/js/defaultConfiguration.js* for all the configuration details.
 
 You can also modify the CSS in the style sheet files associated with `AdvancedChart`, `CustomChart`, and `ActiveTrader`. See the [CSS Overview](https://documentation.chartiq.com/tutorial-CSS%20Overview.html) tutorial for information on customizing the chart look and feel.
 
@@ -114,37 +113,21 @@ CIQ.UI.addComponentDefinition('cq-chart-title', CustomChartTitle);
 
 The `RecentSymbols` component provides an example of wrapping and enhancing a web component with a React component. `RecentSymbols` adds a RECENT tab to the lookup controls created by ChartIQ's `cq-lookup` and `cq-comparison-lookup` web components. The RECENT tab displays a list of recently used financial instrument symbols maintained by the `RecentSymbols` component.
 
-The `ShortcutDialog` component is an example of an Angular component accessed by a web component. User interaction with a dropdown menu created by a ChartIQ `cq-menu` web component opens the dialog box created by the `ShortcutDialog` component. The dialog box enables users to set shortcut keys on the chart's drawing tools.
+The `ShortcutDialog` component is an example of a React component accessed by a web component. User interaction with a drop-down menu created by a ChartIQ `cq-menu` web component opens the dialog box created by the `ShortcutDialog` component. The dialog box enables users to set shortcut keys on the chart's drawing tools.
 
 ## Enabling plug-ins
 
-The ChartIQ library comes with a variety of plug-ins that add enhanced functionality to charts. The ChartIQ React application comes with the plug-ins built in but not enabled.
+ChartIQ comes with a variety of plug-ins that add enhanced functionality to charts. The ChartIQ React application comes with the plug-ins built in but not enabled.
 
 **Note:** Plug-ins are optional extras that must be purchased. To determine the plug-ins included in your library, see the *./node_modules/chartiq/plugins* folder.
 
 The application includes the ChartIQ plug-ins as component resources that are enabled by uncommenting the relevant imports in the component resources file.
 
-For example, to enable the Trade from Chart (TFC) plug-in for `AdvancedChart`, uncomment the following lines in the [resources.ts](./src/chartiq/containers/AdvancedChart/resources.ts) file in the *./src/chartiq/containers/AdvancedChart/* folder:
+For example, to enable the Trade from Chart (TFC) plug-in for `AdvancedChart`, uncomment the following lines in the [resources.js](./src/chartiq/containers/AdvancedChart/resources.js) file in the *./src/chartiq/containers/AdvancedChart/* folder:
 
 ```js
 // import 'chartiq/plugins/tfc/tfc-loader';
 // import 'chartiq/plugins/tfc/tfc-demo';
-```
-
-## Project Structure
-
-```sh
-src
-├── chartiq
-│   ├── containers               # React containers folder
-│   ├── context                  # React context folder
-│   ├── styles                   # Required CSS (or Sass) styles
-│   ├── index.js                 # List of plug-in imports and React component exports
-├── main.js                      # Main AdvancedChart component application
-├── .babelrc
-├── index.html                   # Template for webpack
-├── webpack                      # Configurations for webpack
-└── webpack.config.js            # Main webpack configuration
 ```
 
 ## Building the project
@@ -157,9 +140,10 @@ npm run build
 
 The bundle will be created in the *dist/* folder.
 
+
 ## Notes
 
-- This application runs only from IP address `127.0.0.1`, hostname `localhost`, or the explicit list of domains set on your ChartIQ library license. If you need to bind the webpack development server to a different host, please contact your ChartIQ account manager to have additional domains added to your license.
+- This application runs only from IP address `127.0.0.1`, hostname `localhost`, or the explicit list of domains set on your ChartIQ license. If you need to bind the webpack development server to a different host, please contact your account manager to have additional domains added to your license.
 
 - If the web component polyfill is not required for supported browsers, the download size can be reduced by removing the polyfill script tag in the *index.html* file.
 
@@ -174,5 +158,4 @@ The bundle will be created in the *dist/* folder.
 
 ## Contributing to this project
 
-Contribute to this project. Fork it and send us a pull request.
-We'd love to see what you can do with our charting tools!
+Contribute to this project. Fork it and send us a pull request. We'd love to see what you can do with our charting tools!

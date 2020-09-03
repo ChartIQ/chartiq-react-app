@@ -24,10 +24,10 @@ export default class RouteList extends React.Component {
       <span className="route-list">
         <h2>ChartIQ React Application</h2>
 
-        <p className="description">The chartiq-angular-app project is a toolkit of Angular components.
+        <p className="description">The chartiq-angular-app project is a toolkit of React components.
           The following components create complete charting applications: (Select the component names to
           see the applications.)</p>
-        
+
         <ul className="top-level">
           <li>
             <h3><Link to="/technical-analysis">AdvancedChartComponent</Link></h3>
@@ -57,18 +57,18 @@ export default class RouteList extends React.Component {
           <li>
             <h3><Link to="/custom-chart">CustomChartComponent</Link></h3>
             <p>
-              Integrates native Angular components with ChartIQ web components.
+              Integrates native React components with ChartIQ web components.
             </p>
           </li>
           <li>
             <h3><Link to="/hello-world">HelloWorldComponent</Link></h3>
             <p>
               Creates a basic chart with no user interface as a starting point for using the ChartIQ
-              API in Angular.
+              API in React.
             </p>
           </li>
-        </ul> 
-      </span>     
+        </ul>
+      </span>
 		);
 	}
 }
