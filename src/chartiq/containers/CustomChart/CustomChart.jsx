@@ -121,7 +121,7 @@ export default class CustomChart extends React.Component {
 		});
 	}
 
-	// Injects a helper into the ChartIQ UI Layout object to invoke when 
+	// Injects a helper into the ChartIQ UI Layout object to invoke when
 	// the custom added "Drawing Tools" item in the options menu is selected.
 	addPreferencesHelper(uiContext) {
 		const layoutHelper = uiContext.getAdvertised('Layout');
@@ -163,7 +163,7 @@ export default class CustomChart extends React.Component {
 		rebuildDrawingPalette(topNode);
 	}
 
-	// Handler to pass along to the custom ShortcutDialog component that sets 
+	// Handler to pass along to the custom ShortcutDialog component that sets
 	// its closed state
 	closeDialog() {
 		this.setState({shortcutDialog: false});
@@ -187,8 +187,8 @@ export default class CustomChart extends React.Component {
 
 		let shortcutDialog = null;
 		if(this.state.shortcutDialog) shortcutDialog = (
-			<ShortcutDialog 
-				drawingToolsInfo={this.drawingToolsInfo} 
+			<ShortcutDialog
+				drawingToolsInfo={this.drawingToolsInfo}
 				closeDialog={(event) => {(this.closeDialog())}}
 				setDrawingToolShortcuts={(shortcuts)=>{this.setDrawingToolShortcuts(shortcuts)}}
 			>
@@ -210,9 +210,8 @@ export default class CustomChart extends React.Component {
 								of the chart or + Compare...</span>
 							</li>
 							<li>
-								A dialog box implemented in React to add 
-								<a href="https://documentation.chartiq.com/tutorial-Navigation.html#drawing_palette_keyboard_shortcuts"
-									target="shortcuts">keystroke shortcuts</a> to the chart drawing
+								A dialog box implemented in React to add <a href="https://documentation.chartiq.com/tutorial-Navigation.html#drawing_palette_keyboard_shortcuts"
+								target="shortcuts">keystroke shortcuts</a> to the chart drawing
 								tools and display information about the tools.
 								<br/><span className="instruction">Select Drawing Tools from the Preferences (cog wheel)
 								menu.</span>
@@ -224,11 +223,11 @@ export default class CustomChart extends React.Component {
 				<div className="chartWrapper">
 					<AdvancedChart config={config}  chartInitialized={this.postInit.bind(this)}>
 						<div className="ciq-nav full-screen-hide">
-		
+
 						<div className="sidenav-toggle ciq-toggles">
-							<cq-toggle 
-								class="ciq-sidenav" 
-								cq-member="sidenav" 
+							<cq-toggle
+								class="ciq-sidenav"
+								cq-member="sidenav"
 								cq-toggles="sidenavOn,sidenavOff"
 								cq-toggle-classes="active,"><span></span>
 								<cq-tooltip>More</cq-tooltip>
@@ -380,7 +379,7 @@ export default class CustomChart extends React.Component {
 
 						<cq-tradingcentral class="tc-ui" token="eZOrIVNU3KR1f0cf6PTUYg==" partner="1000" disabled></cq-tradingcentral>
 
-						<cq-recognia uid="" lang="en" disabled></cq-recognia> 
+						<cq-recognia uid="" lang="en" disabled></cq-recognia>
 
 						<cq-recent-symbols>
 						<div className="ciq-chart-area">
