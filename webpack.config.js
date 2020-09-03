@@ -82,9 +82,6 @@ module.exports = env => {
                 }
             ]
         },
-        externals: {
-            jquery: 'jQuery'
-        },
     
         plugins: [
             // ignores not available chartiq resource due to not all licenses having
