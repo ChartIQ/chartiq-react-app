@@ -381,7 +381,7 @@ export default class CustomChart extends React.Component {
 
 						<cq-recognia uid="" lang="en" disabled></cq-recognia>
 
-						<cq-recent-symbols>
+						<RecentSymbols getRecentSymbols={()=>this.getRecentSymbols()}>
 						<div className="ciq-chart-area">
 							<div className="ciq-chart">
 
@@ -406,7 +406,7 @@ export default class CustomChart extends React.Component {
 								</div>
 							</div>
 						</div>
-						</cq-recent-symbols>
+						</RecentSymbols>
 
 						<cq-abstract-marker cq-type="helicopter"></cq-abstract-marker>
 

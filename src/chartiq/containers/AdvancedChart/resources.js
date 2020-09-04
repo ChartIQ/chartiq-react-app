@@ -35,7 +35,7 @@ import getConfig from 'chartiq/js/defaultConfiguration';
 // Plugins
 
 // Crypto, L2 Heat Map, Market Depth, 
-// Important Note. Remove the corresponding delete statement below when enabling this plugin. 
+// Important Note. Cucomment the corresponding configuration object below when enabling this plugin. 
 // import 'chartiq/plugins/activetrader/cryptoiq';
 
 // ScriptIQ 
@@ -45,11 +45,12 @@ import getConfig from 'chartiq/js/defaultConfiguration';
 // import 'chartiq/plugins/technicalinsights/components'
 
 // TFC plugin
-// Important Note. Remove the corresponding delete statement below when enabling this plugin. 
+// Important Note. Cucomment the corresponding configuration object below when enabling this plugin. 
 // import 'chartiq/plugins/tfc/tfc-loader';
 // import 'chartiq/plugins/tfc/tfc-demo';   /* if using demo account class */
 
 // Time Span Events
+// Important Note. Cucomment the corresponding configuration object below when enabling this plugin. 
 // import 'chartiq/plugins/timespanevent/timespanevent';
 // import 'chartiq/plugins/timespanevent/examples/timeSpanEventSample';  /* if using sample */
 
@@ -57,6 +58,7 @@ import getConfig from 'chartiq/js/defaultConfiguration';
 // import 'chartiq/plugins/analystviews/components';
 
 // Visual Earnings
+// Important Note. Cucomment the corresponding configuration object below when enabling this plugin. 
 // import 'chartiq/plugins/visualearnings/visualearnings';
 
 //  Uncomment the following for the L2 simulator (required for the crypto sample and MarketDepth addOn)
@@ -69,8 +71,20 @@ const config = getConfig({
 	scrollStyle: PerfectScrollbar,
 });
 
-// Important! Comment or delete these lines when enabling the corresponding plugin
-delete config.plugins.marketDepth;
-delete config.plugins.tfc;
+const { 
+	marketDepth,
+	termStructure,
+	tfc,
+	timeSpanEventPanel,
+	visualEarnings
+} = config.plugins;
+// Select only plugin configurations that needs to be active for this chart
+config.plugins = { 
+	// marketDepth,
+	// termStructure,
+	// tfc,
+	// timeSpanEventPanel,
+	// visualEarnings
+};
 
 export { CIQ, config };
