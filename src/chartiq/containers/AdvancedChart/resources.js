@@ -35,7 +35,7 @@ import getConfig from 'chartiq/js/defaultConfiguration';
 // Plugins
 
 // Crypto, L2 Heat Map, Market Depth, 
-// Important Note. Cucomment the corresponding configuration object below when enabling this plugin. 
+// Important Note. Uncomment the corresponding configuration object below when enabling this plugin. 
 // import 'chartiq/plugins/activetrader/cryptoiq';
 
 // ScriptIQ 
@@ -45,12 +45,12 @@ import getConfig from 'chartiq/js/defaultConfiguration';
 // import 'chartiq/plugins/technicalinsights/components'
 
 // TFC plugin
-// Important Note. Cucomment the corresponding configuration object below when enabling this plugin. 
+// Important Note. Uncomment the corresponding configuration object below when enabling this plugin. 
 // import 'chartiq/plugins/tfc/tfc-loader';
 // import 'chartiq/plugins/tfc/tfc-demo';   /* if using demo account class */
 
 // Time Span Events
-// Important Note. Cucomment the corresponding configuration object below when enabling this plugin. 
+// Important Note. Uncomment the corresponding configuration object below when enabling this plugin. 
 // import 'chartiq/plugins/timespanevent/timespanevent';
 // import 'chartiq/plugins/timespanevent/examples/timeSpanEventSample';  /* if using sample */
 
@@ -58,7 +58,7 @@ import getConfig from 'chartiq/js/defaultConfiguration';
 // import 'chartiq/plugins/analystviews/components';
 
 // Visual Earnings
-// Important Note. Cucomment the corresponding configuration object below when enabling this plugin. 
+// Important Note. Uncomment the corresponding configuration object below when enabling this plugin. 
 // import 'chartiq/plugins/visualearnings/visualearnings';
 
 //  Uncomment the following for the L2 simulator (required for the crypto sample and MarketDepth addOn)
