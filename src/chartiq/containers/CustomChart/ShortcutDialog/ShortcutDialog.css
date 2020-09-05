@@ -58,9 +58,6 @@
 	background-color: #eee;
 }
 
-.shortcut-dialog .list tr:hover td {
-	/* padding: 2px 8px; */
-}
 .shortcut-dialog .list tr:hover input {
 	background-color: #f5f5f5;
 }

@@ -1,10 +1,9 @@
 import React from 'react';
-import { CIQ } from 'chartiq/js/componentUI';
 
 import './ShortcutDialog.css';
 
 /**
- * This is a fully functional example showing how to load a chart with complete user interface.
+ * Custom component that adds a drawing tools keyboard shortcut settings dialog.
  *
  * @export
  * @class ShortcutDialog

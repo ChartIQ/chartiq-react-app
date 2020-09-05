@@ -1,10 +1,9 @@
 import React from "react";
-import { CIQ } from "chartiq/js/componentUI";
 
 //import './RecentSymbols.css';
 
 /**
- * This is a fully functional example showing how to load a chart with complete user interface.
+ * Custom component that adds a recent symbols tab to the ChartIq symbol search web component
  *
  * @export
  * @class RecentSymbols
@@ -98,16 +97,6 @@ export default class RecentSymbols extends React.Component {
 						lookupComponent.resultList.empty();
 						lookupComponent.results(list);
 					});
-
-				// let list = {"AAPL":{"symbol":"AAPL","name":"Apple Inc","exchDisp":"NASDAQ","count":1,"last":1596657589426},"IBM":{"symbol":"IBM","name":"International Business Machines Corp.","exchDisp":"NYSE","count":1,"last":1596659660591}};
-				// let finallist = Object.values(list)
-				// 			.map(({ symbol, name, exchDisp }) => ({
-				// 				display: [symbol, name, exchDisp],
-				// 				data: { symbol, name, exchDisp }
-				// 			}));
-				// console.log("RecentSymbols -> createRecentTab -> finallist", finallist)
-				// lookupComponent.resultList.empty();
-				// lookupComponent.results(finallist);
 			}
 
 			function unsetRecent() {
