@@ -492,6 +492,7 @@ export default class CustomChart extends React.Component {
 													<cq-flag></cq-flag>
 													<cq-language-name>Change Language</cq-language-name>
 												</cq-item>
+												<cq-separator></cq-separator>
 											</cq-menu-dropdown-section>
 											<cq-menu-dropdown-section class="chart-preferences">
 												<cq-heading>Preferences</cq-heading>
