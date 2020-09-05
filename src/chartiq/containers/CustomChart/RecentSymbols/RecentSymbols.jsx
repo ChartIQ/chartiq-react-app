@@ -1,5 +1,5 @@
-import React from 'react';
-import { CIQ } from 'chartiq/js/componentUI';
+import React from "react";
+import { CIQ } from "chartiq/js/componentUI";
 
 //import './RecentSymbols.css';
 
@@ -17,12 +17,10 @@ export default class RecentSymbols extends React.Component {
 		this.el = React.createRef();
 		this.getRecentSymbols = props.getRecentSymbols;
 
-		this.state = {
-		}
+		this.state = {};
 	}
 
 	componentDidMount() {
-
 		const self = this;
 		const el = this.el.current;
 
@@ -30,13 +28,13 @@ export default class RecentSymbols extends React.Component {
 
 		function lookupAvailable(cb) {
 			let cnt = 0;
-			const callback = function(mutationsList, observer) {
-				for(let { target } of mutationsList) {
-					if(target.nodeName.toLowerCase() === 'cq-lookup') {
+			const callback = function (mutationsList, observer) {
+				for (let { target } of mutationsList) {
+					if (target.nodeName.toLowerCase() === "cq-lookup") {
 						cnt += 1;
-						if (cnt === this.connectCount) observer.disconnect();  // found all elements 
+						if (cnt === this.connectCount) observer.disconnect(); // found all elements
 						cb(target.parentElement);
-					};
+					}
 				}
 			};
 			const observer = new MutationObserver(callback);
@@ -46,30 +44,30 @@ export default class RecentSymbols extends React.Component {
 
 		function createRecentTab(el) {
 			const qs = el.querySelector.bind(el);
-			const lookupComponent = qs('cq-lookup');
-			const input = qs('cq-lookup-input input');
-			const lookupFilters = qs('cq-lookup-filters');
-			const allTabs = lookupFilters.querySelector('cq-filter');
+			const lookupComponent = qs("cq-lookup");
+			const input = qs("cq-lookup-input input");
+			const lookupFilters = qs("cq-lookup-filters");
+			const allTabs = lookupFilters.querySelector("cq-filter");
 			let recentTab;
 
 			let init = false;
 
-			input.addEventListener('focus', () => {
+			input.addEventListener("focus", () => {
 				const hasRecentTab = /recent/i.test(lookupFilters.textContent);
 
 				if (!hasRecentTab) {
-					recentTab = document.createElement('cq-filter');
-					recentTab.innerHTML = 'RECENT';
+					recentTab = document.createElement("cq-filter");
+					recentTab.innerHTML = "RECENT";
 					lookupFilters.insertBefore(recentTab, allTabs);
 				}
 
-				recentTab.addEventListener('click', showRecent);
+				recentTab.addEventListener("click", showRecent);
 
 				showRecent();
-				
+
 				if (init) return;
-				input.addEventListener('keyup', handleChange);
-				input.addEventListener('input', handleChange);
+				input.addEventListener("keyup", handleChange);
+				input.addEventListener("input", handleChange);
 
 				init = true;
 			});
@@ -82,28 +80,28 @@ export default class RecentSymbols extends React.Component {
 				}
 			}
 
-			function showRecent() { 
-				lookupFilters.querySelectorAll('cq-filter').forEach(tab => activate(tab, false));
-				activate(recentTab); 
-				
-				self.getRecentSymbols()
-					.then(list => 
-						Object.values(list)
-							.map(({ symbol, name, exchDisp }) => ({ 
-								display: [symbol, name, exchDisp],
-								data: { symbol, name, exchDisp }
-							}))
+			function showRecent() {
+				lookupFilters
+					.querySelectorAll("cq-filter")
+					.forEach((tab) => activate(tab, false));
+				activate(recentTab);
+
+				self
+					.getRecentSymbols()
+					.then((list) =>
+						Object.values(list).map(({ symbol, name, exchDisp }) => ({
+							display: [symbol, name, exchDisp],
+							data: { symbol, name, exchDisp }
+						}))
 					)
-					.then(list => {
+					.then((list) => {
 						lookupComponent.resultList.empty();
 						lookupComponent.results(list);
 					});
 
-
-
 				// let list = {"AAPL":{"symbol":"AAPL","name":"Apple Inc","exchDisp":"NASDAQ","count":1,"last":1596657589426},"IBM":{"symbol":"IBM","name":"International Business Machines Corp.","exchDisp":"NYSE","count":1,"last":1596659660591}};
 				// let finallist = Object.values(list)
-				// 			.map(({ symbol, name, exchDisp }) => ({ 
+				// 			.map(({ symbol, name, exchDisp }) => ({
 				// 				display: [symbol, name, exchDisp],
 				// 				data: { symbol, name, exchDisp }
 				// 			}));
@@ -113,25 +111,19 @@ export default class RecentSymbols extends React.Component {
 			}
 
 			function unsetRecent() {
-				if (recentTab.classList.contains('true')) {
+				if (recentTab.classList.contains("true")) {
 					activate(recentTab, false);
 					activate(allTabs);
 				}
 			}
 
 			function activate(el, value = true) {
-				el.classList[value ? 'add' : 'remove']('true')
+				el.classList[value ? "add" : "remove"]("true");
 			}
-
 		}
 	}
 
 	render() {
-
-		return (
-			<span ref={this.el}>
-				{this.props.children}
-			</span>
-		);
+		return <span ref={this.el}>{this.props.children}</span>;
 	}
 }

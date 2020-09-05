@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 
-import { config } from '../AdvancedChart/resources'; // ChartIQ library resources
-import { default as AdvancedChart } from '../AdvancedChart/AdvancedChart';
+import { config } from "../AdvancedChart/resources"; // ChartIQ library resources
+import { default as AdvancedChart } from "../AdvancedChart/AdvancedChart";
 
 /**
  * This is an example of two AdvancedChart comonents on the same page.
@@ -16,24 +16,35 @@ export default class MultiChart extends React.Component {
 	}
 
 	render() {
-
-    const leftColumn = {
-      height: '100%',
-      position: 'absolute',
-	    width: '50%'
-    };
-    const rightColumn = {
-      height: '100%',
-      position: 'absolute',
-      width: '50%',
-      left: '50%'
-    };
+		const leftColumn = {
+			height: "100%",
+			position: "absolute",
+			width: "50%"
+		};
+		const rightColumn = {
+			height: "100%",
+			position: "absolute",
+			width: "50%",
+			left: "50%"
+		};
 
 		return (
-      <>
-        <div style={leftColumn}><AdvancedChart config={config} chartId="chart0" symbol="AAPL"></AdvancedChart></div>
-        <div style={rightColumn}><AdvancedChart config={config} chartId="chart1" symbol="MSFT"></AdvancedChart></div>
-      </>
+			<>
+				<div style={leftColumn}>
+					<AdvancedChart
+						config={config}
+						chartId="chart0"
+						symbol="AAPL"
+					></AdvancedChart>
+				</div>
+				<div style={rightColumn}>
+					<AdvancedChart
+						config={config}
+						chartId="chart1"
+						symbol="MSFT"
+					></AdvancedChart>
+				</div>
+			</>
 		);
 	}
 }

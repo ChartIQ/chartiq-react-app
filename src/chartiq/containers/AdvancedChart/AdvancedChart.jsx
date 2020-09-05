@@ -1,7 +1,7 @@
-import React from 'react';
-import { CIQ } from 'chartiq/js/componentUI';
+import React from "react";
+import { CIQ } from "chartiq/js/componentUI";
 
-import ChartTemplate from './Template';
+import ChartTemplate from "./Template";
 // Base styles required by the library to render color correctly.
 // If for some reason you are not including base-styles.css add these here.
 //import 'chartiq/css/stx-chart.css'; // Chart API
@@ -18,7 +18,7 @@ export default class AdvancedChart extends React.Component {
 	constructor(props) {
 		super(props);
 		this.container = React.createRef();
-		this.chartId = props.chartId || '_advanced-chart';
+		this.chartId = props.chartId || "_advanced-chart";
 		this.initialSymbol = props.symbol || {
 			symbol: "APPL",
 			name: "Apple Inc",
@@ -31,12 +31,10 @@ export default class AdvancedChart extends React.Component {
 			UIContext: null,
 			chartInitializedCallback: props.chartInitialized
 		};
-
 	}
 
 	componentDidMount() {
-
-		const container  = this.container.current;
+		const container = this.container.current;
 		const { chart, chartInitializedCallback } = this.state;
 		let { config } = this.props;
 
@@ -46,10 +44,10 @@ export default class AdvancedChart extends React.Component {
 		// config.quoteFeeds[0].behavior.refreshInterval = 0;
 
 		// Hide manu items used by the Active Trader plugin when it is not loaded
-		if(!config.plugins.marketDepth){
-			config.menuChartPreferences = config.menuChartPreferences.filter(item => (
-				item.label !== 'Market Depth' && item.label !== 'L2 Heat Map'
-			));
+		if (!config.plugins.marketDepth) {
+			config.menuChartPreferences = config.menuChartPreferences.filter(
+				(item) => item.label !== "Market Depth" && item.label !== "L2 Heat Map"
+			);
 		}
 
 		// Enable any extra addOns here before creating the chart
@@ -57,29 +55,27 @@ export default class AdvancedChart extends React.Component {
 		// const activeAddOns = { continuousZoom, outliers, tooltip };
 		// config.enabledAddOns = Object.assign(activeAddOns, config.enabledAddOns);
 
-		const uiContext = this.createChartAndUI({container, config});
+		const uiContext = this.createChartAndUI({ container, config });
 		const chartEngine = uiContext.stx;
 
-		this.setState({stx: chartEngine, UIContext: uiContext});
+		this.setState({ stx: chartEngine, UIContext: uiContext });
 
-		if(chartInitializedCallback){
+		if (chartInitializedCallback) {
 			chartInitializedCallback({ chartEngine, uiContext });
-		} 
-
+		}
 	}
 
-	componentWillUnmount(){
-		// Destroy the ChartEngine instance when unloading the component. 
+	componentWillUnmount() {
+		// Destroy the ChartEngine instance when unloading the component.
 		// This will stop internal processes such as quotefeed polling.
 		this.state.stx.destroy();
 	}
 
 	createChartAndUI({ container, config }) {
-
 		const uiContext = this.state.chart.createChartAndUI({ container, config });
 
 		// Methods for capturing state changes in chart engine and UI
-		
+
 		// Channel subscribe
 		// const { channels } = config;
 		// const channelSubscribe = CIQ.UI.BaseComponent.prototype.channelSubscribe;
@@ -102,29 +98,41 @@ export default class AdvancedChart extends React.Component {
 	}
 
 	// Return elements for chart plugin toggle buttons
-	getPluginToggles(){
+	getPluginToggles() {
 		const { tfc } = this.state.stx || {};
 		return (
 			<div className="trade-toggles ciq-toggles">
-				{tfc && <cq-toggle class="tfc-ui sidebar stx-trade" cq-member="tfc"><span></span><cq-tooltip>Trade</cq-tooltip></cq-toggle>}
-				<cq-toggle class="analystviews-ui stx-analystviews tc-ui stx-tradingcentral" cq-member="analystviews"><span></span><cq-tooltip>Analyst Views</cq-tooltip></cq-toggle>
-				<cq-toggle class="technicalinsights-ui stx-technicalinsights recognia-ui stx-recognia" cq-member="technicalinsights"><span></span><cq-tooltip>Technical Insights</cq-tooltip></cq-toggle>
+				{tfc && (
+					<cq-toggle class="tfc-ui sidebar stx-trade" cq-member="tfc">
+						<span></span>
+						<cq-tooltip>Trade</cq-tooltip>
+					</cq-toggle>
+				)}
+				<cq-toggle
+					class="analystviews-ui stx-analystviews tc-ui stx-tradingcentral"
+					cq-member="analystviews"
+				>
+					<span></span>
+					<cq-tooltip>Analyst Views</cq-tooltip>
+				</cq-toggle>
+				<cq-toggle
+					class="technicalinsights-ui stx-technicalinsights recognia-ui stx-recognia"
+					cq-member="technicalinsights"
+				>
+					<span></span>
+					<cq-tooltip>Technical Insights</cq-tooltip>
+				</cq-toggle>
 			</div>
 		);
 	}
 
 	render() {
-
 		const pluginToggles = this.getPluginToggles();
 
-		let chartTemplate = (<ChartTemplate pluginToggles={pluginToggles} />);
-		if(this.props.children) chartTemplate = this.props.children;
+		let chartTemplate = <ChartTemplate pluginToggles={pluginToggles} />;
+		if (this.props.children) chartTemplate = this.props.children;
 
-		return (
-				<cq-context ref={this.container}>
-					{ chartTemplate }
-				</cq-context>
-		);
+		return <cq-context ref={this.container}>{chartTemplate}</cq-context>;
 	}
 }
 
@@ -133,7 +141,7 @@ export default class AdvancedChart extends React.Component {
  * and move it outside context node to be shared by all chart components
  */
 function portalizeContextDialogs(container) {
-	container.querySelectorAll('cq-dialog').forEach(dialog => {
+	container.querySelectorAll("cq-dialog").forEach((dialog) => {
 		dialog.remove();
 		if (!dialogPortalized(dialog)) {
 			document.body.appendChild(dialog);
@@ -144,6 +152,6 @@ function portalizeContextDialogs(container) {
 function dialogPortalized(el) {
 	const tag = el.firstChild.nodeName.toLowerCase();
 	return Array.from(document.querySelectorAll(tag)).some(
-		el => !el.closest('cq-context')
+		(el) => !el.closest("cq-context")
 	);
 }
