@@ -73,6 +73,7 @@ export default class AdvancedChart extends React.Component {
 
 	createChartAndUI({ container, config }) {
 		const uiContext = this.state.chart.createChartAndUI({ container, config });
+		const stx = uiContext.stx;
 
 		// Methods for capturing state changes in chart engine and UI
 
@@ -81,12 +82,15 @@ export default class AdvancedChart extends React.Component {
 		// const channelSubscribe = CIQ.UI.BaseComponent.prototype.channelSubscribe;
 		// channelSubscribe(channels.breakpoint, (value) => {
 		// 	console.log('channels.breakpoint',value);
-		// }, uiContext.stx);
+		// }, stx);
 
 		// Create layout listener, see parameters at https://documentation.chartiq.com/global.html#layoutEventListener
-		// uiContext.stx.addEventListener('layout', ({ layout }) => {
+		// stx.addEventListener('layout', ({ layout }) => {
 		// 	console.log('layout changed', layout);
 		// });
+
+		// Simulate L2 data using https://documentation.chartiq.com/CIQ.ChartEngine.html#updateCurrentMarketData
+		// CIQ.simulateL2({ stx, onInterval: 1000, onTrade: true });
 
 		this.postInit(container);
 

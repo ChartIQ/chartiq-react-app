@@ -62,7 +62,7 @@ import getConfig from 'chartiq/js/defaultConfiguration';
 // import 'chartiq/plugins/visualearnings/visualearnings';
 
 //  Uncomment the following for the L2 simulator (required for the crypto sample and MarketDepth addOn)
-// import 'chartiq/examples/feeds/L2_simulator'; /* for use with cryptoiq */
+import 'chartiq/examples/feeds/L2_simulator'; /* for use with cryptoiq */
 
 const config = getConfig({ 
 	quoteFeed,
