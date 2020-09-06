@@ -4,7 +4,7 @@ import { config } from "../AdvancedChart/resources"; // ChartIQ library resource
 import { default as AdvancedChart } from "../AdvancedChart/AdvancedChart";
 
 /**
- * This is an example of two AdvancedChart comonents on the same page.
+ * This is an example of two AdvancedChart components on the same page.
  *
  * @export
  * @class MultiChart

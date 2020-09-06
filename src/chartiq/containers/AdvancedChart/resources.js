@@ -66,7 +66,7 @@ import getConfig from 'chartiq/js/defaultConfiguration';
 
 const config = getConfig({ 
 	quoteFeed,
-	// forecastQuoteFeed, // uncomment to enable forcast quote feed simulator
+	// forecastQuoteFeed, // uncomment to enable forecast quote feed simulator
 	markerSample: marker.MarkersSample,
 	scrollStyle: PerfectScrollbar,
 });
