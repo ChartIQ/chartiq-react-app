@@ -248,14 +248,9 @@ export default function ({ pluginToggles }) {
 
 			<cq-scriptiq class="scriptiq-ui"></cq-scriptiq>
 
-			<cq-tradingcentral
-				class="tc-ui"
-				token="eZOrIVNU3KR1f0cf6PTUYg=="
-				partner="1000"
-				disabled
-			></cq-tradingcentral>
+			<cq-analystviews class="analystviews-ui" token="eZOrIVNU3KR1f0cf6PTUYg==" partner="1000" disabled></cq-analystviews>
 
-			<cq-recognia uid="" lang="en" disabled></cq-recognia>
+			<cq-technicalinsights uid="" lang="en" disabled></cq-technicalinsights> 
 
 			<div className="ciq-chart-area">
 				<div className="ciq-chart">
@@ -280,6 +275,18 @@ export default function ({ pluginToggles }) {
 					</cq-palette-dock>
 
 					<div className="chartContainer">
+
+						<stx-hu-tooltip>
+							<stx-hu-tooltip-field field="DT">
+								<stx-hu-tooltip-field-name>Date/Time</stx-hu-tooltip-field-name>
+								<stx-hu-tooltip-field-value></stx-hu-tooltip-field-value>
+							</stx-hu-tooltip-field>
+							<stx-hu-tooltip-field field="Close">
+								<stx-hu-tooltip-field-name></stx-hu-tooltip-field-name>
+								<stx-hu-tooltip-field-value></stx-hu-tooltip-field-value>
+							</stx-hu-tooltip-field>
+						</stx-hu-tooltip>
+
 						<cq-chart-title cq-marker cq-browser-tab></cq-chart-title>
 
 						<cq-chartcontrol-group

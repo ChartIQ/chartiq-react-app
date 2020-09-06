@@ -52,17 +52,17 @@ import 'chartiq/plugins/tfc/tfc-demo';   /* if using demo account class */
 // import 'chartiq/plugins/timespanevent/examples/timeSpanEventSample';  /* if using sample */
 
 // Trading Central: Technical Insights
- import 'chartiq/plugins/technicalinsights/components'
+// import 'chartiq/plugins/technicalinsights/components'
 
 // Trading Central: Analyst Views
- import 'chartiq/plugins/analystviews/components';
+// import 'chartiq/plugins/analystviews/components';
 
 // Visual Earnings
 // Important Note. Uncomment the corresponding configuration object below when enabling this plugin. 
 // import 'chartiq/plugins/visualearnings/visualearnings';
 
-//  Uncomment the following for the L2 simulator (required for the crypto sample and MarketDepth addOn)
-import 'chartiq/examples/feeds/L2_simulator'; /* for use with cryptoiq */
+// Uncomment the following for the L2 simulator (required for the crypto sample and MarketDepth addOn)
+// import 'chartiq/examples/feeds/L2_simulator'; /* for use with cryptoiq */
 
 const config = getConfig({ 
 	quoteFeed,
