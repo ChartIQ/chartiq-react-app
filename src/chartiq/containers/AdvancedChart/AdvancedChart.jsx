@@ -81,10 +81,10 @@ export default class AdvancedChart extends React.Component {
 		// const channelSubscribe = CIQ.UI.BaseComponent.prototype.channelSubscribe;
 		// channelSubscribe(channels.breakpoint, (value) => {
 		// 	console.log('channels.breakpoint',value);
-		// }, stx);
+		// }, uiContext.stx);
 
 		// Create layout listener, see parameters at https://documentation.chartiq.com/global.html#layoutEventListener
-		// stx.addEventListener('layout', ({ layout }) => {
+		// uiContext.stx.addEventListener('layout', ({ layout }) => {
 		// 	console.log('layout changed', layout);
 		// });
 
