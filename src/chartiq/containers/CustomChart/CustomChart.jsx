@@ -519,7 +519,10 @@ export default class CustomChart extends React.Component {
 
 						<cq-recognia uid="" lang="en" disabled></cq-recognia>
 
-						<RecentSymbols connectCount="2" getRecentSymbols={() => this.getRecentSymbols()}>
+						<RecentSymbols
+							connectCount="2"
+							getRecentSymbols={() => this.getRecentSymbols()}
+						>
 							<div className="ciq-chart-area">
 								<div className="ciq-chart">
 									<cq-palette-dock>
@@ -543,17 +546,18 @@ export default class CustomChart extends React.Component {
 									</cq-palette-dock>
 
 									<div className="chartContainer">
-
-									<stx-hu-tooltip>
-										<stx-hu-tooltip-field field="DT">
-											<stx-hu-tooltip-field-name>Date/Time</stx-hu-tooltip-field-name>
-											<stx-hu-tooltip-field-value></stx-hu-tooltip-field-value>
-										</stx-hu-tooltip-field>
-										<stx-hu-tooltip-field field="Close">
-											<stx-hu-tooltip-field-name></stx-hu-tooltip-field-name>
-											<stx-hu-tooltip-field-value></stx-hu-tooltip-field-value>
-										</stx-hu-tooltip-field>
-									</stx-hu-tooltip>
+										<stx-hu-tooltip>
+											<stx-hu-tooltip-field field="DT">
+												<stx-hu-tooltip-field-name>
+													Date/Time
+												</stx-hu-tooltip-field-name>
+												<stx-hu-tooltip-field-value></stx-hu-tooltip-field-value>
+											</stx-hu-tooltip-field>
+											<stx-hu-tooltip-field field="Close">
+												<stx-hu-tooltip-field-name></stx-hu-tooltip-field-name>
+												<stx-hu-tooltip-field-value></stx-hu-tooltip-field-value>
+											</stx-hu-tooltip-field>
+										</stx-hu-tooltip>
 
 										<cq-chart-title cq-marker cq-browser-tab></cq-chart-title>
 

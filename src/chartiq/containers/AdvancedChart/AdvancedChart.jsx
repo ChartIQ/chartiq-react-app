@@ -58,17 +58,16 @@ export default class AdvancedChart extends React.Component {
 		portalizeContextDialogs(container);
 		// Delay the call to createChartAndUI so any other AdvancedChart components on the page
 		// have a chance to call portalizeContextDialogs
-		window.setTimeout(()=>{
+		window.setTimeout(() => {
 			const uiContext = this.createChartAndUI({ container, config });
 			const chartEngine = uiContext.stx;
-	
+
 			this.setState({ stx: chartEngine, UIContext: uiContext });
-	
+
 			if (chartInitializedCallback) {
 				chartInitializedCallback({ chartEngine, uiContext });
 			}
-
-		},0);
+		}, 0);
 	}
 
 	componentWillUnmount() {
@@ -98,13 +97,7 @@ export default class AdvancedChart extends React.Component {
 		// Simulate L2 data using https://documentation.chartiq.com/CIQ.ChartEngine.html#updateCurrentMarketData
 		// CIQ.simulateL2({ stx, onInterval: 1000, onTrade: true });
 
-		this.postInit(container);
-
 		return uiContext;
-	}
-
-	postInit(container) {
-		
 	}
 
 	// Return elements for chart plugin toggle buttons

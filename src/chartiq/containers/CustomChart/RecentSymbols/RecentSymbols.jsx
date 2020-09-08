@@ -32,7 +32,6 @@ export default class RecentSymbols extends React.Component {
 				for (let { target } of mutationsList) {
 					if (target.nodeName.toLowerCase() === "cq-lookup") {
 						cnt += 1;
-            console.log("RecentSymbols -> callback -> self.connectCount", self.connectCount)
 						if (cnt === self.connectCount) observer.disconnect(); // found all elements
 						cb(target.parentElement);
 					}

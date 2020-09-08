@@ -280,7 +280,6 @@ export default function ({ pluginToggles }) {
 					</cq-palette-dock>
 
 					<div className="chartContainer">
-
 						<stx-hu-tooltip>
 							<stx-hu-tooltip-field field="DT">
 								<stx-hu-tooltip-field-name>Date/Time</stx-hu-tooltip-field-name>

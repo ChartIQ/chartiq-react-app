@@ -261,9 +261,14 @@ export default function () {
 
 			<cq-scriptiq class="scriptiq-ui"></cq-scriptiq>
 
-			<cq-analystviews class="analystviews-ui" token="eZOrIVNU3KR1f0cf6PTUYg==" partner="1000" disabled></cq-analystviews>
+			<cq-analystviews
+				class="analystviews-ui"
+				token="eZOrIVNU3KR1f0cf6PTUYg=="
+				partner="1000"
+				disabled
+			></cq-analystviews>
 
-			<cq-technicalinsights uid="" lang="en" disabled></cq-technicalinsights> 
+			<cq-technicalinsights uid="" lang="en" disabled></cq-technicalinsights>
 
 			<div className="ciq-chart-area">
 				<div chartarea="true">
