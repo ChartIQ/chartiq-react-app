@@ -519,7 +519,7 @@ export default class CustomChart extends React.Component {
 
 						<cq-recognia uid="" lang="en" disabled></cq-recognia>
 
-						<RecentSymbols getRecentSymbols={() => this.getRecentSymbols()}>
+						<RecentSymbols connectCount="2" getRecentSymbols={() => this.getRecentSymbols()}>
 							<div className="ciq-chart-area">
 								<div className="ciq-chart">
 									<cq-palette-dock>

@@ -15,6 +15,7 @@ export default class RecentSymbols extends React.Component {
 
 		this.el = React.createRef();
 		this.getRecentSymbols = props.getRecentSymbols;
+		this.connectCount = props.connectCount || 1;
 
 		this.state = {};
 	}
@@ -31,7 +32,8 @@ export default class RecentSymbols extends React.Component {
 				for (let { target } of mutationsList) {
 					if (target.nodeName.toLowerCase() === "cq-lookup") {
 						cnt += 1;
-						if (cnt === this.connectCount) observer.disconnect(); // found all elements
+            console.log("RecentSymbols -> callback -> self.connectCount", self.connectCount)
+						if (cnt === self.connectCount) observer.disconnect(); // found all elements
 						cb(target.parentElement);
 					}
 				}
