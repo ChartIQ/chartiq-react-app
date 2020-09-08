@@ -55,14 +55,20 @@ export default class AdvancedChart extends React.Component {
 		// const activeAddOns = { continuousZoom, outliers, tooltip };
 		// config.enabledAddOns = Object.assign(activeAddOns, config.enabledAddOns);
 
-		const uiContext = this.createChartAndUI({ container, config });
-		const chartEngine = uiContext.stx;
+		portalizeContextDialogs(container);
+		// Delay the call to createChartAndUI so any other AdvancedChart components on the page
+		// have a chance to call portalizeContextDialogs
+		window.setTimeout(()=>{
+			const uiContext = this.createChartAndUI({ container, config });
+			const chartEngine = uiContext.stx;
+	
+			this.setState({ stx: chartEngine, UIContext: uiContext });
+	
+			if (chartInitializedCallback) {
+				chartInitializedCallback({ chartEngine, uiContext });
+			}
 
-		this.setState({ stx: chartEngine, UIContext: uiContext });
-
-		if (chartInitializedCallback) {
-			chartInitializedCallback({ chartEngine, uiContext });
-		}
+		},0);
 	}
 
 	componentWillUnmount() {
@@ -98,7 +104,7 @@ export default class AdvancedChart extends React.Component {
 	}
 
 	postInit(container) {
-		portalizeContextDialogs(container);
+		
 	}
 
 	// Return elements for chart plugin toggle buttons
@@ -155,7 +161,8 @@ function portalizeContextDialogs(container) {
 
 function dialogPortalized(el) {
 	const tag = el.firstChild.nodeName.toLowerCase();
-	return Array.from(document.querySelectorAll(tag)).some(
+	let result = Array.from(document.querySelectorAll(tag)).some(
 		(el) => !el.closest("cq-context")
 	);
+	return result;
 }
