@@ -248,9 +248,14 @@ export default function ({ pluginToggles }) {
 
 			<cq-scriptiq class="scriptiq-ui"></cq-scriptiq>
 
-			<cq-analystviews class="analystviews-ui" token="eZOrIVNU3KR1f0cf6PTUYg==" partner="1000" disabled></cq-analystviews>
+			<cq-tradingcentral
+				class="tc-ui"
+				token="eZOrIVNU3KR1f0cf6PTUYg=="
+				partner="1000"
+				disabled
+			></cq-tradingcentral>
 
-			<cq-technicalinsights uid="" lang="en" disabled></cq-technicalinsights> 
+			<cq-recognia uid="" lang="en" disabled></cq-recognia>
 
 			<div className="ciq-chart-area">
 				<div className="ciq-chart">

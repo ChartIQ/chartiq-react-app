@@ -120,14 +120,14 @@ export default class AdvancedChart extends React.Component {
 				)}
 				<cq-toggle
 					class="analystviews-ui stx-analystviews tc-ui stx-tradingcentral"
-					cq-member="analystviews"
+					cq-member="tc"
 				>
 					<span></span>
 					<cq-tooltip>Analyst Views</cq-tooltip>
 				</cq-toggle>
 				<cq-toggle
 					class="technicalinsights-ui stx-technicalinsights recognia-ui stx-recognia"
-					cq-member="technicalinsights"
+					cq-member="recognia"
 				>
 					<span></span>
 					<cq-tooltip>Technical Insights</cq-tooltip>
