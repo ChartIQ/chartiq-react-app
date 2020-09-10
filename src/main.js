@@ -1,35 +1,13 @@
 import React from 'react';
 import ReactDom from 'react-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 
-import
-// { CIQ } from  // Enable to access CIQ namespace
-'./chartiq_config/presets/base';
-import 'chartiq/js/advanced';
 
-import './chartiq_config/presets/examples';
+// Base styles required for all charts
+import './chartiq/styles/base-imports';
 
-// Include plugins
-// import timespanevent from './chartiq_config/presets/timespanevents';
-// import crypto from './chartiq_config/presets/cryptoiq';
-// import scriptiq from './chartiq_config/presets/scriptiq';
-// import tfc from './chartiq_config/presets/tfc';
-
-import { AdvancedChart, getDefaultConfig } from './chartiq';
-
-// CIQ.debug = true; // Enables debugging
-
-const pluginsToLoadLazy = {
-	// timespanevent,
-	// crypto,
-	// scriptiq,
-	// tfc
-}
-
-const config = getDefaultConfig();
-
-// Update chart configuration by modifying default configuration
-config.chartConfig.preferences.currentPriceLine = true;
-config.addOns.tooltip = null;
+import { default as RouteList } from './chartiq/containers/RouteList/RouteList';
+import { AdvancedChart, MultiChart, ActiveTraderWorkstation, CustomChart, HelloWorld } from './chartiq';
 
 // Optional callback function to access chart engine and uiContext
 const chartInitialized = ({ chartEngine, uiContext }) => {
@@ -40,17 +18,15 @@ const chartInitialized = ({ chartEngine, uiContext }) => {
 // comment rendering to DOM if used only as export for example in CRA App.js
 const el = document.querySelector('#app');
 if (el) {
-	ReactDom.render(<AdvancedChart
-		config={config}
-		chartInitialized={chartInitialized}
-		pluginsToLoadLazy={pluginsToLoadLazy}
-		/>,
+	ReactDom.render(
+		<BrowserRouter>
+			<Route path="/" exact component={RouteList}></Route>
+			<Route path="/technical-analysis" exact render={()=><AdvancedChart chartInitialized={chartInitialized}/>}></Route>
+			<Route path="/multi-chart" exact component={MultiChart}></Route>
+			<Route path="/active-trader" exact render={()=><ActiveTraderWorkstation chartInitialized={chartInitialized}/>}></Route>
+			<Route path="/custom-chart" exact component={CustomChart}></Route>
+			<Route path="/hello-world" exact component={HelloWorld}></Route>
+		</BrowserRouter>,
 		el
 	);
 }
-
-export default (props) => (<AdvancedChart
-	config={config}
-	chartInitialized={chartInitialized}
-	pluginsToLoadLazy={pluginsToLoadLazy}
-	/>);

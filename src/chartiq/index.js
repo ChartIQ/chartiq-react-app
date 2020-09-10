@@ -1,3 +1,6 @@
 import './preload';
 export { default as AdvancedChart } from './containers/AdvancedChart';
-export { getDefaultConfig } from './_config';
+export { default as MultiChart } from './containers/MultiChart/MultiChart';
+export { default as ActiveTraderWorkstation } from './containers/ActiveTraderWorkstation';
+export { default as CustomChart } from './containers/CustomChart/CustomChart';
+export { default as HelloWorld } from './containers/HelloWorld/HelloWorld';

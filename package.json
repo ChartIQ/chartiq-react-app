@@ -4,7 +4,7 @@
   "description": "ChartIQ's full featured charting application written in ReactJS",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --config=webpack.config.js --env.production --env.build=advanced",
+    "build": "webpack --config=webpack.config.js --env.production",
     "build:chartiq": "sh build-scripts/build-chartiq.sh",
     "build:test": "sh build-scripts/build-test.sh",
     "start": "npm run watch -- --host=127.0.0.1 --disable-host-check=true",
@@ -13,8 +13,7 @@
     "test:debug:spec": "DEBUG=true wdio --spec",
     "test:spec": "wdio --spec",
     "test:watch": "wdio --watch",
-    "watch": "webpack-dev-server --inline --config=webpack.config.js --watch=true",
-    "watch:unified": "webpack-dev-server --inline --config=webpack.config.js --watch=true --env.build=unified"
+    "watch": "webpack-dev-server --inline --config=webpack.config.js --watch=true"
   },
   "keywords": [
     "react",
@@ -49,7 +48,9 @@
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
     "@babel/preset-env": "^7.4.4",
+    "jquery": "^3.5.1",
     "react": "^16.7.0",
-    "react-dom": "^16.7.0"
+    "react-dom": "^16.7.0",
+    "react-router-dom": "^5.2.0"
   }
 }

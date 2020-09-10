@@ -112,7 +112,7 @@ exports.config = {
     baseUrl: 'http://localhost:4040',
     basePath: 'node_modules/@chartiq/ui-tests/',
     templates: {
-        'advancedChart': 'index.html'
+        'advancedChart': 'technical-analysis'
     },
     //
     // Default timeout for all waitFor* commands.
@@ -194,7 +194,7 @@ exports.config = {
     onPrepare: function (config, capabilities) {
     	child_process.execSync('mkdir -p ./test-output/screenshots');
 
-        const server = new devServer(webpack(webpackConfig()), {logLevel: 'info'});
+        const server = new devServer(webpack(webpackConfig()), {logLevel: 'info', historyApiFallback: true});
 
         server.listen(4040, 'localhost', () => {
           console.log('Starting server on http://localhost:4040');
