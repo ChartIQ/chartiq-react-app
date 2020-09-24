@@ -17,15 +17,17 @@ const chartInitialized = ({ chartEngine, uiContext }) => {
 
 // comment rendering to DOM if used only as export for example in CRA App.js
 const el = document.querySelector('#app');
+const baseLocation = document.location.pathname.replace(/[^/]*$/, '');
+
 if (el) {
 	ReactDom.render(
 		<BrowserRouter>
-			<Route path="/" exact component={RouteList}></Route>
-			<Route path="/technical-analysis" exact render={()=><AdvancedChart chartInitialized={chartInitialized}/>}></Route>
-			<Route path="/multi-chart" exact component={MultiChart}></Route>
-			<Route path="/active-trader" exact render={()=><ActiveTraderWorkstation chartInitialized={chartInitialized}/>}></Route>
-			<Route path="/custom-chart" exact component={CustomChart}></Route>
-			<Route path="/hello-world" exact component={HelloWorld}></Route>
+			<Route path={baseLocation} exact component={RouteList}></Route>
+			<Route path={`${baseLocation}technical-analysis`} render={()=><AdvancedChart chartInitialized={chartInitialized}/>}></Route>
+			<Route path={`${baseLocation}multi-chart`} component={MultiChart}></Route>
+			<Route path={`${baseLocation}active-trader`} render={()=><ActiveTraderWorkstation chartInitialized={chartInitialized}/>}></Route>
+			<Route path={`${baseLocation}custom-chart`} component={CustomChart}></Route>
+			<Route path={`${baseLocation}hello-world`} component={HelloWorld}></Route>
 		</BrowserRouter>,
 		el
 	);
