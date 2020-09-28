@@ -42,7 +42,6 @@ import 'chartiq/plugins/activetrader/cryptoiq';
 // import 'chartiq/plugins/scriptiq/scriptiq';
 
 // TFC plugin
-// Important Note. Uncomment the corresponding configuration object below when enabling this plugin. 
 import 'chartiq/plugins/tfc/tfc-loader';
 import 'chartiq/plugins/tfc/tfc-demo';   /* if using demo account class */
 

@@ -55,11 +55,6 @@ export default class ActiveTraderWorkstation extends React.Component {
 			config
 		}));
 		const chartEngine = (this.stx = uiContext.stx);
-		this.startTFC({
-			stx: chartEngine,
-			account: CIQ.Account.Demo,
-			context: uiContext
-		});
 
 		// Methods for capturing state changes in chart engine and UI
 
@@ -158,79 +153,6 @@ export default class ActiveTraderWorkstation extends React.Component {
 				pieChart.updateData(CIQ.clone(initialPieData));
 			});
 			return pieChart;
-		}
-	}
-
-	// Initialize the TFC plugin
-	// This function serves the same purpose as the file 'plugins/tfc/tfc-loader.js`.
-	// It is used to allow the plugin to work in the context of this gallery of examples
-	// When using active-trader as a stand-alone component, you can leave this function
-	// as it is, or remove it and uncomment the tfc-loader import in resources.js.
-	startTFC(config) {
-		var stx = config.stx;
-		if (typeof config.account == "function")
-			config.account = new config.account();
-
-		var div = document.createElement("div");
-		CIQ.innerHTML(div, this.props.tfcTemplate);
-		for (var j = 0; j < div.children.length; j++) {
-			var ch = div.children[j].cloneNode(true);
-			config.context.topNode.appendChild(ch);
-		}
-
-		stx.tfc = new CIQ.TFC(config); // This is the *real* CIQ.TFC.
-
-		stx.addEventListener("newChart", function () {
-			stx.tfc.changeSymbol();
-		});
-
-		var topNode = config.context ? config.context.topNode : document;
-
-		stx.tfc.selectSymbol = function (symbol) {
-			if (config.context)
-				config.context.changeSymbol(config.context, {
-					symbol: symbol.toUpperCase()
-				});
-		};
-
-		var sidePanel = topNode.querySelector("cq-side-panel"),
-			tradePanel = topNode.querySelector(".stx-trade-panel");
-		sidePanel.appendChild(tradePanel);
-		if (sidePanel.getAttribute("cq-active") == "true") {
-			sidePanel.open({ selector: ".stx-trade-panel", className: "active" });
-			tradePanel.classList.remove("closed");
-		}
-
-		CIQ.safeClickTouch(
-			topNode.querySelector(".stx-trade-nav .stx-trade-ticket-toggle"),
-			function () {
-				topNode.querySelector(".stx-trade-nav").classList.remove("active");
-				topNode.querySelector(".stx-trade-info").classList.add("active");
-				topNode.querySelector("cq-side-panel").resizeMyself();
-			}
-		);
-		CIQ.safeClickTouch(
-			topNode.querySelector(".stx-trade-info .stx-trade-ticket-toggle"),
-			function () {
-				topNode.querySelector(".stx-trade-info").classList.remove("active");
-				topNode.querySelector(".stx-trade-nav").classList.add("active");
-				topNode.querySelector("cq-side-panel").resizeMyself();
-			}
-		);
-
-		if (config.account.Poller) config.account.Poller.startPolling(stx.tfc);
-
-		var contextConfig = config.context.config;
-		if (!contextConfig) return;
-
-		CIQ.UI.BaseComponent.prototype.channelSubscribe(
-			contextConfig.channels.tfc,
-			handleActive,
-			stx
-		);
-		function handleActive(isActive) {
-			tradePanel.classList[isActive ? "remove" : "add"]("closed");
-			tradePanel.classList[isActive ? "add" : "remove"]("active");
 		}
 	}
 
