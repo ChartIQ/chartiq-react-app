@@ -130,6 +130,27 @@ For example, to enable the Trade from Chart (TFC) plug-in for `AdvancedChart`, u
 // import 'chartiq/plugins/tfc/tfc-demo';
 ```
 
+To enable the Market Depth chart and L2 Heat Map in `AdvancedChart`, uncomment the following lines in [resources.js](./src/chartiq/containers/AdvancedChart/resources.js):
+
+```js
+// import 'chartiq/plugins/activetrader/cryptoiq';
+
+// import 'chartiq/examples/feeds/L2_simulator'; /* for use with cryptoiq */
+
+config.plugins = {
+    // marketDepth,
+    .
+    .
+    .
+};
+```
+
+and the following line in [AdvancedChart.jsx](./src/chartiq/containers/AdvancedChart/AdvancedChart.jsx):
+
+```js
+// CIQ.simulateL2({ stx, onInterval: 1000, onTrade: true });
+```
+
 ## Building the project
 
 If you want to use the ChartIQ advanced chart sample in its default state in your own React project, simply run the following command to generate the production bundle file:
