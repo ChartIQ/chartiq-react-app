@@ -35,6 +35,10 @@ export default function () {
 							<cq-tooltip>Crosshair</cq-tooltip>
 						</cq-toggle>
 						<cq-info-toggle></cq-info-toggle>
+						<cq-toggle class="ciq-DT" cq-member="tableView">
+							<span></span>
+							<cq-tooltip>Table View</cq-tooltip>
+						</cq-toggle>
 					</div>
 				</cq-side-nav>
 

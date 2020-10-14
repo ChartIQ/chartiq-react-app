@@ -50,6 +50,8 @@ export default class ActiveTraderWorkstation extends React.Component {
 			(item) => item.label !== "Market Depth" && item.label !== "Extended Hours"
 		);
 
+		config.addOns.tableView.coverContainer = "#mainChartGroup .chartContainer";
+
 		const uiContext = (this.UIContext = this.chart.createChartAndUI({
 			container,
 			config
