@@ -4,11 +4,9 @@
   "description": "ChartIQ's full featured charting application written in ReactJS",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --config=webpack.config.js --env.production --env.build=advanced",
+    "build": "webpack --config=webpack.config.js --env.production",
     "start": "npm run watch -- --host=127.0.0.1 --disable-host-check=true",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "webpack-dev-server --inline --config=webpack.config.js --watch=true",
-    "watch:unified": "webpack-dev-server --inline --config=webpack.config.js --watch=true --env.build=unified"
+    "watch": "webpack-dev-server --inline --config=webpack.config.js --watch=true"
   },
   "keywords": [
     "react",
@@ -26,16 +24,14 @@
     "@babel/plugin-syntax-dynamic-import": "^7.7.4",
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.4",
-    "copy-webpack-plugin": "^5.0.5",
+    "copy-webpack-plugin": "^6.2.1",
     "css-loader": "^3.0.0",
     "extract-css-chunks-webpack-plugin": "^4.5.5",
     "file-loader": "^4.0.0",
-    "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
     "node-sass": "^4.14.1",
-    "resolve-url-loader": "^3.1.0",
+    "resolve-url-loader": "^3.1.2",
     "sass-loader": "^7.1.0",
-    "vendor-copy": "^2.0.0",
     "webpack": "^4.23.1",
     "webpack-cli": "^3.3.11",
     "webpack-dev-server": "^3.11.0",
@@ -45,6 +41,7 @@
     "@babel/polyfill": "^7.4.4",
     "@babel/preset-env": "^7.4.4",
     "react": "^16.7.0",
-    "react-dom": "^16.7.0"
+    "react-dom": "^16.7.0",
+    "react-router-dom": "^5.2.0"
   }
 }

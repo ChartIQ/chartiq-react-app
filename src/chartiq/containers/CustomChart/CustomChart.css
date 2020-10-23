@@ -1,0 +1,40 @@
+.info {
+	user-select: text;
+	padding: 8px 14px;
+	font-size: 0.8rem;
+	line-height: 1.5;
+	display: flex;
+	color: #000;
+}
+
+.info h2 {
+	font: 600 1.2rem Helvetica, sans-serif;
+	text-transform: uppercase;
+	letter-spacing: 6px;
+	margin: 0 14px 8px 3px;
+	white-space: nowrap;
+	color: #398dff;
+}
+
+.info ul {
+	margin: 0;
+	padding: 0px 16px;
+}
+
+.info li {
+	margin-top: 4px;
+}
+
+.info div {
+	width: 65%;
+}
+
+.info .instruction {
+	font-style: italic;
+}
+
+.chartWrapper {
+	position: relative;
+	margin: 10px;
+	height: 65vh;
+}
