@@ -1,4 +1,4 @@
-# chartiq-react-app
+# ChartIQ React Application
 
 ## Contents
 
