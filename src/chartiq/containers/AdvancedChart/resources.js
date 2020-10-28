@@ -51,8 +51,8 @@ import getConfig from 'chartiq/js/defaultConfiguration';
 
 // Time Span Events
 // Important Note. Uncomment the corresponding configuration object below when enabling this plugin. 
-import 'chartiq/plugins/timespanevent/timespanevent';
-import 'chartiq/plugins/timespanevent/examples/timeSpanEventSample';  /* if using sample */
+// import 'chartiq/plugins/timespanevent/timespanevent';
+// import 'chartiq/plugins/timespanevent/examples/timeSpanEventSample';  /* if using sample */
 
 // Trading Central: Analyst Views
 // import 'chartiq/plugins/analystviews/components';

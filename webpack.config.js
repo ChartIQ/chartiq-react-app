@@ -98,7 +98,8 @@ module.exports = env => {
                     // copy plugin resources
                     {
                         from: 'node_modules/chartiq/plugins/timespanevent/images',
-                        to: 'plugins/timespanevent/images'
+                        to: 'plugins/timespanevent/images',
+                        noErrorOnMissing: true
                     }
                 ]
             }),
