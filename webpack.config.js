@@ -92,14 +92,17 @@ module.exports = env => {
             new MiniCssExtractPlugin({
                 fileNname: '[name].css'
             }),
-            new CopyPlugin([
-                { from: 'public' },
-                // copy plugin resources
-                {
-                    from: 'node_modules/chartiq/plugins/timespanevent/images',
-                    to: 'plugins/timespanevent/images'
-                }
-            ]),
+            new CopyPlugin({
+                patterns: [
+                    { from: 'public' },
+                    // copy plugin resources
+                    {
+                        from: 'node_modules/chartiq/plugins/timespanevent/images',
+                        to: 'plugins/timespanevent/images',
+                        noErrorOnMissing: true
+                    }
+                ]
+            }),
             new HTMLWebpackPlugin({
                 title: 'AdvancedChart',
                 filename: path.join(__dirname, 'dist', 'index.html'),

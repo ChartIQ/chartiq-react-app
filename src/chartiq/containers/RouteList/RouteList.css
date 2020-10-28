@@ -46,3 +46,13 @@
 .route-list i {
 	white-space: nowrap;
 }
+
+.route-list h3.disabled-link {
+	color: '#888'
+}
+
+.route-list h3.disabled-link div {
+	font-size: .8em;
+	padding-left: 6p;
+	font-weight: normal
+}
