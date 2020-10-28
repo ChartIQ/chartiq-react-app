@@ -263,6 +263,9 @@ export default function ({ pluginToggles }) {
 
 			<div className="ciq-chart-area">
 				<div className="ciq-chart">
+
+					<cq-message-toaster defaultDisplayTime="10" defaultTransition="slide" defaultPosition="top"></cq-message-toaster>
+
 					<cq-palette-dock>
 						<div className="palette-dock-container">
 							<cq-drawing-palette
