@@ -45,6 +45,10 @@ export default class CustomChart extends React.Component {
 	componentDidMount() {}
 
 	postInit({ chartEngine, uiContext }) {
+		if (this.props.chartIntialized) {
+			this.props.chartIntialized({ chartEngine, uiContext });
+		}
+
 		this.updateCustomization(config).then(() => {
 			this.addPreferencesHelper(uiContext);
 			this.drawingToolsInfo = this.getDrawingTools(uiContext);
@@ -250,6 +254,7 @@ export default class CustomChart extends React.Component {
 					<AdvancedChart
 						config={config}
 						chartInitialized={this.postInit.bind(this)}
+						onChartReady={this.props.onChartReady}
 					>
 						<div className="ciq-nav full-screen-hide">
 							<div className="sidenav-toggle ciq-toggles">

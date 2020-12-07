@@ -43,6 +43,8 @@ export default class AdvancedChart extends React.Component {
 		config.initialSymbol = this.initialSymbol;
 		// config.quoteFeeds[0].behavior.refreshInterval = 0;
 
+		if (this.props.onChartReady) config.onChartReady = this.props.onChartReady;
+
 		// Hide menu items used by the Active Trader plugin when it is not loaded
 		if (!config.plugins.marketDepth) {
 			config.menuChartPreferences = config.menuChartPreferences.filter(

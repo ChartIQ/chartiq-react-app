@@ -21,6 +21,10 @@ const chartInitialized = ({ chartEngine, uiContext }) => {
 	// uiContext provides access to UI component interaction CIQ.UI.Context
 };
 
+// Optional callback function for when chart is initalized and initial data is available
+const onChartReady = (chartEngine) => {}
+
+
 // comment rendering to DOM if used only as export for example in CRA App.js
 const el = document.querySelector('#app');
 const { protocol, pathname } = document.location;
@@ -34,15 +38,27 @@ if (el) {
 			<Route path="/index.html" component={RouteList}></Route>
 			<Route
 				path="/technical-analysis"
-				render={() => <AdvancedChart chartInitialized={chartInitialized} />}
+				render={() => (
+					<AdvancedChart
+						chartInitialized={chartInitialized}
+						onChartReady={onChartReady}
+					/>
+				)}
 			></Route>
 			<Route path="/multi-chart" component={MultiChart}></Route>
 
-			{/* 
-				Enable ActiveTraderWorkstation 
-				Uncomment if TFC and ActiveTrader plugins are available
-				<Route path="/active-trader" render={()=><ActiveTraderWorkstation chartInitialized={chartInitialized}/>}></Route> 
-			*/}
+			{/* Enable ActiveTraderWorkstation 
+			Uncomment if TFC and ActiveTrader plugins are available
+			<Route
+				path="/active-trader"
+				render={() => (
+					<ActiveTraderWorkstation
+						chartInitialized={chartInitialized}
+						onChartReady={onChartReady}
+					/>
+				)}
+			></Route> */}
+
 			<Route path="/custom-chart" component={CustomChart}></Route>
 			<Route path="/hello-world" component={HelloWorld}></Route>
 		</Router>,

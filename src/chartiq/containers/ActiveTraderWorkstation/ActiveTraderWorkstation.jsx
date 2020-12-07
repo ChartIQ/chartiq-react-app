@@ -31,6 +31,7 @@ export default class ActiveTraderWorkstation extends React.Component {
 		config.chartId = this.chartId;
 		config.initialSymbol = this.initialSymbol;
 		// config.quoteFeeds[0].behavior.refreshInterval = 0;
+		if (props.onChartReady) config.onChartReady = props.onChartReady;
 
 		// Enable any extra addOns here before creating the chart
 		// const { tooltip, continuousZoom, outliers } = config.addOns;
