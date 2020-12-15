@@ -285,55 +285,11 @@ export default class CustomChart extends React.Component {
 										<span></span>
 										<cq-tooltip>Draw</cq-tooltip>
 									</cq-toggle>
-									<cq-info-toggle>
-										<cq-toggle class="ciq-CH" cq-member="crosshair">
-											<span></span>
-											<cq-tooltip>Crosshair (Alt + \)</cq-tooltip>
-										</cq-toggle>
-
-										<cq-menu class="ciq-menu toggle-options collapse">
-											<span></span>
-											<cq-menu-dropdown>
-												<cq-item cq-member="crosshair">
-													Crosshairs Only
-													<span class="ciq-radio">
-														<span></span>
-													</span>
-												</cq-item>
-												<cq-item cq-member="headsUp-static">
-													Show Info
-													<span class="ciq-radio">
-														<span></span>
-													</span>
-												</cq-item>
-											</cq-menu-dropdown>
-										</cq-menu>
-									</cq-info-toggle>
-
-									<cq-info-toggle>
-										<cq-toggle class="ciq-HU" cq-member="headsUp">
-											<span></span>
-											<cq-tooltip>Info</cq-tooltip>
-										</cq-toggle>
-
-										<cq-menu class="ciq-menu toggle-options collapse">
-											<span></span>
-											<cq-menu-dropdown>
-												<cq-item cq-member="headsUp-dynamic">
-													Dynamic Info
-													<span class="ciq-radio">
-														<span></span>
-													</span>
-												</cq-item>
-												<cq-item cq-member="headsUp-floating">
-													Floating Info
-													<span class="ciq-radio">
-														<span></span>
-													</span>
-												</cq-item>
-											</cq-menu-dropdown>
-										</cq-menu>
-									</cq-info-toggle>
+									<cq-toggle class="ciq-CH" cq-member="crosshair">
+										<span></span>
+										<cq-tooltip>Crosshair</cq-tooltip>
+									</cq-toggle>
+									<cq-info-toggle></cq-info-toggle>
 									<cq-toggle class="ciq-DT" cq-member="tableView">
 										<span></span>
 										<cq-tooltip>Table View</cq-tooltip>
