@@ -1,5 +1,5 @@
 let debug = process.env.DEBUG;
-const {configBase} = require('./e2e-new/wdio.conf.js');
+const {configBase} = require('./stx/spec/e2e-new/wdio.conf');
 const AllureReporter = require('@wdio/allure-reporter').default;
 
 let child_process = require('child_process');
@@ -32,7 +32,7 @@ const wdioConfig = {
 	...configBase,
 	...{
 		capabilities: browsers,
-		specs: ['e2e-new/test/specs/e2e/studies-advanced.spec.js'],
+		specs: ['./stx/spec/e2e-new/test/specs/e2e/*.spec.js'],
 		services: ['chromedriver'],
 		// Because we have different names for our templates across projects, we are accessing them thru configured variables.
 		// The template object is a way to set the name of the component's file for this specific repo.
