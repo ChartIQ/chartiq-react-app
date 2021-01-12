@@ -20,20 +20,21 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
+      - name: Clone stx repository
+        uses: actions/checkout@master
+        with:
+          repository: 'ChartIQ/stx'
+          ref: 'POC'
+          token : ${{ secrets.GHA_ACCESS_TOKEN }}
+
       - name: Install dependencies for app
         run: npm install
 
       - name: Install dependencies for tests
         run: npm install
 
-      - name: Build project-test
-        run: npm run build:test
-
       - name: Build project-chartiq
         run: npm run build:chartiq
-
-      - name: Clone stx repository
-        run: npm run build:clone-new-tests
 
       - name: Run e2e-new tests
         run: npm run test-new
