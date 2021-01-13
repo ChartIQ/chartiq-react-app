@@ -4,9 +4,11 @@
 echo "Create testing tarball file" && \
 cd ./stx/spec && \
 npm run prepare && npm pack && \
+ls -a && \
 
 echo "Copy tarball files from stx" && \
-cd ../ && \
+cd ../../ && \
+ls -a && \
 cp ./stx/spec/chartiq-ui-tests-*.*.*.tgz ./ && \
 
 echo "Install tests" && \
