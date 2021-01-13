@@ -40,6 +40,7 @@ jobs:
         run: npm install
 
       - name: Build project-chartiq
+        working-directory: ./stx
         run: npm run build:chartiq
 
       - name: Run e2e-new tests
