@@ -28,7 +28,7 @@ jobs:
 #          token : ${{ secrets.GHA_ACCESS_TOKEN }}
 
       - name: Clone stx repository
-        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/chartiq-react-app-private.git
+        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git
 
       - name: Check current folder
         run: ls -a
