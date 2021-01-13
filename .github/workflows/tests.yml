@@ -39,8 +39,11 @@ jobs:
       - name: Install dependencies for tests
         run: npm install
 
-      - name: Build project-chartiq
+      - name: Install dependencies for stx
         working-directory: ./stx
+        run: npm install
+
+      - name: Build project-chartiq
         run: npm run build:chartiq
 
       - name: Run e2e-new tests

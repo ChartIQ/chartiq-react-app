@@ -32,7 +32,7 @@ const wdioConfig = {
 	...configBase,
 	...{
 		capabilities: browsers,
-		specs: ['./stx/spec/e2e-new/test/specs/e2e/*.spec.js'],
+		specs: ['./stx/spec/e2e-new/test/specs/e2e/studies-advanced.spec.js'],
 		services: ['chromedriver'],
 		// Because we have different names for our templates across projects, we are accessing them thru configured variables.
 		// The template object is a way to set the name of the component's file for this specific repo.
