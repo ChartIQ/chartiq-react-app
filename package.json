@@ -16,9 +16,7 @@
     "test:debug:spec": "DEBUG=true wdio --spec",
     "test:spec": "wdio --spec",
     "test:watch": "wdio --watch",
-    "watch": "webpack-dev-server --inline --config=webpack.config.js --watch=true",
-    "report": "allure generate ./allure-results --clean && allure open",
-    "report-ci": "allure generate allure-results --clean -o allure-report"
+    "watch": "webpack-dev-server --inline --config=webpack.config.js --watch=true"
   },
   "keywords": [
     "react",
