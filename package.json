@@ -16,7 +16,9 @@
     "test:debug:spec": "DEBUG=true wdio --spec",
     "test:spec": "wdio --spec",
     "test:watch": "wdio --watch",
-    "watch": "webpack-dev-server --inline --config=webpack.config.js --watch=true"
+    "watch": "webpack-dev-server --inline --config=webpack.config.js --watch=true",
+    "report": "allure generate ./allure-results --clean && allure open",
+    "report-ci": "allure generate allure-results --clean -o allure-report"
   },
   "keywords": [
     "react",
@@ -81,6 +83,8 @@
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
     "@babel/preset-env": "^7.4.4",
+    "@chartiq/ui-tests": "file:chartiq-ui-tests-1.0.0.tgz",
+    "chartiq": "file:chartiq-8.1.0.tgz",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-router-dom": "^5.2.0"

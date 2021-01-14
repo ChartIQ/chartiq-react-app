@@ -46,25 +46,17 @@ jobs:
       - name: Build project-chartiq
         run: npm run build:chartiq
 
-      - name: Check current path
-        run: ls -a
-
-      - name: Go to folder with config
-        working-directory: ./stx/spec
-        run: ls -a
-
       - name: Run e2e-new tests
         run: npm run test-new
         if: ${{ always() }}
 
       - name: Generate allure report
-        working-directory: ./stx/spec/e2e-new
         if: always()
         run: npm run report-ci
         continue-on-error: true
 
       - name: Sync Allure to S3
-        run: aws s3 sync ./stx/spec/e2e-new/allure-report/ s3://stx-allurereports.chartiq.com/${{ github.sha }} --acl public-read --delete
+        run: aws s3 sync ./allure-report/ s3://stx-allurereports.chartiq.com/${{ github.sha }} --acl public-read --delete
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -79,5 +71,5 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: allure report
-          path: ./stx/spec/e2e-new/allure-report
+          path: ./allure-report
         if: ${{ always() }}
