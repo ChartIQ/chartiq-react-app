@@ -50,7 +50,7 @@ jobs:
         run: ls -a
 
       - name: Go to folder with config
-        run: cd ./stx/
+        run: cd stx/
 
       - name: Check current path
         run: ls -a
