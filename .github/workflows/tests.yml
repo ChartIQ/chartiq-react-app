@@ -40,11 +40,20 @@ jobs:
       - name: Install dependencies for tests
         run: npm install
 
-      - name: Build project-chartiq
+      - name: Build project-test
         run: npm run build:test
 
       - name: Build project-chartiq
         run: npm run build:chartiq
+
+      - name: Check current path
+        run: ls -a
+
+      - name: Go to folder with config
+        run: cd ./stx/spec/e2e-new/
+
+      - name: Check current path
+        run: ls -a
 
       - name: Run e2e-new tests
         run: npm run test-new
