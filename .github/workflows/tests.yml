@@ -50,7 +50,7 @@ jobs:
         run: ls -a
 
       - name: Go to folder with config
-        working-directory: ./stx
+        working-directory: ./stx/spec
         run: ls -a
 
       - name: Run e2e-new tests
