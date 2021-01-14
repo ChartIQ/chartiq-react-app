@@ -40,7 +40,7 @@
     "@babel/preset-env": "^7.12.11",
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.10.1",
-    "@wdio/allure-reporter": "6.7.2",
+    "@wdio/allure-reporter": "^6.7.2",
     "@wdio/cli": "6.7.2",
     "@wdio/devtools-service": "^6.10.11",
     "@wdio/local-runner": "6.7.2",
