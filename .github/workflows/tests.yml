@@ -66,10 +66,10 @@ jobs:
         run: echo http://stx-allurereports.chartiq.com.s3-website-us-east-1.amazonaws.com/${{ github.sha }}/
         if: ${{ always() }}
 
-      - name: Upload Allure Report
-        working-directory: ../
-        uses: actions/upload-artifact@v2
-        with:
-          name: allure report
-          path: ./allure-report
-        if: ${{ always() }}
+#      - name: Upload Allure Report
+#        working-directory: ../
+#        uses: actions/upload-artifact@v2
+#        with:
+#          name: allure report
+#          path: ./allure-report
+#        if: ${{ always() }}
