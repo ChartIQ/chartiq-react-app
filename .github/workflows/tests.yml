@@ -25,13 +25,13 @@ jobs:
 
       - name: Install dependencies for stx
         working-directory: ./stx
-        run: npm install && ls -a
+        run: npm install
 
 #      - name: Install dependencies for app
 #        run: npm install
 
       - name: Install dependencies for tests
-        run: npm install && ls -a
+        run: npm install
 
       - name: Build project-test
         run: npm run build:test
@@ -48,22 +48,22 @@ jobs:
         run: npm run report-ci
         continue-on-error: true
 
-      - name: Sync Allure to S3
-        run: aws s3 sync ./allure-report/ s3://stx-allurereports.chartiq.com/${{ github.sha }} --acl public-read --delete
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: "us-east-1" # optional: defaults to us-east-1
-        if: ${{ always() }}
-
-      - name: Show the allure report location
-        run: echo http://stx-allurereports.chartiq.com.s3-website-us-east-1.amazonaws.com/${{ github.sha }}/
-        if: ${{ always() }}
-
-#      - name: Upload Allure Report
-#        working-directory: ../
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: allure report
-#          path: ./allure-report
-#        if: ${{ always() }}
+#      - name: Sync Allure to S3
+#          run: aws s3 sync ./spec/e2e-new/allure-report/ s3://stx-allurereports.chartiq.com/${{ github.sha }} --acl public-read --delete
+#          env:
+#            AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#              AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#              AWS_REGION: "us-east-1" # optional: defaults to us-east-1
+#          if: ${{ always() }}
+#
+#            - name: Show the allure report location
+#              run: echo http://stx-allurereports.chartiq.com.s3-website-us-east-1.amazonaws.com/${{ github.sha }}/
+#              if: ${{ always() }}
+#
+#            - name: Upload Allure Report
+#              uses: actions/upload-artifact@v2
+#              with:
+#                name: allure report
+#                path: ./spec/e2e-new/allure-report
+#              if: ${{ always() }}
+#
