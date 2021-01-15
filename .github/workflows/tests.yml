@@ -30,9 +30,6 @@ jobs:
       - name: Clone stx repository
         run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b POC
 
-      - name: check path
-        run: pwd
-
       - name: Install dependencies for stx
         working-directory: ./stx
         run: npm install
@@ -40,11 +37,9 @@ jobs:
 #      - name: Install dependencies for app
 #        run: npm install
 
-      - name: cd ..
-        run: cd ..
-
       - name: Install dependencies for tests
-        run: npm install
+        working-directory: ../
+        run: npm install && pwd
 
       - name: Build project-test
         run: npm run build:test
