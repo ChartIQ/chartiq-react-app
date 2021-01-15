@@ -36,6 +36,15 @@ jobs:
 
       - name: Install dependencies for app
         run: npm install
+        continue-on-error: true
+
+      - name: Delete node-modules
+        run: rm -rf node_modules
+        continue-on-error: true
+
+      - name: Delete package-lock
+        run: rm package-lock.json
+        continue-on-error: true
 
       - name: Install dependencies for tests
         run: npm install
