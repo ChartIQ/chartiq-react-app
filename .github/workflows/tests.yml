@@ -20,33 +20,26 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-#      - name: Clone stx repository
-#        uses: actions/checkout@master
-#        with:
-#          repository: 'ChartIQ/stx'
-#          ref: 'POC'
-#          token : ${{ secrets.GHA_ACCESS_TOKEN }}
-
       - name: Clone stx repository
-        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b POC
+        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b POC && ls -a
 
       - name: Install dependencies for stx
         working-directory: ./stx
-        run: npm install
+        run: npm install && ls -a
 
 #      - name: Install dependencies for app
 #        run: npm install
 
       - name: Install dependencies for tests
         working-directory: ../
-        run: npm install
+        run: npm install && ls -a
 
       - name: Build project-test
         working-directory: ../
         run: npm run build:test
 
       - name: Build project-chartiq
-          working-directory: ../
+        working-directory: ../
         run: npm run build:chartiq
 
       - name: Run e2e-new tests
