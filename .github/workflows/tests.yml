@@ -30,23 +30,14 @@ jobs:
       - name: Clone stx repository
         run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b POC
 
-      - name: Install dependencies for stx
-        working-directory: ./stx
-        run: npm install
-
-      - name: Install dependencies for app
-        run: npm install
-        continue-on-error: true
-
-      - name: Delete node-modules
-        run: rm -rf node_modules
-        continue-on-error: true
-
-      - name: Delete package-lock
-        run: rm package-lock.json
-        continue-on-error: true
+#      - name: Install dependencies for app
+#        run: npm install
 
       - name: Install dependencies for tests
+        run: npm install
+
+      - name: Install dependencies for stx
+        working-directory: ./stx
         run: npm install
 
       - name: Build project-test
