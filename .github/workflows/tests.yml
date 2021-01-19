@@ -21,14 +21,11 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Clone stx repository
-        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b POC && ls -a
+        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b POC
 
       - name: Install dependencies for stx
         working-directory: ./stx
         run: npm install
-
-#      - name: Install dependencies for app
-#        run: npm install
 
       - name: Install dependencies for tests
         run: npm install
@@ -39,8 +36,12 @@ jobs:
       - name: Build project-chartiq
         run: npm run build:chartiq
 
-      - name: Run e2e-new tests
-        run: npm run test-new
+      - name: Run e2e-new tests with Chrome browser
+        run: npm run test-chrome
+        if: ${{ always() }}
+
+      - name: Run e2e-new tests with FireFox browser
+        run: npm run test-ff
         if: ${{ always() }}
 
       - name: Generate allure report
