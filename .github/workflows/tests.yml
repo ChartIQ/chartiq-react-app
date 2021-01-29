@@ -1,9 +1,15 @@
 name: Run E2E Tests React-app
 
 on:
+  repository_dispatch:
+    types: [ regression_test_run ]
   push:
     branches:
       - 'POC'
+
+env:
+  TEST_BRANCH: ${{ github.event.client_payload.github.event.head_commit.test_branch != NaN && github.event.client_payload.github.event.head_commit.test_branch || 'POC' }}
+  STX_BRANCH: ${{ github.event.client_payload.github.event.head_commit.stx_branch != NaN && github.event.client_payload.github.event.head_commit.stx_branch || 'POC' }}
 
 jobs:
   test:
@@ -13,7 +19,12 @@ jobs:
         node-version: [ 12.x ]
 
     steps:
-      - uses: actions/checkout@v1
+
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          repository: ChartIQ/chartiq-react-app-private
+          ref: ${{ env.TEST_BRANCH != NaN && env.TEST_BRANCH }}
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
@@ -21,7 +32,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Clone stx repository
-        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b POC
+        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.STX_BRANCH != NaN && env.STX_BRANCH }}
 
       - name: Install dependencies for stx
         working-directory: ./stx
