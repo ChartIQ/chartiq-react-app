@@ -29,13 +29,15 @@ const browsers = [
 const wdioConfig = {
 	...configBase,
 	...{
+		appName: 'chartiq-react-app',
 		capabilities: browsers,
 		services: ['geckodriver'],
-		specs: ['./stx/spec/e2e-new/test/specs/e2e/studies-advanced.spec.js'],
+		specs: ['./stx/spec/e2e-new/test/specs/e2e/sample-template-advanced/**.spec.js'],
 		// Because we have different names for our templates across projects, we are accessing them thru configured variables.
 		// The template object is a way to set the name of the component's file for this specific repo.
 		// NOTE: this is something custom to our configs not a default option of WDIO
 		baseUrl: 'http://localhost:4040',
+		basePath: './node_modules/@chartiq/ui-tests/',
 		templates: {
 			'advancedChart': 'technical-analysis'
 		},
