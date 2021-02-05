@@ -3,5 +3,5 @@
 
 echo "Pull stx repo" && \
 cd ../chartiq-react-app-private && \
-git clone https://nikcodeit@github.com/ChartIQ/stx.git -b POC
+git clone https://nikcodeit@github.com/ChartIQ/stx.git -b new-tests-package
 echo "Pulling done!"
