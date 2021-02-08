@@ -30,7 +30,7 @@ import quoteFeed from "chartiq/examples/feeds/quoteFeedSimulator.js";
 
 import PerfectScrollbar from "chartiq/js/thirdparty/perfect-scrollbar.esm.js";
 
-import getConfig from 'chartiq/js/defaultConfiguration'; 
+import defaultConfig from 'chartiq/js/defaultConfiguration'; 
 
 // Plugins
 
@@ -64,27 +64,52 @@ import getConfig from 'chartiq/js/defaultConfiguration';
 // Uncomment the following for the L2 simulator (required for the crypto sample and MarketDepth addOn)
 // import 'chartiq/examples/feeds/L2_simulator'; /* for use with cryptoiq */
 
-const config = getConfig({ 
-	quoteFeed,
-	// forecastQuoteFeed, // uncomment to enable forecast quote feed simulator
-	markerSample: marker.MarkersSample,
-	scrollStyle: PerfectScrollbar,
-});
+// Creates a complete customised configuration object
+function getConfig() { 
+	return defaultConfig({
+		quoteFeed,
+		// forecastQuoteFeed, // uncomment to enable forecast quote feed simulator
+		markerSample: marker.MarkersSample,
+		scrollStyle: PerfectScrollbar,
+	});
+}
 
-const { 
-	marketDepth,
-	termStructure,
-	tfc,
-	timeSpanEventPanel,
-	visualEarnings
-} = config.plugins;
-// Select only plugin configurations that needs to be active for this chart
-config.plugins = { 
-	// marketDepth,
-	// termStructure,
-	// tfc,
-	timeSpanEventPanel,
-	// visualEarnings
-};
+// Creates a complete customised configuration object
+function getCustomConfig({ chartId, symbol, onChartReady } = {}) {
+	const config = getConfig();
 
-export { CIQ, config };
+	// Update chart configuration by modifying default configuration
+	config.chartId = chartId || "_advanced-chart";
+	config.initialSymbol = symbol || {
+		symbol: "APPL",
+		name: "Apple Inc",
+		exchDisp: "NASDAQ"
+	};
+
+	// config.quoteFeeds[0].behavior.refreshInterval = 0; // disables quotefeed refresh
+	config.onChartReady = onChartReady;
+
+	const {
+		marketDepth,
+		termStructure,
+		tfc,
+		timeSpanEventPanel,
+		visualEarnings
+	} = config.plugins;
+	// Select only plugin configurations that needs to be active for this chart
+	config.plugins = {
+		// marketDepth,
+		// termStructure,
+		// tfc,
+		// timeSpanEventPanel,
+		// visualEarnings
+	};
+
+	// Enable / disable addOns
+	// config.enabledAddOns.tooltip = false;
+	// config.enabledAddOns.continuousZoom = true;
+
+	return config;
+}
+
+export { CIQ, getConfig, getCustomConfig };
