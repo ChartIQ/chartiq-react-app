@@ -11,8 +11,8 @@
     "build:test-new": "sh build-scripts/copy-e2e-new.sh",
     "start": "npm run watch -- --host=127.0.0.1 --disable-host-check=true",
     "test": "wdio",
-    "test-chrome": "wdio wdio-chrome.conf.js",
-    "test-ff": "wdio wdio-ff.conf.js",
+    "test-chrome": "wdio wdio-chrome.conf.js --mochaOpts.grep '@react' --mochaOpts.invert=true",
+    "test-ff": "wdio wdio-ff.conf.js --mochaOpts.grep '@react' --mochaOpts.invert=true",
     "test:debug": "DEBUG=true wdio",
     "test:debug:spec": "DEBUG=true wdio --spec",
     "test:spec": "wdio --spec",
@@ -85,6 +85,8 @@
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
     "@babel/preset-env": "^7.4.4",
+    "@chartiq/ui-tests": "file:chartiq-ui-tests-1.0.0.tgz",
+    "chartiq": "file:chartiq-8.1.0.tgz",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-router-dom": "^5.2.0"
