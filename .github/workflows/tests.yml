@@ -38,6 +38,9 @@ jobs:
         working-directory: ./stx
         run: npm install
 
+      - name: Get current location
+        run: ls -a
+
       - name: Install dependencies for tests
         run: npm install
 
