@@ -54,7 +54,7 @@
     "babel-register": "^6.26.0",
     "bignumber.js": "^9.0.0",
     "chai": "^4.2.0",
-    "chromedriver": "^87.0.0",
+    "chromedriver": "^88.0.0",
     "copy-webpack-plugin": "^6.2.1",
     "css-loader": "^3.0.0",
     "eslint-plugin-decorator-position": "^2.2.16",
