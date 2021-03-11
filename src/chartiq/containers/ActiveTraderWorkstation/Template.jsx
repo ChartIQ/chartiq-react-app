@@ -6,7 +6,7 @@ export default function () {
 			<div className="ciq-nav full-screen-hide">
 				<div className="sidenav-toggle ciq-toggles">
 					<cq-toggle
-						className="ciq-sidenav"
+						class="ciq-sidenav"
 						cq-member="sidenav"
 						cq-toggles="sidenavOn,sidenavOff"
 						cq-toggle-classes="active,"
@@ -17,7 +17,7 @@ export default function () {
 					</cq-toggle>
 				</div>
 
-				<cq-menu className="ciq-search">
+				<cq-menu class="ciq-search">
 					<cq-lookup
 						cq-keystroke-claim
 						cq-keystroke-default
@@ -27,17 +27,17 @@ export default function () {
 
 				<cq-side-nav cq-on="sidenavOn">
 					<div className="icon-toggles ciq-toggles">
-						<cq-toggle className="ciq-draw" cq-member="drawing">
+						<cq-toggle class="ciq-draw" cq-member="drawing">
 							<span></span>
 							<cq-tooltip>Draw</cq-tooltip>
 						</cq-toggle>
 						<cq-info-toggle-dropdown>
-							<cq-toggle className="ciq-CH" cq-member="crosshair">
+							<cq-toggle class="ciq-CH" cq-member="crosshair">
 								<span></span>
 								<cq-tooltip>Crosshair (Alt + \)</cq-tooltip>
 							</cq-toggle>
 
-							<cq-menu className="ciq-menu toggle-options collapse">
+							<cq-menu class="ciq-menu toggle-options collapse">
 								<span></span>
 								<cq-menu-dropdown>
 									<cq-item cq-member="crosshair">
@@ -57,12 +57,12 @@ export default function () {
 						</cq-info-toggle-dropdown>
 
 						<cq-info-toggle-dropdown>
-							<cq-toggle className="ciq-HU" cq-member="headsUp">
+							<cq-toggle class="ciq-HU" cq-member="headsUp">
 								<span></span>
 								<cq-tooltip>Info</cq-tooltip>
 							</cq-toggle>
 
-							<cq-menu className="ciq-menu toggle-options collapse tooltip-ui">
+							<cq-menu class="ciq-menu toggle-options collapse tooltip-ui">
 								<span></span>
 								<cq-menu-dropdown>
 									<cq-item cq-member="headsUp-dynamic">
@@ -81,7 +81,7 @@ export default function () {
 							</cq-menu>
 						</cq-info-toggle-dropdown>
 
-						<cq-toggle className="ciq-DT tableview-ui" cq-member="tableView">
+						<cq-toggle class="ciq-DT tableview-ui" cq-member="tableView">
 							<span></span>
 							<cq-tooltip>Table View</cq-tooltip>
 						</cq-toggle>
@@ -90,7 +90,7 @@ export default function () {
 
 				<div className="ciq-menu-section">
 					<div className="ciq-dropdowns">
-						<cq-menu className="ciq-menu ciq-period">
+						<cq-menu class="ciq-menu ciq-period">
 							<span>
 								<cq-clickable stxbind="Layout.periodicity">1D</cq-clickable>
 							</span>
@@ -99,27 +99,27 @@ export default function () {
 							</cq-menu-dropdown>
 						</cq-menu>
 
-						<cq-menu className="ciq-menu ciq-views collapse">
+						<cq-menu class="ciq-menu ciq-views collapse">
 							<span>Views</span>
 							<cq-menu-dropdown>
 								<cq-views></cq-views>
 							</cq-menu-dropdown>
 						</cq-menu>
 
-						<cq-menu className="ciq-menu ciq-display collapse">
+						<cq-menu class="ciq-menu ciq-display collapse">
 							<span>Display</span>
 							<cq-menu-dropdown>
-								<cq-menu-dropdown-section className="chart-types">
+								<cq-menu-dropdown-section class="chart-types">
 									<cq-heading>Chart Style</cq-heading>
 									<cq-menu-container cq-name="menuChartStyle"></cq-menu-container>
 								</cq-menu-dropdown-section>
-								<cq-menu-dropdown-section className="chart-aggregations">
+								<cq-menu-dropdown-section class="chart-aggregations">
 									<cq-menu-container cq-name="menuChartAggregates"></cq-menu-container>
 								</cq-menu-dropdown-section>
 							</cq-menu-dropdown>
 						</cq-menu>
 
-						<cq-menu className="ciq-menu ciq-studies collapse" cq-focus="input">
+						<cq-menu class="ciq-menu ciq-studies collapse" cq-focus="input">
 							<span>Studies</span>
 							<cq-menu-dropdown>
 								<cq-study-legend cq-no-close>
@@ -128,7 +128,7 @@ export default function () {
 										<cq-study-legend-content>
 											<template cq-study-legend="true">
 												<cq-item>
-													<cq-label className="click-to-edit"></cq-label>
+													<cq-label class="click-to-edit"></cq-label>
 													<div className="ciq-icon ciq-close"></div>
 												</cq-item>
 											</template>
@@ -163,7 +163,7 @@ export default function () {
 							</cq-menu-dropdown>
 						</cq-menu>
 
-						<cq-menu className="ciq-menu stx-markers collapse">
+						<cq-menu class="ciq-menu stx-markers collapse">
 							<span>Events</span>
 							<cq-menu-dropdown>
 								<cq-heading>Chart Events</cq-heading>
@@ -186,7 +186,7 @@ export default function () {
 									</span>
 								</cq-item>
 								<cq-item
-									className="ta_markers-ui"
+									class="ta_markers-ui"
 									stxtap="Markers.showMarkers('trade')"
 								>
 									Trade
@@ -195,7 +195,7 @@ export default function () {
 									</span>
 								</cq-item>
 								<cq-item
-									className="video_markers-ui"
+									class="video_markers-ui"
 									stxtap="Markers.showMarkers('video')"
 								>
 									Video
@@ -204,7 +204,7 @@ export default function () {
 									</span>
 								</cq-item>
 								<cq-separator></cq-separator>
-								<cq-item stxtap="Markers.showMarkers()" className="ciq-active">
+								<cq-item stxtap="Markers.showMarkers()" class="ciq-active">
 									None
 									<span className="ciq-radio">
 										<span></span>
@@ -214,7 +214,7 @@ export default function () {
 									<cq-separator></cq-separator>
 									<cq-heading>Panel Events</cq-heading>
 									<cq-item
-										className="span-event"
+										class="span-event"
 										stxtap="TimeSpanEvent.showMarkers('Order')"
 										cq-no-close
 									>
@@ -224,7 +224,7 @@ export default function () {
 										</span>
 									</cq-item>
 									<cq-item
-										className="span-event"
+										class="span-event"
 										stxtap="TimeSpanEvent.showMarkers('CEO')"
 										cq-no-close
 									>
@@ -234,7 +234,7 @@ export default function () {
 										</span>
 									</cq-item>
 									<cq-item
-										className="span-event"
+										class="span-event"
 										stxtap="TimeSpanEvent.showMarkers('News')"
 										cq-no-close
 									>
@@ -247,25 +247,25 @@ export default function () {
 							</cq-menu-dropdown>
 						</cq-menu>
 
-						<cq-menu className="ciq-menu ciq-preferences collapse">
+						<cq-menu class="ciq-menu ciq-preferences collapse">
 							<span></span>
 							<cq-menu-dropdown>
-								<cq-menu-dropdown-section className="chart-preferences">
+								<cq-menu-dropdown-section class="chart-preferences">
 									<cq-heading>Chart Preferences</cq-heading>
 									<cq-menu-container cq-name="menuChartPreferences"></cq-menu-container>
 									<cq-separator></cq-separator>
 								</cq-menu-dropdown-section>
-								<cq-menu-dropdown-section className="y-axis-preferences">
+								<cq-menu-dropdown-section class="y-axis-preferences">
 									<cq-heading>Y-Axis Preferences</cq-heading>
 									<cq-menu-container cq-name="menuYAxisPreferences"></cq-menu-container>
 									<cq-separator></cq-separator>
 								</cq-menu-dropdown-section>
-								<cq-menu-dropdown-section className="chart-theme">
+								<cq-menu-dropdown-section class="chart-theme">
 									<cq-heading>Themes</cq-heading>
 									<cq-themes></cq-themes>
 									<cq-separator></cq-separator>
 								</cq-menu-dropdown-section>
-								<cq-menu-dropdown-section className="chart-locale">
+								<cq-menu-dropdown-section class="chart-locale">
 									<cq-heading>Locale</cq-heading>
 									<cq-item>
 										<cq-clickable
@@ -292,19 +292,19 @@ export default function () {
 					</div>
 
 					<div className="trade-toggles ciq-toggles">
-						<cq-toggle className="tfc-ui sidebar stx-trade" cq-member="tfc">
+						<cq-toggle class="tfc-ui sidebar stx-trade" cq-member="tfc">
 							<span></span>
 							<cq-tooltip>Trade</cq-tooltip>
 						</cq-toggle>
 						<cq-toggle
-							className="analystviews-ui stx-analystviews tc-ui stx-tradingcentral"
+							class="analystviews-ui stx-analystviews tc-ui stx-tradingcentral"
 							cq-member="analystviews"
 						>
 							<span></span>
 							<cq-tooltip>Analyst Views</cq-tooltip>
 						</cq-toggle>
 						<cq-toggle
-							className="technicalinsights-ui stx-technicalinsights recognia-ui stx-recognia"
+							class="technicalinsights-ui stx-technicalinsights recognia-ui stx-recognia"
 							cq-member="technicalinsights"
 						>
 							<span></span>
@@ -314,10 +314,10 @@ export default function () {
 				</div>
 			</div>
 
-			<cq-scriptiq className="scriptiq-ui"></cq-scriptiq>
+			<cq-scriptiq class="scriptiq-ui"></cq-scriptiq>
 
 			<cq-analystviews
-				className="analystviews-ui"
+				class="analystviews-ui"
 				token="eZOrIVNU3KR1f0cf6PTUYg=="
 				partner="1000"
 				disabled
@@ -389,14 +389,14 @@ export default function () {
 								<cq-palette-dock>
 									<div className="palette-dock-container">
 										<cq-drawing-palette
-											className="palette-drawing grid palette-hide"
+											class="palette-drawing grid palette-hide"
 											docked="true"
 											orientation="vertical"
 											min-height="300"
 											cq-drawing-edit="none"
 										></cq-drawing-palette>
 										<cq-drawing-settings
-											className="palette-settings"
+											class="palette-settings"
 											docked="true"
 											hide="true"
 											orientation="horizontal"
