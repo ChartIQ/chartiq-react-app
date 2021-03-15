@@ -152,7 +152,7 @@ config.plugins = {
 and the following line in [main.js](./src/main.js):
 
 ```js
-// CIQ.simulateL2({ stx, onInterval: 1000, onTrade: true });
+// CIQ.simulateL2({ stx: chartEngine, onInterval: 1000, onTrade: true });
 ```
 
 ## Important notes
