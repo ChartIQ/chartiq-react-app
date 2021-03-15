@@ -10,6 +10,11 @@
 	position: absolute;
 }
 
+.shortcut-dialog input[type=text] {
+	background-color: #fff;
+	color: black;
+}
+
 .shortcut-dialog .container {
 	margin: 60px 24px;
 	background: white;

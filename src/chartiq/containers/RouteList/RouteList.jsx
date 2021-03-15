@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import './RouteList.css';
 
@@ -24,7 +24,7 @@ export default class RouteList extends React.Component {
       <span className="route-list">
         <h2>ChartIQ React Application</h2>
 
-        <p className="description">The chartiq-angular-app project is a toolkit of React components.
+        <p className="description">The chartiq-react-app project is a toolkit of React components.
           The following components create complete charting applications: (Select the component names to
           see the applications.)</p>
 

@@ -30,7 +30,7 @@ import quoteFeed from "chartiq/examples/feeds/quoteFeedSimulator.js";
 
 import PerfectScrollbar from "chartiq/js/thirdparty/perfect-scrollbar.esm.js";
 
-import getConfig from 'chartiq/js/defaultConfiguration'; 
+import getDefaultConfig from 'chartiq/js/defaultConfiguration'; 
 
 // Plugins
 
@@ -63,27 +63,64 @@ import 'chartiq/plugins/tfc/tfc-demo';   /* if using demo account class */
 // Uncomment the following for the L2 simulator (required for the crypto sample and MarketDepth addOn)
 import 'chartiq/examples/feeds/L2_simulator'; /* for use with cryptoiq */
 
-const config = getConfig({ 
-	quoteFeed,
-	// forecastQuoteFeed, // uncomment to enable forecast quote feed simulator
-	markerSample: marker.MarkersSample,
-	scrollStyle: PerfectScrollbar,
-});
+// Creates a configuration object containing custom resources
+function getConfig() { 
+	return getDefaultConfig({
+		quoteFeed,
+		// forecastQuoteFeed, // uncomment to enable forecast quote feed simulator
+		markerSample: marker.MarkersSample,
+		scrollStyle: PerfectScrollbar,
+	});
+}
 
-const { 
-	marketDepth,
-	termStructure,
-	tfc,
-	timeSpanEventPanel,
-	visualEarnings
-} = config.plugins;
-// Select only plugin configurations that needs to be active for this chart
-config.plugins = { 
-	marketDepth,
-	// termStructure,
-	tfc,
-	// timeSpanEventPanel,
-	// visualEarnings
-};
+// Creates a complete customised configuration object
+function getCustomConfig({ chartId, symbol, onChartReady }) {
+	const config = getConfig();
 
-export { CIQ, config };
+	// Update chart configuration by modifying default configuration
+	config.chartId = chartId || "_active-trader-chart";
+	config.initialSymbol = symbol || "^USDAUD";
+	// config.quoteFeeds[0].behavior.refreshInterval = 0; // disables quotefeed refresh
+	config.onChartReady = onChartReady;
+
+	// Enable / disable addOns here before creating the chart
+	// config.enabledAddOns.forecasting = true;
+	// config.enabledAddOns.continuousZoom = true;
+	// config.enabledAddOns.tooltip = false;
+
+	const { 
+		marketDepth,
+		termStructure,
+		tfc,
+		timeSpanEventPanel,
+		visualEarnings
+	} = config.plugins;
+	// Select only plugin configurations that needs to be active for this chart
+	config.plugins = { 
+		marketDepth,
+		// termStructure,
+		tfc,
+		// timeSpanEventPanel,
+		// visualEarnings
+	};
+
+	config.plugins.marketDepth = {
+		volume: true,
+		mountain: true,
+		step: true,
+		record: true,
+		height: "40%",
+		precedingContainer: "#marketDepthBookmark"
+	};
+
+	config.menuChartPreferences = config.menuChartPreferences.filter(
+		(item) => item.label !== "Market Depth" && item.label !== "Extended Hours"
+	);
+
+	config.addOns.tableView.coverContainer = "#mainChartGroup .chartContainer";
+
+	return config;
+}
+
+
+export { CIQ, getConfig, getCustomConfig };

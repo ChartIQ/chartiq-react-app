@@ -15,9 +15,6 @@ export default class ActiveTraderWorkstation extends React.Component {
 	constructor(props) {
 		super(props);
 		this.container = React.createRef();
-		this.chartId = props.chartId || "_active-trader-chart";
-		this.initialSymbol = "^USDAUD";
-
 		this.chart = new CIQ.UI.Chart();
 		this.stx = null;
 		this.UIContext = null;
@@ -25,32 +22,7 @@ export default class ActiveTraderWorkstation extends React.Component {
 
 	componentDidMount() {
 		const container = this.container.current;
-		const { config } = this.props;
-
-		// Update chart configuration by modifying default configuration
-		config.chartId = this.chartId;
-		config.initialSymbol = this.initialSymbol;
-		// config.quoteFeeds[0].behavior.refreshInterval = 0;
-
-		// Enable any extra addOns here before creating the chart
-		// const { tooltip, continuousZoom, outliers } = config.addOns;
-		// const activeAddOns = { continuousZoom, outliers, tooltip };
-		// config.enabledAddOns = Object.assign(activeAddOns, config.enabledAddOns);
-
-		config.plugins.marketDepth = {
-			volume: true,
-			mountain: true,
-			step: true,
-			record: true,
-			height: "40%",
-			precedingContainer: "#marketDepthBookmark"
-		};
-
-		config.menuChartPreferences = config.menuChartPreferences.filter(
-			(item) => item.label !== "Market Depth" && item.label !== "Extended Hours"
-		);
-
-		config.addOns.tableView.coverContainer = "#mainChartGroup .chartContainer";
+		const { config, chartInitialized } = this.props;
 
 		const uiContext = (this.UIContext = this.chart.createChartAndUI({
 			container,
@@ -58,33 +30,21 @@ export default class ActiveTraderWorkstation extends React.Component {
 		}));
 		const chartEngine = (this.stx = uiContext.stx);
 
-		// Methods for capturing state changes in chart engine and UI
-
-		// Channel subscribe
-		// const { channels } = config;
-		// const channelSubscribe = CIQ.UI.BaseComponent.prototype.channelSubscribe;
-		// channelSubscribe(channels.breakpoint, (value) => {
-		// 	console.log('channels.breakpoint',value);
-		// }, stx);
-
-		// Create layout listener, see parameters at https://documentation.chartiq.com/global.html#layoutEventListener
-		// stx.addEventListener('layout', ({ layout }) => {
-		// 	console.log('layout changed', layout);
-		// });
+		this.cryptoSetup(uiContext.stx);
 
 		if (window["d3"]) {
-			this.cryptoSetup(uiContext.stx);
+			this.setUpMoneyFlowChart(uiContext.stx);
 		} else {
 			CIQ.loadScript("https://d3js.org/d3.v5.min.js", () => {
-				this.cryptoSetup(uiContext.stx);
+				this.setUpMoneyFlowChart(uiContext.stx);
 			});
 		}
 
 		// Request TFC channel open
 		channelWrite(config.channels.tfc, true, uiContext.stx);
 
-		if (this.props.chartInitializedCallback) {
-			this.props.chartInitializedCallback({ chartEngine, uiContext });
+		if (chartInitialized) {
+			chartInitialized({ chartEngine, uiContext });
 		}
 	}
 
@@ -99,7 +59,7 @@ export default class ActiveTraderWorkstation extends React.Component {
 		stx.setChartType("line");
 		CIQ.extend(stx.layout, {
 			crosshair: true,
-			headsUp: "static",
+			headsUp: { static: true },
 			l2heatmap: true,
 			rangeSlider: true,
 			marketDepth: true,
@@ -109,7 +69,9 @@ export default class ActiveTraderWorkstation extends React.Component {
 
 		// Simulate L2 data using https://documentation.chartiq.com/CIQ.ChartEngine.html#updateCurrentMarketData
 		CIQ.simulateL2({ stx, onInterval: 1000, onTrade: true });
+	}
 
+	setUpMoneyFlowChart(stx) {
 		stx.moneyFlowChart = moneyFlowChart(stx);
 
 		function moneyFlowChart(stx) {

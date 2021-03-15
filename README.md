@@ -66,7 +66,7 @@ The JSX in `AdvancedChart`, `CustomChart`, and `ActiveTraderWorkstation` compone
 
 ### Configuration
 
-You can configure a variety of chart features by modifying the configuration object provided to the component definition files of `AdvancedChart`, `CustomChart`, and `ActiveTrader`. Look for the call to `getConfig` in the resources files.
+You can configure a variety of chart features by modifying the configuration object provided to the component definition files of `AdvancedChart`, `CustomChart`, and `ActiveTrader`. Sample configurations are available as `getConfig` and `getCustomConfig` functions in the resources files.
 
 A default configuration is part of the ChartIQ library. See the [Chart Configuration](tutorial-Chart%20Configuration.html) tutorial for all the configuration details.
 
@@ -151,7 +151,7 @@ config.plugins = {
 };
 ```
 
-and the following line in [AdvancedChart.jsx](./src/chartiq/containers/AdvancedChart/AdvancedChart.jsx):
+and the following line in [main.js](./src/main.js):
 
 ```js
 // CIQ.simulateL2({ stx, onInterval: 1000, onTrade: true });
