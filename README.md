@@ -14,9 +14,7 @@
 
 ## Overview
 
-The ChartIQ React application is a toolkit of components that enable you to build charting applications in the React framework. The components include everything from a basic chart to a complex, active trader desktop.
-
-The application opens with a `RouteList` component that creates a home page containing links to other toolkit components, including:
+The ChartIQ React application is a toolkit of components that enable you to build charting applications in the React framework. The components include everything from a basic chart to a complex, active trader desktop:
 
 - `AdvancedChart` &mdash; Creates a full-featured chart with a fully developed user interface
 - `MultiChart` &mdash; Displays two advanced charts on screen simultaneously
