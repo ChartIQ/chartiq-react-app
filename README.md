@@ -7,8 +7,7 @@
 - [Getting started](#getting-started)
 - [Customization](#customization)
 - [Enabling plug-ins](#enabling-plug\-ins)
-- [Building the project](#building-the-project)
-- [Notes](#notes)
+- [Important notes](#important-notes)
 - [Questions and support](#questions-and-support)
 - [Contributing to this project](#contributing-to-this-project)
 
@@ -19,25 +18,25 @@ The ChartIQ React application is a toolkit of components that enable you to buil
 
 The application opens with a `RouteList` component that creates a home page containing links to other toolkit components, including:
 
-- `AdvancedChart` &mdash; Creates a chart with a full-featured user interface
+- `AdvancedChart` &mdash; Creates a full-featured chart with a fully developed user interface
 - `MultiChart` &mdash; Displays two advanced charts on screen simultaneously
-- `ActiveTrader` &mdash; Creates an information-rich desktop for cryptocurrency traders and other active traders
+- `ActiveTrader` &mdash; Sets up an information-rich desktop for traders who trade frequently
 - `CustomChart` &mdash; Integrates native React components with ChartIQ W3C-standard web components
-- `HelloWorld` &mdash; Creates a basic chart with no user interface
+- `HelloWorld` &mdash; Creates a basic chart with no user interface as a starting point for your React app
 
 **Note:**
 
-- This application has been designed to simplify the transfer of modules such as `src/chartiq/containers/ActiveTraderWorkstation` to existing applications. It is not expected that developers will use the application as is with all modules included. To minimize the transfer effort, resource files are more or less duplicated in each module.
+- This application has been designed to simplify the transfer of modules such as `src/chartiq/containers/ActiveTraderWorkstation` to other applications. We don't expect that developers will use the application as is with all modules included. So, to make transferring modules easier, we more or less duplicated resource and service files in each module.
 
 - For an example of creating a chart user interface entirely with native React components, see the [Charting-Library---React-Seed-Project](https://github.com/ChartIQ/Charting-Library---React-Seed-Project) project.
 
-
 ## Requirements
 
-- A copy of the ChartIQ library, version 8.1.0 or later.
+A copy of the ChartIQ library, version 8.2.0 or later.
 
-  If you do not have a copy of the library, please contact your account manager or send an email to <info@cosaic.io>.
+If you do not have a copy of the library, please contact your account manager or send an email to <info@cosaic.io>.
 
+To get a free trial version of the library, go to the ChartIQ <a href="https://cosaic.io/chartiq-sdk-library-download/" target="_blank">download site</a>.
 
 ## Getting started
 
@@ -59,9 +58,6 @@ npm uninstall chartiq
 npm install ./chartiq-x.x.x.tgz
 ```
 
-See also [Building the project](#building-the-project).
-
-
 ## Customization
 
 ### Web component templates
@@ -72,7 +68,7 @@ The JSX in `AdvancedChart`, `CustomChart`, and `ActiveTraderWorkstation` compone
 
 You can configure a variety of chart features by modifying the configuration object provided to the component definition files of `AdvancedChart`, `CustomChart`, and `ActiveTrader`. Look for the call to `getConfig` in the resources files.
 
-The default configuration is part of the ChartIQ library. See *./node_modules/chartiq/js/defaultConfiguration.js* for all the configuration details.
+A default configuration is part of the ChartIQ library. See the [Chart Configuration](tutorial-Chart%20Configuration.html) tutorial for all the configuration details.
 
 You can also modify the CSS in the style sheet files associated with `AdvancedChart`, `CustomChart`, and `ActiveTrader`. See the [CSS Overview](https://documentation.chartiq.com/tutorial-CSS%20Overview.html) tutorial for information on customizing the chart look and feel.
 
@@ -128,6 +124,16 @@ For example, to enable the Trade from Chart (TFC) plug-in for `AdvancedChart`, u
 ```js
 // import 'chartiq/plugins/tfc/tfc-loader';
 // import 'chartiq/plugins/tfc/tfc-demo';
+
+config.plugins = {
+    .
+    .
+    .
+    // tfc,
+    .
+    .
+    .
+};
 ```
 
 To enable the Market Depth chart and L2 Heat Map in `AdvancedChart`, uncomment the following lines in [resources.js](./src/chartiq/containers/AdvancedChart/resources.js):
@@ -151,18 +157,7 @@ and the following line in [AdvancedChart.jsx](./src/chartiq/containers/AdvancedC
 // CIQ.simulateL2({ stx, onInterval: 1000, onTrade: true });
 ```
 
-## Building the project
-
-If you want to use the ChartIQ advanced chart sample in its default state in your own React project, simply run the following command to generate the production bundle file:
-
-```sh
-npm run build
-```
-
-The bundle will be created in the *dist/* folder.
-
-
-## Notes
+## Important notes
 
 - This application runs only from IP address `127.0.0.1`, hostname `localhost`, or the explicit list of domains set on your ChartIQ license. If you need to bind the webpack development server to a different host, please contact your account manager to have additional domains added to your license.
 
@@ -170,13 +165,11 @@ The bundle will be created in the *dist/* folder.
 
 - As of version 8.0.0 of the charting library, this project no longer supports Internet Explorer 11. Please contact [support@chartiq.com](mailto:support@chartiq.com) for information on using version 7.5.0 of the charting library to enable this project to work with IE 11.
 
-
 ## Questions and support
 
 - Contact our development support team at [support@chartiq.com](mailto:support@chartiq.com).
 - See our SDK documentation at https://documentation.chartiq.com.
 
-
 ## Contributing to this project
 
-Contribute to this project. Fork it and send us a pull request. We'd love to see what you can do with our charting tools!
+Fork it and send us a pull request. We'd love to see what you can do with our charting tools in React!
