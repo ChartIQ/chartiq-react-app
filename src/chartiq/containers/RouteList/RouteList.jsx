@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import './RouteList.css';
 
@@ -24,7 +24,7 @@ export default class RouteList extends React.Component {
       <span className="route-list">
         <h2>ChartIQ React Application</h2>
 
-        <p className="description">The chartiq-angular-app project is a toolkit of React components.
+        <p className="description">The chartiq-react-app project is a toolkit of React components.
           The following components create complete charting applications: (Select the component names to
           see the applications.)</p>
 
@@ -45,15 +45,14 @@ export default class RouteList extends React.Component {
           <li>
             <h3 className="disabled-link" style={{ color: '#888' }}>ActiveTraderWorkstation
               <div>
-              (to enable link, uncomment all lines in src direcotry following the // Enable ActiveTraderWorkstation)
+                <i>
+                Note: to activate above route search and uncomment 4 statements in the /src directory following the <br />
+                `Enable ActiveTraderWorkstation` line
+                </i>
               </div>
             </h3>
-            {
-              /* 
-              Enable ActiveTraderWorkstation
-              <h3><Link to="active-trader">ActiveTraderWorkstation</Link></h3> 
-              */
-            }
+            {/* Enable ActiveTraderWorkstation */}
+            {/* <h3><Link to="active-trader">ActiveTraderWorkstation</Link></h3> */}
             <p>
               Features the advanced chart component enhanced with the following plug-ins:
             </p>

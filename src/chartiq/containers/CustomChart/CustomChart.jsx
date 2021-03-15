@@ -1,8 +1,8 @@
 import React from "react";
 import { CIQ } from "chartiq/js/componentUI";
 
-import { config } from "../AdvancedChart/resources"; // ChartIQ library resources
 import { default as AdvancedChart } from "../AdvancedChart/AdvancedChart";
+import { getCustomConfig } from "../AdvancedChart/resources"
 
 import "./CustomChart.css";
 import { default as ShortcutDialog } from "./ShortcutDialog/ShortcutDialog";
@@ -33,6 +33,8 @@ export default class CustomChart extends React.Component {
 			`
 		};
 
+		this.config = props.config || getCustomConfig(props);
+
 		this.state = {
 			chart: new CIQ.UI.Chart(),
 			stx: null,
@@ -49,7 +51,7 @@ export default class CustomChart extends React.Component {
 			this.props.chartIntialized({ chartEngine, uiContext });
 		}
 
-		this.updateCustomization(config).then(() => {
+		this.updateCustomization(this.config).then(() => {
 			this.addPreferencesHelper(uiContext);
 			this.drawingToolsInfo = this.getDrawingTools(uiContext);
 		});
@@ -136,7 +138,7 @@ export default class CustomChart extends React.Component {
 	getDrawingTools(uiContext) {
 		const { drawingToolDetails: details } = this;
 
-		let drawingTools = config.drawingTools.slice();
+		let drawingTools = this.config.drawingTools.slice();
 		return drawingTools.map(({ label, shortcut, tool }) => {
 			return {
 				label,
@@ -152,7 +154,7 @@ export default class CustomChart extends React.Component {
 	setDrawingToolShortcuts(shortcuts) {
 		const { topNode } = this.state.uiContext;
 
-		config.drawingTools.forEach((item) => {
+		this.config.drawingTools.forEach((item) => {
 			item.shortcut = shortcuts[item.tool];
 		});
 
@@ -252,7 +254,7 @@ export default class CustomChart extends React.Component {
 				</div>
 				<div className="chartWrapper">
 					<AdvancedChart
-						config={config}
+						config={this.config}
 						chartInitialized={this.postInit.bind(this)}
 						onChartReady={this.props.onChartReady}
 					>
@@ -285,12 +287,60 @@ export default class CustomChart extends React.Component {
 										<span></span>
 										<cq-tooltip>Draw</cq-tooltip>
 									</cq-toggle>
-									<cq-toggle class="ciq-CH" cq-member="crosshair">
-										<span></span>
-										<cq-tooltip>Crosshair</cq-tooltip>
-									</cq-toggle>
-									<cq-info-toggle></cq-info-toggle>
-									<cq-toggle class="ciq-DT" cq-member="tableView">
+									<cq-info-toggle-dropdown>
+										<cq-toggle class="ciq-CH" cq-member="crosshair">
+											<span></span>
+											<cq-tooltip>Crosshair (Alt + \)</cq-tooltip>
+										</cq-toggle>
+
+										<cq-menu class="ciq-menu toggle-options collapse">
+											<span></span>
+											<cq-menu-dropdown>
+												<cq-item cq-member="crosshair">
+													Hide Heads-Up Display
+													<span className="ciq-radio">
+														<span></span>
+													</span>
+												</cq-item>
+												<cq-item cq-member="headsUp-static">
+													Show Heads-Up Display
+													<span className="ciq-radio">
+														<span></span>
+													</span>
+												</cq-item>
+											</cq-menu-dropdown>
+										</cq-menu>
+									</cq-info-toggle-dropdown>
+
+									<cq-info-toggle-dropdown>
+										<cq-toggle class="ciq-HU" cq-member="headsUp">
+											<span></span>
+											<cq-tooltip>Info</cq-tooltip>
+										</cq-toggle>
+
+										<cq-menu class="ciq-menu toggle-options collapse tooltip-ui">
+											<span></span>
+											<cq-menu-dropdown>
+												<cq-item cq-member="headsUp-dynamic">
+													Show Dynamic Callout
+													<span className="ciq-radio">
+														<span></span>
+													</span>
+												</cq-item>
+												<cq-item cq-member="headsUp-floating">
+													Show Tooltip
+													<span className="ciq-radio">
+														<span></span>
+													</span>
+												</cq-item>
+											</cq-menu-dropdown>
+										</cq-menu>
+									</cq-info-toggle-dropdown>
+
+									<cq-toggle
+										className="ciq-DT tableview-ui"
+										cq-member="tableView"
+									>
 										<span></span>
 										<cq-tooltip>Table View</cq-tooltip>
 									</cq-toggle>
@@ -330,9 +380,12 @@ export default class CustomChart extends React.Component {
 										</cq-menu-dropdown>
 									</cq-menu>
 
-									<cq-menu class="ciq-menu ciq-studies collapse">
+									<cq-menu
+										class="ciq-menu ciq-studies collapse"
+										cq-focus="input"
+									>
 										<span>Studies</span>
-										<cq-menu-dropdown cq-no-scroll>
+										<cq-menu-dropdown>
 											<cq-study-legend cq-no-close>
 												<cq-section-dynamic>
 													<cq-heading>Current Studies</cq-heading>
@@ -370,9 +423,7 @@ export default class CustomChart extends React.Component {
 											<cq-heading cq-filter cq-filter-min="-1">
 												Studies
 											</cq-heading>
-											<cq-scroll cq-no-maximize>
-												<cq-studies></cq-studies>
-											</cq-scroll>
+											<cq-studies></cq-studies>
 										</cq-menu-dropdown>
 									</cq-menu>
 
@@ -501,9 +552,16 @@ export default class CustomChart extends React.Component {
 													<cq-flag></cq-flag>
 													<cq-language-name>Change Language</cq-language-name>
 												</cq-item>
+											</cq-menu-dropdown-section>
+											<cq-menu-dropdown-section className="shortcuts-ui">
 												<cq-separator></cq-separator>
+												<cq-heading>Shortcuts</cq-heading>
+												<cq-item stxtap="Layout.showShortcuts(true)">
+													Shortcuts / Hotkeys
+												</cq-item>
 											</cq-menu-dropdown-section>
 											<cq-menu-dropdown-section class="chart-preferences">
+												<cq-separator></cq-separator>
 												<cq-heading>Preferences</cq-heading>
 												<cq-item stxtap="Layout.openPreferences('drawingTools')">
 													Drawing Tools
@@ -534,6 +592,11 @@ export default class CustomChart extends React.Component {
 						>
 							<div className="ciq-chart-area">
 								<div className="ciq-chart">
+									<cq-message-toaster
+										defaultDisplayTime="10"
+										defaultTransition="slide"
+										defaultPosition="top"
+									></cq-message-toaster>
 									<cq-palette-dock>
 										<div className="palette-dock-container">
 											<cq-drawing-palette
@@ -591,6 +654,11 @@ export default class CustomChart extends React.Component {
 
 						<div className="ciq-footer full-screen-hide">
 							<cq-share-button></cq-share-button>
+							<div
+								className="shortcuts-ui ciq-shortcut-button"
+								stxtap="Layout.showShortcuts()"
+								title="Toggle shortcut legend"
+							></div>
 							<cq-show-range></cq-show-range>
 						</div>
 
