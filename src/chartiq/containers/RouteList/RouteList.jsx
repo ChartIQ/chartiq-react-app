@@ -43,11 +43,10 @@ export default class RouteList extends React.Component {
             </p>
           </li>
           <li>
-            <h3 className="disabled-link" style={{ color: '#888' }}>ActiveTraderWorkstation
-              <div style={{fontSize: 0.75 + "rem", marginBottom: 0.70 + "rem"}}>
+            <h3 className="disabled-link" style={{ color: "#888", marginBottom: 0 }}>ActiveTraderWorkstation</h3>
+            <p style={{fontSize: 0.75 + "rem", marginTop: 0, marginBottom: 0.70 + "rem"}}>
                 (To enable this link, uncomment all lines in the <i>src</i> directory following the <code>// Enable ActiveTraderWorkstation</code> comment.)
-              </div>
-            </h3>
+            </p>
             {
               /*
               Enable ActiveTraderWorkstation
