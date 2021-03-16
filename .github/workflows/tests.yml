@@ -67,6 +67,9 @@ jobs:
       - name: Build project-chartiq
         run: npm run build:chartiq
 
+      - name: Prepare application
+        run: npm run ciq-prep-app
+
       - name: Run e2e-new tests with Chrome browser
         run: npm run test-chrome
         if: ${{ always() }}
