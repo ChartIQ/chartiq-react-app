@@ -15,7 +15,8 @@ import {
 	HelloWorld
 } from "./chartiq";
 
-// import { CIQ } from 'chartiq/js/componentUI'; // import if the channelSubscribe reference is required
+// Enable the following import if the channelSubscribe reference or the call to CIQ.simulateL2 in the chartInitialized reference are required.
+// import { CIQ } from 'chartiq/js/componentUI';
 // const { channelSubscribe } = CIQ.UI.BaseComponent.prototype;
 
 // Optional callback function to access chart engine and uiContext
