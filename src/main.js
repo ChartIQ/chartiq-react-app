@@ -74,7 +74,8 @@ if (el) {
 			></Route> 
 			*/}
 
-			<Route
+			{/* Enable CrossSection */}
+			{/* <Route
 				path='/cross-section'
 				component={CrossSection}
 				render={() => (
@@ -82,7 +83,8 @@ if (el) {
 						chartInitialized={chartInitialized}
 						onChartReady={onChartReady}
 					/>
-				)}></Route>
+				)}
+				></Route> */}
 			<Route path='/custom-chart' component={CustomChart}></Route>
 			<Route path='/hello-world' component={HelloWorld}></Route>
 		</Router>,
