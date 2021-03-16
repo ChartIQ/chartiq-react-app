@@ -149,9 +149,11 @@ config.plugins = {
 };
 ```
 
-and the following line in [main.js](./src/main.js):
+and the following lines in [main.js](./src/main.js):
 
 ```js
+// import { CIQ } from 'chartiq/js/componentUI';
+
 // CIQ.simulateL2({ stx: chartEngine, onInterval: 1000, onTrade: true });
 ```
 
