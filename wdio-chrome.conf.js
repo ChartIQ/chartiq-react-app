@@ -113,14 +113,14 @@ const wdioConfig = {
 				AllureReporter.addAttachment('page.html', JSON.stringify(logs), 'text/html');
 				console.log('Test logs | ' + context.test.title + ':');
 				console.log(logs);
-				// if (logs[0].level === 'SEVERE') {
-				// 	context.test.callback(new Error('Browser console ERROR'));
-				// 	throw new Error('Browser console ERROR');
-				// }
-				// if (logs[0].level === 'WARNING') {
-				// 	test.callback(new Error('Browser console WARNING'));
-				// 	throw new Error('Browser console WARNING');
-				// }
+				if (logs[0].level === 'SEVERE') {
+					// context.test.callback(new Error('Browser console ERROR'));
+					throw new Error('Browser console ERROR');
+				}
+				if (logs[0].level === 'WARNING') {
+					// context.callback(new Error('Browser console WARNING'));
+					throw new Error('Browser console WARNING');
+				}
 			}
 			await browser.reloadSession();
 		},
