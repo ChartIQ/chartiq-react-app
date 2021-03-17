@@ -41,7 +41,7 @@ jobs:
           cache-name: root
         with:
           path: "./node_modules/"
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('package.json') }}
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('package-lock.json') }}
         timeout-minutes: 4
 
       - name: Cache node modules (stx)
@@ -51,7 +51,7 @@ jobs:
           cache-name: stx
         with:
           path: "./stx/node_modules/"
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('./stx/package.json') }}
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('./stx/package-lock.json') }}
         timeout-minutes: 4
 
       - name: Install dependencies for stx
