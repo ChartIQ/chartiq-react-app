@@ -2,12 +2,6 @@ let debug = process.env.DEBUG;
 const {configBase} = require('./stx/spec/e2e-new/wdio.conf');
 const AllureReporter = require('@wdio/allure-reporter').default;
 
-let child_process = require('child_process');
-const webpack = require('webpack');
-const webpackConfig = require('./webpack.config.js');
-
-const devServer = require('webpack-dev-server/lib/Server');
-
 const browsers = [
 	{
 		maxInstances: debug ? 1 : 3,
@@ -47,12 +41,43 @@ const wdioConfig = {
 		 * @param {Array.<Object>} capabilities list of capabilities details
 		 */
 		onPrepare: function (config, capabilities) {
-			child_process.execSync('mkdir -p ./test-output/screenshots');
+			var StaticServer = require('static-server');
+			var server = new StaticServer({
+				rootPath: './dist/',            // required, the root of the server file tree
+				port: 4040,               // required, the port to listen
+				// name: 'my-http-server',   // optional, will set "X-Powered-by" HTTP header
+				host: 'localhost',       // optional, defaults to any interface
+				cors: '*',                // optional, defaults to undefined
+				followSymlink: true,      // optional, defaults to a 404 error
+				templates: {
+					index: './dist/index.html',      // optional, defaults to 'index.html'
+					notFound: './dist/index.html'    // optional, defaults to undefined
+				}
+			});
 
-			const server = new devServer(webpack(webpackConfig()), {logLevel: 'info', historyApiFallback: true});
+			server.start(function () {
+				console.log('Server listening to', server.port);
+			});
 
-			server.listen(4040, 'localhost', () => {
-				console.log('Starting server on http://localhost:4040');
+			server.on('request', function (req, res) {
+				// req.path is the URL resource (file name) from server.rootPath
+				// req.elapsedTime returns a string of the request's elapsed time
+			});
+
+			server.on('symbolicLink', function (link, file) {
+				// link is the source of the reference
+				// file is the link reference
+				console.log('File', link, 'is a link to', file);
+			});
+
+			server.on('response', function (req, res, err, file, stat) {
+				// res.status is the response status sent to the client
+				// res.headers are the headers sent
+				// err is any error message thrown
+				// file the file being served (may be null)
+				// stat the stat of the file being served (is null if file is null)
+
+				// NOTE: the response has already been sent at this point
 			});
 		},
 		/**
