@@ -31,7 +31,7 @@ const wdioConfig = {
 		// The template object is a way to set the name of the component's file for this specific repo.
 		// NOTE: this is something custom to our configs not a default option of WDIO
 		baseUrl: 'http://localhost:4040',
-		basePath: './node_modules/@chartiq/ui-tests/',
+		basePath: './',
 		templates: {
 			'advancedChart': 'technical-analysis'
 		},
