@@ -58,14 +58,14 @@ jobs:
         working-directory: ./stx
         run: npm install
 
-      - name: Install dependencies for tests
+      - name: Install dependencies for app
         run: npm install
 
       - name: Build project-test
-        run: npm run build:test
+        run: npm run build:test-ci
 
       - name: Build project-chartiq
-        run: npm run build:chartiq
+        run: npm run build:chartiq-ci
 
       - name: Prepare application
         run: npm run ciq-prep-app

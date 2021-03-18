@@ -16,7 +16,9 @@ From chartiq-react-app-private/ :
 npm install
 npm run build:test
 npm run build:chartiq
+npm run ciq-prep-app
 npm run build:test-new
 
-npm run test
+npm run test-chrome
+npm run test-ff
 ```

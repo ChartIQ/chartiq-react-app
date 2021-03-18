@@ -7,6 +7,8 @@
     "build": "webpack --config=webpack.config.js --env.production",
     "build:chartiq": "sh build-scripts/build-chartiq.sh",
     "build:test": "sh build-scripts/build-test.sh",
+    "build:chartiq-ci": "sh build-scripts/build-chartiq-ci.sh",
+    "build:test-ci": "sh build-scripts/build-test-ci.sh",
     "build:clone-new-tests": "sh build-scripts/build-pull-new-tests.sh",
     "build:test-new": "sh build-scripts/copy-e2e-new.sh",
     "start": "npm run watch -- --host=127.0.0.1 --disable-host-check=true",
