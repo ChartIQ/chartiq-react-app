@@ -2,6 +2,5 @@
 # Then copies and installs the package into the react app.
 
 echo "Pull stx repo" && \
-cd ../chartiq-react-app-private && \
-git clone https://nikcodeit@github.com/ChartIQ/stx.git -b new-tests-package
+git clone https://github.com/ChartIQ/stx -b new-tests-package
 echo "Pulling done!"

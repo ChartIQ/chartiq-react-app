@@ -7,12 +7,9 @@
     "build": "webpack --config=webpack.config.js --env.production",
     "build:chartiq": "sh build-scripts/build-chartiq.sh",
     "build:test": "sh build-scripts/build-test.sh",
-    "build:chartiq-ci": "sh build-scripts/build-chartiq-ci.sh",
-    "build:test-ci": "sh build-scripts/build-test-ci.sh",
     "build:clone-new-tests": "sh build-scripts/build-pull-new-tests.sh",
-    "build:test-new": "sh build-scripts/copy-e2e-new.sh",
-    "start": "npm run watch -- --host=127.0.0.1 --disable-host-check=true",
     "ciq-prep-app": "sh ./build-scripts/clear-dist.sh && npm run build && node ./build-scripts/webserver-symlinks.js",
+    "start": "npm run watch -- --host=127.0.0.1 --disable-host-check=true",
     "test": "wdio",
     "test-chrome": "wdio wdio-chrome.conf.js --mochaOpts.grep '@react' --mochaOpts.invert=true",
     "test-chrome:debug": "DEBUG=true wdio wdio-chrome.conf.js --mochaOpts.grep '@react' --mochaOpts.invert=true",
@@ -58,6 +55,8 @@
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
     "@babel/preset-env": "^7.4.4",
+    "@chartiq/ui-tests": "file:chartiq-ui-tests-1.0.0.tgz",
+    "chartiq": "file:chartiq-8.2.0.tgz",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-router-dom": "^5.2.0"
