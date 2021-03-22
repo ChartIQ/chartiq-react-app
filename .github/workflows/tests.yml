@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [ 15.x ]
+        node-version: [ 14.x ]
 
     steps:
 
@@ -84,7 +84,7 @@ jobs:
         continue-on-error: true
 
       - name: Sync Allure to S3
-        run: aws s3 sync ./allure-report/ s3://react-app-allurereports.chartiq.com/${{ github.sha }} --acl public-read --delete
+        run: aws s3 sync ./allure-report/ s3://stx-allurereports.chartiq.com/${{ github.sha }} --acl public-read --delete
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
