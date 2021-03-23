@@ -19,6 +19,7 @@ The ChartIQ React application is a toolkit of components that enable you to buil
 - `AdvancedChart` &mdash; Creates a full-featured chart with a fully developed user interface
 - `MultiChart` &mdash; Displays two advanced charts on screen simultaneously
 - `ActiveTrader` &mdash; Sets up an information-rich desktop for traders who trade frequently
+- `CrossSection` &mdash; Creates a full featured cross section chart for working with time series and non &mdash; time series data
 - `CustomChart` &mdash; Integrates native React components with ChartIQ W3C-standard web components
 - `HelloWorld` &mdash; Creates a basic chart with no user interface as a starting point for your React app
 
