@@ -3,19 +3,38 @@ const path = require('path');
 
 const callback = (err) => { if (err) console.log(err) };
 
-createSynlink("../node_modules/chartiq/examples", "../dist/examples");
-createSynlink("../node_modules/@chartiq/ui-tests/test-lib", "../dist/test-lib");
-createSynlink("../node_modules/@chartiq/ui-tests/test-rigs-automated", "../dist/test-rigs-automated");
+createSymlink({
+  target: "../node_modules/chartiq/examples",
+  symlink: "../dist/examples"
+});
+createSymlink({
+  target: "../node_modules/@chartiq/ui-tests/test-lib",
+  symlink: "../dist/test-lib"
+});
+createSymlink({
+  target: "../node_modules/@chartiq/ui-tests/test-rigs-automated",
+  symlink: "../dist/test-rigs-automated"
+});
+// Symlink techical-analysis folder to index.html file so that routes work
+// without StaticServer returning a 404 code.
+createSymlink({ 
+   target: "../dist/index.html",
+   symlink: "../dist/technical-analysis",
+   isDir: false,
+});
 
-function createSynlink(target, symlink, cb = callback) {
+function createSymlink({ 
+  target,
+  symlink,
+  isDir = true,
+  cb = callback
+}) {
   const symlinkPath = path.join(__dirname, ...symlink.split("/"));
-
   if (fs.existsSync(symlinkPath)) return;
-
   fs.symlink(
     path.join(__dirname, ...target.split("/")),
     symlinkPath,
-    'dir',
+    isDir ? 'dir' : 'file',
     cb
   );
 }
