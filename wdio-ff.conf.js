@@ -1,6 +1,9 @@
 let debug = process.env.DEBUG;
 const {configBase} = require('./stx/spec/e2e-new/wdio.conf');
 const AllureReporter = require('@wdio/allure-reporter').default;
+const path = require('path');
+const fs = require('fs');
+global.downloadDir = path.join(__dirname, 'tempDownload');
 
 const browsers = [
 	{
@@ -11,7 +14,7 @@ const browsers = [
 			prefs: {
 				directory_upgrade: true,
 				prompt_for_download: false,
-				'download.default_directory': global.downloadDir,
+				'download.default_directory': downloadDir,
 			},
 		},
 	},
@@ -41,6 +44,10 @@ const wdioConfig = {
 		 * @param {Array.<Object>} capabilities list of capabilities details
 		 */
 		onPrepare: function (config, capabilities) {
+			if (!fs.existsSync(downloadDir)) {
+				// if it doesn't exist, create it
+				fs.mkdirSync(downloadDir);
+			}
 			var StaticServer = require('static-server');
 			var server = new StaticServer({
 				rootPath: './dist/',            // required, the root of the server file tree
@@ -107,6 +114,28 @@ const wdioConfig = {
 			}
 			await browser.reloadSession();
 		},
+		onComplete: function() {
+			rmdir(downloadDir)
+		},
 	},
 };
 exports.config = wdioConfig;
+
+function rmdir(dir) {
+	var list = fs.readdirSync(dir);
+	for(var i = 0; i < list.length; i++) {
+		var filename = path.join(dir, list[i]);
+		var stat = fs.statSync(filename);
+
+		if(filename == "." || filename == "..") {
+			// pass these files
+		} else if(stat.isDirectory()) {
+			// rmdir recursively
+			rmdir(filename);
+		} else {
+			// rm fiilename
+			fs.unlinkSync(filename);
+		}
+	}
+	fs.rmdirSync(dir);
+}
