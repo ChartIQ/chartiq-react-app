@@ -2,10 +2,12 @@
 
 Note: This build-scripts/ folder should not be copied to the public repo!
 
+chartiq-react-app and stx should have the same parent folder!
+
 From chartiq-react-app-private/ :
 ```sh
 npm install
-npm run build:clone-new-tests
+npm run build:copy-stx
 ```
 From chartiq-react-app-private/stx :
 ```sh
