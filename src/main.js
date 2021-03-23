@@ -16,7 +16,8 @@ import {
 	HelloWorld
 } from "./chartiq";
 
-// import { CIQ } from 'chartiq/js/componentUI'; // import if the channelSubscribe reference is required
+// Enable the following import if the channelSubscribe reference or the call to CIQ.simulateL2 in the chartInitialized reference are required.
+// import { CIQ } from 'chartiq/js/componentUI';
 // const { channelSubscribe } = CIQ.UI.BaseComponent.prototype;
 
 // Optional callback function to access chart engine and uiContext
@@ -34,7 +35,7 @@ const chartInitialized = ({ chartEngine, uiContext }) => {
 	// 	console.log('layout changed', layout);
 	// });
 	// Simulate L2 data using https://documentation.chartiq.com/CIQ.ChartEngine.html#updateCurrentMarketData
-	// CIQ.simulateL2({ chartEngine, onInterval: 1000, onTrade: true });
+	// CIQ.simulateL2({ stx: chartEngine, onInterval: 1000, onTrade: true });
 };
 
 // Optional callback function for when chart is initalized and initial data is available
@@ -71,7 +72,7 @@ if (el) {
 						onChartReady={onChartReady}
 					/>
 				)}
-			></Route> 
+			></Route>
 			*/}
 
 			{/* Enable CrossSection */}

@@ -33,7 +33,7 @@ export default class RouteList extends React.Component {
             <h3><Link to="technical-analysis">AdvancedChart</Link></h3>
             <p>
               Creates a chart with a full-featured user interface. AdvancedChartComponent is
-              the equivalent of ChartIQ's technical-analysis-chart.html advanced template.
+              the equivalent of ChartIQ's <i>technical-analysis-chart.html</i> advanced template.
             </p>
           </li>
           <li>
@@ -43,16 +43,16 @@ export default class RouteList extends React.Component {
             </p>
           </li>
           <li>
-            <h3 className="disabled-link" style={{ color: '#888' }}>ActiveTraderWorkstation
-              <div>
-                <i>
-                Note: to activate above route search and uncomment 4 statements in the /src directory following the <br />
-                `Enable ActiveTraderWorkstation` line
-                </i>
-              </div>
-            </h3>
-            {/* Enable ActiveTraderWorkstation */}
-            {/* <h3><Link to="active-trader">ActiveTraderWorkstation</Link></h3> */}
+            <h3 className="disabled-link" style={{ color: "#888", marginBottom: 0 }}>ActiveTraderWorkstation</h3>
+            <p style={{fontSize: 0.75 + "rem", marginTop: 0, marginBottom: 0.70 + "rem"}}>
+                (To enable this link, uncomment all lines in the <i>src</i> directory following the <code>// Enable ActiveTraderWorkstation</code> comment.)
+            </p>
+            {
+              /*
+              Enable ActiveTraderWorkstation
+              <h3><Link to="active-trader">ActiveTraderWorkstation</Link></h3>
+              */
+            }
             <p>
               Features the advanced chart component enhanced with the following plug-ins:
             </p>
