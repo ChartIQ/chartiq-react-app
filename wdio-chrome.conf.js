@@ -16,7 +16,7 @@ const browsers = [
 			prefs: {
 				directory_upgrade: true,
 				prompt_for_download: false,
-				'download.default_directory': downloadDir,
+				'download.default_directory': global.downloadDir,
 			},
 		},
 	},
@@ -46,8 +46,8 @@ const wdioConfig = {
 		 * @param {Array.<Object>} capabilities list of capabilities details
 		 */
 		onPrepare: function (config, capabilities) {
-			if (!fs.existsSync(downloadDir)){
-				fs.mkdirSync(downloadDir);
+			if (!fs.existsSync(global.downloadDir)){
+				fs.mkdirSync(global.downloadDir);
 			}
 			var StaticServer = require('static-server');
 			var server = new StaticServer({
@@ -130,8 +130,8 @@ const wdioConfig = {
 			}
 			await browser.reloadSession();
 		},
-		afterSession: function() {
-			rmdir(downloadDir);
+		onComplete: function() {
+			rmdir(global.downloadDir);
 		}
 	},
 };
@@ -143,7 +143,7 @@ function rmdir(dir) {
 		var filename = path.join(dir, list[i]);
 		var stat = fs.statSync(filename);
 
-		if(filename == "." || filename == "..") {
+		if(filename === "." || filename === "..") {
 			// pass these files
 		} else if(stat.isDirectory()) {
 			// rmdir recursively
