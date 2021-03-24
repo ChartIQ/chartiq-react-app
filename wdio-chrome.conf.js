@@ -3,6 +3,7 @@ const {configBase} = require('./stx/spec/e2e-new/wdio.conf');
 const AllureReporter = require('@wdio/allure-reporter').default;
 const path = require('path');
 const fs = require('fs');
+const child_process = require('child_process');
 global.downloadDir = path.join(__dirname, 'tempDownload');
 
 const browsers = [
@@ -48,6 +49,9 @@ const wdioConfig = {
 		onPrepare: function (config, capabilities) {
 			if (!fs.existsSync(global.downloadDir)){
 				fs.mkdirSync(global.downloadDir);
+			}
+			if (fs.existsSync(global.downloadDir)){
+				child_process.execSync('rm -rf ./tempDownload/**')
 			}
 			var StaticServer = require('static-server');
 			var server = new StaticServer({
