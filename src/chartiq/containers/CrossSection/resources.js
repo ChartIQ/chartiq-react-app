@@ -3,7 +3,6 @@ import "chartiq/js/standard.js";
 import { CIQ } from "chartiq/js/components.js";
 import "chartiq/plugins/crosssection/core.js";
 import "chartiq/plugins/crosssection/datepicker.js";
-import { Pikaday } from "chartiq/plugins/crosssection/thirdparty/pikaday.js"
 import "chartiq/plugins/crosssection/ui.js";
 import "chartiq/examples/feeds/termstructureDataSimulator.js";
 
@@ -19,7 +18,6 @@ import "chartiq/examples/feeds/symbolLookupChartIQ.js";
 import "chartiq/examples/markets/marketDefinitionsSample.js";
 import "chartiq/examples/markets/marketSymbologySample.js";
 
-window.Pikaday = Pikaday;
 // Creates a complete customised configuration object
 function getConfig() { 
 	return defaultConfig({

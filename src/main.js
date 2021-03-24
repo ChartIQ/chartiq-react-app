@@ -11,7 +11,7 @@ import {
 	MultiChart,
 	// Enable ActiveTraderWorkstation
 	// ActiveTraderWorkstation,
-	CrossSection,
+	// CrossSection,
 	CustomChart,
 	HelloWorld
 } from "./chartiq";
