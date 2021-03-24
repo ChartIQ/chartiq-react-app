@@ -4,13 +4,13 @@ import { CIQ } from "chartiq/js/componentUI";
 import ChartTemplate from "./Template";
 
 /**
- * CrossSection Chart
+ * TermStructure Chart
  *
  * @export
- * @class CrossSection
+ * @class TermStructure
  * @extends {React.Component}
  */
-export default class CrossSection extends React.Component {
+export default class TermStructure extends React.Component {
 	constructor(props) {
 		super(props);
 		this.container = React.createRef();

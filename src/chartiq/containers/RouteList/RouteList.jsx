@@ -64,18 +64,18 @@ export default class RouteList extends React.Component {
               </ul>
           </li>
           <li>
-            <h3 className="disabled-link" style={{ color: '#888' }}>CrossSection Chart
+            <h3 className="disabled-link" style={{ color: '#888' }}>TermStructure Chart
               <div>
                 <i>
-                Note: to activate above route search and uncomment 4 statements in the /src directory following the <br />
-                `Enable CrossSection` line
+                Note: to activate above route search and uncomment 4 statements in the <i>src</i> directory following the <br />
+                `Enable TermStructure` line
                 </i>
               </div>
             </h3>
-            {/* Enable CrossSection */}
-            {/* <h3><Link to="cross-section">Cross Section Chart</Link></h3> */}
+            {/* Enable TermStructure */}
+            {/* <h3><Link to="term-structure">Term Structure Chart</Link></h3> */}
             <p>
-              Creates a Cross Section chart that can be used for TermStructures
+              Creates a Term Structure chart that can be used for non time series data
             </p>
           </li>
           <li>

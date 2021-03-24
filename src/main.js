@@ -11,7 +11,7 @@ import {
 	MultiChart,
 	// Enable ActiveTraderWorkstation
 	// ActiveTraderWorkstation,
-	// CrossSection,
+	// TermStructure,
 	CustomChart,
 	HelloWorld
 } from "./chartiq";
@@ -75,12 +75,12 @@ if (el) {
 			></Route>
 			*/}
 
-			{/* Enable CrossSection */}
+			{/* Enable TermStructure */}
 			{/* <Route
-				path='/cross-section'
-				component={CrossSection}
+				path='/term-structure'
+				component={TermStructure}
 				render={() => (
-					<CrossSection
+					<TermStructure
 						chartInitialized={chartInitialized}
 						onChartReady={onChartReady}
 					/>
