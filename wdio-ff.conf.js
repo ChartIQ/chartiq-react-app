@@ -114,7 +114,7 @@ const wdioConfig = {
 			}
 			await browser.reloadSession();
 		},
-		after: function() {
+		afterSession: function() {
 			rmdir(downloadDir)
 		},
 	},
