@@ -31,6 +31,11 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
+      - name: Set timezone
+        uses: actions/set-timezone-action@v1.1
+        with:
+          timezoneLinux: "America/New_York"
+
       - name: Clone stx repository
         run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.STX_BRANCH != NaN && env.STX_BRANCH }}
 
