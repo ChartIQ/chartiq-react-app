@@ -7,7 +7,7 @@ chartiq-react-app and stx should have the same parent folder!
 From chartiq-react-app-private/ :
 ```sh
 npm install
-npm run build:copy-stx
+npm run build:stx-symlink
 ```
 From chartiq-react-app-private/stx :
 ```sh
