@@ -49,7 +49,7 @@ const wdioConfig = {
 				fs.mkdirSync(global.downloadDir);
 			}
 			else {
-				child_process.execSync('rm -rf ./tempDownload/**')
+				child_process.execSync('rm -rf ./tempDownload/**');
 			}
 			var StaticServer = require('static-server');
 			var server = new StaticServer({
