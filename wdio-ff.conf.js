@@ -46,10 +46,9 @@ const wdioConfig = {
 		 */
 		onPrepare: function (config, capabilities) {
 			if (!fs.existsSync(global.downloadDir)) {
-				// if it doesn't exist, create it
 				fs.mkdirSync(global.downloadDir);
 			}
-			if (fs.existsSync(global.downloadDir)){
+			else {
 				child_process.execSync('rm -rf ./tempDownload/**')
 			}
 			var StaticServer = require('static-server');
@@ -119,27 +118,8 @@ const wdioConfig = {
 			await browser.reloadSession();
 		},
 		onComplete: function() {
-			rmdir(global.downloadDir)
+			child_process.execSync('rm -rf ./tempDownload');
 		},
 	},
 };
 exports.config = wdioConfig;
-
-function rmdir(dir) {
-	var list = fs.readdirSync(dir);
-	for(var i = 0; i < list.length; i++) {
-		var filename = path.join(dir, list[i]);
-		var stat = fs.statSync(filename);
-
-		if(filename === "." || filename === "..") {
-			// pass these files
-		} else if(stat.isDirectory()) {
-			// rmdir recursively
-			rmdir(filename);
-		} else {
-			// rm fiilename
-			fs.unlinkSync(filename);
-		}
-	}
-	fs.rmdirSync(dir);
-}
