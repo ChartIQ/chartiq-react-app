@@ -19,6 +19,8 @@ npm run build:test
 npm run build:chartiq
 npm run ciq-prep-app
 
+npm run copy-tests
+
 npm run test-chrome
 npm run test-ff
 ```
