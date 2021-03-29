@@ -7,7 +7,7 @@ chartiq-react-app and stx should have the same parent folder!
 From chartiq-react-app-private/ :
 ```sh
 npm install
-npm run build:stx-symlink //'Used for local testing only. CI clones the stx repo instead.'
+npm run build:stx-symlink //"Used for local testing only. CI clones the stx repo instead."
 ```
 From chartiq-react-app-private/stx :
 ```sh
@@ -19,8 +19,8 @@ npm run build:test
 npm run build:chartiq
 npm run ciq-prep-app
 
-npm run copy-tests //'Used for local testing only. Note: This script removes the stx symlink'
-//'so build:test and build:chartiq wont work after running this script'
+npm run copy-tests //"Used for local testing only. Note: This script removes the stx symlink"
+//"so build:test and build:chartiq won't work after running this script"
 
 npm run test-chrome
 npm run test-ff
