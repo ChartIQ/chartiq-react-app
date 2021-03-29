@@ -8,7 +8,7 @@ global.downloadDir = path.join(__dirname, 'tempDownload');
 
 const browsers = [
 	{
-		maxInstances: debug ? 1 : 3,
+		maxInstances: debug ? 1 : 5,
 		browserName: 'chrome',
 		'goog:chromeOptions': {
 			args: debug
@@ -124,11 +124,11 @@ const wdioConfig = {
 				console.log('Test logs | ' + context.test.title + ':');
 				console.log(logs);
 				if (logs[0].level === 'SEVERE') {
-					// context.test.callback(new Error('Browser console ERROR'));
+					context.test.callback(new Error('Browser console ERROR'));
 					throw new Error('Browser console ERROR');
 				}
 				if (logs[0].level === 'WARNING') {
-					// context.callback(new Error('Browser console WARNING'));
+					context.callback(new Error('Browser console WARNING'));
 					throw new Error('Browser console WARNING');
 				}
 			}

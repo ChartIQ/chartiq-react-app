@@ -8,7 +8,7 @@ global.downloadDir = path.join(__dirname, 'tempDownload');
 
 const browsers = [
 	{
-		maxInstances: debug ? 1 : 3,
+		maxInstances: debug ? 1 : 5,
 		browserName: 'firefox',
 		'moz:firefoxOptions': {
 			args: debug ? [] : ['-headless'],
