@@ -18,7 +18,7 @@ import 'chartiq/examples/translations/translationSample';
 import 'chartiq/js/componentUI';
 import 'chartiq/js/components';
 
-// Event Markers 
+// Event Markers
 import marker from 'chartiq/examples/markers/markersSample.js';
 import 'chartiq/examples/markers/tradeAnalyticsSample';
 import 'chartiq/examples/markers/videoSample';
@@ -30,27 +30,27 @@ import quoteFeed from "chartiq/examples/feeds/quoteFeedSimulator.js";
 
 import PerfectScrollbar from "chartiq/js/thirdparty/perfect-scrollbar.esm.js";
 
-import defaultConfig from 'chartiq/js/defaultConfiguration'; 
+import defaultConfig from 'chartiq/js/defaultConfiguration';
 
 // Plugins
 
-// Crypto, L2 Heat Map, Market Depth, 
-// Important Note. Uncomment the corresponding configuration object below when enabling this plugin. 
+// Crypto, L2 Heat Map, Market Depth,
+// Important: Uncomment marketDepth in config.plugins below when enabling this plug-in.
 // import 'chartiq/plugins/activetrader/cryptoiq';
 
-// ScriptIQ 
+// ScriptIQ
 // import 'chartiq/plugins/scriptiq/scriptiq';
 
 // Trading Central: Technical Insights
 // import 'chartiq/plugins/technicalinsights/components'
 
 // TFC plugin
-// Important Note. Uncomment the corresponding configuration object below when enabling this plugin. 
+// Important: Uncomment tfc in config.plugins below when enabling this plug-in.
 // import 'chartiq/plugins/tfc/tfc-loader';
 // import 'chartiq/plugins/tfc/tfc-demo';   /* if using demo account class */
 
 // Time Span Events
-// Important Note. Uncomment the corresponding configuration object below when enabling this plugin. 
+// Important: Uncomment timeSpanEventPanel in config.plugins below when enabling this plug-in.
 // import 'chartiq/plugins/timespanevent/timespanevent';
 // import 'chartiq/plugins/timespanevent/examples/timeSpanEventSample';  /* if using sample */
 
@@ -58,14 +58,14 @@ import defaultConfig from 'chartiq/js/defaultConfiguration';
 // import 'chartiq/plugins/analystviews/components';
 
 // Visual Earnings
-// Important Note. Uncomment the corresponding configuration object below when enabling this plugin. 
+// Important: Uncomment visualEarnings in config.plugins below when enabling this plug-in.
 // import 'chartiq/plugins/visualearnings/visualearnings';
 
 // Uncomment the following for the L2 simulator (required for the crypto sample and MarketDepth addOn)
 // import 'chartiq/examples/feeds/L2_simulator'; /* for use with cryptoiq */
 
 // Creates a complete customised configuration object
-function getConfig() { 
+function getConfig() {
 	return defaultConfig({
 		quoteFeed,
 		// forecastQuoteFeed, // uncomment to enable forecast quote feed simulator
