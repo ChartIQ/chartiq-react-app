@@ -122,4 +122,5 @@ const wdioConfig = {
 		},
 	},
 };
+wdioConfig.mochaOpts.require = "./build-scripts/babel-register.js";
 exports.config = wdioConfig;
