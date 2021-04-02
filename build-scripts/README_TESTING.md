@@ -31,14 +31,14 @@ npm run report
 - In GH Actions, the stx repo is cloned to stx/ .
 - Testing npm scripts are in package.json in react-app root.
 - Testing dependencies are in react-app/node_modules/@chartiq/ui-tests/package.json .
-- npm build:test builds the chart-ui-test package from stx and installs into react-app. 
+- npm build:test builds the chart-ui-test package from stx and installs into react-app.
     - The automated tests use the following resources from the stx project installed into node_modules with chartiq-ui-tests-*.tgz:
         - stx/spec/test-lib/**
         - stx/spec/test-rigs-automated/**
     - Node dependencies from the installation of chartiq-ui-test orignate from stx/spec/package.json . Any changes in this file will need build:test re-run to apply.
 - WDIO configs are merged from:
     - react-app/wdio-chrome.conf.js or react-app/wdio-ff.conf.js
-    - stx/sepc/e2e-new/wdio.conf.js
+    - stx/spec/e2e-new/wdio.conf.js
 - Spec files are located at stx/spec/e2e-new/test/specs/e2e/sample-template-advanced/**.spec.js
     - defined in react-app/wdio-chrome.conf.js and react-app/wdio-ff.conf.js
 - The react app is built with files outputting to dist/ .
