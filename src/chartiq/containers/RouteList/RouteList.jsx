@@ -65,12 +65,9 @@ export default class RouteList extends React.Component {
           </li>
           <li>
             <h3 className="disabled-link" style={{ color: '#888' }}>TermStructure Chart
-              <div>
-                <i>
-                Note: to activate above route search and uncomment 4 statements in the <i>src</i> directory following the <br />
-                `Enable TermStructure` line
-                </i>
-              </div>
+            <p style={{fontSize: 0.75 + "rem", marginTop: 0, marginBottom: 0.70 + "rem"}}>
+              (To enable this link, uncomment all lines in the <i>src</i> directory following the <code>// Enable TermStructure</code> comment.)
+            </p>
             </h3>
             {/* Enable TermStructure */}
             {/* <h3><Link to="term-structure">Term Structure Chart</Link></h3> */}

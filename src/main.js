@@ -11,6 +11,7 @@ import {
 	MultiChart,
 	// Enable ActiveTraderWorkstation
 	// ActiveTraderWorkstation,
+	// Enable TermStructure
 	// TermStructure,
 	CustomChart,
 	HelloWorld
