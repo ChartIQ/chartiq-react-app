@@ -34,7 +34,7 @@ function getCustomConfig({ chartId, symbol, onChartReady } = {}) {
 	config.enabledAddOns.rangeSlider = false;
 	config.enabledAddOns.shortcuts = false;
 
-	config.initialSymbol = "US-T BENCHMARK";
+	config.initialSymbol = symbol || symbol === "" ? symbol : "US-T BENCHMARK";
 	config.menuYaxisField = [
 		{ type: "item", label: "Yield", cmd: "Layout.setYaxisField('yield')" },
 		{ type: "item", label: "Bid", cmd: "Layout.setYaxisField('bid')" },
@@ -62,7 +62,7 @@ function getCustomConfig({ chartId, symbol, onChartReady } = {}) {
 	config.chartId = chartId || "_cross-section-chart";
 
 	// config.quoteFeeds[0].behavior.refreshInterval = 0; // disables quotefeed refresh
-	config.onChartReady = onChartReady;
+	if (onChartReady) config.onChartReady = onChartReady;
 
 	const { crossSection } = config.plugins;
 	// Select only plugin configurations that needs to be active for this chart
