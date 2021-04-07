@@ -18,8 +18,8 @@ The ChartIQ React application is a toolkit of components that enable you to buil
 
 - `AdvancedChart` &mdash; Creates a full-featured chart with a fully developed user interface
 - `MultiChart` &mdash; Displays two advanced charts on screen simultaneously
-- `ActiveTrader` &mdash; Sets up an information-rich desktop for traders who trade frequently
-- `TermStructure` &mdash; Creates a full featured term structure chart for working with non &mdash; time series data
+- `ActiveTraderWorkstation` &mdash; Sets up an information-rich desktop for traders who trade frequently
+- `TermStructure` &mdash; Creates a term structure chart for working with non&ndash;time series data
 - `CustomChart` &mdash; Integrates native React components with ChartIQ W3C-standard web components
 - `HelloWorld` &mdash; Creates a basic chart with no user interface as a starting point for your React app
 
@@ -27,11 +27,11 @@ The ChartIQ React application is a toolkit of components that enable you to buil
 
 - This application has been designed to simplify the transfer of modules such as `src/chartiq/containers/ActiveTraderWorkstation` to other applications. We don't expect that developers will use the application as is with all modules included. So, to make transferring modules easier, we more or less duplicated resource and service files in each module.
 
-- For an example of creating a chart user interface entirely with native React components, see the [Charting-Library---React-Seed-Project](https://github.com/ChartIQ/Charting-Library---React-Seed-Project) project.
+- For an example of creating a chart user interface entirely with native React components, see the [chartiq-react-seed](https://github.com/ChartIQ/chartiq-react-seed) project.
 
 ## Requirements
 
-A copy of the ChartIQ library, version 8.2.0 or later.
+A copy of the ChartIQ library, version 8.3.0 or later.
 
 If you do not have a copy of the library, please contact your account manager or send an email to <info@cosaic.io>.
 
@@ -61,15 +61,15 @@ npm install ./chartiq-x.x.x.tgz
 
 ### Web component templates
 
-The JSX in `AdvancedChart`, `CustomChart`, and `ActiveTraderWorkstation` component render methods are collections of ChartIQ's user interface web components. You can customize the chart user interface by adding, removing, or modifying UI components. You can also add your own custom React components.
+The *Template.jsx* files of the `AdvancedChart`, `ActiveTraderWorkstation`, and `TermStructure` components and the `render` method of `CustomChart` contain JSX that is a collection of ChartIQ's user interface web components. You can customize the chart user interface by adding, removing, or modifying UI components. You can also add your own custom React components.
 
 ### Configuration
 
-You can configure a variety of chart features by modifying the configuration object provided to the component definition files of `AdvancedChart`, `CustomChart`, and `ActiveTrader`. Sample configurations are available as `getConfig` and `getCustomConfig` functions in the resources files.
+You can configure a variety of chart features by modifying the configuration object provided to the component definition files of `AdvancedChart`, `CustomChart`, `ActiveTraderWorkstation`, and `TermStructure`. Sample configurations are available as `getConfig` and `getCustomConfig` functions in the resources files.
 
 A default configuration is part of the ChartIQ library. See the [Chart Configuration](tutorial-Chart%20Configuration.html) tutorial for all the configuration details.
 
-You can also modify the CSS in the style sheet files associated with `AdvancedChart`, `CustomChart`, and `ActiveTrader`. See the [CSS Overview](https://documentation.chartiq.com/tutorial-CSS%20Overview.html) tutorial for information on customizing the chart look and feel.
+You can also modify the CSS in the style sheet files associated with `AdvancedChart`, `CustomChart`, and `ActiveTraderWorkstation`. See the [CSS Overview](https://documentation.chartiq.com/tutorial-CSS%20Overview.html) tutorial for information on customizing the chart look and feel.
 
 ### Component customization
 
@@ -108,7 +108,7 @@ CIQ.UI.addComponentDefinition('cq-chart-title', CustomChartTitle);
 
 The `RecentSymbols` component provides an example of wrapping and enhancing a web component with a React component. `RecentSymbols` adds a RECENT tab to the lookup controls created by ChartIQ's `cq-lookup` and `cq-comparison-lookup` web components. The RECENT tab displays a list of recently used financial instrument symbols maintained by the `RecentSymbols` component.
 
-The `ShortcutDialog` component is an example of a React component accessed by a web component. User interaction with a drop-down menu created by a ChartIQ `cq-menu` web component opens the dialog box created by the `ShortcutDialog` component. The dialog box enables users to set shortcut keys on the chart's drawing tools.
+The `ShortcutDialog` component is an example of a React component accessed by a web component. User interaction with a dropdown menu created by a ChartIQ `cq-menu` web component opens the dialog box created by the `ShortcutDialog` component. The dialog box enables users to set shortcut keys on the chart's drawing tools.
 
 ## Enabling plug-ins
 
