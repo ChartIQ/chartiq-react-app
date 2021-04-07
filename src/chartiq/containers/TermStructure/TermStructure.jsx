@@ -4,7 +4,7 @@ import { CIQ } from "chartiq/js/componentUI";
 import ChartTemplate from "./Template";
 
 /**
- * TermStructure Chart
+ * An example of a term structure chart.
  *
  * @export
  * @class TermStructure
