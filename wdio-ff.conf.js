@@ -4,7 +4,7 @@ const AllureReporter = require('@wdio/allure-reporter').default;
 const path = require('path');
 const fs = require('fs');
 const child_process = require('child_process');
-global.downloadDir = path.join(__dirname, 'tempDownload');
+global.downloadDir = path.join(__dirname, 'stx/spec/e2e-new/tempDownload');
 
 const browsers = [
 	{
@@ -15,7 +15,9 @@ const browsers = [
 			prefs: {
 				directory_upgrade: true,
 				prompt_for_download: false,
-				'download.default_directory': global.downloadDir,
+				"browser.helperApps.neverAsk.saveToDisk": "text/csv",
+				"browser.download.folderList": 2,
+				"browser.download.dir": global.downloadDir
 			},
 		},
 	},
