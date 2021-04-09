@@ -136,6 +136,7 @@ export default function ({ pluginToggles }) {
 											<div
 												stxtap="Layout.clearStudies()"
 												className="ciq-btn sm"
+												keyboard-selectable="true"
 											>
 												Clear All
 											</div>

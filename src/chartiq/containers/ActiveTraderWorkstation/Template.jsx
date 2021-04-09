@@ -136,6 +136,7 @@ export default function () {
 											<div
 												stxtap="Layout.clearStudies()"
 												className="ciq-btn sm"
+												keyboard-selectable="true"
 											>
 												Clear All
 											</div>

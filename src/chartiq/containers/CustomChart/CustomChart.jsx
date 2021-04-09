@@ -400,6 +400,7 @@ export default class CustomChart extends React.Component {
 														<div
 															stxtap="Layout.clearStudies()"
 															className="ciq-btn sm"
+															keyboard-selectable="true"
 														>
 															Clear All
 														</div>
