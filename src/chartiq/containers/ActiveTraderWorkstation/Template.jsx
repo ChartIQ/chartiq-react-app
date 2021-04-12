@@ -297,14 +297,14 @@ export default function () {
 							<cq-tooltip>Trade</cq-tooltip>
 						</cq-toggle>
 						<cq-toggle
-							class="analystviews-ui stx-analystviews tc-ui stx-tradingcentral"
+							class="analystviews-ui stx-analystviews"
 							cq-member="analystviews"
 						>
 							<span></span>
 							<cq-tooltip>Analyst Views</cq-tooltip>
 						</cq-toggle>
 						<cq-toggle
-							class="technicalinsights-ui stx-technicalinsights recognia-ui stx-recognia"
+							class="technicalinsights-ui stx-technicalinsights"
 							cq-member="technicalinsights"
 						>
 							<span></span>

@@ -181,14 +181,14 @@ export default class CustomChart extends React.Component {
 					</cq-toggle>
 				)}
 				<cq-toggle
-					class="analystviews-ui stx-analystviews tc-ui stx-tradingcentral"
+					class="analystviews-ui stx-analystviews"
 					cq-member="analystviews"
 				>
 					<span></span>
 					<cq-tooltip>Analyst Views</cq-tooltip>
 				</cq-toggle>
 				<cq-toggle
-					class="technicalinsights-ui stx-technicalinsights recognia-ui stx-recognia"
+					class="technicalinsights-ui stx-technicalinsights"
 					cq-member="technicalinsights"
 				>
 					<span></span>
@@ -577,14 +577,14 @@ export default class CustomChart extends React.Component {
 
 						<cq-scriptiq class="scriptiq-ui"></cq-scriptiq>
 
-						<cq-tradingcentral
-							class="tc-ui"
+						<cq-analystviews
+							class="analystviews-ui"
 							token="eZOrIVNU3KR1f0cf6PTUYg=="
 							partner="1000"
 							disabled
-						></cq-tradingcentral>
+						></cq-analystviews>
 
-						<cq-recognia uid="" lang="en" disabled></cq-recognia>
+						<cq-technicalinsights uid="" lang="en" disabled></cq-technicalinsights>
 
 						<RecentSymbols
 							connectCount="2"

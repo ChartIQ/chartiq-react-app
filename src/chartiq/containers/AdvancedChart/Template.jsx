@@ -303,15 +303,15 @@ export default function ({ pluginToggles }) {
 							<cq-tooltip>Trade</cq-tooltip>
 						</cq-toggle>
 						<cq-toggle
-							class="analystviews-ui stx-analystviews tc-ui stx-tradingcentral"
-							cq-member="tc"
+							class="analystviews-ui stx-analystviews"
+							cq-member="analystviews"
 						>
 							<span></span>
 							<cq-tooltip>Analyst Views</cq-tooltip>
 						</cq-toggle>
 						<cq-toggle
-							class="technicalinsights-ui stx-technicalinsights recognia-ui stx-recognia"
-							cq-member="recognia"
+							class="technicalinsights-ui stx-technicalinsights"
+							cq-member="technicalinsights"
 						>
 							<span></span>
 							<cq-tooltip>Technical Insights</cq-tooltip>
@@ -322,14 +322,14 @@ export default function ({ pluginToggles }) {
 
 			<cq-scriptiq class="scriptiq-ui"></cq-scriptiq>
 
-			<cq-tradingcentral
-				class="tc-ui"
+			<cq-analystviews
+				class="analystviews-ui"
 				token="eZOrIVNU3KR1f0cf6PTUYg=="
 				partner="1000"
 				disabled
-			></cq-tradingcentral>
+			></cq-analystviews>
 
-			<cq-recognia uid="" lang="en" disabled></cq-recognia>
+			<cq-technicalinsights uid="" lang="en" disabled></cq-technicalinsights>
 
 			<div className="ciq-chart-area">
 				<div className="ciq-chart">
