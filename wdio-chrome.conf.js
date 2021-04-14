@@ -1,9 +1,9 @@
 let debug = process.env.DEBUG;
-const {configBase} = require('./stx/spec/e2e-new/wdio.conf');
+const { config } = require('./stx/spec/e2e-new/wdio-chrome.conf');
 const AllureReporter = require('@wdio/allure-reporter').default;
 const path = require('path');
 const fs = require('fs');
-const child_process = require('child_process');
+const StaticServer = require('static-server');
 global.downloadDir = path.join(__dirname, 'stx/spec/e2e-new/tempDownload');
 
 const browsers = [
@@ -27,12 +27,10 @@ const browsers = [
 // let browsers = DEFAULT_BROWSERS;
 
 const wdioConfig = {
-	...configBase,
+	...config,
 	...{
 		appName: 'chartiq-react-app',
-		capabilities: browsers,
 		specs: ['./stx/spec/e2e-new/test/specs/e2e/sample-template-advanced/**.spec.js'],
-		services: ['chromedriver'],
 		// Because we have different names for our templates across projects, we are accessing them thru configured variables.
 		// The template object is a way to set the name of the component's file for this specific repo.
 		// NOTE: this is something custom to our configs not a default option of WDIO
@@ -47,13 +45,12 @@ const wdioConfig = {
 		 * @param {Array.<Object>} capabilities list of capabilities details
 		 */
 		onPrepare: function (config, capabilities) {
-			if (!fs.existsSync(global.downloadDir)){
+			if (!fs.existsSync(global.downloadDir)) {
+				fs.mkdirSync(global.downloadDir);
+			} else {
+				fs.rmdirSync(global.downloadDir, { recursive: true });
 				fs.mkdirSync(global.downloadDir);
 			}
-			else {
-				child_process.execSync('rm -rf ./tempDownload/**');
-			}
-			var StaticServer = require('static-server');
 			var server = new StaticServer({
 				rootPath: './dist/',            // required, the root of the server file tree
 				port: 4040,               // required, the port to listen
@@ -96,11 +93,6 @@ const wdioConfig = {
 		 * Hook that gets executed before the suite starts
 		 * @param {Object} suite suite details
 		 */
-		beforeSuite: function (suite) {
-			beforeEach(function () {
-				console.log(this.currentTest.parent.title + ' | ' + this.currentTest.title);
-			});
-		},
 
 		afterTest: async function (test, context, {error, result, duration, passed, retries}) {
 			if (error !== undefined) {
@@ -135,7 +127,7 @@ const wdioConfig = {
 			await browser.reloadSession();
 		},
 		onComplete: function() {
-			child_process.execSync('rm -rf ./tempDownload');
+			fs.rmdirSync(global.downloadDir, { recursive: true });
 		}
 	},
 };

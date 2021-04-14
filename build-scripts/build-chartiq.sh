@@ -1,6 +1,6 @@
 echo "Create library tarball file" && \
 cd ./stx && \
-npm run packtgz && \
+npm run build && \
 
 echo "Copy tarball files from stx" && \
 cd ../ && \
