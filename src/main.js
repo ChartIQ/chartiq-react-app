@@ -11,6 +11,8 @@ import {
 	MultiChart,
 	// Enable ActiveTraderWorkstation
 	// ActiveTraderWorkstation,
+	// Enable TermStructure
+	// TermStructure,
 	CustomChart,
 	HelloWorld
 } from "./chartiq";
@@ -49,18 +51,17 @@ const Router = protocol === "file:" ? HashRouter : BrowserRouter;
 if (el) {
 	ReactDom.render(
 		<Router basename={baseLocation}>
-			<Route path="/" exact component={RouteList}></Route>
-			<Route path="/index.html" component={RouteList}></Route>
+			<Route path='/' exact component={RouteList}></Route>
+			<Route path='/index.html' component={RouteList}></Route>
 			<Route
-				path="/technical-analysis"
+				path='/technical-analysis'
 				render={() => (
 					<AdvancedChart
 						chartInitialized={chartInitialized}
 						onChartReady={onChartReady}
 					/>
-				)}
-			></Route>
-			<Route path="/multi-chart" component={MultiChart}></Route>
+				)}></Route>
+			<Route path='/multi-chart' component={MultiChart}></Route>
 
 			{/* Enable ActiveTraderWorkstation */}
 			{/*
@@ -75,8 +76,19 @@ if (el) {
 			></Route>
 			*/}
 
-			<Route path="/custom-chart" component={CustomChart}></Route>
-			<Route path="/hello-world" component={HelloWorld}></Route>
+			{/* Enable TermStructure */}
+			{/* <Route
+				path='/term-structure'
+				component={TermStructure}
+				render={() => (
+					<TermStructure
+						chartInitialized={chartInitialized}
+						onChartReady={onChartReady}
+					/>
+				)}
+				></Route> */}
+			<Route path='/custom-chart' component={CustomChart}></Route>
+			<Route path='/hello-world' component={HelloWorld}></Route>
 		</Router>,
 		el
 	);

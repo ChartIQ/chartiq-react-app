@@ -9,7 +9,7 @@ import { default as ShortcutDialog } from "./ShortcutDialog/ShortcutDialog";
 import { default as RecentSymbols } from "./RecentSymbols/RecentSymbols";
 
 /**
- * This is an example custom implementation of the AdvancedChart component with added react components.
+ * This is an example custom implementation of the AdvancedChart component with added React components.
  *
  * @export
  * @class CustomChart
