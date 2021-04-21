@@ -20,7 +20,6 @@ export default function ({ pluginToggles }) {
 				<cq-menu class="ciq-search">
 					<cq-lookup
 						cq-keystroke-claim
-						cq-keystroke-default
 						cq-uppercase
 					></cq-lookup>
 				</cq-menu>
@@ -137,6 +136,7 @@ export default function ({ pluginToggles }) {
 											<div
 												stxtap="Layout.clearStudies()"
 												className="ciq-btn sm"
+												keyboard-selectable="true"
 											>
 												Clear All
 											</div>

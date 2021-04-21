@@ -275,7 +275,6 @@ export default class CustomChart extends React.Component {
 								<RecentSymbols getRecentSymbols={() => this.getRecentSymbols()}>
 									<cq-lookup
 										cq-keystroke-claim
-										cq-keystroke-default
 										cq-uppercase
 									></cq-lookup>
 								</RecentSymbols>
@@ -401,6 +400,7 @@ export default class CustomChart extends React.Component {
 														<div
 															stxtap="Layout.clearStudies()"
 															className="ciq-btn sm"
+															keyboard-selectable="true"
 														>
 															Clear All
 														</div>
