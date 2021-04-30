@@ -21,3 +21,4 @@ tests/errorShots
 *.code-workspace
 *.sublime-workspace
 *.sublime-project
+*~
