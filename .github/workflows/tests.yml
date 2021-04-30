@@ -76,11 +76,11 @@ jobs:
         run: npm run ciq-prep-app
 
       - name: Run e2e-new tests with Chrome browser
-        run: npm run test-chrome
+        run: npm run test-chrome-ci
         if: ${{ always() }}
 
       - name: Run e2e-new tests with FireFox browser
-        run: npm run test-ff
+        run: npm run test-ff-ci
         if: ${{ always() }}
 
       - name: Generate allure report
