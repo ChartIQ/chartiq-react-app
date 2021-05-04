@@ -59,7 +59,13 @@ function getCustomConfig({ chartId, symbol, onChartReady } = {}) {
 			label: "Recent Updates",
 			cmd: "Layout.FreshPoints()",
 			options: "Layout.showFreshnessEdit()"
+		},
+		{
+			type: "checkbox",
+			label: "Timeline Date Selector",
+			cmd: "Layout.TimelineDateSelector()"
 		}
+
 	];
 
 	config.plugins.crossSection.sortFunction = (l, r) => {
