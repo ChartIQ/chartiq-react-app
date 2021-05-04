@@ -32,7 +32,7 @@ export default class TermStructure extends React.Component {
 			const uiContext = this.createChartAndUI({ container, config });
 			const chartEngine = uiContext.stx;
 
-			this.setState({ stx: { chartEngine, UIContext: uiContext } });
+			this.setState({ stx: chartEngine, UIContext: uiContext });
 
 			if (chartInitializedCallback) {
 				chartInitializedCallback({ chartEngine, uiContext });
