@@ -4,6 +4,7 @@ import { CIQ } from "chartiq/js/components.js";
 import "chartiq/plugins/crosssection/core.js";
 import "chartiq/plugins/crosssection/datepicker.js";
 import "chartiq/plugins/crosssection/ui.js";
+import "chartiq/plugins/crosssection/timelineDateSelector.js";
 import quoteFeed from "chartiq/examples/feeds/termstructureDataSimulator.js";
 
 import "chartiq/plugins/crosssection/sample.css"
