@@ -53,7 +53,7 @@ export default class AdvancedChart extends React.Component {
 		const { stx } = this.state;
 		stx.destroy();
 		stx.draw = () => {};
-	
+	}
 
 	createChartAndUI({ container, config }) {
 		const uiContext = this.state.chart.createChartAndUI({ container, config });
