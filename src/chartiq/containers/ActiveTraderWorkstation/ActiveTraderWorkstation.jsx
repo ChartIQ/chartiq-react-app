@@ -53,6 +53,7 @@ export default class ActiveTraderWorkstation extends React.Component {
 		// This will stop internal processes such as quotefeed polling.
 		this.stx.moneyFlowChart.destroy();
 		this.stx.destroy();
+		this.stx.draw = () => {};
 	}
 
 	cryptoSetup(stx) {
