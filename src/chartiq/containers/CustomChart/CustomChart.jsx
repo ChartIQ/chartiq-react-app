@@ -46,6 +46,14 @@ export default class CustomChart extends React.Component {
 
 	componentDidMount() {}
 
+	componentWillUnmount() {
+		// Destroy the ChartEngine instance when unloading the component.
+		// This will stop internal processes such as quotefeed polling.
+		const { stx } = this.state;
+		stx.destroy();
+		stx.draw = () => {};
+	}
+
 	postInit({ chartEngine, uiContext }) {
 		if (this.props.chartIntialized) {
 			this.props.chartIntialized({ chartEngine, uiContext });
