@@ -152,7 +152,6 @@ const wdioConfig = {
 					throw new Error('Browser console WARNING');
 				}
 			}
-			await browser.reloadSession();
 		},
 		onComplete: function() {
 			fs.rmdirSync(global.downloadDir, { recursive: true });
