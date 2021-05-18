@@ -81,7 +81,7 @@ function getCustomConfig({ chartId, symbol, onChartReady } = {}) {
 	// Update chart configuration by modifying default configuration
 	config.chartId = chartId || "_advanced-chart";
 	config.initialSymbol = symbol || {
-		symbol: "APPL",
+		symbol: "AAPL",
 		name: "Apple Inc",
 		exchDisp: "NASDAQ"
 	};

@@ -84,6 +84,7 @@ function getCustomConfig({ chartId, symbol, onChartReady }) {
 	config.onChartReady = onChartReady;
 
 	// Enable / disable addOns here before creating the chart
+	config.enabledAddOns.animation = true;
 	// config.enabledAddOns.forecasting = true;
 	// config.enabledAddOns.continuousZoom = true;
 	// config.enabledAddOns.tooltip = false;

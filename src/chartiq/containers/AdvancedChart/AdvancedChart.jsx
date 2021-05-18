@@ -50,7 +50,9 @@ export default class AdvancedChart extends React.Component {
 	componentWillUnmount() {
 		// Destroy the ChartEngine instance when unloading the component.
 		// This will stop internal processes such as quotefeed polling.
-		this.state.stx.destroy();
+		const { stx } = this.state;
+		stx.destroy();
+		stx.draw = () => {};
 	}
 
 	createChartAndUI({ container, config }) {
