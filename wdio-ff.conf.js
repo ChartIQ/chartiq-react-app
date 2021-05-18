@@ -130,7 +130,7 @@ const wdioConfig = {
 		afterTest: async function (test, context, {error, result, duration, passed, retries}) {
 			if (error !== undefined) {
 				await browser.takeScreenshot();
-				const html = browser.getPageSource();
+				const html = await browser.getPageSource();
 				AllureReporter.addAttachment('browser-console.html', html, 'text/html');
 
 				if (error.hasOwnProperty('response') && error.hasOwnProperty('isAxiosError') && error.isAxiosError) {
