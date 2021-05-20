@@ -121,38 +121,6 @@ const wdioConfig = {
 		 * Hook that gets executed before the suite starts
 		 * @param {Object} suite suite details
 		 */
-
-		afterTest: async function (test, context, {error, result, duration, passed, retries}) {
-			if (error !== undefined) {
-				await browser.takeScreenshot();
-				const html = await browser.getPageSource();
-				AllureReporter.addAttachment('browser-console.html', html, 'text/html');
-
-				if (error.hasOwnProperty('response') && error.hasOwnProperty('isAxiosError') && error.isAxiosError) {
-					const errorResponse = {
-						status: error.response.status,
-						statusText: error.response.statusText,
-						errors: error.response.data.errors,
-					};
-					AllureReporter.addAttachment('response.json', errorResponse, 'application/json');
-				}
-			}
-			let logs;
-			logs = await browser.getLogs('browser');
-			if (Object.keys(logs).length !== 0) {
-				AllureReporter.addAttachment('page.html', JSON.stringify(logs), 'text/html');
-				console.log('Test logs | ' + context.test.title + ':');
-				console.log(logs);
-				if (logs[0].level === 'SEVERE') {
-					context.test.callback(new Error('Browser console ERROR'));
-					throw new Error('Browser console ERROR');
-				}
-				if (logs[0].level === 'WARNING') {
-					context.callback(new Error('Browser console WARNING'));
-					throw new Error('Browser console WARNING');
-				}
-			}
-		},
 		onComplete: function() {
 			fs.rmdirSync(global.downloadDir, { recursive: true });
 		}
