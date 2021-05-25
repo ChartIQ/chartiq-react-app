@@ -1,6 +1,6 @@
 {
   "name": "chartiq-react-app",
-  "version": "8.2.0",
+  "version": "8.3.0",
   "description": "ChartIQ's full featured charting application written in ReactJS",
   "main": "index.js",
   "scripts": {
@@ -25,7 +25,7 @@
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.4",
     "copy-webpack-plugin": "^6.2.1",
-    "css-loader": "^3.0.0",
+    "css-loader": "^5.2.5",
     "extract-css-chunks-webpack-plugin": "^4.5.5",
     "file-loader": "^4.0.0",
     "html-webpack-plugin": "^3.2.0",

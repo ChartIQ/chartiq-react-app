@@ -7,37 +7,35 @@
 - [Getting started](#getting-started)
 - [Customization](#customization)
 - [Enabling plug-ins](#enabling-plug\-ins)
-- [Building the project](#building-the-project)
-- [Notes](#notes)
+- [Important notes](#important-notes)
 - [Questions and support](#questions-and-support)
 - [Contributing to this project](#contributing-to-this-project)
 
 
 ## Overview
 
-The ChartIQ React application is a toolkit of components that enable you to build charting applications in the React framework. The components include everything from a basic chart to a complex, active trader desktop.
+The ChartIQ React application is a toolkit of components that enable you to build charting applications in the React framework. The components include everything from a basic chart to a complex, active trader desktop:
 
-The application opens with a `RouteList` component that creates a home page containing links to other toolkit components, including:
-
-- `AdvancedChart` &mdash; Creates a chart with a full-featured user interface
+- `AdvancedChart` &mdash; Creates a full-featured chart with a fully developed user interface
 - `MultiChart` &mdash; Displays two advanced charts on screen simultaneously
-- `ActiveTrader` &mdash; Creates an information-rich desktop for cryptocurrency traders and other active traders
+- `ActiveTraderWorkstation` &mdash; Sets up an information-rich desktop for traders who trade frequently
+- `TermStructure` &mdash; Creates a term structure chart for working with non&ndash;time series data
 - `CustomChart` &mdash; Integrates native React components with ChartIQ W3C-standard web components
-- `HelloWorld` &mdash; Creates a basic chart with no user interface
+- `HelloWorld` &mdash; Creates a basic chart with no user interface as a starting point for your React app
 
 **Note:**
 
-- This application has been designed to simplify the transfer of modules such as `src/chartiq/containers/ActiveTraderWorkstation` to existing applications. It is not expected that developers will use the application as is with all modules included. To minimize the transfer effort, resource files are more or less duplicated in each module.
+- This application has been designed to simplify the transfer of modules such as `src/chartiq/containers/ActiveTraderWorkstation` to other applications. We don't expect that developers will use the application as is with all modules included. So, to make transferring modules easier, we more or less duplicated resource and service files in each module.
 
-- For an example of creating a chart user interface entirely with native React components, see the [Charting-Library---React-Seed-Project](https://github.com/ChartIQ/Charting-Library---React-Seed-Project) project.
-
+- For an example of creating a chart user interface entirely with native React components, see the [chartiq-react-seed](https://github.com/ChartIQ/chartiq-react-seed) project.
 
 ## Requirements
 
-- A copy of the ChartIQ library, version 8.2.0 for this release.
+A copy of the ChartIQ library, version 8.3.0 or later.
 
-  If you do not have a copy of the library, please contact your account manager or send an email to <info@cosaic.io>.
+If you do not have a copy of the library, please contact your account manager or send an email to <info@cosaic.io>.
 
+To get a free trial version of the library, go to the ChartIQ <a href="https://cosaic.io/chartiq-sdk-library-download/" target="_blank">download site</a>.
 
 ## Getting started
 
@@ -59,22 +57,19 @@ npm uninstall chartiq
 npm install ./chartiq-x.x.x.tgz
 ```
 
-See also [Building the project](#building-the-project).
-
-
 ## Customization
 
 ### Web component templates
 
-The JSX in `AdvancedChart`, `CustomChart`, and `ActiveTraderWorkstation` component render methods are collections of ChartIQ's user interface web components. You can customize the chart user interface by adding, removing, or modifying UI components. You can also add your own custom React components.
+The *Template.jsx* files of the `AdvancedChart`, `ActiveTraderWorkstation`, and `TermStructure` components and the `render` method of `CustomChart` contain JSX that is a collection of ChartIQ's user interface web components. You can customize the chart user interface by adding, removing, or modifying UI components. You can also add your own custom React components.
 
 ### Configuration
 
-You can configure a variety of chart features by modifying the configuration object provided to the component definition files of `AdvancedChart`, `CustomChart`, and `ActiveTrader`. Sample configurations are available as `getConfig` and `getCustomConfig` functions in the resources files.
+You can configure a variety of chart features by modifying the configuration object provided to the component definition files of `AdvancedChart`, `CustomChart`, `ActiveTraderWorkstation`, and `TermStructure`. Sample configurations are available as `getConfig` and `getCustomConfig` functions in the resources files.
 
-The default configuration is part of the ChartIQ library. See *./node_modules/chartiq/js/defaultConfiguration.js* for all the configuration details.
+A default configuration is part of the ChartIQ library. See the [Chart Configuration](tutorial-Chart%20Configuration.html) tutorial for all the configuration details.
 
-You can also modify the CSS in the style sheet files associated with `AdvancedChart`, `CustomChart`, and `ActiveTrader`. See the [CSS Overview](https://documentation.chartiq.com/tutorial-CSS%20Overview.html) tutorial for information on customizing the chart look and feel.
+You can also modify the CSS in the style sheet files associated with `AdvancedChart`, `CustomChart`, and `ActiveTraderWorkstation`. See the [CSS Overview](https://documentation.chartiq.com/tutorial-CSS%20Overview.html) tutorial for information on customizing the chart look and feel.
 
 ### Component customization
 
@@ -113,7 +108,7 @@ CIQ.UI.addComponentDefinition('cq-chart-title', CustomChartTitle);
 
 The `RecentSymbols` component provides an example of wrapping and enhancing a web component with a React component. `RecentSymbols` adds a RECENT tab to the lookup controls created by ChartIQ's `cq-lookup` and `cq-comparison-lookup` web components. The RECENT tab displays a list of recently used financial instrument symbols maintained by the `RecentSymbols` component.
 
-The `ShortcutDialog` component is an example of a React component accessed by a web component. User interaction with a drop-down menu created by a ChartIQ `cq-menu` web component opens the dialog box created by the `ShortcutDialog` component. The dialog box enables users to set shortcut keys on the chart's drawing tools.
+The `ShortcutDialog` component is an example of a React component accessed by a web component. User interaction with a dropdown menu created by a ChartIQ `cq-menu` web component opens the dialog box created by the `ShortcutDialog` component. The dialog box enables users to set shortcut keys on the chart's drawing tools.
 
 ## Enabling plug-ins
 
@@ -128,6 +123,16 @@ For example, to enable the Trade from Chart (TFC) plug-in for `AdvancedChart`, u
 ```js
 // import 'chartiq/plugins/tfc/tfc-loader';
 // import 'chartiq/plugins/tfc/tfc-demo';
+
+config.plugins = {
+    .
+    .
+    .
+    // tfc,
+    .
+    .
+    .
+};
 ```
 
 To enable the Market Depth chart and L2 Heat Map in `AdvancedChart`, uncomment the following lines in [resources.js](./src/chartiq/containers/AdvancedChart/resources.js):
@@ -145,24 +150,15 @@ config.plugins = {
 };
 ```
 
-and the following line in [main.js](./src/main.js):
+and the following lines in [main.js](./src/main.js):
 
 ```js
-// CIQ.simulateL2({ stx, onInterval: 1000, onTrade: true });
+// import { CIQ } from 'chartiq/js/componentUI';
+
+// CIQ.simulateL2({ stx: chartEngine, onInterval: 1000, onTrade: true });
 ```
 
-## Building the project
-
-If you want to use the ChartIQ advanced chart sample in its default state in your own React project, simply run the following command to generate the production bundle file:
-
-```sh
-npm run build
-```
-
-The bundle will be created in the *dist/* folder.
-
-
-## Notes
+## Important notes
 
 - This application runs only from IP address `127.0.0.1`, hostname `localhost`, or the explicit list of domains set on your ChartIQ license. If you need to bind the webpack development server to a different host, please contact your account manager to have additional domains added to your license.
 
@@ -170,13 +166,11 @@ The bundle will be created in the *dist/* folder.
 
 - As of version 8.0.0 of the charting library, this project no longer supports Internet Explorer 11. Please contact [support@chartiq.com](mailto:support@chartiq.com) for information on using version 7.5.0 of the charting library to enable this project to work with IE 11.
 
-
 ## Questions and support
 
 - Contact our development support team at [support@chartiq.com](mailto:support@chartiq.com).
 - See our SDK documentation at https://documentation.chartiq.com.
 
-
 ## Contributing to this project
 
-Contribute to this project. Fork it and send us a pull request. We'd love to see what you can do with our charting tools!
+Fork it and send us a pull request. We'd love to see what you can do with our charting tools in React!
