@@ -33,15 +33,36 @@ npm run report
 - Testing dependencies are in react-app/node_modules/@chartiq/ui-tests/package.json .
 - npm build:test builds the chart-ui-test package from stx and installs into react-app.
     - The automated tests use the following resources from the stx project installed into node_modules with chartiq-ui-tests-*.tgz:
-        - stx/spec/test-lib/**
-        - stx/spec/test-rigs-automated/**
-    - Node dependencies from the installation of chartiq-ui-test orignate from stx/spec/package.json . Any changes in this file will need build:test re-run to apply.
+        - stx/tests/test-lib/**
+        - stx/tests/test-rigs-automated/**
+    - Node dependencies from the installation of chartiq-ui-test orignate from stx/tests/package.json . Any changes in this file will need build:test re-run to apply.
 - WDIO configs are merged from:
     - react-app/wdio-chrome.conf.js or react-app/wdio-ff.conf.js
-    - stx/spec/e2e-new/wdio.conf.js
-- Spec files are located at stx/spec/e2e-new/test/specs/e2e/sample-template-advanced/**.spec.js
+    - stx/tests/e2e-new/wdio.conf.js
+- Spec files are located at stx/tests/e2e-new/specs/sample-template-advanced/**.spec.js
     - defined in react-app/wdio-chrome.conf.js and react-app/wdio-ff.conf.js
 - The react app is built with files outputting to dist/ .
 - The tests are run against a webserver (static-server) started by WDIO with the root path at dist/ .
     - Configured in react-app/wdio-chrome.conf.js and react-app/wdio-ff.conf.js .
 
+### run tests:
+
+-   `npm run test-chrome` - run all tests in Chrome
+-   `npm run test-ff` - run all tests in FireFox
+
+-   `npm run test-chrome:spec` - run tests from specific spec in Chrome
+-   `npm run test-ff:spec` - run tests from specific spec in FireFox
+	E.g "npm run test-chrome:spec ./specs/studies.spec.js"
+	or "npm run test-chrome:spec studies.spec.js"
+
+-	`npm run test-chrome:debug` - run all tests without headless mode in Chrome
+-	`npm run test-ff:debug` - run all tests without headless mode in FireFox
+
+-	`npm run test-chrome:debug:spec` - run a single spec file in debug mode in Chrome
+-	`npm run test-ff:debug:spec` - run a single spec file in debug mode in FireFox
+	 E.g " npm run test-chrome:debug:spec ./stx/tests/e2e-new/specs/hotkeys-adv.spec.js"
+
+-	`npm run test-chrome-ci` - run test groups in parallel in Chrome
+-	`npm run test-ff-ci` - run test groups in parallel in FireFox
+	 To see these groups go to wdio.conf.js file
+	 Implemented to reduce the time required for a pipeline(could be used locally)
