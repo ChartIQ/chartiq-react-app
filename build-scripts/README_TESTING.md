@@ -38,8 +38,8 @@ npm run report
     - Node dependencies from the installation of chartiq-ui-test orignate from stx/tests/package.json . Any changes in this file will need build:test re-run to apply.
 - WDIO configs are merged from:
     - react-app/wdio-chrome.conf.js or react-app/wdio-ff.conf.js
-    - stx/tests/e2e-new/wdio.conf.js
-- Spec files are located at stx/tests/e2e-new/specs/sample-template-advanced/**.spec.js
+    - stx/tests/e2e-v2/wdio.conf.js
+- Spec files are located at stx/tests/e2e-v2/specs/sample-template-advanced/**.spec.js
     - defined in react-app/wdio-chrome.conf.js and react-app/wdio-ff.conf.js
 - The react app is built with files outputting to dist/ .
 - The tests are run against a webserver (static-server) started by WDIO with the root path at dist/ .
@@ -52,15 +52,15 @@ npm run report
 
 -   `npm run test-chrome:spec` - run tests from specific spec in Chrome
 -   `npm run test-ff:spec` - run tests from specific spec in FireFox
-	E.g "npm run test-chrome:spec ./specs/studies.spec.js"
-	or "npm run test-chrome:spec studies.spec.js"
+	E.g "npm run test-chrome:spec ./stx/tests/e2e-v2/specs/hotkeys-adv.spec.js"
 
 -	`npm run test-chrome:debug` - run all tests without headless mode in Chrome
 -	`npm run test-ff:debug` - run all tests without headless mode in FireFox
+	 E.g " npm run test-chrome:debug ./stx/tests/e2e-v2/specs/hotkeys-adv.spec.js"
 
 -	`npm run test-chrome:debug:spec` - run a single spec file in debug mode in Chrome
 -	`npm run test-ff:debug:spec` - run a single spec file in debug mode in FireFox
-	 E.g " npm run test-chrome:debug:spec ./stx/tests/e2e-new/specs/hotkeys-adv.spec.js"
+	 E.g " npm run test-chrome:debug:spec ./stx/tests/e2e-v2/specs/hotkeys-adv.spec.js"
 
 -	`npm run test-chrome-ci` - run test groups in parallel in Chrome
 -	`npm run test-ff-ci` - run test groups in parallel in FireFox
