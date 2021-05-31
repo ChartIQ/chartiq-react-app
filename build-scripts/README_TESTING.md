@@ -52,17 +52,17 @@ npm run report
 
 -   `npm run test-chrome:spec` - run tests from specific spec in Chrome
 -   `npm run test-ff:spec` - run tests from specific spec in FireFox
-	E.g "npm run test-chrome:spec ./stx/tests/e2e-v2/specs/hotkeys-adv.spec.js"
+	- E.g "npm run test-chrome:spec ./stx/tests/e2e-v2/specs/hotkeys-adv.spec.js"
 
 -	`npm run test-chrome:debug` - run all tests without headless mode in Chrome
 -	`npm run test-ff:debug` - run all tests without headless mode in FireFox
-	 E.g " npm run test-chrome:debug ./stx/tests/e2e-v2/specs/hotkeys-adv.spec.js"
+	 - E.g " npm run test-chrome:debug ./stx/tests/e2e-v2/specs/hotkeys-adv.spec.js"
 
 -	`npm run test-chrome:debug:spec` - run a single spec file in debug mode in Chrome
 -	`npm run test-ff:debug:spec` - run a single spec file in debug mode in FireFox
-	 E.g " npm run test-chrome:debug:spec ./stx/tests/e2e-v2/specs/hotkeys-adv.spec.js"
+	 - E.g " npm run test-chrome:debug:spec ./stx/tests/e2e-v2/specs/hotkeys-adv.spec.js"
 
 -	`npm run test-chrome-ci` - run test groups in parallel in Chrome
 -	`npm run test-ff-ci` - run test groups in parallel in FireFox
-	 To see these groups go to wdio.conf.js file
-	 Implemented to reduce the time required for a pipeline(could be used locally)
+	 - To see these groups go to wdio.conf.js file
+	 - Implemented to reduce the time required for a pipeline(could be used locally)

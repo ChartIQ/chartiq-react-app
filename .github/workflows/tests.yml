@@ -75,11 +75,11 @@ jobs:
       - name: Prepare application
         run: npm run ciq-prep-app
 
-      - name: Run e2e-new tests with Chrome browser
+      - name: Run e2e-v2 tests with Chrome browser
         run: npm run test-chrome-ci
         if: ${{ always() }}
 
-      - name: Run e2e-new tests with FireFox browser
+      - name: Run e2e-v2 tests with FireFox browser
         run: npm run test-ff-ci
         if: ${{ always() }}
 
