@@ -89,19 +89,24 @@ jobs:
         timeout-minutes: 4
 
       - name: Install dependencies for stx
+        if: ${{steps.packager.outputs.cache-hit != 'true' || steps.webpack.outputs.cache-hit != 'true' || steps.root.outputs.cache-hit != 'true'}}
         working-directory: ./stx
         run: npm install
 
       - name: Install dependencies for app
+        if: ${{steps.root.outputs.cache-hit != 'true'}}
         run: npm install
 
       - name: Build project-test
+        if: ${{steps.root.outputs.cache-hit != 'true'}}
         run: npm run build:test
 
       - name: Build project-chartiq
+        if: ${{steps.root.outputs.cache-hit != 'true'}}
         run: npm run build:chartiq
 
       - name: Prepare application
+        if: ${{steps.root.outputs.cache-hit != 'true'}}
         run: npm run ciq-prep-app
 
   chrome:
@@ -162,14 +167,6 @@ jobs:
         with:
           path: "./stx/htdocs/chartiq/.packager/node_modules/"
           key: node_modules_packager-
-
-      - name: Build project(quick)
-        working-directory: ./stx/
-        run: npm run build:quick
-
-      - name: Build project
-        working-directory: ./stx/tests/e2e-v2/
-        run: npm run build:test
 
       - name: Run e2e-v2 tests with Chrome browser
         run: npm run test-chrome-ci
@@ -240,14 +237,6 @@ jobs:
           with:
             path: "./stx/htdocs/chartiq/.packager/node_modules/"
             key: node_modules_packager-
-
-        - name: Build project(quick)
-          working-directory: ./stx/
-          run: npm run build:quick
-
-        - name: Build project
-          working-directory: ./stx/tests/e2e-v2/
-          run: npm run build:test
 
         - name: Run e2e-v2 tests with Firefox browser
           run: npm run test-ff-ci
