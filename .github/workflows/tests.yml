@@ -1,0 +1,315 @@
+name: Run E2E Tests React-app
+
+on:
+  repository_dispatch:
+    types: [ regression_test_run ]
+  push:
+    branches:
+      - 'POC'
+
+env:
+  TEST_BRANCH: ${{ github.event.client_payload.github.event.head_commit.test_branch != NaN && github.event.client_payload.github.event.head_commit.test_branch || 'POC' }}
+  STX_BRANCH: ${{ github.event.client_payload.github.event.head_commit.stx_branch != NaN && github.event.client_payload.github.event.head_commit.stx_branch || 'new-tests-package' }}
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ 12.x ]
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          repository: ChartIQ/chartiq-react-app-private
+          ref: ${{ env.TEST_BRANCH != NaN && env.TEST_BRANCH }}
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Clone stx repository
+        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.STX_BRANCH != NaN && env.STX_BRANCH }}
+
+      - name: Cache node modules (root)
+        uses: actions/cache@v2
+        id: root
+        env:
+          cache-name: root
+        with:
+          path: "./node_modules/"
+          key: root-${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('package-lock.json') }}
+        timeout-minutes: 4
+
+      - name: Cache node modules (stx)
+        uses: actions/cache@v2
+        id: stx
+        env:
+          cache-name: stx
+        with:
+          path: "./stx/node_modules/"
+          key: stx-
+        timeout-minutes: 4
+
+      - name: Cache dist folder
+        uses: actions/cache@v2
+        id: dist
+        env:
+          cache-name: dist
+        with:
+          path: "./dist/"
+          key: dist-${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('./dist/') }}
+        timeout-minutes: 4
+
+      - name: Cache node modules (webpack-example)
+        uses: actions/cache@v2
+        id: webpack
+        env:
+          cache-name: webpack
+        with:
+          path: "./stx/htdocs/chartiq/webpack-example/node_modules/"
+          key: node_modules_webpack-${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('./htdocs/chartiq/webpack-example/package-lock.json') }}
+          restore-keys: |
+            node_modules_webpack-
+        timeout-minutes: 4
+
+      - name: Cache node modules (packager)
+        uses: actions/cache@v2
+        id: packager
+        env:
+          cache-name: packager
+        with:
+          path: "./stx/htdocs/chartiq/.packager/node_modules/"
+          key: node_modules_packager-${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('./htdocs/chartiq/.packager/package-lock.json') }}
+          restore-keys: |
+            node_modules_packager-
+        timeout-minutes: 4
+
+      - name: Install dependencies for stx
+        if: ${{steps.packager.outputs.cache-hit != 'true' || steps.webpack.outputs.cache-hit != 'true' || steps.root.outputs.cache-hit != 'true'}}
+        working-directory: ./stx
+        run: npm install
+
+      - name: Install dependencies for app
+        if: ${{steps.root.outputs.cache-hit != 'true'}}
+        run: npm install
+
+      - name: Build project-test
+        if: ${{steps.root.outputs.cache-hit != 'true'}}
+        run: npm run build:test
+
+      - name: Build project-chartiq
+        if: ${{steps.root.outputs.cache-hit != 'true'}}
+        run: npm run build:chartiq
+
+      - name: Prepare application
+        if: ${{steps.root.outputs.cache-hit != 'true'}}
+        run: npm run ciq-prep-app
+
+  chrome:
+    runs-on: ubuntu-latest
+    needs: setup
+    if: always()
+    strategy:
+      matrix:
+        node-version: [ 12.x ]
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          repository: ChartIQ/chartiq-react-app-private
+          ref: ${{ env.TEST_BRANCH != NaN && env.TEST_BRANCH }}
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Set timezone
+        uses: szenius/set-timezone@v1.0
+        with:
+          timezoneLinux: "America/New_York"
+
+      - name: Clone stx repository
+        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.STX_BRANCH != NaN && env.STX_BRANCH }}
+
+      - name: Load node_modules (root)
+        uses: actions/cache@v2
+        with:
+          path: "./node_modules/"
+          key: root-
+
+      - name: Load node_modules (stx)
+        uses: actions/cache@v2
+        with:
+          path: "./tests/e2e-v2/node_modules/"
+          key: node_modules_tests-
+
+      - name: Load dist folder
+        uses: actions/cache@v2
+        with:
+          path: "./dist/"
+          key: dist-
+
+      - name: Load node_modules (webpack)
+        uses: actions/cache@v2
+        with:
+          path: "./stx/htdocs/chartiq/webpack-example/node_modules/"
+          key: node_modules_webpack-
+
+      - name: Load node_modules (packager)
+        uses: actions/cache@v2
+        with:
+          path: "./stx/htdocs/chartiq/.packager/node_modules/"
+          key: node_modules_packager-
+
+      - name: Run e2e-v2 tests with Chrome browser
+        run: npm run test-chrome-ci
+        if: ${{ always() }}
+
+      - name: Save allure-results artifact
+        if: always()
+        uses: actions/upload-artifact@master
+        with:
+          name: allure-chrome
+          path: allure-results
+
+  firefox:
+    runs-on: ubuntu-latest
+    needs: setup
+    if: always()
+    strategy:
+      matrix:
+        node-version: [ 12.x ]
+
+    steps:
+
+        - name: Checkout
+          uses: actions/checkout@v2
+          with:
+            repository: ChartIQ/chartiq-react-app-private
+            ref: ${{ env.TEST_BRANCH != NaN && env.TEST_BRANCH }}
+
+        - name: Use Node.js ${{ matrix.node-version }}
+          uses: actions/setup-node@v1
+          with:
+            node-version: ${{ matrix.node-version }}
+
+        - name: Set timezone
+          uses: szenius/set-timezone@v1.0
+          with:
+            timezoneLinux: "America/New_York"
+
+        - name: Clone stx repository
+          run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.STX_BRANCH != NaN && env.STX_BRANCH }}
+
+        - name: Load node_modules (root)
+          uses: actions/cache@v2
+          with:
+            path: "./node_modules/"
+            key: root-
+
+        - name: Load node_modules (stx)
+          uses: actions/cache@v2
+          with:
+            path: "./tests/e2e-v2/node_modules/"
+            key: node_modules_tests-
+
+        - name: Load dist folder
+          uses: actions/cache@v2
+          with:
+            path: "./dist/"
+            key: dist-
+
+        - name: Load node_modules (webpack)
+          uses: actions/cache@v2
+          with:
+            path: "./stx/htdocs/chartiq/webpack-example/node_modules/"
+            key: node_modules_webpack-
+
+        - name: Load node_modules (packager)
+          uses: actions/cache@v2
+          with:
+            path: "./stx/htdocs/chartiq/.packager/node_modules/"
+            key: node_modules_packager-
+
+        - name: Run e2e-v2 tests with Firefox browser
+          run: npm run test-ff-ci
+          if: ${{ always() }}
+
+        - name: Save allure-results artifact
+          if: always()
+          uses: actions/upload-artifact@master
+          with:
+            name: allure-ff
+            path: allure-results
+
+  allure:
+    runs-on: ubuntu-latest
+    needs: [chrome, firefox]
+    if: always()
+    strategy:
+      matrix:
+        node-version: [ 12.x ]
+
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          repository: ChartIQ/chartiq-react-app-private
+          ref: ${{ env.TEST_BRANCH != NaN && env.TEST_BRANCH }}
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Load node_modules (root)
+        uses: actions/cache@v2
+        with:
+          path: "./node_modules/"
+          key: root-
+
+      - name: Load allure-results from Chrome
+        uses: actions/download-artifact@master
+        with:
+          name: allure-chrome
+          path: "./allure-results"
+
+      - name: Load allure-results from Firefox
+        uses: actions/download-artifact@master
+        with:
+          name: allure-ff
+          path: "./allure-results"
+
+      - name: Generate allure report
+        if: always()
+        run: npm run report-ci
+        continue-on-error: true
+
+      - name: Sync Allure to S3
+        run: aws s3 sync ./allure-report/ s3://react-app-allurereports.chartiq.com/${{ github.sha }} --acl public-read --delete
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: "us-east-1" # optional: defaults to us-east-1
+        if: ${{ always() }}
+
+      - name: Show the allure report location
+        run: echo http://react-app-allurereports.chartiq.com.s3-website-us-east-1.amazonaws.com/${{ github.sha }}/
+        if: ${{ always() }}
+
+      - name: Upload Allure Report
+        uses: actions/upload-artifact@v2
+        with:
+         name: allure report
+         path: ./allure-report
+        if: ${{ always() }}
+
