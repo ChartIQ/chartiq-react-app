@@ -4,8 +4,6 @@ on:
   repository_dispatch:
     types: [ regression_test_run ]
   push:
-    branches:
-      - 'POC'
 
 env:
   TEST_BRANCH: ${{ github.event.client_payload.github.event.head_commit.test_branch != NaN && github.event.client_payload.github.event.head_commit.test_branch || 'POC' }}
