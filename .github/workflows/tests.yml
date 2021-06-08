@@ -6,8 +6,8 @@ on:
   push:
 
 env:
-  TEST_BRANCH: ${{ github.event.client_payload.github.event.head_commit.test_branch != NaN && github.event.client_payload.github.event.head_commit.test_branch || 'POC' }}
-  STX_BRANCH: ${{ github.event.client_payload.github.event.head_commit.stx_branch != NaN && github.event.client_payload.github.event.head_commit.stx_branch || 'new-tests-package' }}
+  TEST_BRANCH: ${{ github.event.client_payload.github.event.head_commit.test_branch != NaN && github.event.client_payload.github.event.head_commit.test_branch}}
+  STX_BRANCH: ${{ github.event.client_payload.github.event.head_commit.stx_branch != NaN && github.event.client_payload.github.event.head_commit.stx_branch || 'master' }}
 
 jobs:
   setup:
