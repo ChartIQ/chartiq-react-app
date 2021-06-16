@@ -167,10 +167,9 @@ jobs:
 
       - name: Run e2e-v2 tests with Chrome browser
         run: npm run test-chrome-ci
-        if: ${{ always() }}
 
       - name: Save allure-results artifact
-        if: always()
+        if: ${{ success() || failure() }}
         uses: actions/upload-artifact@master
         with:
           name: allure-chrome
@@ -236,10 +235,9 @@ jobs:
 
         - name: Run e2e-v2 tests with Firefox browser
           run: npm run test-ff-ci
-          if: ${{ always() }}
 
         - name: Save allure-results artifact
-          if: always()
+          if: ${{ success() || failure() }}
           uses: actions/upload-artifact@master
           with:
             name: allure-ff
@@ -252,7 +250,6 @@ jobs:
     strategy:
       matrix:
         node-version: [ 12.x ]
-
 
     steps:
 
@@ -286,26 +283,25 @@ jobs:
           path: "./allure-results"
 
       - name: Generate allure report
-        if: always()
+        if: ${{ failure() || success() }}
         run: npm run report-ci
         continue-on-error: true
 
       - name: Sync Allure to S3
+        if: ${{ failure() || success() }}
         run: aws s3 sync ./allure-report/ s3://react-app-allurereports.chartiq.com/${{ github.sha }} --acl public-read --delete
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: "us-east-1" # optional: defaults to us-east-1
-        if: ${{ always() }}
 
       - name: Show the allure report location
+        if: ${{ failure() || success() }}
         run: echo http://react-app-allurereports.chartiq.com.s3-website-us-east-1.amazonaws.com/${{ github.sha }}/
-        if: ${{ always() }}
 
       - name: Upload Allure Report
+        if: ${{ failure() || success() }}
         uses: actions/upload-artifact@v2
         with:
          name: allure report
          path: ./allure-report
-        if: ${{ always() }}
-
