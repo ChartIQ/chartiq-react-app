@@ -127,6 +127,11 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
+      - name: Setup chrome
+        uses: browser-actions/setup-chrome@latest
+        with:
+          chrome-version: stable
+
       - name: Set timezone
         uses: szenius/set-timezone@v1.0
         with:
@@ -180,6 +185,7 @@ jobs:
     needs: setup
     strategy:
       matrix:
+        firefox-version: [ '87.0' ]
         node-version: [ 12.x ]
 
     steps:
@@ -194,6 +200,12 @@ jobs:
           uses: actions/setup-node@v1
           with:
             node-version: ${{ matrix.node-version }}
+
+        - name: Setup firefox
+          uses: browser-actions/setup-firefox@latest
+          with:
+            firefox-version: ${{ matrix.firefox-version }}
+        - run: firefox --version
 
         - name: Set timezone
           uses: szenius/set-timezone@v1.0
