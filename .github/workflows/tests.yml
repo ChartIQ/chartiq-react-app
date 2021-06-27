@@ -4,12 +4,10 @@ on:
   repository_dispatch:
     types: [ regression_test_run ]
   push:
-    branches:
-      - 'POC'
 
 env:
-  TEST_BRANCH: ${{ github.event.client_payload.github.event.head_commit.test_branch != NaN && github.event.client_payload.github.event.head_commit.test_branch || 'POC' }}
-  STX_BRANCH: ${{ github.event.client_payload.github.event.head_commit.stx_branch != NaN && github.event.client_payload.github.event.head_commit.stx_branch || 'new-tests-package' }}
+  TEST_BRANCH: ${{ github.event.client_payload.github.event.head_commit.test_branch != NaN && github.event.client_payload.github.event.head_commit.test_branch}}
+  STX_BRANCH: ${{ github.event.client_payload.github.event.head_commit.stx_branch != NaN && github.event.client_payload.github.event.head_commit.stx_branch || 'master' }}
 
 jobs:
   setup:
@@ -112,7 +110,6 @@ jobs:
   chrome:
     runs-on: ubuntu-latest
     needs: setup
-    if: always()
     strategy:
       matrix:
         node-version: [ 12.x ]
@@ -129,6 +126,11 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+
+      - name: Setup chrome
+        uses: browser-actions/setup-chrome@latest
+        with:
+          chrome-version: stable
 
       - name: Set timezone
         uses: szenius/set-timezone@v1.0
@@ -170,10 +172,9 @@ jobs:
 
       - name: Run e2e-v2 tests with Chrome browser
         run: npm run test-chrome-ci
-        if: ${{ always() }}
 
       - name: Save allure-results artifact
-        if: always()
+        if: ${{ success() || failure() }}
         uses: actions/upload-artifact@master
         with:
           name: allure-chrome
@@ -182,9 +183,9 @@ jobs:
   firefox:
     runs-on: ubuntu-latest
     needs: setup
-    if: always()
     strategy:
       matrix:
+        firefox-version: [ '87.0' ]
         node-version: [ 12.x ]
 
     steps:
@@ -199,6 +200,12 @@ jobs:
           uses: actions/setup-node@v1
           with:
             node-version: ${{ matrix.node-version }}
+
+        - name: Setup firefox
+          uses: browser-actions/setup-firefox@latest
+          with:
+            firefox-version: ${{ matrix.firefox-version }}
+        - run: firefox --version
 
         - name: Set timezone
           uses: szenius/set-timezone@v1.0
@@ -240,10 +247,9 @@ jobs:
 
         - name: Run e2e-v2 tests with Firefox browser
           run: npm run test-ff-ci
-          if: ${{ always() }}
 
         - name: Save allure-results artifact
-          if: always()
+          if: ${{ success() || failure() }}
           uses: actions/upload-artifact@master
           with:
             name: allure-ff
@@ -252,11 +258,10 @@ jobs:
   allure:
     runs-on: ubuntu-latest
     needs: [chrome, firefox]
-    if: always()
+    if: ${{ !cancelled() }}
     strategy:
       matrix:
         node-version: [ 12.x ]
-
 
     steps:
 
@@ -290,26 +295,25 @@ jobs:
           path: "./allure-results"
 
       - name: Generate allure report
-        if: always()
+        if: ${{ failure() || success() }}
         run: npm run report-ci
         continue-on-error: true
 
       - name: Sync Allure to S3
+        if: ${{ failure() || success() }}
         run: aws s3 sync ./allure-report/ s3://react-app-allurereports.chartiq.com/${{ github.sha }} --acl public-read --delete
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: "us-east-1" # optional: defaults to us-east-1
-        if: ${{ always() }}
 
       - name: Show the allure report location
+        if: ${{ failure() || success() }}
         run: echo http://react-app-allurereports.chartiq.com.s3-website-us-east-1.amazonaws.com/${{ github.sha }}/
-        if: ${{ always() }}
 
       - name: Upload Allure Report
+        if: ${{ failure() || success() }}
         uses: actions/upload-artifact@v2
         with:
          name: allure report
          path: ./allure-report
-        if: ${{ always() }}
-
