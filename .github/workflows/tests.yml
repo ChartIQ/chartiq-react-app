@@ -40,6 +40,8 @@ jobs:
         with:
           path: "./node_modules/"
           key: root-${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('package.json') }}
+          restore-keys: |
+            root-
         timeout-minutes: 4
 
       - name: Cache node modules (stx)
@@ -49,7 +51,9 @@ jobs:
           cache-name: stx
         with:
           path: "./stx/node_modules/"
-          key: stx-
+          key: stx-${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('./stx/package.json') }}
+          restore-keys: |
+            stx-
         timeout-minutes: 4
 
       - name: Cache dist folder
@@ -60,6 +64,8 @@ jobs:
         with:
           path: "./dist/"
           key: dist-${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('./dist/') }}
+          restore-keys: |
+            dist-
         timeout-minutes: 4
 
       - name: Cache node modules (webpack-example)
@@ -69,9 +75,9 @@ jobs:
           cache-name: webpack
         with:
           path: "./stx/htdocs/chartiq/webpack-example/node_modules/"
-          key: node_modules_webpack-${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('./htdocs/chartiq/webpack-example/package.json') }}
+          key: webpack-${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('./htdocs/chartiq/webpack-example/package.json') }}
           restore-keys: |
-            node_modules_webpack-
+            webpack-
         timeout-minutes: 4
 
       - name: Cache node modules (packager)
@@ -81,13 +87,13 @@ jobs:
           cache-name: packager
         with:
           path: "./stx/htdocs/chartiq/.packager/node_modules/"
-          key: node_modules_packager-${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('./htdocs/chartiq/.packager/package.json') }}
+          key: packager-${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('./htdocs/chartiq/.packager/package.json') }}
           restore-keys: |
-            node_modules_packager-
+            packager-
         timeout-minutes: 4
 
       - name: Install dependencies for stx
-        if: ${{steps.packager.outputs.cache-hit != 'true' || steps.webpack.outputs.cache-hit != 'true' || steps.root.outputs.cache-hit != 'true'}}
+        if: ${{steps.packager.outputs.cache-hit != 'true' || steps.webpack.outputs.cache-hit != 'true' || steps.stx.outputs.cache-hit != 'true'}}
         working-directory: ./stx
         run: npm install
 
@@ -206,7 +212,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: "./tests/e2e-v2/node_modules/"
-          key: node_modules_tests-
+          key: stx-
 
       - name: Load dist folder
         uses: actions/cache@v2
@@ -218,13 +224,13 @@ jobs:
         uses: actions/cache@v2
         with:
           path: "./stx/htdocs/chartiq/webpack-example/node_modules/"
-          key: node_modules_webpack-
+          key: webpack-
 
       - name: Load node_modules (packager)
         uses: actions/cache@v2
         with:
           path: "./stx/htdocs/chartiq/.packager/node_modules/"
-          key: node_modules_packager-
+          key: packager-
 
       - name: Run e2e-v2 tests with Chrome browser
         run: npm run test-chrome-ci
@@ -281,7 +287,7 @@ jobs:
           uses: actions/cache@v2
           with:
             path: "./tests/e2e-v2/node_modules/"
-            key: node_modules_tests-
+            key: stx-
 
         - name: Load dist folder
           uses: actions/cache@v2
@@ -293,13 +299,13 @@ jobs:
           uses: actions/cache@v2
           with:
             path: "./stx/htdocs/chartiq/webpack-example/node_modules/"
-            key: node_modules_webpack-
+            key: webpack-
 
         - name: Load node_modules (packager)
           uses: actions/cache@v2
           with:
             path: "./stx/htdocs/chartiq/.packager/node_modules/"
-            key: node_modules_packager-
+            key: packager-
 
         - name: Run e2e-v2 tests with Firefox browser
           run: npm run test-ff-ci
