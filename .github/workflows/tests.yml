@@ -39,7 +39,7 @@ jobs:
           cache-name: root
         with:
           path: "./node_modules/"
-          key: root-${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('package-lock.json') }}
+          key: root-${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('package.json') }}
         timeout-minutes: 4
 
       - name: Cache node modules (stx)
@@ -69,7 +69,7 @@ jobs:
           cache-name: webpack
         with:
           path: "./stx/htdocs/chartiq/webpack-example/node_modules/"
-          key: node_modules_webpack-${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('./htdocs/chartiq/webpack-example/package-lock.json') }}
+          key: node_modules_webpack-${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('./htdocs/chartiq/webpack-example/package.json') }}
           restore-keys: |
             node_modules_webpack-
         timeout-minutes: 4
@@ -81,7 +81,7 @@ jobs:
           cache-name: packager
         with:
           path: "./stx/htdocs/chartiq/.packager/node_modules/"
-          key: node_modules_packager-${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('./htdocs/chartiq/.packager/package-lock.json') }}
+          key: node_modules_packager-${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('./htdocs/chartiq/.packager/package.json') }}
           restore-keys: |
             node_modules_packager-
         timeout-minutes: 4
