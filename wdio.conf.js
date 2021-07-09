@@ -25,8 +25,7 @@ exports.wdioConfigReact = {
 			"./stx/tests/e2e-v2/specs/sample-template-advanced/studies-beta-adv.spec.js",
 			"./stx/tests/e2e-v2/specs/sample-template-advanced/comparison-component-adv.spec.js",
 			"./stx/tests/e2e-v2/specs/sample-template-advanced/message-toaster-adv.spec.js",
-			"./stx/tests/e2e-v2/specs/sample-template-advanced/menu-dropdown-component-adv.spec.js",
-
+			"./stx/tests/e2e-v2/specs/sample-template-advanced/menu-dropdown-component-adv.spec.js"
 		],
 		[
 			"./stx/tests/e2e-v2/specs/sample-template-advanced/periodicity-adv.spec.js",
@@ -36,7 +35,7 @@ exports.wdioConfigReact = {
 			"./stx/tests/e2e-v2/specs/sample-template-advanced/span-options.spec.js",
 			"./stx/tests/e2e-v2/specs/sample-template-advanced/dialogs/aggregation-dialog-adv.spec.js"
 		]
-	] : ['./stx/tests/e2e-v2/specs/sample-template-advanced/**.spec.js'],
+	] : ['./stx/tests/e2e-v2/specs/sample-template-advanced/**/**.spec.js'],
 	// Because we have different names for our templates across projects, we are accessing them thru configured variables.
 	// The template object is a way to set the name of the component's file for this specific repo.
 	// NOTE: this is something custom to our configs not a default option of WDIO
