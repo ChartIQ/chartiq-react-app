@@ -7,7 +7,7 @@ on:
 
 env:
   TEST_BRANCH: ${{ github.event.client_payload.github.event.head_commit.test_branch != NaN && github.event.client_payload.github.event.head_commit.test_branch}}
-  STX_BRANCH: ${{ github.event.client_payload.github.event.head_commit.stx_branch != NaN && github.event.client_payload.github.event.head_commit.stx_branch || 'master' }}
+  STX_BRANCH: ${{ github.event.client_payload.github.event.head_commit.stx_branch != NaN && github.event.client_payload.github.event.head_commit.stx_branch || 'e2e-tests-v3' }}
 
 jobs:
   setup:
