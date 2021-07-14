@@ -8,7 +8,7 @@ exports.wdioConfigReact = {
 	appName: 'chartiq-react-app',
 	specs: ci ? [
 		[
-			// "./stx/tests/e2e-v2/specs/sample-template-advanced/studies-perf-index-adv.spec.js",
+			"./stx/tests/e2e-v2/specs/sample-template-advanced/studies-perf-index-adv.spec.js",
 			"./stx/tests/e2e-v2/specs/sample-template-advanced/headsup-adv.spec.js",
 			"./stx/tests/e2e-v2/specs/sample-template-advanced/view-advanced.spec.js",
 			"./stx/tests/e2e-v2/specs/sample-template-advanced/full-screen-adv.spec.js",
