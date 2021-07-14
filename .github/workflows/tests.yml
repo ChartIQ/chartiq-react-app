@@ -115,7 +115,6 @@ jobs:
 
   checkTestsGroups:
     needs: setup
-    if: ${{ !cancelled() }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
