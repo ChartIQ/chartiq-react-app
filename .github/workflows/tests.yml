@@ -173,7 +173,6 @@ jobs:
   chrome:
     runs-on: ubuntu-latest
     needs: [setup, checkTestsGroups]
-    if: ${{ !cancelled() }}
     strategy:
       matrix:
         node-version: [ 12.x ]
@@ -247,7 +246,6 @@ jobs:
   firefox:
     runs-on: ubuntu-latest
     needs: [setup, checkTestsGroups]
-    if: ${{ !cancelled() }}
     strategy:
       matrix:
         firefox-version: [ '87.0' ]
