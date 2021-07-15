@@ -113,65 +113,12 @@ jobs:
         if: ${{steps.root.outputs.cache-hit != 'true'}}
         run: npm run ciq-prep-app
 
-  checkTestsGroups:
-    needs: setup
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [ 12.x ]
-
-    steps:
-
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          repository: ChartIQ/chartiq-react-app-private
-          ref: ${{ env.TEST_BRANCH != NaN && env.TEST_BRANCH }}
-
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: Clone stx repository
-        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.STX_BRANCH != NaN && env.STX_BRANCH }}
-
-      - name: Load node_modules (root)
-        uses: actions/cache@v2
-        with:
-          path: "./node_modules/"
-          key: root--
-
-      - name: Load node_modules (stx)
-        uses: actions/cache@v2
-        with:
-          path: "./tests/e2e-v2/node_modules/"
-          key: stx--
-
-      - name: Load dist folder
-        uses: actions/cache@v2
-        with:
-          path: "./dist/"
-          key: dist--
-
-      - name: Load node_modules (webpack)
-        uses: actions/cache@v2
-        with:
-          path: "./stx/htdocs/chartiq/webpack-example/node_modules/"
-          key: webpack--
-
-      - name: Load node_modules (packager)
-        uses: actions/cache@v2
-        with:
-          path: "./stx/htdocs/chartiq/.packager/node_modules/"
-          key: packager--
-
       - name: Check tests groups
         run: npm run check-specs
 
   chrome:
     runs-on: ubuntu-latest
-    needs: [setup, checkTestsGroups]
+    needs: setup
     strategy:
       matrix:
         node-version: [ 12.x ]
@@ -244,7 +191,7 @@ jobs:
 
   firefox:
     runs-on: ubuntu-latest
-    needs: [setup, checkTestsGroups]
+    needs: setup
     strategy:
       matrix:
         firefox-version: [ '87.0' ]

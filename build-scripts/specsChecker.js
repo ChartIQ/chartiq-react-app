@@ -1,8 +1,11 @@
 const shell = require("shelljs");
-const { wdioConfigReact } = require('./wdio.conf.js')
+const { wdioConfigReact } = require('../wdio.conf.js')
 
-module.exports.specsKeeper = function () {
-	let specsExclude = []; //E.g "./fdc3-adv.spec.js", "./sample-template-advanced/studies-advanced.spec.js"
+module.exports.specsChecker = function () {
+	let specsExclude = wdioConfigReact.exclude;
+	specsExclude.forEach(function (part, index) {
+		this[index] = this[index].replace("/stx/tests/e2e-v2/specs/sample-template-advanced", "");
+	}, specsExclude);
 	let forgottenSpecs = [];
 	let specsInFolder = shell
 		.exec(`cd ./stx/tests/e2e-v2/specs/sample-template-advanced && find . -name "*.spec.js"`, {

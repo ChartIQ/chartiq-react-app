@@ -6,6 +6,7 @@ global.downloadDir = path.join(__dirname, 'stx/tests/e2e-v2/tempDownload');
 
 exports.wdioConfigReact = {
 	appName: 'chartiq-react-app',
+	exclude: [],
 	specs: ci ? [
 		[
 			"./stx/tests/e2e-v2/specs/sample-template-advanced/studies-perf-index-adv.spec.js",
