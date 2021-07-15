@@ -6,6 +6,7 @@
   "scripts": {
     "build": "webpack --config=webpack.config.js --env.production",
     "build:chartiq": "sh build-scripts/build-chartiq.sh",
+    "build:components": "webpack --config=webpack.components.config.js --env.development",
     "build:test": "sh build-scripts/build-test.sh",
     "build:stx-symlink": "sh build-scripts/build-stx-symlink.sh",
     "ciq-prep-app": "sh ./build-scripts/clear-dist.sh && npm run build && node ./build-scripts/webserver-symlinks.js",
@@ -56,6 +57,7 @@
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
     "@babel/preset-env": "^7.4.4",
+    "@chartiq/chartiq-react-components": "file:src/chartiq",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-router-dom": "^5.2.0"
