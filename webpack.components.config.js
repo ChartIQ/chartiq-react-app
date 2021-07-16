@@ -9,22 +9,23 @@ module.exports = env => {
 		mode: environment,
 		devtool: environment !== 'production' ? 'source-maps' : null,
 		entry: path.join(__dirname, 'src', 'chartiq', 'index.js'),
-		externals: {
-			react: {
-				commonjs: "react",
-				commonjs2: "react",
-				amd: "React",
-				root: "React"
-				},
-			"react-dom": {
-				commonjs: "react-dom",
-				commonjs2: "react-dom",
-				amd: "ReactDOM",
-				root: "ReactDOM"
-				},
-			'CIQ': 'chartiq/js/chartiq'
-
-		},
+		externals: [
+			{
+				react: {
+					commonjs: "react",
+					commonjs2: "react",
+					amd: "React",
+					root: "React"
+					},
+				"react-dom": {
+					commonjs: "react-dom",
+					commonjs2: "react-dom",
+					amd: "ReactDOM",
+					root: "ReactDOM"
+					},
+			},
+			/^chartiq/
+		],
 		output: {
 			library: "chartiqReactComponents",
 			libraryTarget: 'umd',

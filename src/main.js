@@ -15,7 +15,7 @@ import {
 	// TermStructure,
 	CustomChart,
 	HelloWorld
-} from "./chartiq";
+} from "@chartiq/chartiq-react-components";
 
 // Enable the following import if the channelSubscribe reference or the call to CIQ.simulateL2 in the chartInitialized reference are required.
 // import { CIQ } from 'chartiq/js/componentUI';

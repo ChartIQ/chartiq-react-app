@@ -10,6 +10,8 @@
     "build:test": "sh build-scripts/build-test.sh",
     "build:stx-symlink": "sh build-scripts/build-stx-symlink.sh",
     "ciq-prep-app": "sh ./build-scripts/clear-dist.sh && npm run build && node ./build-scripts/webserver-symlinks.js",
+    "prepublish:components": "npm run build:components",
+    "publish:components": "cd src/chartiq && npm pack",
     "start": "npm run watch -- --host=127.0.0.1 --disable-host-check=true",
     "test-chrome": "wdio wdio-chrome.conf.js --mochaOpts.grep '@NoReact' --mochaOpts.invert=true",
     "test-chrome-ci": "CI=true wdio wdio-chrome.conf.js --mochaOpts.grep '@NoReact' --mochaOpts.invert=true",
