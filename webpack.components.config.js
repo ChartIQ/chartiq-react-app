@@ -79,10 +79,6 @@ module.exports = env => {
 		plugins: [
 			new MiniCssExtractPlugin({
 				fileNname: '[name].css'
-			}),
-			new webpack.ProvidePlugin({
-				chartiq: /chartiq/,
-				React: 'react'
 			})
 		],
 		resolve: {
