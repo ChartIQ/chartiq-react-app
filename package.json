@@ -4,12 +4,12 @@
   "description": "ChartIQ's full featured charting application written in ReactJS",
   "main": "index.js",
   "workspaces": [
-    "chartiq"
+    "src/chartiq"
   ],
   "scripts": {
     "build": "webpack --config=webpack.config.js --env.production",
     "build:chartiq": "sh build-scripts/build-chartiq.sh",
-    "build:components": "webpack --config=webpack.components.config.js --env.development",
+    "build:components": "npm run build:dev --workspace=src/chartiq",
     "build:test": "sh build-scripts/build-test.sh",
     "build:stx-symlink": "sh build-scripts/build-stx-symlink.sh",
     "ciq-prep-app": "sh ./build-scripts/clear-dist.sh && npm run build && node ./build-scripts/webserver-symlinks.js",

@@ -8,7 +8,8 @@
   ],
   "scripts": {
     "build": "webpack --config webpack.config.js",
-    "build:dev": "npm run build --env.development"
+    "build:dev": "npm run build --env.development",
+    "postinstall": "npm run build:dev"
   },
   "keywords": [
     "component",
