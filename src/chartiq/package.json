@@ -2,15 +2,32 @@
   "name": "@chartiq/chartiq-react-components",
   "version": "8.3.0",
   "description": "React Components for ChartIQ library",
-  "main": "dist/index.js",
+  "main": "dist/main.js",
   "files": [
     "dist/"
   ],
+  "scripts": {
+    "build": "webpack --config webpack.config.js",
+    "build:dev": "npm run build --env.development"
+  },
   "keywords": [
     "component",
     "react",
     "charts",
     "chartiq"
   ],
-  "author": "ChartIQ"
+  "author": "ChartIQ",
+  "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/plugin-syntax-dynamic-import": "^7.7.4",
+    "@babel/preset-env": "^7.14.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.4",
+    "css-loader": "^5.2.5",
+    "extract-css-chunks-webpack-plugin": "^4.5.5",
+    "file-loader": "^4.0.0",
+    "node-sass": "^4.14.1",
+    "sass-loader": "^7.1.0",
+    "webpack": "^4.23.1"
+  }
 }

@@ -1,20 +1,20 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('extract-css-chunks-webpack-plugin'); // used for packaging css into bundles
-const webpack = require('webpack');
 
 
 module.exports = env => {
-	let environment = env.production ? 'production' : 'development'
+	console.log(`checking ENV: ${JSON.stringify(env)}`)
+	let environment =env && env.production ? 'production' : 'development'
 	return {
 		mode: environment,
-		devtool: environment !== 'production' ? 'source-maps' : null,
-		entry: path.join(__dirname, 'src', 'chartiq', 'index.js'),
+		devtool: environment !== 'production' ? 'source-maps' : '',
+		entry: path.join(__dirname, 'index.js'),
 		externals: [
 			{
 				react: {
 					commonjs: "react",
 					commonjs2: "react",
-					amd: "React",
+					amd: "react",
 					root: "React"
 					},
 				"react-dom": {
@@ -29,7 +29,7 @@ module.exports = env => {
 		output: {
 			library: "chartiqReactComponents",
 			libraryTarget: 'umd',
-			path: path.join(__dirname, 'src', 'chartiq', 'dist')
+			path: path.join(__dirname, 'dist')
 		},
 		module: {
 			// Loaders are processors for verifying and transformating
@@ -65,7 +65,7 @@ module.exports = env => {
 			/* Javascript and JSX loading */
 			{
 				test: /\.(js|jsx)$/,
-				include: [/src/, /node_modules/],
+				include: [/src/],
 				exclude: [/translationSample/],
 				// exclude: [/node_modules/,/\.spec\.js$/, /translationSample/, /webcomponent-containers/],
 				use: {

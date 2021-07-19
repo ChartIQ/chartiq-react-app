@@ -3,6 +3,9 @@
   "version": "1.1.0",
   "description": "ChartIQ's full featured charting application written in ReactJS",
   "main": "index.js",
+  "workspaces": [
+    "chartiq"
+  ],
   "scripts": {
     "build": "webpack --config=webpack.config.js --env.production",
     "build:chartiq": "sh build-scripts/build-chartiq.sh",
@@ -59,7 +62,7 @@
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
     "@babel/preset-env": "^7.4.4",
-    "@chartiq/chartiq-react-components": "file:src/chartiq",
+    "@chartiq/chartiq-react-components": "^8.3.0",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-router-dom": "^5.2.0"
