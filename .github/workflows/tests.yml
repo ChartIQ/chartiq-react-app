@@ -1,13 +1,20 @@
 name: Run E2E Tests React-app
 
 on:
-  repository_dispatch:
-    types: [ regression_test_run ]
+  workflow_dispatch:
+    inputs:
+      testBranch:
+        description: 'React App branch name'
+        required: true
+      stxBranch:
+        description: 'Stx branch name'
+        required: true
   push:
+  pull_request:
 
 env:
-  TEST_BRANCH: ${{ github.event.client_payload.github.event.head_commit.test_branch != NaN && github.event.client_payload.github.event.head_commit.test_branch}}
-  STX_BRANCH: ${{ github.event.client_payload.github.event.head_commit.stx_branch != NaN && github.event.client_payload.github.event.head_commit.stx_branch || 'e2e-tests-v3' }}
+  TEST_BRANCH: ${{ github.event.inputs.testBranch != NaN && github.event.inputs.testBranch || 'master' }}
+  STX_BRANCH: ${{ github.event.inputs.stxBranch != NaN && github.event.inputs.stxBranch || 'master' }}
 
 jobs:
   setup:
