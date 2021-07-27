@@ -4,7 +4,7 @@
   "description": "ChartIQ's full featured charting application written in ReactJS",
   "main": "index.js",
   "workspaces": [
-    "src/chartiq"
+    "src/chartiq-react-components"
   ],
   "scripts": {
     "build": "webpack --config=webpack.config.js --env.production",

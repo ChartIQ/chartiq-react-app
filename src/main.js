@@ -2,10 +2,7 @@ import React from "react";
 import ReactDom from "react-dom";
 import { BrowserRouter, HashRouter, Route } from "react-router-dom";
 
-// Base styles required for all charts
-import "./chartiq/styles/base-imports";
-
-import { default as RouteList } from "./chartiq/containers/RouteList/RouteList";
+import { default as RouteList } from "./containers/RouteList/RouteList";
 import {
 	AdvancedChart,
 	MultiChart,
