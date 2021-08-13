@@ -10,7 +10,6 @@ on:
         description: 'Stx branch name'
         required: true
   push:
-  pull_request:
 
 env:
   # If available, use the react-app branch from the dispatch UI input, otherwise use the branch from the triggering event (commit).
