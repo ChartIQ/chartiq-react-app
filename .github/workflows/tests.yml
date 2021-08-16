@@ -15,6 +15,8 @@ env:
   # If available, use the react-app branch from the dispatch UI input, otherwise use the branch from the triggering event (commit).
   TEST_BRANCH: ${{ github.event.inputs.testBranch != NaN && github.event.inputs.testBranch || github.event.client_payload.github.event.head_commit.test_branch != NaN && github.event.client_payload.github.event.head_commit.test_branch }}
   STX_BRANCH: ${{ github.event.inputs.stxBranch != NaN && github.event.inputs.stxBranch || 'master' }}
+  CHROMEDRIVER: ${{ secrets.CHROMEDRIVER_VERSION }}
+  GECKODRIVER: ${{ secrets.GECKODRIVER_VERSION }}
 
 jobs:
   setup:
@@ -28,6 +30,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
+          persist-credentials: false
+          fetch-depth: 0
           repository: ChartIQ/chartiq-react-app-private
           ref: ${{ env.TEST_BRANCH != NaN && env.TEST_BRANCH }}
 
@@ -75,18 +79,6 @@ jobs:
             dist--
         timeout-minutes: 4
 
-      - name: Cache node modules (webpack-example)
-        uses: actions/cache@v2
-        id: webpack
-        env:
-          cache-name: webpack
-        with:
-          path: "./stx/htdocs/chartiq/webpack-example/node_modules/"
-          key: webpack--${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('./htdocs/chartiq/webpack-example/package.json') }}
-          restore-keys: |
-            webpack--
-        timeout-minutes: 4
-
       - name: Cache node modules (packager)
         uses: actions/cache@v2
         id: packager
@@ -100,7 +92,7 @@ jobs:
         timeout-minutes: 4
 
       - name: Install dependencies for stx
-        if: ${{steps.packager.outputs.cache-hit != 'true' || steps.webpack.outputs.cache-hit != 'true' || steps.stx.outputs.cache-hit != 'true'}}
+        if: ${{steps.packager.outputs.cache-hit != 'true' || steps.stx.outputs.cache-hit != 'true'}}
         working-directory: ./stx
         run: npm install
 
@@ -143,11 +135,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Setup chrome
-        uses: browser-actions/setup-chrome@latest
-        with:
-          chrome-version: stable
-
       - name: Set timezone
         uses: szenius/set-timezone@v1.0
         with:
@@ -174,17 +161,12 @@ jobs:
           path: "./dist/"
           key: dist--
 
-      - name: Load node_modules (webpack)
-        uses: actions/cache@v2
-        with:
-          path: "./stx/htdocs/chartiq/webpack-example/node_modules/"
-          key: webpack--
+      - name: Show Chromedriver version
+        run: echo ${{env.CHROMEDRIVER}} | sed 's/./& /g'
 
-      - name: Load node_modules (packager)
-        uses: actions/cache@v2
-        with:
-          path: "./stx/htdocs/chartiq/.packager/node_modules/"
-          key: packager--
+      - name: Install chromedriver version from secret
+        if: ${{ env.CHROMEDRIVER != NaN && env.CHROMEDRIVER != '' && env.CHROMEDRIVER }}
+        run: CHROMEDRIVER_VERSION=${{ env.CHROMEDRIVER }} npm install chromedriver --save-dev
 
       - name: Run e2e-v2 tests with Chrome browser
         run: npm run test-chrome-ci
@@ -201,7 +183,6 @@ jobs:
     needs: setup
     strategy:
       matrix:
-        firefox-version: [ '87.0' ]
         node-version: [ 12.x ]
 
     steps:
@@ -216,12 +197,6 @@ jobs:
           uses: actions/setup-node@v1
           with:
             node-version: ${{ matrix.node-version }}
-
-        - name: Setup firefox
-          uses: browser-actions/setup-firefox@latest
-          with:
-            firefox-version: ${{ matrix.firefox-version }}
-        - run: firefox --version
 
         - name: Set timezone
           uses: szenius/set-timezone@v1.0
@@ -249,17 +224,12 @@ jobs:
             path: "./dist/"
             key: dist--
 
-        - name: Load node_modules (webpack)
-          uses: actions/cache@v2
-          with:
-            path: "./stx/htdocs/chartiq/webpack-example/node_modules/"
-            key: webpack--
+        - name: Show Geckodriver version
+          run: echo ${{env.GECKODRIVER}} | sed 's/./& /g'
 
-        - name: Load node_modules (packager)
-          uses: actions/cache@v2
-          with:
-            path: "./stx/htdocs/chartiq/.packager/node_modules/"
-            key: packager--
+        - name: Install geckodriver secret version
+          if: ${{ env.GECKODRIVER != NaN && env.GECKODRIVER != '' && env.GECKODRIVER }}
+          run: GECKODRIVER_VERSION=${{ env.GECKODRIVER }} npm install geckodriver --save-dev
 
         - name: Run e2e-v2 tests with Firefox browser
           run: npm run test-ff-ci
@@ -327,9 +297,3 @@ jobs:
         if: ${{ failure() || success() }}
         run: echo http://react-app-allurereports.chartiq.com.s3-website-us-east-1.amazonaws.com/${{ github.sha }}/
 
-      - name: Upload Allure Report
-        if: ${{ failure() || success() }}
-        uses: actions/upload-artifact@v2
-        with:
-         name: allure report
-         path: ./allure-report
