@@ -57,7 +57,6 @@
   },
   "dependencies": {
     "@babel/preset-env": "^7.14.8",
-    "@chartiq/ui-tests": "file:chartiq-ui-tests-1.0.0.tgz",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-router-dom": "^5.2.0"
