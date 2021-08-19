@@ -10,10 +10,10 @@ on:
         description: 'Stx branch name'
         required: true
   push:
-  pull_request:
 
 env:
-  TEST_BRANCH: ${{ github.event.inputs.testBranch != NaN && github.event.inputs.testBranch || 'master' }}
+  # If available, use the react-app branch from the dispatch UI input, otherwise use the branch from the triggering event (commit).
+  TEST_BRANCH: ${{ github.event.inputs.testBranch != NaN && github.event.inputs.testBranch || github.event.client_payload.github.event.head_commit.test_branch != NaN && github.event.client_payload.github.event.head_commit.test_branch }}
   STX_BRANCH: ${{ github.event.inputs.stxBranch != NaN && github.event.inputs.stxBranch || 'master' }}
 
 jobs:
