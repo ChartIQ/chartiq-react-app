@@ -14,7 +14,7 @@ on:
 env:
   # If available, use the react-app branch from the dispatch UI input, otherwise use the branch from the triggering event (commit).
   TEST_BRANCH: ${{ github.event.inputs.testBranch != NaN && github.event.inputs.testBranch || github.event.client_payload.github.event.head_commit.test_branch != NaN && github.event.client_payload.github.event.head_commit.test_branch }}
-  STX_BRANCH: ${{ github.event.inputs.stxBranch != NaN && github.event.inputs.stxBranch || 'master' }}
+  STX_BRANCH: ${{ github.event.inputs.stxBranch != NaN && github.event.inputs.stxBranch || github.event.client_payload.github.event.head_commit.stx_branch != NaN && github.event.client_payload.github.event.head_commit.stx_branch || 'master' }}
   CHROMEDRIVER: ${{ secrets.CHROMEDRIVER_VERSION }}
   GECKODRIVER: ${{ secrets.GECKODRIVER_VERSION }}
 
@@ -33,7 +33,7 @@ jobs:
           persist-credentials: false
           fetch-depth: 0
           repository: ChartIQ/chartiq-react-app-private
-          ref: ${{ env.TEST_BRANCH != NaN && env.TEST_BRANCH }}
+          ref: ${{ env.TEST_BRANCH }}
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
@@ -41,7 +41,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Clone stx repository
-        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.STX_BRANCH != NaN && env.STX_BRANCH }}
+        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.STX_BRANCH }}
 
       - name: Cache node modules (root)
         uses: actions/cache@v2
@@ -92,24 +92,19 @@ jobs:
         timeout-minutes: 4
 
       - name: Install dependencies for stx
-        if: ${{steps.packager.outputs.cache-hit != 'true' || steps.stx.outputs.cache-hit != 'true'}}
         working-directory: ./stx
         run: npm install
 
       - name: Install dependencies for app
-        if: ${{steps.root.outputs.cache-hit != 'true'}}
         run: npm install
 
       - name: Build project-test
-        if: ${{steps.root.outputs.cache-hit != 'true'}}
         run: npm run build:test
 
       - name: Build project-chartiq
-        if: ${{steps.root.outputs.cache-hit != 'true'}}
         run: npm run build:chartiq
 
       - name: Prepare application
-        if: ${{steps.root.outputs.cache-hit != 'true'}}
         run: npm run ciq-prep-app
 
       - name: Check tests groups
@@ -129,7 +124,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: ChartIQ/chartiq-react-app-private
-          ref: ${{ env.TEST_BRANCH != NaN && env.TEST_BRANCH }}
+          ref: ${{ env.TEST_BRANCH }}
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
@@ -142,7 +137,7 @@ jobs:
           timezoneLinux: "America/New_York"
 
       - name: Clone stx repository
-        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.STX_BRANCH != NaN && env.STX_BRANCH }}
+        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.STX_BRANCH }}
 
       - name: Load node_modules (root)
         uses: actions/cache@v2
@@ -193,7 +188,7 @@ jobs:
           uses: actions/checkout@v2
           with:
             repository: ChartIQ/chartiq-react-app-private
-            ref: ${{ env.TEST_BRANCH != NaN && env.TEST_BRANCH }}
+            ref: ${{ env.TEST_BRANCH }}
 
         - name: Use Node.js ${{ matrix.node-version }}
           uses: actions/setup-node@v1
@@ -206,7 +201,7 @@ jobs:
             timezoneLinux: "America/New_York"
 
         - name: Clone stx repository
-          run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.STX_BRANCH != NaN && env.STX_BRANCH }}
+          run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.STX_BRANCH }}
 
         - name: Load node_modules (root)
           uses: actions/cache@v2
@@ -257,7 +252,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: ChartIQ/chartiq-react-app-private
-          ref: ${{ env.TEST_BRANCH != NaN && env.TEST_BRANCH }}
+          ref: ${{ env.TEST_BRANCH }}
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
