@@ -1,9 +1,6 @@
 // Required imports from chartiq for advanced chart
 
-import { CIQ } from 'chartiq/js/chartiq';
-import 'chartiq/js/advanced';
-
-import 'chartiq/js/advanced';
+import { CIQ } from 'chartiq/js/advanced';
 
 import 'chartiq/js/addOns';
 
@@ -19,14 +16,14 @@ import 'chartiq/js/componentUI';
 import 'chartiq/js/components';
 
 // Event Markers
-import marker from 'chartiq/examples/markers/markersSample.js';
+import marker from 'chartiq/examples/markers/markersSample';
 import 'chartiq/examples/markers/tradeAnalyticsSample';
 import 'chartiq/examples/markers/videoSample';
 
-import quoteFeed from "chartiq/examples/feeds/quoteFeedSimulator.js";
+import quoteFeed from "chartiq/examples/feeds/quoteFeedSimulator";
 
 // Uncomment the following for the forecasting simulator (required for the forecasting sample).
-// import forecastQuoteFeed from "chartiq/examples/feeds/quoteFeedForecastSimulator.js";
+// import forecastQuoteFeed from "chartiq/examples/feeds/quoteFeedForecastSimulator";
 
 import PerfectScrollbar from "chartiq/js/thirdparty/perfect-scrollbar.esm.js";
 
