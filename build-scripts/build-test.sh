@@ -7,7 +7,7 @@ cd ../../ && \
 cp ./stx/tests/chartiq-ui-tests-*.*.*.tgz ./ && \
 
 echo "Install tests" && \
-npm i chartiq-ui-tests-*.*.*.tgz
+npm i --no-save chartiq-ui-tests-*.*.*.tgz
 
 echo "Delete installed tarball"
 rm chartiq-ui-tests-*.*.*.tgz
