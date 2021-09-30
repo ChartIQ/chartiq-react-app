@@ -107,8 +107,8 @@ jobs:
       - name: Prepare application
         run: npm run ciq-prep-app
 
-      - name: Check tests groups
-        run: npm run check-specs
+#      - name: Check tests groups
+#        run: npm run check-specs
 
   chrome:
     runs-on: ubuntu-latest
