@@ -104,8 +104,8 @@ jobs:
       - name: Build project-chartiq
         run: npm run build:chartiq
 
-      - name: Prepare application
-        run: npm run ciq-prep-app
+#      - name: Prepare application
+#        run: npm run ciq-prep-app
 
 #      - name: Check tests groups
 #        run: npm run check-specs
