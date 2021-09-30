@@ -48,7 +48,7 @@ jobs:
           path: "./node_modules/"
           key: root--${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('package.json') }}
           restore-keys: |
-            root--
+            root--${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('package.json') }}
         timeout-minutes: 4
 
       - name: Cache node modules (stx)
@@ -60,7 +60,7 @@ jobs:
           path: "./stx/node_modules/"
           key: stx--${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('./stx/package.json') }}
           restore-keys: |
-            stx--
+            stx--${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('./stx/package.json') }}
         timeout-minutes: 4
 
       - name: Cache dist folder
@@ -72,31 +72,7 @@ jobs:
           path: "./dist/"
           key: dist--${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('./dist/') }}
           restore-keys: |
-            dist--
-        timeout-minutes: 4
-
-      - name: Cache node modules (webpack-example)
-        uses: actions/cache@v2
-        id: webpack
-        env:
-          cache-name: webpack
-        with:
-          path: "./stx/htdocs/chartiq/webpack-example/node_modules/"
-          key: webpack--${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('./htdocs/chartiq/webpack-example/package.json') }}
-          restore-keys: |
-            webpack--
-        timeout-minutes: 4
-
-      - name: Cache node modules (packager)
-        uses: actions/cache@v2
-        id: packager
-        env:
-          cache-name: packager
-        with:
-          path: "./stx/htdocs/chartiq/.packager/node_modules/"
-          key: packager--${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('./htdocs/chartiq/.packager/package.json') }}
-          restore-keys: |
-            packager--
+            dist--${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('./dist/') }}
         timeout-minutes: 4
 
       - name: Install dependencies for stx
@@ -160,31 +136,19 @@ jobs:
         uses: actions/cache@v2
         with:
           path: "./node_modules/"
-          key: root--
+          key: root--${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('package.json') }}
 
       - name: Load node_modules (stx)
         uses: actions/cache@v2
         with:
           path: "./tests/e2e-v2/node_modules/"
-          key: stx--
+          key: stx--${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('./stx/package.json') }}
 
       - name: Load dist folder
         uses: actions/cache@v2
         with:
           path: "./dist/"
-          key: dist--
-
-      - name: Load node_modules (webpack)
-        uses: actions/cache@v2
-        with:
-          path: "./stx/htdocs/chartiq/webpack-example/node_modules/"
-          key: webpack--
-
-      - name: Load node_modules (packager)
-        uses: actions/cache@v2
-        with:
-          path: "./stx/htdocs/chartiq/.packager/node_modules/"
-          key: packager--
+          key: dist--${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('./dist/') }}
 
       - name: Run e2e-v2 tests with Chrome browser
         run: npm run test-chrome-ci
@@ -235,31 +199,19 @@ jobs:
           uses: actions/cache@v2
           with:
             path: "./node_modules/"
-            key: root--
+            key: root--${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('package.json') }}
 
         - name: Load node_modules (stx)
           uses: actions/cache@v2
           with:
             path: "./tests/e2e-v2/node_modules/"
-            key: stx--
+            key: stx--${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('./stx/package.json') }}
 
         - name: Load dist folder
           uses: actions/cache@v2
           with:
             path: "./dist/"
-            key: dist--
-
-        - name: Load node_modules (webpack)
-          uses: actions/cache@v2
-          with:
-            path: "./stx/htdocs/chartiq/webpack-example/node_modules/"
-            key: webpack--
-
-        - name: Load node_modules (packager)
-          uses: actions/cache@v2
-          with:
-            path: "./stx/htdocs/chartiq/.packager/node_modules/"
-            key: packager--
+            key: dist--${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('./dist/') }}
 
         - name: Run e2e-v2 tests with Firefox browser
           run: npm run test-ff-ci
@@ -296,7 +248,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: "./node_modules/"
-          key: root--
+          key: root--${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('package.json') }}
 
       - name: Load allure-results from Chrome
         uses: actions/download-artifact@master
@@ -327,9 +279,3 @@ jobs:
         if: ${{ failure() || success() }}
         run: echo http://react-app-allurereports.chartiq.com.s3-website-us-east-1.amazonaws.com/${{ github.sha }}/
 
-      - name: Upload Allure Report
-        if: ${{ failure() || success() }}
-        uses: actions/upload-artifact@v2
-        with:
-         name: allure report
-         path: ./allure-report
