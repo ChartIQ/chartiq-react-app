@@ -106,6 +106,10 @@ jobs:
         working-directory: ./stx
         run: npm install
 
+      - name: Install dependencies for e2e
+        working-directory: ./stx/tests/e2e-v2
+        run: npm install
+
       - name: Install dependencies for app
         run: npm install
 
