@@ -9,11 +9,9 @@ const wdioConfig = {
 console.log(`downloadDir from base react config: ${wdioConfigReact.downloadDir}`);
 console.log(`check global.downloadDir ${global.downloadDir}`)
 const browserPrefs = {
-		// prefs: {
-			directory_upgrade: true,
-			prompt_for_download: false,
-			"download.default_directory": global.downloadDir
-		// }
+	directory_upgrade: true,
+	prompt_for_download: false,
+	"download.default_directory": global.downloadDir
 };
 
 wdioConfig.capabilities[0]["goog:chromeOptions"]["prefs"] = browserPrefs;
