@@ -80,7 +80,7 @@ jobs:
 
       - name: Cache node modules (e2e)
         uses: actions/cache@v2
-        id: packager
+        id: e2e
         env:
           cache-name: e2e
         with:
