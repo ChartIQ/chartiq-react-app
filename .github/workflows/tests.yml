@@ -195,16 +195,6 @@ jobs:
         if: ${{ env.CHROMEDRIVER != NaN && env.CHROMEDRIVER != '' && env.CHROMEDRIVER }}
         run: CHROMEDRIVER_VERSION=${{ env.CHROMEDRIVER }} npm install chromedriver --save-dev
 
-      - name: Run e2e-v2 tests with Chrome browser
-        run: npm run test-chrome-ci
-
-      - name: Save allure-results artifact
-        if: ${{ success() || failure() }}
-        uses: actions/upload-artifact@master
-        with:
-          name: allure-chrome
-          path: allure-results
-
       - name: ls -a root
         run: ls -a
 
@@ -215,6 +205,16 @@ jobs:
       - name: ls -a ./stx/tests/e2e-v2
         working-directory: ./stx/tests/e2e-v2
         run: ls -a
+
+      - name: Run e2e-v2 tests with Chrome browser
+        run: npm run test-chrome-ci
+
+      - name: Save allure-results artifact
+        if: ${{ success() || failure() }}
+        uses: actions/upload-artifact@master
+        with:
+          name: allure-chrome
+          path: allure-results
 
   firefox:
     runs-on: ubuntu-latest
