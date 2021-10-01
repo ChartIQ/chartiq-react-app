@@ -166,7 +166,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: "./stx/tests/e2e-v2/node_modules/"
-          key: stx--${{ runner.os }}--${{ hashFiles('./stx/package.json') }}
+          key: e2e--${{ runner.os }}--${{ hashFiles('./stx/tests/e2e-v2/node_modules/') }}
 
       - name: Load dist folder
         uses: actions/cache@v2
@@ -236,7 +236,7 @@ jobs:
           uses: actions/cache@v2
           with:
             path: "./stx/tests/e2e-v2/node_modules/"
-            key: stx--${{ runner.os }}--${{ hashFiles('./stx/package.json') }}
+            key: e2e--${{ runner.os }}--${{ hashFiles('./stx/tests/e2e-v2/node_modules/') }}
 
         - name: Load dist folder
           uses: actions/cache@v2
@@ -286,7 +286,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: "./stx/tests/e2e-v2/node_modules/"
-          key: stx--${{ runner.os }}--${{ hashFiles('./stx/package.json') }}
+          key: e2e--${{ runner.os }}--${{ hashFiles('./stx/tests/e2e-v2/node_modules/') }}
 
       - name: Load allure-results from Chrome
         uses: actions/download-artifact@master
@@ -316,4 +316,3 @@ jobs:
       - name: Show the allure report location
         if: ${{ failure() || success() }}
         run: echo http://react-app-allurereports.chartiq.com.s3-website-us-east-1.amazonaws.com/${{ github.sha }}/
-
