@@ -119,9 +119,19 @@ jobs:
       - name: Build project-chartiq
         run: npm run build:chartiq
 
+      - name: ls -a root
+        run: ls -a
+
+      - name: ls -a ./stx
+        working-directory: ./stx
+        run: ls -a
+
+      - name: ls -a ./stx/tests/e2e-v2
+        working-directory: ./stx/tests/e2e-v2
+        run: ls -a
 #      - name: Prepare application
 #        run: npm run ciq-prep-app
-
+#
 #      - name: Check tests groups
 #        run: npm run check-specs
 
@@ -194,6 +204,17 @@ jobs:
         with:
           name: allure-chrome
           path: allure-results
+
+      - name: ls -a root
+        run: ls -a
+
+      - name: ls -a ./stx
+        working-directory: ./stx
+        run: ls -a
+
+      - name: ls -a ./stx/tests/e2e-v2
+        working-directory: ./stx/tests/e2e-v2
+        run: ls -a
 
   firefox:
     runs-on: ubuntu-latest
