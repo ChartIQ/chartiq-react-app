@@ -49,9 +49,9 @@ jobs:
           cache-name: root
         with:
           path: "./node_modules/"
-          key: root--${{ runner.os }}--${{ hashFiles('package.json') }}
+          key: -root--${{ runner.os }}--${{ hashFiles('package.json') }}
           restore-keys: |
-            root--${{ runner.os }}--${{ hashFiles('package.json') }}
+            -root--${{ runner.os }}--${{ hashFiles('package.json') }}
         timeout-minutes: 4
 
       - name: Cache node modules (stx)
@@ -61,9 +61,9 @@ jobs:
           cache-name: stx
         with:
           path: "./stx/node_modules/"
-          key: stx--${{ runner.os }}--${{ hashFiles('./stx/package.json') }}
+          key: -stx--${{ runner.os }}--${{ hashFiles('./stx/package.json') }}
           restore-keys: |
-            stx--${{ runner.os }}--${{ hashFiles('./stx/package.json') }}
+            -stx--${{ runner.os }}--${{ hashFiles('./stx/package.json') }}
         timeout-minutes: 4
 
       - name: Cache dist folder
@@ -73,9 +73,9 @@ jobs:
           cache-name: dist
         with:
           path: "./dist/"
-          key: dist--${{ runner.os }}--${{ hashFiles('./dist/') }}
+          key: -dist--${{ runner.os }}--${{ hashFiles('./dist/') }}
           restore-keys: |
-            dist--${{ runner.os }}--${{ hashFiles('./dist/') }}
+            -dist--${{ runner.os }}--${{ hashFiles('./dist/') }}
         timeout-minutes: 4
 
       - name: Cache node modules (e2e)
@@ -85,9 +85,9 @@ jobs:
           cache-name: e2e
         with:
           path: "./stx/tests/e2e-v2/node_modules/"
-          key: e2e--${{ runner.os }}--${{ hashFiles('./stx/tests/e2e-v2/node_modules/') }}
+          key: -e2e--${{ runner.os }}--${{ hashFiles('./stx/tests/e2e-v2/node_modules/') }}
           restore-keys: |
-            e2e--${{ runner.os }}--${{ hashFiles('./stx/tests/e2e-v2/node_modules/') }}
+            -e2e--${{ runner.os }}--${{ hashFiles('./stx/tests/e2e-v2/node_modules/') }}
         timeout-minutes: 4
 
       - name: Cache node modules (packager)
@@ -97,9 +97,9 @@ jobs:
           cache-name: packager
         with:
           path: "./stx/htdocs/chartiq/.packager/node_modules/"
-          key: packager--${{ runner.os }}--${{ hashFiles('./htdocs/chartiq/.packager/package.json') }}
+          key: -packager--${{ runner.os }}--${{ hashFiles('./htdocs/chartiq/.packager/package.json') }}
           restore-keys: |
-            packager--${{ runner.os }}--${{ hashFiles('./htdocs/chartiq/.packager/package.json') }}
+            -packager--${{ runner.os }}--${{ hashFiles('./htdocs/chartiq/.packager/package.json') }}
         timeout-minutes: 4
 
       - name: Install dependencies for stx
@@ -168,25 +168,25 @@ jobs:
         uses: actions/cache@v2
         with:
           path: "./node_modules/"
-          key: root--${{ runner.os }}--${{ hashFiles('package.json') }}
+          key: -root--${{ runner.os }}--${{ hashFiles('package.json') }}
 
       - name: Load node_modules (stx)
         uses: actions/cache@v2
         with:
           path: "./stx/node_modules/"
-          key: stx--${{ runner.os }}--${{ hashFiles('./stx/package.json') }}
+          key: -stx--${{ runner.os }}--${{ hashFiles('./stx/package.json') }}
 
       - name: Load node_modules (e2e)
         uses: actions/cache@v2
         with:
           path: "./stx/tests/e2e-v2/node_modules/"
-          key: e2e--${{ runner.os }}--${{ hashFiles('./stx/tests/e2e-v2/node_modules/') }}
+          key: -e2e--${{ runner.os }}--${{ hashFiles('./stx/tests/e2e-v2/node_modules/') }}
 
       - name: Load dist folder
         uses: actions/cache@v2
         with:
           path: "./dist/"
-          key: dist--${{ runner.os }}--${{ hashFiles('./dist/') }}
+          key: -dist--${{ runner.os }}--${{ hashFiles('./dist/') }}
 
       - name: Show Chromedriver version
         run: echo ${{env.CHROMEDRIVER}} | sed 's/./& /g'
@@ -249,25 +249,25 @@ jobs:
           uses: actions/cache@v2
           with:
             path: "./node_modules/"
-            key: root--${{ runner.os }}--${{ hashFiles('package.json') }}
+            key: -root--${{ runner.os }}--${{ hashFiles('package.json') }}
 
         - name: Load node_modules (stx)
           uses: actions/cache@v2
           with:
             path: "./stx/node_modules/"
-            key: stx--${{ runner.os }}--${{ hashFiles('./stx/package.json') }}
+            key: -stx--${{ runner.os }}--${{ hashFiles('./stx/package.json') }}
 
         - name: Load node_modules (e2e)
           uses: actions/cache@v2
           with:
             path: "./stx/tests/e2e-v2/node_modules/"
-            key: e2e--${{ runner.os }}--${{ hashFiles('./stx/tests/e2e-v2/node_modules/') }}
+            key: -e2e--${{ runner.os }}--${{ hashFiles('./stx/tests/e2e-v2/node_modules/') }}
 
         - name: Load dist folder
           uses: actions/cache@v2
           with:
             path: "./dist/"
-            key: dist--${{ runner.os }}--${{ hashFiles('./dist/') }}
+            key: -dist--${{ runner.os }}--${{ hashFiles('./dist/') }}
 
         - name: Show Geckodriver version
           run: echo ${{env.GECKODRIVER}} | sed 's/./& /g'
@@ -311,7 +311,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: "./stx/tests/e2e-v2/node_modules/"
-          key: e2e--${{ runner.os }}--${{ hashFiles('./stx/tests/e2e-v2/node_modules/') }}
+          key: -e2e--${{ runner.os }}--${{ hashFiles('./stx/tests/e2e-v2/node_modules/') }}
 
       - name: Load allure-results from Chrome
         uses: actions/download-artifact@master
