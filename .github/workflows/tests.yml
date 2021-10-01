@@ -19,13 +19,132 @@ env:
   GECKODRIVER: ${{ secrets.GECKODRIVER_VERSION }}
 
 jobs:
-  setup:
+#  setup:
+#    runs-on: ubuntu-latest
+#    strategy:
+#      matrix:
+#        node-version: [ 12.x ]
+#
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v2
+#        with:
+#          persist-credentials: false
+#          fetch-depth: 0
+#          repository: ChartIQ/chartiq-react-app-private
+#          ref: ${{ env.TEST_BRANCH }}
+#
+#      - name: Use Node.js ${{ matrix.node-version }}
+#        uses: actions/setup-node@v1
+#        with:
+#          node-version: ${{ matrix.node-version }}
+#
+#      - name: Clone stx repository
+#        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.STX_BRANCH }}
+#
+#      - name: Cache node modules (root)
+#        uses: actions/cache@v2
+#        id: root
+#        env:
+#          cache-name: root
+#        with:
+#          path: "./node_modules/"
+#          key: -root--${{ runner.os }}--${{ hashFiles('package.json') }}
+#          restore-keys: |
+#            -root--${{ runner.os }}--${{ hashFiles('package.json') }}
+#        timeout-minutes: 4
+#
+#      - name: Cache node modules (stx)
+#        uses: actions/cache@v2
+#        id: stx
+#        env:
+#          cache-name: stx
+#        with:
+#          path: "./stx/node_modules/"
+#          key: -stx--${{ runner.os }}--${{ hashFiles('./stx/package.json') }}
+#          restore-keys: |
+#            -stx--${{ runner.os }}--${{ hashFiles('./stx/package.json') }}
+#        timeout-minutes: 4
+#
+#      - name: Cache dist folder
+#        uses: actions/cache@v2
+#        id: dist
+#        env:
+#          cache-name: dist
+#        with:
+#          path: "./dist/"
+#          key: -dist--${{ runner.os }}--${{ hashFiles('./dist/') }}
+#          restore-keys: |
+#            -dist--${{ runner.os }}--${{ hashFiles('./dist/') }}
+#        timeout-minutes: 4
+#
+#      - name: Cache node modules (e2e)
+#        uses: actions/cache@v2
+#        id: e2e
+#        env:
+#          cache-name: e2e
+#        with:
+#          path: "./stx/tests/e2e-v2/node_modules/"
+#          key: -e2e--${{ runner.os }}--${{ hashFiles('./stx/tests/e2e-v2/node_modules/') }}
+#          restore-keys: |
+#            -e2e--${{ runner.os }}--${{ hashFiles('./stx/tests/e2e-v2/node_modules/') }}
+#        timeout-minutes: 4
+#
+#      - name: Cache node modules (packager)
+#        uses: actions/cache@v2
+#        id: packager
+#        env:
+#          cache-name: packager
+#        with:
+#          path: "./stx/htdocs/chartiq/.packager/node_modules/"
+#          key: -packager--${{ runner.os }}--${{ hashFiles('./htdocs/chartiq/.packager/package.json') }}
+#          restore-keys: |
+#            -packager--${{ runner.os }}--${{ hashFiles('./htdocs/chartiq/.packager/package.json') }}
+#        timeout-minutes: 4
+#
+#      - name: Install dependencies for stx
+#        working-directory: ./stx
+#        run: npm install
+#
+#      - name: Install dependencies for e2e
+#        working-directory: ./stx/tests/e2e-v2
+#        run: npm install
+#
+#      - name: Install dependencies for app
+#        run: npm install
+#
+#      - name: Build project-test
+#        run: npm run build:test
+#
+#      - name: Build project-chartiq
+#        run: npm run build:chartiq
+#
+#      - name: ls -a root
+#        run: ls -a
+#
+#      - name: ls -a ./stx
+#        working-directory: ./stx
+#        run: ls -a
+#
+#      - name: ls -a ./stx/tests/e2e-v2
+#        working-directory: ./stx/tests/e2e-v2
+#        run: ls -a
+#      - name: Prepare application
+#        run: npm run ciq-prep-app
+#
+#      - name: Check tests groups
+#        run: npm run check-specs
+
+  chrome:
     runs-on: ubuntu-latest
+#    needs: setup
+    if: ${{ !cancelled() }}
     strategy:
       matrix:
         node-version: [ 12.x ]
 
     steps:
+
       - name: Checkout
         uses: actions/checkout@v2
         with:
@@ -42,65 +161,34 @@ jobs:
       - name: Clone stx repository
         run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.STX_BRANCH }}
 
-      - name: Cache node modules (root)
-        uses: actions/cache@v2
-        id: root
-        env:
-          cache-name: root
+      - name: Set timezone
+        uses: szenius/set-timezone@v1.0
         with:
-          path: "./node_modules/"
-          key: -root--${{ runner.os }}--${{ hashFiles('package.json') }}
-          restore-keys: |
-            -root--${{ runner.os }}--${{ hashFiles('package.json') }}
-        timeout-minutes: 4
+          timezoneLinux: "America/New_York"
 
-      - name: Cache node modules (stx)
-        uses: actions/cache@v2
-        id: stx
-        env:
-          cache-name: stx
-        with:
-          path: "./stx/node_modules/"
-          key: -stx--${{ runner.os }}--${{ hashFiles('./stx/package.json') }}
-          restore-keys: |
-            -stx--${{ runner.os }}--${{ hashFiles('./stx/package.json') }}
-        timeout-minutes: 4
-
-      - name: Cache dist folder
-        uses: actions/cache@v2
-        id: dist
-        env:
-          cache-name: dist
-        with:
-          path: "./dist/"
-          key: -dist--${{ runner.os }}--${{ hashFiles('./dist/') }}
-          restore-keys: |
-            -dist--${{ runner.os }}--${{ hashFiles('./dist/') }}
-        timeout-minutes: 4
-
-      - name: Cache node modules (e2e)
-        uses: actions/cache@v2
-        id: e2e
-        env:
-          cache-name: e2e
-        with:
-          path: "./stx/tests/e2e-v2/node_modules/"
-          key: -e2e--${{ runner.os }}--${{ hashFiles('./stx/tests/e2e-v2/node_modules/') }}
-          restore-keys: |
-            -e2e--${{ runner.os }}--${{ hashFiles('./stx/tests/e2e-v2/node_modules/') }}
-        timeout-minutes: 4
-
-      - name: Cache node modules (packager)
-        uses: actions/cache@v2
-        id: packager
-        env:
-          cache-name: packager
-        with:
-          path: "./stx/htdocs/chartiq/.packager/node_modules/"
-          key: -packager--${{ runner.os }}--${{ hashFiles('./htdocs/chartiq/.packager/package.json') }}
-          restore-keys: |
-            -packager--${{ runner.os }}--${{ hashFiles('./htdocs/chartiq/.packager/package.json') }}
-        timeout-minutes: 4
+#      - name: Load node_modules (root)
+#        uses: actions/cache@v2
+#        with:
+#          path: "./node_modules/"
+#          key: -root--${{ runner.os }}--${{ hashFiles('package.json') }}
+#
+#      - name: Load node_modules (stx)
+#        uses: actions/cache@v2
+#        with:
+#          path: "./stx/node_modules/"
+#          key: -stx--${{ runner.os }}--${{ hashFiles('./stx/package.json') }}
+#
+#      - name: Load node_modules (e2e)
+#        uses: actions/cache@v2
+#        with:
+#          path: "./stx/tests/e2e-v2/node_modules/"
+#          key: -e2e--${{ runner.os }}--${{ hashFiles('./stx/tests/e2e-v2/node_modules/') }}
+#
+#      - name: Load dist folder
+#        uses: actions/cache@v2
+#        with:
+#          path: "./dist/"
+#          key: -dist--${{ runner.os }}--${{ hashFiles('./dist/') }}
 
       - name: Install dependencies for stx
         working-directory: ./stx
@@ -119,92 +207,12 @@ jobs:
       - name: Build project-chartiq
         run: npm run build:chartiq
 
-      - name: ls -a root
-        run: ls -a
-
-      - name: ls -a ./stx
-        working-directory: ./stx
-        run: ls -a
-
-      - name: ls -a ./stx/tests/e2e-v2
-        working-directory: ./stx/tests/e2e-v2
-        run: ls -a
-#      - name: Prepare application
-#        run: npm run ciq-prep-app
-#
-#      - name: Check tests groups
-#        run: npm run check-specs
-
-  chrome:
-    runs-on: ubuntu-latest
-    needs: setup
-    if: ${{ !cancelled() }}
-    strategy:
-      matrix:
-        node-version: [ 12.x ]
-
-    steps:
-
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          repository: ChartIQ/chartiq-react-app-private
-          ref: ${{ env.TEST_BRANCH }}
-
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: Set timezone
-        uses: szenius/set-timezone@v1.0
-        with:
-          timezoneLinux: "America/New_York"
-
-      - name: Clone stx repository
-        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.STX_BRANCH }}
-
-      - name: Load node_modules (root)
-        uses: actions/cache@v2
-        with:
-          path: "./node_modules/"
-          key: -root--${{ runner.os }}--${{ hashFiles('package.json') }}
-
-      - name: Load node_modules (stx)
-        uses: actions/cache@v2
-        with:
-          path: "./stx/node_modules/"
-          key: -stx--${{ runner.os }}--${{ hashFiles('./stx/package.json') }}
-
-      - name: Load node_modules (e2e)
-        uses: actions/cache@v2
-        with:
-          path: "./stx/tests/e2e-v2/node_modules/"
-          key: -e2e--${{ runner.os }}--${{ hashFiles('./stx/tests/e2e-v2/node_modules/') }}
-
-      - name: Load dist folder
-        uses: actions/cache@v2
-        with:
-          path: "./dist/"
-          key: -dist--${{ runner.os }}--${{ hashFiles('./dist/') }}
-
       - name: Show Chromedriver version
         run: echo ${{env.CHROMEDRIVER}} | sed 's/./& /g'
 
       - name: Install chromedriver version from secret
         if: ${{ env.CHROMEDRIVER != NaN && env.CHROMEDRIVER != '' && env.CHROMEDRIVER }}
         run: CHROMEDRIVER_VERSION=${{ env.CHROMEDRIVER }} npm install chromedriver --save-dev
-
-      - name: ls -a root
-        run: ls -a
-
-      - name: ls -a ./stx
-        working-directory: ./stx/node_modules
-        run: ls -a
-
-      - name: ls -a ./stx/tests/e2e-v2
-        working-directory: ./stx/tests/e2e-v2/node_modules
-        run: ls -a
 
       - name: Run e2e-v2 tests with Chrome browser
         run: npm run test-chrome-ci
@@ -218,7 +226,7 @@ jobs:
 
   firefox:
     runs-on: ubuntu-latest
-    needs: setup
+#    needs: setup
     if: ${{ !cancelled() }}
     strategy:
       matrix:
@@ -245,29 +253,46 @@ jobs:
         - name: Clone stx repository
           run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.STX_BRANCH }}
 
-        - name: Load node_modules (root)
-          uses: actions/cache@v2
-          with:
-            path: "./node_modules/"
-            key: -root--${{ runner.os }}--${{ hashFiles('package.json') }}
+#        - name: Load node_modules (root)
+#          uses: actions/cache@v2
+#          with:
+#            path: "./node_modules/"
+#            key: -root--${{ runner.os }}--${{ hashFiles('package.json') }}
+#
+#        - name: Load node_modules (stx)
+#          uses: actions/cache@v2
+#          with:
+#            path: "./stx/node_modules/"
+#            key: -stx--${{ runner.os }}--${{ hashFiles('./stx/package.json') }}
+#
+#        - name: Load node_modules (e2e)
+#          uses: actions/cache@v2
+#          with:
+#            path: "./stx/tests/e2e-v2/node_modules/"
+#            key: -e2e--${{ runner.os }}--${{ hashFiles('./stx/tests/e2e-v2/node_modules/') }}
+#
+#        - name: Load dist folder
+#          uses: actions/cache@v2
+#          with:
+#            path: "./dist/"
+#            key: -dist--${{ runner.os }}--${{ hashFiles('./dist/') }}
 
-        - name: Load node_modules (stx)
-          uses: actions/cache@v2
-          with:
-            path: "./stx/node_modules/"
-            key: -stx--${{ runner.os }}--${{ hashFiles('./stx/package.json') }}
+        - name: Install dependencies for stx
+          working-directory: ./stx
+          run: npm install
 
-        - name: Load node_modules (e2e)
-          uses: actions/cache@v2
-          with:
-            path: "./stx/tests/e2e-v2/node_modules/"
-            key: -e2e--${{ runner.os }}--${{ hashFiles('./stx/tests/e2e-v2/node_modules/') }}
+        - name: Install dependencies for e2e
+          working-directory: ./stx/tests/e2e-v2
+          run: npm install
 
-        - name: Load dist folder
-          uses: actions/cache@v2
-          with:
-            path: "./dist/"
-            key: -dist--${{ runner.os }}--${{ hashFiles('./dist/') }}
+        - name: Install dependencies for app
+          run: npm install
+
+        - name: Build project-test
+          run: npm run build:test
+
+        - name: Build project-chartiq
+          run: npm run build:chartiq
 
         - name: Show Geckodriver version
           run: echo ${{env.GECKODRIVER}} | sed 's/./& /g'
