@@ -199,11 +199,11 @@ jobs:
         run: ls -a
 
       - name: ls -a ./stx
-        working-directory: ./stx
+        working-directory: ./stx/node_modules
         run: ls -a
 
       - name: ls -a ./stx/tests/e2e-v2
-        working-directory: ./stx/tests/e2e-v2
+        working-directory: ./stx/tests/e2e-v2/node_modules
         run: ls -a
 
       - name: Run e2e-v2 tests with Chrome browser
