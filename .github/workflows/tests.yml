@@ -93,9 +93,9 @@ jobs:
         #if: ${{steps.root.outputs.cache-hit != 'true'}}
         run: npm run build:chartiq
 
-      - name: Prepare application
-        #if: ${{steps.root.outputs.cache-hit != 'true'}}
-        run: npm run ciq-prep-app
+#      - name: Prepare application
+#        #if: ${{steps.root.outputs.cache-hit != 'true'}}
+#        run: npm run ciq-prep-app
 
       - name: Check tests groups
         run: npm run check-specs
