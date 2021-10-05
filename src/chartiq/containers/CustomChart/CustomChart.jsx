@@ -541,6 +541,11 @@ export default class CustomChart extends React.Component {
 												<cq-menu-container cq-name="menuYAxisPreferences"></cq-menu-container>
 												<cq-separator></cq-separator>
 											</cq-menu-dropdown-section>
+											<cq-menu-dropdown-section class="chart-addons">
+												<cq-heading>Additional Features</cq-heading>
+												<cq-menu-container cq-name="menuAddOns"></cq-menu-container>
+												<cq-separator></cq-separator>
+											</cq-menu-dropdown-section>
 											<cq-menu-dropdown-section class="chart-theme">
 												<cq-heading>Themes</cq-heading>
 												<cq-themes></cq-themes>
@@ -559,13 +564,6 @@ export default class CustomChart extends React.Component {
 												<cq-item stxsetget="Layout.Language()">
 													<cq-flag></cq-flag>
 													<cq-language-name>Change Language</cq-language-name>
-												</cq-item>
-											</cq-menu-dropdown-section>
-											<cq-menu-dropdown-section className="shortcuts-ui">
-												<cq-separator></cq-separator>
-												<cq-heading>Shortcuts</cq-heading>
-												<cq-item stxtap="Layout.showShortcuts(true)">
-													Shortcuts / Hotkeys
 												</cq-item>
 											</cq-menu-dropdown-section>
 											<cq-menu-dropdown-section class="chart-preferences">
