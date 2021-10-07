@@ -25,7 +25,7 @@ exports.wdioConfigReact = {
 		[
 			"./stx/tests/e2e-v2/specs/sample-template-advanced/table-view.spec.js",
 			"./stx/tests/e2e-v2/specs/sample-template-advanced/dialogs/data-dialog.spec.js",
-			"./stx/tests/e2e-v2/specs/sample-template-advals nced/studies-beta-adv.spec.js",
+			"./stx/tests/e2e-v2/specs/sample-template-advanced/studies-beta-adv.spec.js",
 			"./stx/tests/e2e-v2/specs/sample-template-advanced/comparison-component-adv.spec.js",
 			"./stx/tests/e2e-v2/specs/sample-template-advanced/message-toaster-adv.spec.js",
 			"./stx/tests/e2e-v2/specs/sample-template-advanced/menu-dropdown-component-adv.spec.js"
