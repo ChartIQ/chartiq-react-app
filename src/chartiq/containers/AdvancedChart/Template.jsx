@@ -267,7 +267,7 @@ export default function ({ pluginToggles }) {
 									<cq-separator></cq-separator>
 								</cq-menu-dropdown-section>
 								<cq-menu-dropdown-section class="chart-addons">
-								<cq-heading>Additional Features</cq-heading>
+									<cq-heading>Additional Features</cq-heading>
 									<cq-menu-container cq-name="menuAddOns"></cq-menu-container>
 									<cq-separator></cq-separator>
 								</cq-menu-dropdown-section>
