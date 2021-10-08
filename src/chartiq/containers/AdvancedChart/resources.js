@@ -20,6 +20,8 @@ import marker from 'chartiq/examples/markers/markersSample';
 import 'chartiq/examples/markers/tradeAnalyticsSample';
 import 'chartiq/examples/markers/videoSample';
 
+// import 'chartiq/examples/help/helpContent.js'
+
 import quoteFeed from "chartiq/examples/feeds/quoteFeedSimulator";
 
 // Uncomment the following for the forecasting simulator (required for the forecasting sample).

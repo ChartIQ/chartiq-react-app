@@ -22,6 +22,8 @@ import 'chartiq/examples/markers/videoSample';
 
 import "chartiq/js/extras/svgcharts/piechart";
 
+// import 'chartiq/examples/help/helpContent.js'
+
 import quoteFeed from "chartiq/examples/feeds/quoteFeedSimulator";
 
 // Uncomment the following for the forecasting simulator (required for the forecasting sample).
