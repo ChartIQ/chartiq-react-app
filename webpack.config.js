@@ -53,6 +53,13 @@ module.exports = env => {
                         'sass-loader'
                     ]
                 },
+                /* font bundling rule, fonts are referenced via css */
+                {
+                    test: /\.(woff|woff2)$/,
+                    use: {
+                        loader: "url-loader"
+                    }
+                },
                 /* image bundling rule, images are referenced via css */
                 {
                     test: /\.(jpg|gif|png|svg|cur)$/,
@@ -67,10 +74,15 @@ module.exports = env => {
                         }
                     ]
                 },
+                /* import.meta support for webpack 4 */
+                {
+                    test: /\.js$/,
+                    loader: require.resolve("@open-wc/webpack-import-meta-loader")
+                },
                 /* Javascript and JSX loading */
                 {
                     test: /\.(js|jsx)$/,
-                    include: [/src/, /node_modules/],
+                    include: [/src/],
                     exclude: [/translationSample/],
                     // exclude: [/node_modules/,/\.spec\.js$/, /translationSample/, /webcomponent-containers/],
                     use: {
@@ -90,7 +102,7 @@ module.exports = env => {
                 checkResource 
             }),
             new MiniCssExtractPlugin({
-                fileNname: '[name].css'
+                filename: '[name].css'
             }),
             new CopyPlugin({
                 patterns: [

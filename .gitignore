@@ -13,8 +13,19 @@ chartiq-*.*.*.tgz
 # Ignore built files
 dist
 
+# Ignore error screenshots
+tests/errorShots
+
 #Ignore any workspace files
+*.project
 *.code-workspace
 *.sublime-workspace
 *.sublime-project
-*.project
+*~
+
+#Ignore stx folder
+stx
+
+#Ignore allure reports
+allure-report
+allure-results
