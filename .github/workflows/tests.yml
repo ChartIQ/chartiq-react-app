@@ -76,6 +76,18 @@ jobs:
             e2e--${{ runner.os }}-${{ hashFiles('./stx/tests/e2e-v2/package.json') }}
         timeout-minutes: 4
 
+      - name: Cache node modules (packager)
+        uses: actions/cache@v2
+        id: packager
+        env:
+          cache-name: packager
+        with:
+          path: "./stx/htdocs/chartiq/.packager/node_modules/"
+          key: -packager--${{ runner.os }}--${{ hashFiles('./htdocs/chartiq/.packager/package.json') }}
+          restore-keys: |
+            -packager--${{ runner.os }}--${{ hashFiles('./htdocs/chartiq/.packager/package.json') }}
+          timeout-minutes: 4
+
       - name: Cache dist folder
         uses: actions/cache@v2
         id: dist
@@ -157,6 +169,12 @@ jobs:
           path: "./stx/tests/e2e-v2/node_modules/"
           key: e2e--${{ runner.os }}-${{ hashFiles('./stx/tests/e2e-v2/package.json') }}
 
+      - name: Load node_modules (packager)
+        uses: actions/cache@v2
+        with:
+          path: "./stx/htdocs/chartiq/.packager/node_modules/"
+          key: -packager--${{ runner.os }}--${{ hashFiles('./stx/htdocs/chartiq/.packager/package.json') }}
+
       - name: Load dist folder
         uses: actions/cache@v2
         with:
@@ -227,6 +245,12 @@ jobs:
         with:
           path: "./stx/tests/e2e-v2/node_modules/"
           key: e2e--${{ runner.os }}-${{ hashFiles('./stx/tests/e2e-v2/package.json') }}
+
+      - name: Load node_modules (packager)
+        uses: actions/cache@v2
+        with:
+          path: "./stx/htdocs/chartiq/.packager/node_modules/"
+          key: -packager--${{ runner.os }}--${{ hashFiles('./stx/htdocs/chartiq/.packager/package.json') }}
 
       - name: Load dist folder
         uses: actions/cache@v2
