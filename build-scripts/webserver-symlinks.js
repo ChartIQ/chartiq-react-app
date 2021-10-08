@@ -12,7 +12,7 @@ createSymlink({
   symlink: "../dist/test-lib"
 });
 createSymlink({
-  target: "../node_modules/@chartiq/ui-tests/test-rigs-automated",
+  target: "../dist/test-lib/test-rigs-automated",
   symlink: "../dist/test-rigs-automated"
 });
 // Symlink techical-analysis folder to index.html file so that routes work

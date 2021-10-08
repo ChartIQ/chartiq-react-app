@@ -2,7 +2,7 @@ const fs = require('fs');
 const StaticServer = require('static-server');
 let ci = process.env.CI;
 const path = require('path');
-global.downloadDir = path.join(__dirname, 'stx/tests/e2e-v2/tempDownload');
+global.downloadDir = path.join(__dirname, './dist/test-lib/tempDownload');
 
 exports.wdioConfigReact = {
 	appName: 'chartiq-react-app',
@@ -24,6 +24,7 @@ exports.wdioConfigReact = {
 		],
 		[
 			"./stx/tests/e2e-v2/specs/sample-template-advanced/table-view.spec.js",
+			"./stx/tests/e2e-v2/specs/sample-template-advanced/dialogs/data-dialog.spec.js",
 			"./stx/tests/e2e-v2/specs/sample-template-advanced/studies-beta-adv.spec.js",
 			"./stx/tests/e2e-v2/specs/sample-template-advanced/comparison-component-adv.spec.js",
 			"./stx/tests/e2e-v2/specs/sample-template-advanced/message-toaster-adv.spec.js",

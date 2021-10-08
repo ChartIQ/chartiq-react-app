@@ -307,3 +307,4 @@ jobs:
       - name: Show the allure report location
         if: ${{ failure() || success() }}
         run: echo http://react-app-allurereports.chartiq.com.s3-website-us-east-1.amazonaws.com/${{ github.sha }}/
+

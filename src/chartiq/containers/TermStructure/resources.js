@@ -1,22 +1,22 @@
 // Required imports from chartiq for advanced chart
-import "chartiq/js/standard.js";
-import { CIQ } from "chartiq/js/components.js";
-import "chartiq/plugins/crosssection/core.js";
-import "chartiq/plugins/crosssection/datepicker.js";
-import "chartiq/plugins/crosssection/ui.js";
-import "chartiq/plugins/crosssection/timelineDateSelector.js";
-import quoteFeed from "chartiq/examples/feeds/termstructureDataSimulator.js";
+import "chartiq/js/standard";
+import { CIQ } from "chartiq/js/components";
+import "chartiq/plugins/crosssection/core";
+import "chartiq/plugins/crosssection/datepicker";
+import "chartiq/plugins/crosssection/ui";
+import "chartiq/plugins/crosssection/timelineDateSelector";
+import quoteFeed from "chartiq/examples/feeds/termstructureDataSimulator";
 
 import "chartiq/plugins/crosssection/sample.css"
 /* Template-specific imports */
-import defaultConfig from "chartiq/js/defaultConfiguration.js";
+import defaultConfig from "chartiq/js/defaultConfiguration";
 
 import PerfectScrollbar from "chartiq/js/thirdparty/perfect-scrollbar.esm.js";
 
-import "chartiq/examples/feeds/symbolLookupChartIQ.js";
+import "chartiq/examples/feeds/symbolLookupChartIQ";
 
-import "chartiq/examples/markets/marketDefinitionsSample.js";
-import "chartiq/examples/markets/marketSymbologySample.js";
+import "chartiq/examples/markets/marketDefinitionsSample";
+import "chartiq/examples/markets/marketSymbologySample";
 
 // Creates a complete customised configuration object
 function getConfig() { 
