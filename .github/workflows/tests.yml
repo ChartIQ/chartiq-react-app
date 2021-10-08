@@ -223,6 +223,15 @@ jobs:
 #        working-directory: ./stx/tests/e2e-v2
 #        run: CHROMEDRIVER_VERSION=${{ env.CHROMEDRIVER }} npm install chromedriver --save-dev
 
+      - name: Build project-test
+        run: npm run build:test
+
+      - name: Build project-chartiq
+        run: npm run build:chartiq
+
+      - name: Prepare application
+        run: npm run ciq-prep-app
+
       - name: Run e2e-v2 tests with Chrome browser
         run: npm run test-chrome-ci
 
@@ -305,6 +314,15 @@ jobs:
 #        if: ${{ env.GECKODRIVER != NaN && env.GECKODRIVER != '' && env.GECKODRIVER }}
 #        working-directory: ./stx/tests/e2e-v2
 #        run: GECKODRIVER_VERSION=${{ env.GECKODRIVER }} npm install geckodriver --save-dev
+
+      - name: Build project-test
+        run: npm run build:test
+
+      - name: Build project-chartiq
+        run: npm run build:chartiq
+
+      - name: Prepare application
+        run: npm run ciq-prep-app
 
       - name: Run e2e-v2 tests with Firefox browser
         run: npm run test-ff-ci
