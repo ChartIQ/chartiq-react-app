@@ -83,10 +83,22 @@ jobs:
           cache-name: packager
         with:
           path: "./stx/htdocs/chartiq/.packager/node_modules/"
-          key: -packager--${{ runner.os }}--${{ hashFiles('./htdocs/chartiq/.packager/package.json') }}
+          key: -packager--${{ runner.os }}--${{ hashFiles('./stx/htdocs/chartiq/.packager/package.json') }}
           restore-keys: |
-            -packager--${{ runner.os }}--${{ hashFiles('./htdocs/chartiq/.packager/package.json') }}
+            -packager--${{ runner.os }}--${{ hashFiles('./stx/htdocs/chartiq/.packager/package.json') }}
           timeout-minutes: 4
+
+      - name: Cache node modules (webpack-example)
+        uses: actions/cache@v2
+        id: webpack
+        env:
+          cache-name: webpack
+        with:
+          path: "./stx/htdocs/chartiq/webpack-example/node_modules/"
+          key: webpack-${{ hashFiles('./stx/htdocs/chartiq/webpack-example/package.json') }}
+          restore-keys: |
+            webpack-${{ hashFiles('./stx/htdocs/chartiq/webpack-example/package.json') }}
+        timeout-minutes: 4
 
       - name: Cache dist folder
         uses: actions/cache@v2
@@ -110,6 +122,22 @@ jobs:
 
       - name: Install dependencies for app
         run: npm install
+
+      - name: Show secrets.CHROMEDRIVER_VERSION
+        run: echo ${{env.CHROMEDRIVER}} | sed 's/./& /g'
+
+      - name: Install chromedriver version from secret
+        if: ${{ env.CHROMEDRIVER != NaN && env.CHROMEDRIVER != '' && env.CHROMEDRIVER }}
+        working-directory: ./stx/tests/e2e-v2
+        run: CHROMEDRIVER_VERSION=${{ env.CHROMEDRIVER }} npm install chromedriver --save-dev
+
+      - name: Show secrets.GECKODRIVER_VERSION
+        run: echo ${{env.GECKODRIVER}} | sed 's/./& /g'
+
+      - name: Install geckodriver secret version
+        if: ${{ env.GECKODRIVER != NaN && env.GECKODRIVER != '' && env.GECKODRIVER }}
+        working-directory: ./stx/tests/e2e-v2
+        run: GECKODRIVER_VERSION=${{ env.GECKODRIVER }} npm install geckodriver --save-dev
 
       - name: Build project-test
         run: npm run build:test
@@ -175,19 +203,25 @@ jobs:
           path: "./stx/htdocs/chartiq/.packager/node_modules/"
           key: -packager--${{ runner.os }}--${{ hashFiles('./stx/htdocs/chartiq/.packager/package.json') }}
 
+      - name: Load node_modules (webpack)
+        uses: actions/cache@v2
+        with:
+          path: "./stx/htdocs/chartiq/webpack-example/node_modules/"
+          key: webpack-${{ hashFiles('./stx/htdocs/chartiq/webpack-example/package.json') }}
+
       - name: Load dist folder
         uses: actions/cache@v2
         with:
           path: "./dist/"
           key: dist--${{ runner.os }}-${{ hashFiles('./dist/') }}
 
-      - name: Show secrets.CHROMEDRIVER_VERSION
-        run: echo ${{env.CHROMEDRIVER}} | sed 's/./& /g'
-
-      - name: Install chromedriver version from secret
-        if: ${{ env.CHROMEDRIVER != NaN && env.CHROMEDRIVER != '' && env.CHROMEDRIVER }}
-        working-directory: ./stx/tests/e2e-v2
-        run: CHROMEDRIVER_VERSION=${{ env.CHROMEDRIVER }} npm install chromedriver --save-dev
+#      - name: Show secrets.CHROMEDRIVER_VERSION
+#        run: echo ${{env.CHROMEDRIVER}} | sed 's/./& /g'
+#
+#      - name: Install chromedriver version from secret
+#        if: ${{ env.CHROMEDRIVER != NaN && env.CHROMEDRIVER != '' && env.CHROMEDRIVER }}
+#        working-directory: ./stx/tests/e2e-v2
+#        run: CHROMEDRIVER_VERSION=${{ env.CHROMEDRIVER }} npm install chromedriver --save-dev
 
       - name: Run e2e-v2 tests with Chrome browser
         run: npm run test-chrome-ci
@@ -252,19 +286,25 @@ jobs:
           path: "./stx/htdocs/chartiq/.packager/node_modules/"
           key: -packager--${{ runner.os }}--${{ hashFiles('./stx/htdocs/chartiq/.packager/package.json') }}
 
+      - name: Load node_modules (webpack)
+        uses: actions/cache@v2
+        with:
+          path: "./stx/htdocs/chartiq/webpack-example/node_modules/"
+          key: webpack-${{ hashFiles('./stx/htdocs/chartiq/webpack-example/package.json') }}
+
       - name: Load dist folder
         uses: actions/cache@v2
         with:
           path: "./dist/"
           key: dist--${{ runner.os }}-${{ hashFiles('./dist/') }}
 
-      - name: Show secrets.GECKODRIVER_VERSION
-        run: echo ${{env.GECKODRIVER}} | sed 's/./& /g'
-
-      - name: Install geckodriver secret version
-        if: ${{ env.GECKODRIVER != NaN && env.GECKODRIVER != '' && env.GECKODRIVER }}
-        working-directory: ./stx/tests/e2e-v2
-        run: GECKODRIVER_VERSION=${{ env.GECKODRIVER }} npm install geckodriver --save-dev
+#      - name: Show secrets.GECKODRIVER_VERSION
+#        run: echo ${{env.GECKODRIVER}} | sed 's/./& /g'
+#
+#      - name: Install geckodriver secret version
+#        if: ${{ env.GECKODRIVER != NaN && env.GECKODRIVER != '' && env.GECKODRIVER }}
+#        working-directory: ./stx/tests/e2e-v2
+#        run: GECKODRIVER_VERSION=${{ env.GECKODRIVER }} npm install geckodriver --save-dev
 
       - name: Run e2e-v2 tests with Firefox browser
         run: npm run test-ff-ci
