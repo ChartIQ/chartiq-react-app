@@ -1,15 +1,20 @@
 name: Run E2E Tests React-app
 
 on:
-  repository_dispatch:
-    types: [ regression_test_run ]
+  workflow_dispatch:
+    inputs:
+      testBranch:
+        description: 'React App branch name'
+        required: true
+      stxBranch:
+        description: 'Stx branch name'
+        required: true
   push:
-    branches:
-      - 'POC'
 
 env:
-  TEST_BRANCH: ${{ github.event.client_payload.github.event.head_commit.test_branch != NaN && github.event.client_payload.github.event.head_commit.test_branch || 'POC' }}
-  STX_BRANCH: ${{ github.event.client_payload.github.event.head_commit.stx_branch != NaN && github.event.client_payload.github.event.head_commit.stx_branch || 'new-tests-package' }}
+  # If available, use the react-app branch from the dispatch UI input, otherwise use the branch from the triggering event (commit).
+  TEST_BRANCH: ${{ github.event.inputs.testBranch != NaN && github.event.inputs.testBranch || github.event.client_payload.github.event.head_commit.test_branch != NaN && github.event.client_payload.github.event.head_commit.test_branch }}
+  STX_BRANCH: ${{ github.event.inputs.stxBranch != NaN && github.event.inputs.stxBranch || 'master' }}
 
 jobs:
   setup:
@@ -41,7 +46,9 @@ jobs:
           cache-name: root
         with:
           path: "./node_modules/"
-          key: root-${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('package-lock.json') }}
+          key: root--${{ runner.os }}-${{ hashFiles('package.json') }}
+          restore-keys: |
+            root--${{ runner.os }}-${{ hashFiles('package.json') }}
         timeout-minutes: 4
 
       - name: Cache node modules (stx)
@@ -51,7 +58,9 @@ jobs:
           cache-name: stx
         with:
           path: "./stx/node_modules/"
-          key: stx-
+          key: stx--${{ runner.os }}-${{ hashFiles('./stx/package.json') }}
+          restore-keys: |
+            stx--${{ runner.os }}-${{ hashFiles('./stx/package.json') }}
         timeout-minutes: 4
 
       - name: Cache dist folder
@@ -61,58 +70,38 @@ jobs:
           cache-name: dist
         with:
           path: "./dist/"
-          key: dist-${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('./dist/') }}
-        timeout-minutes: 4
-
-      - name: Cache node modules (webpack-example)
-        uses: actions/cache@v2
-        id: webpack
-        env:
-          cache-name: webpack
-        with:
-          path: "./stx/htdocs/chartiq/webpack-example/node_modules/"
-          key: node_modules_webpack-${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('./htdocs/chartiq/webpack-example/package-lock.json') }}
+          key: dist--${{ runner.os }}-${{ hashFiles('./dist/') }}
           restore-keys: |
-            node_modules_webpack-
-        timeout-minutes: 4
-
-      - name: Cache node modules (packager)
-        uses: actions/cache@v2
-        id: packager
-        env:
-          cache-name: packager
-        with:
-          path: "./stx/htdocs/chartiq/.packager/node_modules/"
-          key: node_modules_packager-${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('./htdocs/chartiq/.packager/package-lock.json') }}
-          restore-keys: |
-            node_modules_packager-
+            dist--${{ runner.os }}-${{ hashFiles('./dist/') }}
         timeout-minutes: 4
 
       - name: Install dependencies for stx
-        if: ${{steps.packager.outputs.cache-hit != 'true' || steps.webpack.outputs.cache-hit != 'true' || steps.root.outputs.cache-hit != 'true'}}
+        #if: ${{steps.packager.outputs.cache-hit != 'true' || steps.webpack.outputs.cache-hit != 'true' || steps.stx.outputs.cache-hit != 'true'}}
         working-directory: ./stx
         run: npm install
 
       - name: Install dependencies for app
-        if: ${{steps.root.outputs.cache-hit != 'true'}}
+        #if: ${{steps.root.outputs.cache-hit != 'true'}}
         run: npm install
 
       - name: Build project-test
-        if: ${{steps.root.outputs.cache-hit != 'true'}}
+        #if: ${{steps.root.outputs.cache-hit != 'true'}}
         run: npm run build:test
 
       - name: Build project-chartiq
-        if: ${{steps.root.outputs.cache-hit != 'true'}}
+        #if: ${{steps.root.outputs.cache-hit != 'true'}}
         run: npm run build:chartiq
 
       - name: Prepare application
-        if: ${{steps.root.outputs.cache-hit != 'true'}}
+        #if: ${{steps.root.outputs.cache-hit != 'true'}}
         run: npm run ciq-prep-app
+
+      - name: Check tests groups
+        run: npm run check-specs
 
   chrome:
     runs-on: ubuntu-latest
     needs: setup
-    if: always()
     strategy:
       matrix:
         node-version: [ 12.x ]
@@ -130,6 +119,11 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
+      - name: Setup chrome
+        uses: browser-actions/setup-chrome@latest
+        with:
+          chrome-version: stable
+
       - name: Set timezone
         uses: szenius/set-timezone@v1.0
         with:
@@ -142,38 +136,25 @@ jobs:
         uses: actions/cache@v2
         with:
           path: "./node_modules/"
-          key: root-
+          key: root--${{ runner.os }}-${{ hashFiles('package.json') }}
 
       - name: Load node_modules (stx)
         uses: actions/cache@v2
         with:
           path: "./tests/e2e-v2/node_modules/"
-          key: node_modules_tests-
+          key: stx--${{ runner.os }}-${{ hashFiles('./stx/package.json') }}
 
       - name: Load dist folder
         uses: actions/cache@v2
         with:
           path: "./dist/"
-          key: dist-
-
-      - name: Load node_modules (webpack)
-        uses: actions/cache@v2
-        with:
-          path: "./stx/htdocs/chartiq/webpack-example/node_modules/"
-          key: node_modules_webpack-
-
-      - name: Load node_modules (packager)
-        uses: actions/cache@v2
-        with:
-          path: "./stx/htdocs/chartiq/.packager/node_modules/"
-          key: node_modules_packager-
+          key: dist--${{ runner.os }}-${{ hashFiles('./dist/') }}
 
       - name: Run e2e-v2 tests with Chrome browser
         run: npm run test-chrome-ci
-        if: ${{ always() }}
 
       - name: Save allure-results artifact
-        if: always()
+        if: ${{ success() || failure() }}
         uses: actions/upload-artifact@master
         with:
           name: allure-chrome
@@ -182,9 +163,9 @@ jobs:
   firefox:
     runs-on: ubuntu-latest
     needs: setup
-    if: always()
     strategy:
       matrix:
+        firefox-version: [ '87.0' ]
         node-version: [ 12.x ]
 
     steps:
@@ -200,6 +181,12 @@ jobs:
           with:
             node-version: ${{ matrix.node-version }}
 
+        - name: Setup firefox
+          uses: browser-actions/setup-firefox@latest
+          with:
+            firefox-version: ${{ matrix.firefox-version }}
+        - run: firefox --version
+
         - name: Set timezone
           uses: szenius/set-timezone@v1.0
           with:
@@ -212,38 +199,25 @@ jobs:
           uses: actions/cache@v2
           with:
             path: "./node_modules/"
-            key: root-
+            key: root--${{ runner.os }}-${{ hashFiles('package.json') }}
 
         - name: Load node_modules (stx)
           uses: actions/cache@v2
           with:
             path: "./tests/e2e-v2/node_modules/"
-            key: node_modules_tests-
+            key: stx--${{ runner.os }}-${{ hashFiles('./stx/package.json') }}
 
         - name: Load dist folder
           uses: actions/cache@v2
           with:
             path: "./dist/"
-            key: dist-
-
-        - name: Load node_modules (webpack)
-          uses: actions/cache@v2
-          with:
-            path: "./stx/htdocs/chartiq/webpack-example/node_modules/"
-            key: node_modules_webpack-
-
-        - name: Load node_modules (packager)
-          uses: actions/cache@v2
-          with:
-            path: "./stx/htdocs/chartiq/.packager/node_modules/"
-            key: node_modules_packager-
+            key: dist--${{ runner.os }}-${{ hashFiles('./dist/') }}
 
         - name: Run e2e-v2 tests with Firefox browser
           run: npm run test-ff-ci
-          if: ${{ always() }}
 
         - name: Save allure-results artifact
-          if: always()
+          if: ${{ success() || failure() }}
           uses: actions/upload-artifact@master
           with:
             name: allure-ff
@@ -252,11 +226,10 @@ jobs:
   allure:
     runs-on: ubuntu-latest
     needs: [chrome, firefox]
-    if: always()
+    if: ${{ !cancelled() }}
     strategy:
       matrix:
         node-version: [ 12.x ]
-
 
     steps:
 
@@ -275,7 +248,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: "./node_modules/"
-          key: root-
+          key: root--${{ runner.os }}-${{ hashFiles('package.json') }}
 
       - name: Load allure-results from Chrome
         uses: actions/download-artifact@master
@@ -290,26 +263,19 @@ jobs:
           path: "./allure-results"
 
       - name: Generate allure report
-        if: always()
+        if: ${{ failure() || success() }}
         run: npm run report-ci
         continue-on-error: true
 
       - name: Sync Allure to S3
+        if: ${{ failure() || success() }}
         run: aws s3 sync ./allure-report/ s3://react-app-allurereports.chartiq.com/${{ github.sha }} --acl public-read --delete
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: "us-east-1" # optional: defaults to us-east-1
-        if: ${{ always() }}
 
       - name: Show the allure report location
+        if: ${{ failure() || success() }}
         run: echo http://react-app-allurereports.chartiq.com.s3-website-us-east-1.amazonaws.com/${{ github.sha }}/
-        if: ${{ always() }}
-
-      - name: Upload Allure Report
-        uses: actions/upload-artifact@v2
-        with:
-         name: allure report
-         path: ./allure-report
-        if: ${{ always() }}
 

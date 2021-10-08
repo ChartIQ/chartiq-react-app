@@ -66,3 +66,14 @@ npm run report
 -	`npm run test-ff-ci` - run test groups in parallel in FireFox
 	 - To see these groups go to wdio.conf.js file
 	 - Implemented to reduce the time required for a pipeline(could be used locally)
+
+### specs checker:
+
+- Created to compare specifications from the /stx/tests/e2e-v2/specs/sample-template-advanced folder with specifications that are grouped in wdio.conf.js
+- Specifications specified in wdio.conf.js exclude field will not be considered for the specs checker
+- `npm run check-cpecs` - run specs checker
+- To test specs checker you should:
+	- Comment one of spec from group in wdio.conf.js
+	- Run spec checker (it should return an error with missing spec name)
+	- Copy commented spec into exclude field
+	- Run spec checker (now it should pass)
