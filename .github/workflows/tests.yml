@@ -62,9 +62,8 @@ jobs:
       - name: Install chromedriver version from secret
         if: ${{ env.CHROMEDRIVER != NaN && env.CHROMEDRIVER != '' && env.CHROMEDRIVER }}
         working-directory: ./stx/tests
-        run: npm install chromedriver@90.0.0
-#        run: CHROMEDRIVER_VERSION=${{ env.CHROMEDRIVER }} npm install chromedriver
-
+#        run: npm install chromedriver@90.0.0
+        run: CHROMEDRIVER_VERSION=${{ env.CHROMEDRIVER }} npm install chromedriver
 
       - name: Build project-test
         run: npm run build:test
