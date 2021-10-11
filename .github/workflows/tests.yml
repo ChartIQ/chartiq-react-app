@@ -19,138 +19,67 @@ env:
   GECKODRIVER: ${{ secrets.GECKODRIVER_VERSION }}
 
 jobs:
-  chrome:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [ 12.x ]
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          repository: ChartIQ/chartiq-react-app-private
-          ref: ${{ env.TEST_BRANCH != NaN && env.TEST_BRANCH }}
-
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: Clone stx repository
-        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.STX_BRANCH != NaN && env.STX_BRANCH }}
-
-      - name: Install dependencies for app
-        run: npm install
-
-      - name: Install dependencies for stx
-        working-directory: ./stx
-        run: npm install
-
-      - name: Install dependencies for e2e
-        working-directory: ./stx/tests/e2e-v2
-        run: npm install
-
-      - name: Show secrets.CHROMEDRIVER_VERSION
-        run: echo ${{env.CHROMEDRIVER}} | sed 's/./& /g'
-
-      - name: Install chromedriver version from secret
-        if: ${{ env.CHROMEDRIVER != NaN && env.CHROMEDRIVER != '' && env.CHROMEDRIVER }}
-        working-directory: ./stx/tests
-        run: CHROMEDRIVER_VERSION=${{ env.CHROMEDRIVER }} npm install chromedriver --save-dev
-
-      - name: Build project-test
-        run: npm run build:test
-
-      - name: Build project-chartiq
-        run: npm run build:chartiq
-
-      - name: Prepare application
-        run: npm run ciq-prep-app
-
-      - name: Check tests groups
-        run: npm run check-specs
-
-      - name: Run e2e-v2 tests with Chrome browser
-        run: npm run test-chrome-ci
-
-      - name: Save allure-results artifact
-        if: ${{ success() || failure() }}
-        uses: actions/upload-artifact@master
-        with:
-          name: allure-chrome
-          path: allure-results
-#      - name: Cache node modules (root)
-#        uses: actions/cache@v2
-#        id: root
-#        env:
-#          cache-name: root
-#        with:
-#          path: "./node_modules/"
-#          key: root--${{ runner.os }}-${{ hashFiles('package.json') }}
-#          restore-keys: |
-#            root--${{ runner.os }}-${{ hashFiles('package.json') }}
-#        timeout-minutes: 4
+#  chrome:
+#    runs-on: ubuntu-latest
+#    strategy:
+#      matrix:
+#        node-version: [ 12.x ]
 #
-#      - name: Cache node modules (stx)
-#        uses: actions/cache@v2
-#        id: stx
-#        env:
-#          cache-name: stx
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v2
 #        with:
-#          path: "./stx/node_modules/"
-#          key: stx--${{ runner.os }}-${{ hashFiles('./stx/package.json') }}
-#          restore-keys: |
-#            stx--${{ runner.os }}-${{ hashFiles('./stx/package.json') }}
-#        timeout-minutes: 4
+#          repository: ChartIQ/chartiq-react-app-private
+#          ref: ${{ env.TEST_BRANCH != NaN && env.TEST_BRANCH }}
 #
-#      - name: Cache node modules (e2e)
-#        uses: actions/cache@v2
-#        id: e2e
-#        env:
-#          cache-name: e2e
+#      - name: Use Node.js ${{ matrix.node-version }}
+#        uses: actions/setup-node@v1
 #        with:
-#          path: "./stx/tests/e2e-v2/node_modules/"
-#          key: e2e--${{ runner.os }}-${{ hashFiles('./stx/tests/e2e-v2/package.json') }}
-#          restore-keys: |
-#            e2e--${{ runner.os }}-${{ hashFiles('./stx/tests/e2e-v2/package.json') }}
-#        timeout-minutes: 4
+#          node-version: ${{ matrix.node-version }}
 #
-#      - name: Cache node modules (packager)
-#        uses: actions/cache@v2
-#        id: packager
-#        env:
-#          cache-name: packager
-#        with:
-#          path: "./stx/htdocs/chartiq/.packager/node_modules/"
-#          key: -packager--${{ runner.os }}--${{ hashFiles('./stx/htdocs/chartiq/.packager/package.json') }}
-#          restore-keys: |
-#            -packager--${{ runner.os }}--${{ hashFiles('./stx/htdocs/chartiq/.packager/package.json') }}
-#          timeout-minutes: 4
+#      - name: Clone stx repository
+#        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.STX_BRANCH != NaN && env.STX_BRANCH }}
 #
-#      - name: Cache node modules (webpack-example)
-#        uses: actions/cache@v2
-#        id: webpack
-#        env:
-#          cache-name: webpack
-#        with:
-#          path: "./stx/htdocs/chartiq/webpack-example/node_modules/"
-#          key: webpack-${{ hashFiles('./stx/htdocs/chartiq/webpack-example/package.json') }}
-#          restore-keys: |
-#            webpack-${{ hashFiles('./stx/htdocs/chartiq/webpack-example/package.json') }}
-#        timeout-minutes: 4
+#      - name: Install dependencies for app
+#        run: npm install
 #
-#      - name: Cache dist folder
-#        uses: actions/cache@v2
-#        id: dist
-#        env:
-#          cache-name: dist
+#      - name: Install dependencies for stx
+#        working-directory: ./stx
+#        run: npm install
+#
+#      - name: Install dependencies for e2e
+#        working-directory: ./stx/tests/e2e-v2
+#        run: npm install
+#
+#      - name: Show secrets.CHROMEDRIVER_VERSION
+#        run: echo ${{env.CHROMEDRIVER}} | sed 's/./& /g'
+#
+#      - name: Install chromedriver version from secret
+#        if: ${{ env.CHROMEDRIVER != NaN && env.CHROMEDRIVER != '' && env.CHROMEDRIVER }}
+#        working-directory: ./stx/tests
+#        run: CHROMEDRIVER_VERSION=${{ env.CHROMEDRIVER }} npm install chromedriver --save-dev
+#
+#      - name: Build project-test
+#        run: npm run build:test
+#
+#      - name: Build project-chartiq
+#        run: npm run build:chartiq
+#
+#      - name: Prepare application
+#        run: npm run ciq-prep-app
+#
+#      - name: Check tests groups
+#        run: npm run check-specs
+#
+#      - name: Run e2e-v2 tests with Chrome browser
+#        run: npm run test-chrome-ci
+#
+#      - name: Save allure-results artifact
+#        if: ${{ success() || failure() }}
+#        uses: actions/upload-artifact@master
 #        with:
-#          path: "./dist/"
-#          key: dist--${{ runner.os }}-${{ hashFiles('./dist/') }}
-#          restore-keys: |
-#            dist--${{ runner.os }}-${{ hashFiles('./dist/') }}
-#        timeout-minutes: 4
+#          name: allure-chrome
+#          path: allure-results
 
   firefox:
     runs-on: ubuntu-latest
