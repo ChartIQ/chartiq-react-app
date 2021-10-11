@@ -74,8 +74,8 @@ jobs:
       - name: Prepare application
         run: npm run ciq-prep-app
 
-      - name: Check tests groups
-        run: npm run check-specs
+#      - name: Check tests groups
+#        run: npm run check-specs
 
       - name: Run e2e-v2 tests with Chrome browser
         run: npm run test-chrome-ci
@@ -142,8 +142,8 @@ jobs:
       - name: Prepare application
         run: npm run ciq-prep-app
 
-      - name: Check tests groups
-        run: npm run check-specs
+#      - name: Check tests groups
+#        run: npm run check-specs
 
       - name: Run e2e-v2 tests with Firefox browser
         run: npm run test-ff-ci
