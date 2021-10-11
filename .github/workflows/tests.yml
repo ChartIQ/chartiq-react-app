@@ -195,6 +195,7 @@ jobs:
 
       - name: Install chromedriver version from secret
         if: ${{ env.CHROMEDRIVER != NaN && env.CHROMEDRIVER != '' && env.CHROMEDRIVER }}
+        working-directory: ./stx/tests
         run: CHROMEDRIVER_VERSION=${{ env.CHROMEDRIVER }} npm install chromedriver --save-dev
 
       - name: Build project-test
@@ -286,6 +287,7 @@ jobs:
 
       - name: Install geckodriver secret version
         if: ${{ env.GECKODRIVER != NaN && env.GECKODRIVER != '' && env.GECKODRIVER }}
+        working-directory: ./stx/tests
         run: GECKODRIVER_VERSION=${{ env.GECKODRIVER }} npm install geckodriver --save-dev
 
       - name: Build project-test
