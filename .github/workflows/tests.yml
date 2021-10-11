@@ -56,13 +56,13 @@ jobs:
         working-directory: ./stx
         run: npm install
 
-#      - name: Show secrets.CHROMEDRIVER_VERSION
-#        run: echo ${{env.CHROMEDRIVER}} | sed 's/./& /g'
-#
-#      - name: Install chromedriver version from secret
-#        if: ${{ env.CHROMEDRIVER != NaN && env.CHROMEDRIVER != '' && env.CHROMEDRIVER }}
-#        working-directory: ./stx/tests
-#        run: npm install chromedriver@${{ env.CHROMEDRIVER }}
+      - name: Show secrets.CHROMEDRIVER_VERSION
+        run: echo ${{env.CHROMEDRIVER}} | sed 's/./& /g'
+
+      - name: Install chromedriver version from secret
+        if: ${{ env.CHROMEDRIVER != NaN && env.CHROMEDRIVER != '' && env.CHROMEDRIVER }}
+        working-directory: ./stx/tests
+        run: npm install chromedriver@${{ env.CHROMEDRIVER }}
 
       - name: Build project-test
         run: npm run build:test
@@ -123,13 +123,13 @@ jobs:
         working-directory: ./stx
         run: npm install
 
-#      - name: Show secrets.GECKODRIVER_VERSION
-#        run: echo ${{env.GECKODRIVER}} | sed 's/./& /g'
-#
-#      - name: Install geckodriver secret version
-#        if: ${{ env.GECKODRIVER != NaN && env.GECKODRIVER != '' && env.GECKODRIVER }}
-#        working-directory: ./stx/tests
-#        run: npm install geckodriver@${{ env.GECKODRIVER }}
+      - name: Show secrets.GECKODRIVER_VERSION
+        run: echo ${{env.GECKODRIVER}} | sed 's/./& /g'
+
+      - name: Install geckodriver secret version
+        if: ${{ env.GECKODRIVER != NaN && env.GECKODRIVER != '' && env.GECKODRIVER }}
+        working-directory: ./stx/tests
+        run: npm install geckodriver@${{ env.GECKODRIVER }}
 
       - name: Build project-test
         run: npm run build:test
