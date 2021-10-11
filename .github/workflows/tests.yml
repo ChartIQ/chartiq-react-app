@@ -51,31 +51,6 @@ jobs:
       - name: Install dependencies for app
         run: npm install
 
-      - name: Show secrets.CHROMEDRIVER_VERSION
-        run: echo ${{env.CHROMEDRIVER}} | sed 's/./& /g'
-
-      - name: Install chromedriver version from secret
-        if: ${{ env.CHROMEDRIVER != NaN && env.CHROMEDRIVER != '' && env.CHROMEDRIVER }}
-        working-directory: ./stx/tests/e2e-v2
-        run: CHROMEDRIVER_VERSION=${{ env.CHROMEDRIVER }} npm install chromedriver --save-dev
-
-      - name: Show secrets.GECKODRIVER_VERSION
-        run: echo ${{env.GECKODRIVER}} | sed 's/./& /g'
-
-      - name: Install geckodriver secret version
-        if: ${{ env.GECKODRIVER != NaN && env.GECKODRIVER != '' && env.GECKODRIVER }}
-        working-directory: ./stx/tests/e2e-v2
-        run: GECKODRIVER_VERSION=${{ env.GECKODRIVER }} npm install geckodriver --save-dev
-
-      - name: Build project-test
-        run: npm run build:test
-
-      - name: Build project-chartiq
-        run: npm run build:chartiq
-
-      - name: Prepare application
-        run: npm run ciq-prep-app
-
       - name: Cache node modules (root)
         uses: actions/cache@v2
         id: root
@@ -215,13 +190,12 @@ jobs:
           path: "./dist/"
           key: dist--${{ runner.os }}-${{ hashFiles('./dist/') }}
 
-#      - name: Show secrets.CHROMEDRIVER_VERSION
-#        run: echo ${{env.CHROMEDRIVER}} | sed 's/./& /g'
-#
-#      - name: Install chromedriver version from secret
-#        if: ${{ env.CHROMEDRIVER != NaN && env.CHROMEDRIVER != '' && env.CHROMEDRIVER }}
-#        working-directory: ./stx/tests/e2e-v2
-#        run: CHROMEDRIVER_VERSION=${{ env.CHROMEDRIVER }} npm install chromedriver --save-dev
+      - name: Show secrets.CHROMEDRIVER_VERSION
+        run: echo ${{env.CHROMEDRIVER}} | sed 's/./& /g'
+
+      - name: Install chromedriver version from secret
+        if: ${{ env.CHROMEDRIVER != NaN && env.CHROMEDRIVER != '' && env.CHROMEDRIVER }}
+        run: CHROMEDRIVER_VERSION=${{ env.CHROMEDRIVER }} npm install chromedriver --save-dev
 
       - name: Build project-test
         run: npm run build:test
@@ -307,13 +281,12 @@ jobs:
           path: "./dist/"
           key: dist--${{ runner.os }}-${{ hashFiles('./dist/') }}
 
-#      - name: Show secrets.GECKODRIVER_VERSION
-#        run: echo ${{env.GECKODRIVER}} | sed 's/./& /g'
-#
-#      - name: Install geckodriver secret version
-#        if: ${{ env.GECKODRIVER != NaN && env.GECKODRIVER != '' && env.GECKODRIVER }}
-#        working-directory: ./stx/tests/e2e-v2
-#        run: GECKODRIVER_VERSION=${{ env.GECKODRIVER }} npm install geckodriver --save-dev
+      - name: Show secrets.GECKODRIVER_VERSION
+        run: echo ${{env.GECKODRIVER}} | sed 's/./& /g'
+
+      - name: Install geckodriver secret version
+        if: ${{ env.GECKODRIVER != NaN && env.GECKODRIVER != '' && env.GECKODRIVER }}
+        run: GECKODRIVER_VERSION=${{ env.GECKODRIVER }} npm install geckodriver --save-dev
 
       - name: Build project-test
         run: npm run build:test
