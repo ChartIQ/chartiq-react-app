@@ -197,6 +197,7 @@ jobs:
 
   firefox:
     runs-on: ubuntu-latest
+    needs: setup
     strategy:
       matrix:
         node-version: [ 12.x ]
