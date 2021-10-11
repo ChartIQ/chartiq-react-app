@@ -185,7 +185,7 @@ jobs:
       - name: Install chromedriver version from secret
         if: ${{ env.CHROMEDRIVER != NaN && env.CHROMEDRIVER != '' && env.CHROMEDRIVER }}
         working-directory: ./stx/tests
-#        run: npm install chromedriver@${{ env.CHROMEDRIVER }}
+        #        run: npm install chromedriver@${{ env.CHROMEDRIVER }}
         run: npm install chromedriver@93.0.0
 
       - name: Build project-test
@@ -271,7 +271,7 @@ jobs:
         if: ${{ env.GECKODRIVER != NaN && env.GECKODRIVER != '' && env.GECKODRIVER }}
         working-directory: ./stx/tests
         run: npm install geckodriver@2.0.3
-#        run: npm install geckodriver@${{ env.GECKODRIVER }}
+      #        run: npm install geckodriver@${{ env.GECKODRIVER }}
 
       - name: Build project-test
         run: npm run build:test
@@ -359,4 +359,3 @@ jobs:
       - name: Show the allure report location
         if: ${{ failure() || success() }}
         run: echo http://react-app-allurereports.chartiq.com.s3-website-us-east-1.amazonaws.com/${{ github.sha }}/
-
