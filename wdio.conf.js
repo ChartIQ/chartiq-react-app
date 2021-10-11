@@ -15,7 +15,7 @@ exports.wdioConfigReact = {
 			"./stx/tests/e2e-v2/specs/sample-template-advanced/view-advanced.spec.js",
 			"./stx/tests/e2e-v2/specs/sample-template-advanced/full-screen-adv.spec.js",
 			"./stx/tests/e2e-v2/specs/sample-template-advanced/studies-dialog-adv.spec.js",
-		],
+		]
 		// [
 		// 	"./stx/tests/e2e-v2/specs/sample-template-advanced/studies-price-relative-adv.spec.js",
 		// 	"./stx/tests/e2e-v2/specs/sample-template-advanced/pref-locale-adv.spec.js",
