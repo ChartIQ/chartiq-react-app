@@ -175,6 +175,14 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
+      - name: Set timezone
+        uses: szenius/set-timezone@v1.0
+        with:
+          timezoneLinux: "America/New_York"
+
+      - name: Clone stx repository
+        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.STX_BRANCH != NaN && env.STX_BRANCH }}
+
       - name: Install dependencies for app
         run: npm install
 
@@ -185,6 +193,15 @@ jobs:
       - name: Install dependencies for stx
         working-directory: ./stx
         run: npm install
+
+      - name: Build project-test
+        run: npm run build:test
+
+      - name: Build project-chartiq
+        run: npm run build:chartiq
+
+      - name: Prepare application
+        run: npm run ciq-prep-app
 
       - name: Load allure-results from Chrome
         uses: actions/download-artifact@master
