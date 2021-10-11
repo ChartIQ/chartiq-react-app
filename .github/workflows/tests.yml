@@ -47,6 +47,10 @@ jobs:
         working-directory: ./stx
         run: npm install
 
+      - name: Install dependencies for e2e
+        working-directory: ./stx/tests/e2e-v2
+        run: npm install
+
       - name: Show secrets.CHROMEDRIVER_VERSION
         run: echo ${{env.CHROMEDRIVER}} | sed 's/./& /g'
 
@@ -174,6 +178,10 @@ jobs:
 
       - name: Install dependencies for stx
         working-directory: ./stx
+        run: npm install
+
+      - name: Install dependencies for e2e
+        working-directory: ./stx/tests/e2e-v2
         run: npm install
 
       - name: Show secrets.GECKODRIVER_VERSION
