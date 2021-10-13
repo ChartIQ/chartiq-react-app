@@ -27,6 +27,7 @@ export default function ({ pluginToggles }) {
 				<cq-side-nav cq-on="sidenavOn">
 					<div className="icon-toggles ciq-toggles">
 						<cq-toggle class="ciq-draw" cq-member="drawing">
+							<cq-help help-id="drawing_tools_toggle"></cq-help>
 							<span></span>
 							<cq-tooltip>Draw</cq-tooltip>
 						</cq-toggle>
@@ -396,6 +397,7 @@ export default function ({ pluginToggles }) {
 					stxtap="Layout.showShortcuts()"
 					title="Toggle shortcut legend"
 				></div>
+				<div className="help-ui ciq-help-button" stxtap="Layout.toggleHelp()" title="Toggle Interactive Help"></div>
 				<cq-show-range></cq-show-range>
 			</div>
 
