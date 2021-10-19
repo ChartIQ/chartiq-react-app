@@ -147,6 +147,11 @@ jobs:
         with:
           timezoneLinux: "America/New_York"
 
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
+
       - name: Clone stx repository(event)
         continue-on-error: true
         id: event
@@ -223,6 +228,11 @@ jobs:
           uses: szenius/set-timezone@v1.0
           with:
             timezoneLinux: "America/New_York"
+
+        - name: Extract branch name
+          shell: bash
+          run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+          id: extract_branch
 
         - name: Clone stx repository(event)
           continue-on-error: true
