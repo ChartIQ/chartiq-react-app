@@ -14,7 +14,7 @@ on:
 env:
   # If available, use the react-app branch from the dispatch UI input, otherwise use the branch from the triggering event (commit).
   TEST_BRANCH: ${{ github.event.inputs.testBranch != NaN && github.event.inputs.testBranch || github.event.client_payload.github.event.head_commit.test_branch != NaN && github.event.client_payload.github.event.head_commit.test_branch }}
-  STX_BRANCH: ${{ github.event.inputs.stxBranch != NaN && github.event.inputs.stxBranch || ${GITHUB_REF##*/} != NaN && ${GITHUB_REF##*/} || 'master' }}
+#  STX_BRANCH: ${{ github.event.inputs.stxBranch != NaN && github.event.inputs.stxBranch || 'master' }}
 
 jobs:
   setup:
@@ -41,8 +41,19 @@ jobs:
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
         id: extract_branch
 
-      - name: Clone stx repository
-        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.STX_BRANCH != NaN && env.STX_BRANCH }}
+      - name: Clone stx repository(event)
+        id: event
+        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ github.event.inputs.stxBranch != NaN && github.event.inputs.stxBranch }}
+
+      - name: Clone stx repository(similar)
+        if: ${{ steps.event.conclusion == "failure" }}
+        id: similar
+        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ steps.extract_branch.outputs.branch != NaN && steps.extract_branch.outputs.branch }}
+
+      - name: Clone stx repository(master)
+        if: ${{ steps.event.conclusion == "failure" && steps.similar.conclusion == "failure" }}
+        id: event
+        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b master
 
       - name: Cache node modules (root)
         uses: actions/cache@v2
