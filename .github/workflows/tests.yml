@@ -14,7 +14,7 @@ on:
 env:
   # If available, use the react-app branch from the dispatch UI input, otherwise use the branch from the triggering event (commit).
   TEST_BRANCH: ${{ github.event.inputs.testBranch != NaN && github.event.inputs.testBranch || github.event.client_payload.github.event.head_commit.test_branch != NaN && github.event.client_payload.github.event.head_commit.test_branch }}
-  STX_BRANCH: ${{ github.event.inputs.stxBranch != NaN && github.event.inputs.stxBranch || github.ref != NaN && github.ref || 'master' }}
+  STX_BRANCH: ${{ github.event.inputs.stxBranch != NaN && github.event.inputs.stxBranch || steps.extract_branch.outputs.branch != NaN && steps.extract_branch.outputs.branch || 'master' }}
 
 jobs:
   setup:
@@ -35,6 +35,11 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
 
       - name: Clone stx repository
         run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.STX_BRANCH != NaN && env.STX_BRANCH }}
