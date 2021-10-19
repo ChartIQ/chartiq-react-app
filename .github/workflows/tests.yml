@@ -46,13 +46,13 @@ jobs:
         run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ github.event.inputs.stxBranch != NaN && github.event.inputs.stxBranch }}
 
       - name: Clone stx repository(similar)
-        if: ${{ steps.event.conclusion == "failure" }}
+        if: ${{ steps.event.conclusion == failure }}
         id: similar
         run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ steps.extract_branch.outputs.branch != NaN && steps.extract_branch.outputs.branch }}
 
       - name: Clone stx repository(master)
-        if: ${{ steps.event.conclusion == "failure" && steps.similar.conclusion == "failure" }}
-        id: event
+        if: ${{ steps.event.conclusion == failure && steps.similar.conclusion == failure }}
+        id: master
         run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b master
 
       - name: Cache node modules (root)
