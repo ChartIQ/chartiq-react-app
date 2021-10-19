@@ -147,8 +147,22 @@ jobs:
         with:
           timezoneLinux: "America/New_York"
 
-      - name: Clone stx repository
-        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.STX_BRANCH != NaN && env.STX_BRANCH }}
+      - name: Clone stx repository(event)
+        continue-on-error: true
+        id: event
+        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ github.event.inputs.stxBranch != NaN && github.event.inputs.stxBranch }}
+
+      - name: Clone stx repository(similar)
+        continue-on-error: true
+        if: steps.event.outcome != 'success'
+        id: similar
+        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ steps.extract_branch.outputs.branch != NaN && steps.extract_branch.outputs.branch }}
+
+      - name: Clone stx repository(master)
+        continue-on-error: false
+        if: steps.event.outcome != 'success' && steps.similar.outcome != 'success'
+        id: master
+        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b master
 
       - name: Load node_modules (root)
         uses: actions/cache@v2
@@ -210,8 +224,22 @@ jobs:
           with:
             timezoneLinux: "America/New_York"
 
-        - name: Clone stx repository
-          run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.STX_BRANCH != NaN && env.STX_BRANCH }}
+        - name: Clone stx repository(event)
+          continue-on-error: true
+          id: event
+          run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ github.event.inputs.stxBranch != NaN && github.event.inputs.stxBranch }}
+
+        - name: Clone stx repository(similar)
+          continue-on-error: true
+          if: steps.event.outcome != 'success'
+          id: similar
+          run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ steps.extract_branch.outputs.branch != NaN && steps.extract_branch.outputs.branch }}
+
+        - name: Clone stx repository(master)
+          continue-on-error: false
+          if: steps.event.outcome != 'success' && steps.similar.outcome != 'success'
+          id: master
+          run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b master
 
         - name: Load node_modules (root)
           uses: actions/cache@v2
