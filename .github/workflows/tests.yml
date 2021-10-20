@@ -7,7 +7,7 @@ on:
         description: 'React App branch name'
         required: true
       stxBranch:
-        description: 'Stx branch name'
+        description: 'Stx (default: from input, react app branch name, then master)'
         required: false
   push:
 
@@ -40,12 +40,12 @@ jobs:
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
         id: extract_branch
 
-      - name: Clone stx repository(event)
+      - name: Clone stx repository(input branch)
         continue-on-error: true
         id: event
         run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ github.event.inputs.stxBranch != NaN && github.event.inputs.stxBranch }}
 
-      - name: Clone stx repository(similar)
+      - name: Clone stx repository(counterpart branch)
         continue-on-error: true
         if: steps.event.outcome != 'success'
         id: similar
@@ -152,12 +152,12 @@ jobs:
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
         id: extract_branch
 
-      - name: Clone stx repository(event)
+      - name: Clone stx repository(input branch)
         continue-on-error: true
         id: event
         run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ github.event.inputs.stxBranch != NaN && github.event.inputs.stxBranch }}
 
-      - name: Clone stx repository(similar)
+      - name: Clone stx repository(counterpart branch)
         continue-on-error: true
         if: steps.event.outcome != 'success'
         id: similar
@@ -234,12 +234,12 @@ jobs:
           run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
           id: extract_branch
 
-        - name: Clone stx repository(event)
+        - name: Clone stx repository(input branch)
           continue-on-error: true
           id: event
           run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ github.event.inputs.stxBranch != NaN && github.event.inputs.stxBranch }}
 
-        - name: Clone stx repository(similar)
+        - name: Clone stx repository(counterpart branch)
           continue-on-error: true
           if: steps.event.outcome != 'success'
           id: similar
