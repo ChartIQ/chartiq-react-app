@@ -45,9 +45,6 @@ jobs:
       - name: Clone stx repository
         run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.STX_BRANCH != NaN && env.STX_BRANCH }}
 
-#      - name: Install dependencies for app
-#        run: npm install
-
       - name: Show secrets.CHROMEDRIVER_VERSION
         run: echo ${{env.CHROMEDRIVER}} | sed 's/./& /g'
 
@@ -55,10 +52,6 @@ jobs:
         if: ${{ env.CHROMEDRIVER != NaN && env.CHROMEDRIVER != '' && env.CHROMEDRIVER }}
         working-directory: ./stx/tests
         run: npm install chromedriver@${{ env.CHROMEDRIVER }}
-
-#      - name: Install dependencies for e2e
-#        working-directory: ./stx/tests/e2e-v2
-#        run: npm install
 
       - name: Install dependencies for stx
         working-directory: ./stx
@@ -112,9 +105,6 @@ jobs:
       - name: Clone stx repository
         run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.STX_BRANCH != NaN && env.STX_BRANCH }}
 
-#      - name: Install dependencies for app
-#        run: npm install
-
       - name: Show secrets.GECKODRIVER_VERSION
         run: echo ${{env.GECKODRIVER}} | sed 's/./& /g'
 
@@ -122,10 +112,6 @@ jobs:
         if: ${{ env.GECKODRIVER != NaN && env.GECKODRIVER != '' && env.GECKODRIVER }}
         working-directory: ./stx/tests
         run: npm install geckodriver@${{ env.GECKODRIVER }}
-
-#      - name: Install dependencies for e2e
-#        working-directory: ./stx/tests/e2e-v2
-#        run: npm install
 
       - name: Install dependencies for stx
         working-directory: ./stx
