@@ -14,7 +14,6 @@ on:
 env:
   # If available, use the react-app branch from the dispatch UI input, otherwise use the branch from the triggering event (commit).
   TEST_BRANCH: ${{ github.event.inputs.testBranch != NaN && github.event.inputs.testBranch || github.event.client_payload.github.event.head_commit.test_branch != NaN && github.event.client_payload.github.event.head_commit.test_branch }}
-  STX_BRANCH: ${{ github.event.inputs.stxBranch != NaN && github.event.inputs.stxBranch || steps.extract_branch.outputs.branch != NaN && steps.extract_branch.outputs.branch || 'master' }}
 
 jobs:
   setup:
@@ -38,28 +37,24 @@ jobs:
 
       - name: Extract branch name
         shell: bash
-        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-        id: extract_branch
+        run: echo "COUNTERPART_BRANCH=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_ENV
 
       - name: Clone stx repository(input branch)
-        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.STX_BRANCH != NaN && env.STX_BRANCH }}
+        continue-on-error: true
+        id: event
+        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ github.event.inputs.stxBranch != NaN && github.event.inputs.stxBranch }}
 
-#      - name: Clone stx repository(input branch)
-#        continue-on-error: true
-#        id: event
-#        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ github.event.inputs.stxBranch != NaN && github.event.inputs.stxBranch }}
-#
-#      - name: Clone stx repository(counterpart branch)
-#        continue-on-error: true
-#        if: steps.event.outcome != 'success'
-#        id: similar
-#        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ steps.extract_branch.outputs.branch != NaN && steps.extract_branch.outputs.branch }}
-#
-#      - name: Clone stx repository(master)
-#        continue-on-error: false
-#        if: steps.event.outcome != 'success' && steps.similar.outcome != 'success'
-#        id: master
-#        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b master
+      - name: Clone stx repository(counterpart branch)
+        continue-on-error: true
+        if: steps.event.outcome != 'success'
+        id: similar
+        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.COUNTERPART_BRANCH != NaN && env.COUNTERPART_BRANCH }}
+
+      - name: Clone stx repository(master)
+        continue-on-error: false
+        if: steps.event.outcome != 'success' && steps.similar.outcome != 'success'
+        id: master
+        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b master
 
       - name: Cache node modules (root)
         uses: actions/cache@v2
@@ -151,30 +146,22 @@ jobs:
         with:
           timezoneLinux: "America/New_York"
 
-#      - name: Extract branch name
-#        shell: bash
-#        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-#        id: extract_branch
-
       - name: Clone stx repository(input branch)
-        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.STX_BRANCH != NaN && env.STX_BRANCH }}
+        continue-on-error: true
+        id: event
+        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ github.event.inputs.stxBranch != NaN && github.event.inputs.stxBranch }}
 
-#      - name: Clone stx repository(input branch)
-#        continue-on-error: true
-#        id: event
-#        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ github.event.inputs.stxBranch != NaN && github.event.inputs.stxBranch }}
-#
-#      - name: Clone stx repository(counterpart branch)
-#        continue-on-error: true
-#        if: steps.event.outcome != 'success'
-#        id: similar
-#        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ steps.extract_branch.outputs.branch != NaN && steps.extract_branch.outputs.branch }}
-#
-#      - name: Clone stx repository(master)
-#        continue-on-error: false
-#        if: steps.event.outcome != 'success' && steps.similar.outcome != 'success'
-#        id: master
-#        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b master
+      - name: Clone stx repository(counterpart branch)
+        continue-on-error: true
+        if: steps.event.outcome != 'success'
+        id: similar
+        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.COUNTERPART_BRANCH != NaN && env.COUNTERPART_BRANCH }}
+
+      - name: Clone stx repository(master)
+        continue-on-error: false
+        if: steps.event.outcome != 'success' && steps.similar.outcome != 'success'
+        id: master
+        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b master
 
       - name: Load node_modules (root)
         uses: actions/cache@v2
@@ -237,29 +224,21 @@ jobs:
             timezoneLinux: "America/New_York"
 
         - name: Clone stx repository(input branch)
-          run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.STX_BRANCH != NaN && env.STX_BRANCH }}
+          continue-on-error: true
+          id: event
+          run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ github.event.inputs.stxBranch != NaN && github.event.inputs.stxBranch }}
 
-#        - name: Extract branch name
-#          shell: bash
-#          run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-#          id: extract_branch
-#
-#        - name: Clone stx repository(input branch)
-#          continue-on-error: true
-#          id: event
-#          run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ github.event.inputs.stxBranch != NaN && github.event.inputs.stxBranch }}
-#
-#        - name: Clone stx repository(counterpart branch)
-#          continue-on-error: true
-#          if: steps.event.outcome != 'success'
-#          id: similar
-#          run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ steps.extract_branch.outputs.branch != NaN && steps.extract_branch.outputs.branch }}
-#
-#        - name: Clone stx repository(master)
-#          continue-on-error: false
-#          if: steps.event.outcome != 'success' && steps.similar.outcome != 'success'
-#          id: master
-#          run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b master
+        - name: Clone stx repository(counterpart branch)
+          continue-on-error: true
+          if: steps.event.outcome != 'success'
+          id: similar
+          run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.COUNTERPART_BRANCH != NaN && env.COUNTERPART_BRANCH }}
+
+        - name: Clone stx repository(master)
+          continue-on-error: false
+          if: steps.event.outcome != 'success' && steps.similar.outcome != 'success'
+          id: master
+          run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b master
 
         - name: Load node_modules (root)
           uses: actions/cache@v2
