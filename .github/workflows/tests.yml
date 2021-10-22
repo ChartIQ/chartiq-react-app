@@ -14,100 +14,18 @@ on:
 env:
   # If available, use the react-app branch from the dispatch UI input, otherwise use the branch from the triggering event (commit).
   TEST_BRANCH: ${{ github.event.inputs.testBranch != NaN && github.event.inputs.testBranch || github.event.client_payload.github.event.head_commit.test_branch != NaN && github.event.client_payload.github.event.head_commit.test_branch }}
-  STX_BRANCH: ${{ github.event.inputs.stxBranch != NaN && github.event.inputs.stxBranch || 'master' }}
+  STX_BRANCH: ${{ github.event.inputs.stxBranch != NaN && github.event.inputs.stxBranch || github.event.client_payload.github.event.head_commit.stx_branch != NaN && github.event.client_payload.github.event.head_commit.stx_branch || 'master' }}
+  CHROMEDRIVER: ${{ secrets.CHROMEDRIVER_VERSION }}
+  GECKODRIVER: ${{ secrets.GECKODRIVER_VERSION }}
 
 jobs:
-  setup:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [ 12.x ]
-
-    steps:
-
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          repository: ChartIQ/chartiq-react-app-private
-          ref: ${{ env.TEST_BRANCH != NaN && env.TEST_BRANCH }}
-
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: Clone stx repository
-        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.STX_BRANCH != NaN && env.STX_BRANCH }}
-
-      - name: Cache node modules (root)
-        uses: actions/cache@v2
-        id: root
-        env:
-          cache-name: root
-        with:
-          path: "./node_modules/"
-          key: root--${{ runner.os }}-${{ hashFiles('package.json') }}
-          restore-keys: |
-            root--${{ runner.os }}-${{ hashFiles('package.json') }}
-        timeout-minutes: 4
-
-      - name: Cache node modules (stx)
-        uses: actions/cache@v2
-        id: stx
-        env:
-          cache-name: stx
-        with:
-          path: "./stx/node_modules/"
-          key: stx--${{ runner.os }}-${{ hashFiles('./stx/package.json') }}
-          restore-keys: |
-            stx--${{ runner.os }}-${{ hashFiles('./stx/package.json') }}
-        timeout-minutes: 4
-
-      - name: Cache dist folder
-        uses: actions/cache@v2
-        id: dist
-        env:
-          cache-name: dist
-        with:
-          path: "./dist/"
-          key: dist--${{ runner.os }}-${{ hashFiles('./dist/') }}
-          restore-keys: |
-            dist--${{ runner.os }}-${{ hashFiles('./dist/') }}
-        timeout-minutes: 4
-
-      - name: Install dependencies for stx
-        #if: ${{steps.packager.outputs.cache-hit != 'true' || steps.webpack.outputs.cache-hit != 'true' || steps.stx.outputs.cache-hit != 'true'}}
-        working-directory: ./stx
-        run: npm install
-
-      - name: Install dependencies for app
-        #if: ${{steps.root.outputs.cache-hit != 'true'}}
-        run: npm install
-
-      - name: Build project-test
-        #if: ${{steps.root.outputs.cache-hit != 'true'}}
-        run: npm run build:test
-
-      - name: Build project-chartiq
-        #if: ${{steps.root.outputs.cache-hit != 'true'}}
-        run: npm run build:chartiq
-
-      - name: Prepare application
-        #if: ${{steps.root.outputs.cache-hit != 'true'}}
-        run: npm run ciq-prep-app
-
-      - name: Check tests groups
-        run: npm run check-specs
-
   chrome:
     runs-on: ubuntu-latest
-    needs: setup
     strategy:
       matrix:
         node-version: [ 12.x ]
 
     steps:
-
       - name: Checkout
         uses: actions/checkout@v2
         with:
@@ -118,11 +36,6 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-
-      - name: Setup chrome
-        uses: browser-actions/setup-chrome@latest
-        with:
-          chrome-version: stable
 
       - name: Set timezone
         uses: szenius/set-timezone@v1.0
@@ -132,23 +45,29 @@ jobs:
       - name: Clone stx repository
         run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.STX_BRANCH != NaN && env.STX_BRANCH }}
 
-      - name: Load node_modules (root)
-        uses: actions/cache@v2
-        with:
-          path: "./node_modules/"
-          key: root--${{ runner.os }}-${{ hashFiles('package.json') }}
+      - name: Show secrets.CHROMEDRIVER_VERSION
+        run: echo ${{env.CHROMEDRIVER}} | sed 's/./& /g'
 
-      - name: Load node_modules (stx)
-        uses: actions/cache@v2
-        with:
-          path: "./tests/e2e-v2/node_modules/"
-          key: stx--${{ runner.os }}-${{ hashFiles('./stx/package.json') }}
+      - name: Install chromedriver version from secret
+        if: ${{ env.CHROMEDRIVER != NaN && env.CHROMEDRIVER != '' && env.CHROMEDRIVER }}
+        working-directory: ./stx/tests
+        run: npm install chromedriver@${{ env.CHROMEDRIVER }}
 
-      - name: Load dist folder
-        uses: actions/cache@v2
-        with:
-          path: "./dist/"
-          key: dist--${{ runner.os }}-${{ hashFiles('./dist/') }}
+      - name: Install dependencies for stx
+        working-directory: ./stx
+        run: npm install
+
+      - name: Build project-test
+        run: npm run build:test
+
+      - name: Build project-chartiq
+        run: npm run build:chartiq
+
+      - name: Prepare application
+        run: npm run ciq-prep-app
+
+      - name: Check tests groups
+        run: npm run check-specs
 
       - name: Run e2e-v2 tests with Chrome browser
         run: npm run test-chrome-ci
@@ -162,77 +81,11 @@ jobs:
 
   firefox:
     runs-on: ubuntu-latest
-    needs: setup
-    strategy:
-      matrix:
-        firefox-version: [ '87.0' ]
-        node-version: [ 12.x ]
-
-    steps:
-
-        - name: Checkout
-          uses: actions/checkout@v2
-          with:
-            repository: ChartIQ/chartiq-react-app-private
-            ref: ${{ env.TEST_BRANCH != NaN && env.TEST_BRANCH }}
-
-        - name: Use Node.js ${{ matrix.node-version }}
-          uses: actions/setup-node@v1
-          with:
-            node-version: ${{ matrix.node-version }}
-
-        - name: Setup firefox
-          uses: browser-actions/setup-firefox@latest
-          with:
-            firefox-version: ${{ matrix.firefox-version }}
-        - run: firefox --version
-
-        - name: Set timezone
-          uses: szenius/set-timezone@v1.0
-          with:
-            timezoneLinux: "America/New_York"
-
-        - name: Clone stx repository
-          run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.STX_BRANCH != NaN && env.STX_BRANCH }}
-
-        - name: Load node_modules (root)
-          uses: actions/cache@v2
-          with:
-            path: "./node_modules/"
-            key: root--${{ runner.os }}-${{ hashFiles('package.json') }}
-
-        - name: Load node_modules (stx)
-          uses: actions/cache@v2
-          with:
-            path: "./tests/e2e-v2/node_modules/"
-            key: stx--${{ runner.os }}-${{ hashFiles('./stx/package.json') }}
-
-        - name: Load dist folder
-          uses: actions/cache@v2
-          with:
-            path: "./dist/"
-            key: dist--${{ runner.os }}-${{ hashFiles('./dist/') }}
-
-        - name: Run e2e-v2 tests with Firefox browser
-          run: npm run test-ff-ci
-
-        - name: Save allure-results artifact
-          if: ${{ success() || failure() }}
-          uses: actions/upload-artifact@master
-          with:
-            name: allure-ff
-            path: allure-results
-
-  allure:
-    runs-on: ubuntu-latest
-    needs: [chrome, firefox]
-    if: ${{ !cancelled() }}
     strategy:
       matrix:
         node-version: [ 12.x ]
 
     steps:
-
       - name: Checkout
         uses: actions/checkout@v2
         with:
@@ -244,11 +97,78 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Load node_modules (root)
-        uses: actions/cache@v2
+      - name: Set timezone
+        uses: szenius/set-timezone@v1.0
         with:
-          path: "./node_modules/"
-          key: root--${{ runner.os }}-${{ hashFiles('package.json') }}
+          timezoneLinux: "America/New_York"
+
+      - name: Clone stx repository
+        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.STX_BRANCH != NaN && env.STX_BRANCH }}
+
+      - name: Show secrets.GECKODRIVER_VERSION
+        run: echo ${{env.GECKODRIVER}} | sed 's/./& /g'
+
+      - name: Install geckodriver secret version
+        if: ${{ env.GECKODRIVER != NaN && env.GECKODRIVER != '' && env.GECKODRIVER }}
+        working-directory: ./stx/tests
+        run: npm install geckodriver@${{ env.GECKODRIVER }}
+
+      - name: Install dependencies for stx
+        working-directory: ./stx
+        run: npm install
+
+      - name: Build project-test
+        run: npm run build:test
+
+      - name: Build project-chartiq
+        run: npm run build:chartiq
+
+      - name: Prepare application
+        run: npm run ciq-prep-app
+
+      - name: Check tests groups
+        run: npm run check-specs
+
+      - name: Run e2e-v2 tests with Firefox browser
+        run: npm run test-ff-ci
+
+      - name: Save allure-results artifact
+        if: ${{ success() || failure() }}
+        uses: actions/upload-artifact@master
+        with:
+          name: allure-ff
+          path: allure-results
+
+  allure:
+    runs-on: ubuntu-latest
+    needs: [chrome, firefox]
+    if: ${{ !cancelled() }}
+    strategy:
+      matrix:
+        node-version: [ 12.x ]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          repository: ChartIQ/chartiq-react-app-private
+          ref: ${{ env.TEST_BRANCH != NaN && env.TEST_BRANCH }}
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Set timezone
+        uses: szenius/set-timezone@v1.0
+        with:
+          timezoneLinux: "America/New_York"
+
+      - name: Clone stx repository
+        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.STX_BRANCH != NaN && env.STX_BRANCH }}
+
+      - name: Build project-test
+        run: npm run build:test
 
       - name: Load allure-results from Chrome
         uses: actions/download-artifact@master
@@ -278,4 +198,3 @@ jobs:
       - name: Show the allure report location
         if: ${{ failure() || success() }}
         run: echo http://react-app-allurereports.chartiq.com.s3-website-us-east-1.amazonaws.com/${{ github.sha }}/
-
