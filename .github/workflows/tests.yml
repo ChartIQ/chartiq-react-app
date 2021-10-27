@@ -7,13 +7,14 @@ on:
         description: 'React App branch name'
         required: true
       stxBranch:
-        description: 'Stx (default: from input, react app branch name, then master)'
+        description: 'Stx (precedence: input value, react app branch name, then master)'
         required: false
   push:
 
 env:
   # If available, use the react-app branch from the dispatch UI input, otherwise use the branch from the triggering event (commit).
   TEST_BRANCH: ${{ github.event.inputs.testBranch != NaN && github.event.inputs.testBranch || github.event.client_payload.github.event.head_commit.test_branch != NaN && github.event.client_payload.github.event.head_commit.test_branch }}
+  BRANCH: ${{ GITHUB_REF#refs/heads/ }}
 
 jobs:
   setup:
@@ -34,6 +35,9 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+
+      - name: GET BRANCH NAME
+        run: echo ${{env.BRANCH}}
 
       - name: Extract branch name
         shell: bash
