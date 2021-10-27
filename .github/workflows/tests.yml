@@ -13,7 +13,14 @@ on:
 
 env:
   # If available, use the react-app branch from the dispatch UI input, otherwise use the branch from the triggering event (commit).
-  TEST_BRANCH: ${{ github.event.inputs.testBranch != NaN && github.event.inputs.testBranch || github.event.client_payload.github.event.head_commit.test_branch != NaN && github.event.client_payload.github.event.head_commit.test_branch }}
+  TEST_BRANCH: ${{
+    github.event.inputs.testBranch != NaN && github.event.inputs.testBranch ||
+    github.event.client_payload.github.event.head_commit.test_branch != NaN && github.event.client_payload.github.event.head_commit.test_branch }}
+  STX_BRANCH: ${{
+    github.event.inputs.stxBranch != NaN && github.event.inputs.stxBranch ||
+    github.event.inputs.testBranch != NaN && github.event.inputs.testBranch ||
+    github.event.client_payload.github.event.head_commit.stx_branch != NaN && github.event.client_payload.github.event.head_commit.stx_branch ||
+    github.event.client_payload.github.event.head_commit.test_branch != NaN && github.event.client_payload.github.event.head_commit.test_branch }}
   CHROMEDRIVER: ${{ secrets.CHROMEDRIVER_VERSION }}
   GECKODRIVER: ${{ secrets.GECKODRIVER_VERSION }}
 
@@ -41,24 +48,24 @@ jobs:
         with:
           timezoneLinux: "America/New_York"
 
-      - name: Extract branch name
+      - name: Extract counterpart branch name
         shell: bash
         run: echo "COUNTERPART_BRANCH=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_ENV
 
       - name: Clone stx repository(input branch)
         continue-on-error: true
-        id: event
-        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ github.event.inputs.stxBranch != NaN && github.event.inputs.stxBranch }}
+        id: input-branch
+        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.STX_BRANCH != NaN && env.STX_BRANCH }}
 
       - name: Clone stx repository(counterpart branch)
         continue-on-error: true
-        if: steps.event.outcome != 'success'
-        id: similar
+        if: steps.input-branch.outcome != 'success'
+        id: counterpart
         run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.COUNTERPART_BRANCH != NaN && env.COUNTERPART_BRANCH }}
 
       - name: Clone stx repository(master)
         continue-on-error: false
-        if: steps.event.outcome != 'success' && steps.similar.outcome != 'success'
+        if: steps.input-branch.outcome != 'success' && steps.counterpart.outcome != 'success'
         id: master
         run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b master
 
@@ -119,24 +126,24 @@ jobs:
         with:
           timezoneLinux: "America/New_York"
 
-      - name: Extract branch name
+      - name: Extract counterpark branch name
         shell: bash
         run: echo "COUNTERPART_BRANCH=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_ENV
 
       - name: Clone stx repository(input branch)
         continue-on-error: true
-        id: event
-        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ github.event.inputs.stxBranch != NaN && github.event.inputs.stxBranch }}
+        id: input-branch
+        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.STX_BRANCH != NaN && env.STX_BRANCH }}
 
       - name: Clone stx repository(counterpart branch)
         continue-on-error: true
-        if: steps.event.outcome != 'success'
-        id: similar
+        if: steps.input-branch.outcome != 'success'
+        id: counterpart
         run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.COUNTERPART_BRANCH != NaN && env.COUNTERPART_BRANCH }}
 
       - name: Clone stx repository(master)
         continue-on-error: false
-        if: steps.event.outcome != 'success' && steps.similar.outcome != 'success'
+        if: steps.input-branch.outcome != 'success' && steps.counterpart.outcome != 'success'
         id: master
         run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b master
 
