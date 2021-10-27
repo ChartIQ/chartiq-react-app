@@ -41,8 +41,7 @@ jobs:
 
       - name: Extract branch name
         shell: bash
-        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-        id: extract_branch
+        run: echo "COUNTERPART_BRANCH=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_ENV
 
       - name: Clone stx repository(input branch)
         continue-on-error: true
@@ -53,7 +52,7 @@ jobs:
         continue-on-error: true
         if: steps.event.outcome != 'success'
         id: similar
-        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ steps.extract_branch.outputs.branch != NaN && steps.extract_branch.outputs.branch }}
+        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.COUNTERPART_BRANCH != NaN && env.COUNTERPART_BRANCH }}
 
       - name: Clone stx repository(master)
         continue-on-error: false
@@ -151,11 +150,6 @@ jobs:
         with:
           timezoneLinux: "America/New_York"
 
-      - name: Extract branch name
-        shell: bash
-        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-        id: extract_branch
-
       - name: Clone stx repository(input branch)
         continue-on-error: true
         id: event
@@ -165,7 +159,7 @@ jobs:
         continue-on-error: true
         if: steps.event.outcome != 'success'
         id: similar
-        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ steps.extract_branch.outputs.branch != NaN && steps.extract_branch.outputs.branch }}
+        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.COUNTERPART_BRANCH != NaN && env.COUNTERPART_BRANCH }}
 
       - name: Clone stx repository(master)
         continue-on-error: false
@@ -233,11 +227,6 @@ jobs:
           with:
             timezoneLinux: "America/New_York"
 
-        - name: Extract branch name
-          shell: bash
-          run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-          id: extract_branch
-
         - name: Clone stx repository(input branch)
           continue-on-error: true
           id: event
@@ -247,7 +236,7 @@ jobs:
           continue-on-error: true
           if: steps.event.outcome != 'success'
           id: similar
-          run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ steps.extract_branch.outputs.branch != NaN && steps.extract_branch.outputs.branch }}
+          run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.COUNTERPART_BRANCH != NaN && env.COUNTERPART_BRANCH }}
 
         - name: Clone stx repository(master)
           continue-on-error: false
