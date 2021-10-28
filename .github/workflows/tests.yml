@@ -46,14 +46,24 @@ jobs:
         with:
           timezoneLinux: "America/New_York"
 
-      - name: Clone stx repository(input or counterpart branch)
+      - name: Extract counterpart branch name
+        shell: bash
+        run: echo "COUNTERPART_BRANCH=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_ENV
+
+      - name: Clone stx repository(input branch)
         continue-on-error: true
-        id: input-or-counterpart-branch
+        id: input-branch
         run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.STX_BRANCH != NaN && env.STX_BRANCH }}
+
+      - name: Clone stx repository(counterpart branch)
+        continue-on-error: true
+        if: steps.input-branch.outcome != 'success'
+        id: counterpart
+        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.COUNTERPART_BRANCH != NaN && env.COUNTERPART_BRANCH }}
 
       - name: Clone stx repository(master)
         continue-on-error: false
-        if: steps.input-or-counterpart-branch.outcome != 'success'
+        if: steps.input-branch.outcome != 'success' && steps.counterpart.outcome != 'success'
         id: master
         run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b master
 
@@ -114,14 +124,24 @@ jobs:
         with:
           timezoneLinux: "America/New_York"
 
-      - name: Clone stx repository(input or counterpart branch)
+      - name: Extract counterpark branch name
+        shell: bash
+        run: echo "COUNTERPART_BRANCH=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_ENV
+
+      - name: Clone stx repository(input branch)
         continue-on-error: true
-        id: input-or-counterpart-branch
+        id: input-branch
         run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.STX_BRANCH != NaN && env.STX_BRANCH }}
+
+      - name: Clone stx repository(counterpart branch)
+        continue-on-error: true
+        if: steps.input-branch.outcome != 'success'
+        id: counterpart
+        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.COUNTERPART_BRANCH != NaN && env.COUNTERPART_BRANCH }}
 
       - name: Clone stx repository(master)
         continue-on-error: false
-        if: steps.input-or-counterpart-branch.outcome != 'success'
+        if: steps.input-branch.outcome != 'success' && steps.counterpart.outcome != 'success'
         id: master
         run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b master
 
@@ -184,14 +204,24 @@ jobs:
         with:
           timezoneLinux: "America/New_York"
 
-      - name: Clone stx repository(input or counterpart branch)
+      - name: Extract branch name
+        shell: bash
+        run: echo "COUNTERPART_BRANCH=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_ENV
+
+      - name: Clone stx repository(input branch)
         continue-on-error: true
-        id: input-or-counterpart-branch
-        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.STX_BRANCH != NaN && env.STX_BRANCH }}
+        id: event
+        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ github.event.inputs.stxBranch != NaN && github.event.inputs.stxBranch }}
+
+      - name: Clone stx repository(counterpart branch)
+        continue-on-error: true
+        if: steps.event.outcome != 'success'
+        id: similar
+        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.COUNTERPART_BRANCH != NaN && env.COUNTERPART_BRANCH }}
 
       - name: Clone stx repository(master)
         continue-on-error: false
-        if: steps.input-or-counterpart-branch.outcome != 'success'
+        if: steps.event.outcome != 'success' && steps.similar.outcome != 'success'
         id: master
         run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b master
 
