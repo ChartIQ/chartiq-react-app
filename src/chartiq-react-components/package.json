@@ -9,7 +9,6 @@
   "scripts": {
     "build": "webpack --config webpack.config.js",
     "build:dev": "npm run build --env.development",
-    "postinstall": "npm run build:dev",
     "prepare": "npm run build"
   },
   "keywords": [
