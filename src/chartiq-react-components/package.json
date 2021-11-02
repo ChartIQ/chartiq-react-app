@@ -1,6 +1,6 @@
 {
   "name": "@chartiq/chartiq-react-components",
-  "version": "8.4.0",
+  "version": "8.4.0-beta.1",
   "description": "React Components for ChartIQ library",
   "main": "dist/main.js",
   "files": [
