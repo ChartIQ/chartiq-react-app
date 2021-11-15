@@ -9,7 +9,7 @@
   "scripts": {
     "build": "webpack --config=webpack.config.js --env.production",
     "build:chartiq": "sh build-scripts/build-chartiq.sh",
-    "build:components": "npm run build:dev --prefix src/chartiq-react-components --workspace=src/chartiq-react-components",
+    "build:components": "npm run build --prefix src/chartiq-react-components --workspace=src/chartiq-react-components",
     "build:test": "sh build-scripts/build-test.sh",
     "build:stx-symlink": "sh build-scripts/build-stx-symlink.sh",
     "check-specs": "CI=true node -e 'require(\"./build-scripts/specsChecker.js\").specsChecker()'",
