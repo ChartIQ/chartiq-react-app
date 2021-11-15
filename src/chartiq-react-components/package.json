@@ -4,10 +4,10 @@
   "description": "React Components for ChartIQ library",
   "main": "dist/index.js",
   "files": [
-    "dist/"
+    "dist/**/*"
   ],
   "scripts": {
-    "build": "babel ./ -d dist/ --copy-files --ignore node_modules,dist --source-maps inline",
+    "build": "babel ./ -d dist/ --ignore node_modules,dist --source-maps inline",
     "prepare": "npm run build"
   },
   "babel": {
