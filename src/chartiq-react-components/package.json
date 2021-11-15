@@ -1,13 +1,14 @@
 {
   "name": "@chartiq/chartiq-react-components",
-  "version": "8.4.0-beta.2",
+  "version": "8.4.0-beta.3",
   "description": "React Components for ChartIQ library",
   "main": "dist/index.js",
   "files": [
-    "dist/**/*"
+    "dist/"
   ],
   "scripts": {
-    "build": "babel ./ -d dist/ --ignore node_modules,dist --source-maps inline",
+    "build": "babel ./ -d dist/ --ignore node_modules,dist,addCSSFiles.sh --source-maps inline",
+    "postbuild": "./addCSSfiles.sh",
     "prepare": "npm run build"
   },
   "babel": {
