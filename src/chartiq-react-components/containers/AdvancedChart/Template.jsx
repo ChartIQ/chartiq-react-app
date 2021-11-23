@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function ({ pluginToggles }) {
+export default function ({ config, pluginToggles }) {
 	return (
 		<>
 			<div className="ciq-nav full-screen-hide">
@@ -10,7 +10,6 @@ export default function ({ pluginToggles }) {
 						cq-member="sidenav"
 						cq-toggles="sidenavOn,sidenavOff"
 						cq-toggle-classes="active,"
-						keyboard-navigation="false"
 					>
 						<span></span>
 						<cq-tooltip>More</cq-tooltip>
@@ -163,6 +162,7 @@ export default function ({ pluginToggles }) {
 							</cq-menu-dropdown>
 						</cq-menu>
 
+						{config && config.eventMarkersImplementation && 
 						<cq-menu class="ciq-menu stx-markers collapse">
 							<span>Events</span>
 							<cq-menu-dropdown>
@@ -252,6 +252,7 @@ export default function ({ pluginToggles }) {
 								</div>
 							</cq-menu-dropdown>
 						</cq-menu>
+						}
 
 						<cq-menu class="ciq-menu ciq-preferences collapse">
 							<span></span>

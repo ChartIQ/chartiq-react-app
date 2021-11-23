@@ -1,9 +1,5 @@
 // Required imports from chartiq for advanced chart
 
-import { CIQ } from 'chartiq/js/advanced';
-
-import 'chartiq/js/addOns';
-
 // Symbol mapping to market definition
 import 'chartiq/examples/markets/marketDefinitionsSample';
 import 'chartiq/examples/markets/marketSymbologySample';
@@ -12,13 +8,10 @@ import 'chartiq/examples/feeds/symbolLookupChartIQ';
 
 import 'chartiq/examples/translations/translationSample';
 
-import 'chartiq/js/componentUI';
-import 'chartiq/js/components';
-
-// Event Markers 
-import marker from 'chartiq/examples/markers/markersSample';
-import 'chartiq/examples/markers/tradeAnalyticsSample';
-import 'chartiq/examples/markers/videoSample';
+// // Event Markers 
+// import marker from 'chartiq/examples/markers/markersSample';
+// import 'chartiq/examples/markers/tradeAnalyticsSample';
+// import 'chartiq/examples/markers/videoSample';
 
 import "chartiq/js/extras/svgcharts/piechart";
 
@@ -123,4 +116,4 @@ function getCustomConfig({ chartId, symbol, onChartReady }) {
 }
 
 
-export { CIQ, getConfig, getCustomConfig };
+export { getConfig, getCustomConfig };
