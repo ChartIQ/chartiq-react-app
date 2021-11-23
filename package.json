@@ -5,12 +5,12 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --config=webpack.config.js --env.production",
+    "start": "npm run watch -- --host=127.0.0.1 --disable-host-check=true",
     "build:chartiq": "sh build-scripts/build-chartiq.sh",
     "build:test": "sh build-scripts/build-test.sh",
     "build:stx-symlink": "sh build-scripts/build-stx-symlink.sh",
     "check-specs": "CI=true node -e 'require(\"./build-scripts/specsChecker.js\").specsChecker()'",
     "ciq-prep-app": "sh ./build-scripts/clear-dist.sh && npm run build && node ./build-scripts/webserver-symlinks.js",
-    "start": "npm run watch -- --host=127.0.0.1 --disable-host-check=true",
     "test-chrome": "wdio wdio-chrome.conf.js --mochaOpts.grep '@NoReact' --mochaOpts.invert=true",
     "test-chrome-ci": "CI=true wdio wdio-chrome.conf.js --mochaOpts.grep '@NoReact' --mochaOpts.invert=true",
     "test-chrome:debug": "DEBUG=true wdio wdio-chrome.conf.js --mochaOpts.grep '@NoReact' --mochaOpts.invert=true",
@@ -21,9 +21,14 @@
     "test-ff:debug": "DEBUG=true wdio wdio-ff.conf.js --mochaOpts.grep '@NoReact' --mochaOpts.invert=true",
     "test-ff:spec": "wdio wdio-ff.conf.js --mochaOpts.grep '@NoReact' --mochaOpts.invert=true --spec",
     "test-ff:debug:spec": "DEBUG=true wdio wdio-ff.conf.js --mochaOpts.grep '@NoReact' --mochaOpts.invert=true --spec",
-    "watch": "webpack-dev-server --inline --config=webpack.config.js --watch=true",
     "report": "allure generate ./allure-results --clean && allure open",
-    "report-ci": "allure generate allure-results --clean -o allure-report"
+    "report-ci": "allure generate allure-results --clean -o allure-report",
+    "prepublish-public": "npm run prepublish-get-source && npm run prepublish-copy && npm run prepublish-updates && npm run prepublish-git-add",
+    "prepublish-get-source": "rm -rf public_repo &&  git clone -n https://github.com/ChartIQ/chartiq-react-app public_repo",
+    "prepublish-copy": "cp -r ./.github public src .gitignore .prettierignore .prettierrc .babelrc index.html README.md webpack.config.js public_repo/ && rm -rf public_repo/.github/workflows",
+    "prepublish-updates": "sed '/\"build:/d; /\"check-/d; /\"ciq-/d; /\"test-/d; /\"report/d; /\"prepublish-/d;' package.json > public_repo/package.json",
+    "prepublish-git-add": "cd public_repo && git add . && cd ..",
+    "watch": "webpack-dev-server --inline --config=webpack.config.js --watch=true"
   },
   "keywords": [
     "react",
