@@ -1,6 +1,6 @@
 import React from "react"
 import { AdvancedChart } from "@chartiq/chartiq-react-components"
-import { getCustomConfig } from "@chartiq/chartiq-react-components/containers/AdvancedChart/resources";
+import { CIQ, getCustomConfig } from "@chartiq/chartiq-react-components/containers/AdvancedChart";
 
 import quoteFeedSimulator from "chartiq/examples/feeds/quoteFeedSimulator";
 import PerfectScrollbar from "chartiq/js/thirdparty/perfect-scrollbar.esm.js";
@@ -8,15 +8,13 @@ import marker from "chartiq/examples/markers/markersSample";
 
 // Callback function where you can access both the chartEngine and the UIContext.
 const chartInitialized = ({chartEngine, uiContext}) => {
-	console.log(chartEngine)
-	console.log(uiContext)
-	// const CHARTIQ = stx.getCreatingLibrary()
-	// Object.assign(window, {stx, CIQ: CHARTIQ.CIQ })
+	// Assign stx and CIQ to window for development convenience
+	Object.assign(window, {stx: chartEngine, CIQ })
 }
 
 // Callback function for when the chartEngine is initialized but before loadChart has been called.
-const onChartReady = () => {
-	console.log("when the hell does this get called???")
+const onChartReady = (chartEngine) => {
+	// Ready do work with the chart!
 }
 
 const config = getCustomConfig({
@@ -37,6 +35,10 @@ import 'chartiq/examples/markets/marketSymbologySample';
 
 // Translation file
 import 'chartiq/examples/translations/translationSample';
+
+// Example Marker files
+import 'chartiq/examples/markers/tradeAnalyticsSample'
+import 'chartiq/examples/markers/videoSample'
 
 // Plugins
 

@@ -11,6 +11,8 @@ import ChartTemplate from "./Template";
 //import 'chartiq/css/stx-chart.css'; // Chart API
 //import 'chartiq/css/chartiq.css'; // Chart UI
 
+export { CIQ };
+
 /**
  * This is a fully functional example showing how to load a chart with complete user interface.
  *
