@@ -4,7 +4,7 @@ import defaultConfig from 'chartiq/js/defaultConfiguration';
 
 // Creates a complete customised configuration object
 function getConfig(resources = {}) {
-	if(!resources.quoteFeed) resources.quoteFeed = quoteFeed
+	if(!resources.quoteFeed && resources.quoteFeed!== null ) resources.quoteFeed = quoteFeed
 	return defaultConfig( resources );
 }
 
