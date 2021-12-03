@@ -12,7 +12,6 @@ function getConfig(resources = {}) {
 function getCustomConfig({ chartId, symbol, onChartReady, resources } = {}) {
 	const config = getConfig(resources);
 
-	// Update chart configuration by modifying default configuration
 	config.chartId = chartId || "_advanced-chart";
 	config.initialSymbol = symbol || {
 		symbol: "AAPL",
@@ -20,28 +19,10 @@ function getCustomConfig({ chartId, symbol, onChartReady, resources } = {}) {
 		exchDisp: "NASDAQ"
 	};
 
-	// config.quoteFeeds[0].behavior.refreshInterval = 0; // disables quotefeed refresh
 	config.onChartReady = onChartReady;
 
-	const {
-		marketDepth,
-		termStructure,
-		tfc,
-		timeSpanEventPanel,
-		visualEarnings
-	} = config.plugins;
-	// Select only plugin configurations that needs to be active for this chart
-	config.plugins = {
-		// marketDepth,
-		// termStructure,
-		// tfc,
-		// timeSpanEventPanel,
-		// visualEarnings
-	};
-
-	// Enable / disable addOns
-	// config.enabledAddOns.tooltip = false;
-	// config.enabledAddOns.continuousZoom = true;
+	// Disable plugins by default
+	config.plugins = { /* Actived plugins go here!! */};
 
 	return config;
 }

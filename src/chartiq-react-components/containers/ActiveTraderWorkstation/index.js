@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
-import { default as ActiveTraderWorkstation } from "./ActiveTraderWorkstation";
+import { default as ActiveTraderWorkstation, CIQ } from "./ActiveTraderWorkstation";
 import tfcHtml from "chartiq/plugins/tfc/tfcHtml";
 
-import { getCustomConfig } from "./resources"; // ChartIQ library resources
+import { getConfig, getCustomConfig } from "./resources"; // ChartIQ library resources
 import "./ActiveTraderWorkstation.css";
 
 export default function ({ chartInitialized, config, symbol, chartId }) {
@@ -17,3 +17,5 @@ export default function ({ chartInitialized, config, symbol, chartId }) {
 		/>
 	);
 }
+
+export { CIQ, getConfig, getCustomConfig, tfcHtml }

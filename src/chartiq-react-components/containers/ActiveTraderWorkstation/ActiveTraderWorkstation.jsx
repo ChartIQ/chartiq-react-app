@@ -1,9 +1,18 @@
 import React from "react";
 import { CIQ } from "chartiq/js/componentUI";
 
+import "chartiq/js/extras/svgcharts/piechart";
+
+// Crypto, L2 Heat Map, Market Depth,
+import 'chartiq/plugins/activetrader/cryptoiq';
+
+// TFC plugin
+import 'chartiq/plugins/tfc/tfc-loader';
+
 import ChartTemplate from "./Template";
 const { channelWrite } = CIQ.UI.BaseComponent.prototype;
 
+export { CIQ }
 /**
  * This is a fully functional example showing how to load a chart with the Active Trader plugin and UI.
  *

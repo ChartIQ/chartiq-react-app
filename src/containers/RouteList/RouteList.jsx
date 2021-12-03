@@ -43,16 +43,12 @@ export default class RouteList extends React.Component {
             </p>
           </li>
           <li>
-            <h3 className="disabled-link" style={{ color: "#888", marginBottom: 0 }}>ActiveTraderWorkstation</h3>
+            {/* <h3 className="disabled-link" style={{ color: "#888", marginBottom: 0 }}>ActiveTraderWorkstation</h3>
             <p style={{fontSize: 0.75 + "rem", marginTop: 0, marginBottom: 0.70 + "rem"}}>
                 (To enable this link, uncomment all lines in the <i>src</i> directory following the <code>// Enable ActiveTraderWorkstation</code> comment.)
-            </p>
-            {
-              /*
+            </p> */}
               Enable ActiveTraderWorkstation
               <h3><Link to="active-trader">ActiveTraderWorkstation</Link></h3>
-              */
-            }
             <p>
               Features the advanced chart component enhanced with the following plug-ins:
             </p>

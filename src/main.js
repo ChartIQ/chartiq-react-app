@@ -3,43 +3,11 @@ import ReactDom from "react-dom";
 import { BrowserRouter, HashRouter, Route } from "react-router-dom";
 
 import { default as RouteList } from "./containers/RouteList/RouteList";
-import {
-	// AdvancedChart,
-	// MultiChart,
-	// Enable ActiveTraderWorkstation
-	// ActiveTraderWorkstation,
-	// Enable TermStructure
-	// TermStructure,
-	// CustomChart,
-	HelloWorld
-} from "@chartiq/chartiq-react-components";
 
 import AdvancedChartPage from "./containers/AdvancedChart/AdvancedChartPage";
+import ActiveTraderPage from "./containers/ActiveTraderPage/ActiveTraderPage";
 
-// Enable the following import if the channelSubscribe reference or the call to CIQ.simulateL2 in the chartInitialized reference are required.
-// import { CIQ } from 'chartiq/js/componentUI';
-// const { channelSubscribe } = CIQ.UI.BaseComponent.prototype;
-
-// Optional callback function to access chart engine and uiContext
-const chartInitialized = ({ chartEngine, uiContext }) => {
-	// chartEngine provides access to chart engine CIQ.ChartEngine
-	// uiContext provides access to UI component interaction CIQ.UI.Context
-	// Methods for capturing state changes in chart engine and UI
-	// Channel subscribe
-	// const { channels } = uiContext.config;
-	// channelSubscribe(channels.breakpoint, (value) => {
-	// 	console.log('channels.breakpoint',value);
-	// }, chartEngine);
-	// Create layout listener, see parameters at https://documentation.chartiq.com/global.html#layoutEventListener
-	// chartEngine.addEventListener('layout', ({ layout }) => {
-	// 	console.log('layout changed', layout);
-	// });
-	// Simulate L2 data using https://documentation.chartiq.com/CIQ.ChartEngine.html#updateCurrentMarketData
-	// CIQ.simulateL2({ stx: chartEngine, onInterval: 1000, onTrade: true });
-};
-
-// Optional callback function for when chart is initalized and initial data is available
-const onChartReady = (chartEngine) => {};
+import { CIQ } from "chartiq/js/chartiq"
 
 // comment rendering to DOM if used only as export for example in CRA App.js
 const el = document.querySelector("#app");
@@ -55,18 +23,9 @@ if (el) {
 			<Route path='/technical-analysis'component={AdvancedChartPage}></Route>
 			{/* <Route path='/multi-chart' component={MultiChart}></Route> */}
 
-			{/* Enable ActiveTraderWorkstation */}
-			{/*
-			<Route
-				path="/active-trader"
-				render={() => (
-					<ActiveTraderWorkstation
-						chartInitialized={chartInitialized}
-						onChartReady={onChartReady}
-					/>
-				)}
-			></Route>
-			*/}
+			{CIQ.TFC && CIQ.MarketDepth &&
+				<Route path="/active-trader" component={ActiveTraderPage}></Route>
+			}
 
 			{/* Enable TermStructure */}
 			{/* <Route
@@ -80,7 +39,7 @@ if (el) {
 				)}
 				></Route> */}
 			{/* <Route path='/custom-chart' component={CustomChart}></Route> */}
-			<Route path='/hello-world' component={HelloWorld}></Route>
+			{/* <Route path='/hello-world' component={HelloWorld}></Route> */}
 		</Router>,
 		el
 	);
