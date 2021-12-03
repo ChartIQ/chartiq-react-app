@@ -4,15 +4,17 @@ import { BrowserRouter, HashRouter, Route } from "react-router-dom";
 
 import { default as RouteList } from "./containers/RouteList/RouteList";
 import {
-	AdvancedChart,
-	MultiChart,
+	// AdvancedChart,
+	// MultiChart,
 	// Enable ActiveTraderWorkstation
 	// ActiveTraderWorkstation,
 	// Enable TermStructure
 	// TermStructure,
-	CustomChart,
+	// CustomChart,
 	HelloWorld
 } from "@chartiq/chartiq-react-components";
+
+import AdvancedChartPage from "./containers/AdvancedChart/AdvancedChartPage";
 
 // Enable the following import if the channelSubscribe reference or the call to CIQ.simulateL2 in the chartInitialized reference are required.
 // import { CIQ } from 'chartiq/js/componentUI';
@@ -50,15 +52,8 @@ if (el) {
 		<Router basename={baseLocation}>
 			<Route path='/' exact component={RouteList}></Route>
 			<Route path='/index.html' component={RouteList}></Route>
-			<Route
-				path='/technical-analysis'
-				render={() => (
-					<AdvancedChart
-						chartInitialized={chartInitialized}
-						onChartReady={onChartReady}
-					/>
-				)}></Route>
-			<Route path='/multi-chart' component={MultiChart}></Route>
+			<Route path='/technical-analysis'component={AdvancedChartPage}></Route>
+			{/* <Route path='/multi-chart' component={MultiChart}></Route> */}
 
 			{/* Enable ActiveTraderWorkstation */}
 			{/*
@@ -84,7 +79,7 @@ if (el) {
 					/>
 				)}
 				></Route> */}
-			<Route path='/custom-chart' component={CustomChart}></Route>
+			{/* <Route path='/custom-chart' component={CustomChart}></Route> */}
 			<Route path='/hello-world' component={HelloWorld}></Route>
 		</Router>,
 		el

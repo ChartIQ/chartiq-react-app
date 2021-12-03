@@ -1,5 +1,9 @@
 import React from "react";
-import { CIQ } from "chartiq/js/componentUI";
+
+// Import necessary ChartIQ library files
+import { CIQ } from "chartiq/js/advanced";
+import "chartiq/js/components";
+import "chartiq/js/addOns";
 
 import ChartTemplate from "./Template";
 // Base styles required by the library to render color correctly.
@@ -63,7 +67,7 @@ export default class AdvancedChart extends React.Component {
 	render() {
 		return (
 			<cq-context ref={this.container}>
-				{this.props.children || <ChartTemplate />}
+				{this.props.children || <ChartTemplate config={this.props.config} />}
 			</cq-context>
 		);
 	}

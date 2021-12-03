@@ -1,16 +1,23 @@
 {
   "name": "@chartiq/chartiq-react-components",
-  "version": "8.4.0",
+  "version": "8.4.0-beta.3",
   "description": "React Components for ChartIQ library",
-  "main": "dist/main.js",
+  "main": "dist/index.js",
   "files": [
     "dist/"
   ],
   "scripts": {
-    "build": "webpack --config webpack.config.js",
-    "build:dev": "npm run build --env.development",
-    "postinstall": "npm run build:dev",
-    "prepublish": "npm run build"
+    "build": "babel ./ -d dist/ --ignore node_modules,dist,addCSSFiles.sh --source-maps inline",
+    "postbuild": "./addCSSfiles.sh",
+    "prepare": "npm run build"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-react"
+    ],
+    "plugins": [
+      "@babel/plugin-syntax-dynamic-import"
+    ]
   },
   "keywords": [
     "component",
@@ -20,16 +27,12 @@
   ],
   "author": "ChartIQ",
   "devDependencies": {
+    "@babel/cli": "^7.16.0",
     "@babel/core": "^7.1.2",
     "@babel/plugin-syntax-dynamic-import": "^7.7.4",
+    "@babel/polyfill": "^7.12.1",
     "@babel/preset-env": "^7.14.0",
-    "@babel/preset-react": "^7.0.0",
-    "babel-loader": "^8.0.4",
-    "css-loader": "^5.2.5",
-    "extract-css-chunks-webpack-plugin": "^4.5.5",
-    "file-loader": "^4.0.0",
-    "node-sass": "^6.0.1",
-    "sass-loader": "^10.2.0",
-    "webpack": "^4.23.1"
-  }
+    "@babel/preset-react": "^7.0.0"
+  },
+  "dependencies": {}
 }
