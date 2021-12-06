@@ -1,8 +1,7 @@
 import React from "react";
 import { CIQ } from "chartiq/js/componentUI";
 
-import { default as AdvancedChart } from "../AdvancedChart/AdvancedChart";
-import { getCustomConfig } from "../AdvancedChart/resources"
+import { default as AdvancedChart, getCustomConfig } from "@chartiq/chartiq-react-components/containers/AdvancedChart";
 
 import "./CustomChart.css";
 import { default as ShortcutDialog } from "./ShortcutDialog/ShortcutDialog";

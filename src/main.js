@@ -7,6 +7,7 @@ import { default as RouteList } from "./containers/RouteList/RouteList";
 import AdvancedChartPage from "./containers/AdvancedChart/AdvancedChartPage";
 import MultiChartPage from "./containers/MultiChartPage/MultiChartPage";
 import ActiveTraderPage from "./containers/ActiveTraderPage/ActiveTraderPage";
+import CustomChart from "./containers/CustomChart/CustomChart";
 
 import { CIQ } from "chartiq/js/chartiq"
 
@@ -39,7 +40,7 @@ if (el) {
 					/>
 				)}
 				></Route> */}
-			{/* <Route path='/custom-chart' component={CustomChart}></Route> */}
+			<Route path='/custom-chart' component={CustomChart}></Route>
 			{/* <Route path='/hello-world' component={HelloWorld}></Route> */}
 		</Router>,
 		el

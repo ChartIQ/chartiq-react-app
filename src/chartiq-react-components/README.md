@@ -4,7 +4,7 @@
 
 The ChartIQ React Components is a React component library featuring several advanced components that can be easily imported into an existing React application.
 
-A copy of the ChartIQ library, version 8.3.0 or later.
+A copy of the ChartIQ library, version 8.4.0 or later.
 
 If you do not have a copy of the library, please contact your account manager or send an email to <info@cosaic.io>.
 
@@ -15,7 +15,7 @@ If you do not have a copy of the library, please contact your account manager or
 After installing this package into your React project you will need to install the ChartIQ library (included separately).
 
 ```js
-npm install chartiq-8.3.0 // or whatever version you are using!
+npm install chartiq-8.4.0 // or whatever version you are using!
 ```
 
 You can then import one of the included components into your React app:
@@ -41,7 +41,6 @@ The exported components include:
 - MultiChart &mdash; Implementation of dual AdvancedCharts in a single component.
 - ActiveTraderWorkstation &mdash; Sets up an information-rich component ready for traders.
 - TermStructure &mdash; Creates a working CrossSection (TermStructure) component for dealing with non&ndash;time series data.
-- CustomChart &mdash; Integrates native React components with ChartIQ W3C-standard web components.
 
 ## Basic Customization
 
