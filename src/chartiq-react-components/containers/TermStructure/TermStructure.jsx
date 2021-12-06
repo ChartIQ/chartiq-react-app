@@ -1,7 +1,15 @@
 import React from "react";
-import { CIQ } from "chartiq/js/componentUI";
+import { CIQ } from "chartiq/js/components";
+import "chartiq/plugins/crosssection/core";
+import "chartiq/plugins/crosssection/datepicker";
+import "chartiq/plugins/crosssection/ui";
+import "chartiq/plugins/crosssection/timelineDateSelector";
+
+import "chartiq/plugins/crosssection/crosssection.css"
 
 import ChartTemplate from "./Template";
+
+export { CIQ }
 
 /**
  * An example of a term structure chart.

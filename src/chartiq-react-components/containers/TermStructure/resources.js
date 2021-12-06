@@ -1,35 +1,17 @@
-// Required imports from chartiq for advanced chart
-import "chartiq/js/standard";
-import { CIQ } from "chartiq/js/components";
-import "chartiq/plugins/crosssection/core";
-import "chartiq/plugins/crosssection/datepicker";
-import "chartiq/plugins/crosssection/ui";
-import "chartiq/plugins/crosssection/timelineDateSelector";
+import "chartiq/examples/feeds/symbolLookupChartIQ";
 import quoteFeed from "chartiq/examples/feeds/termstructureDataSimulator";
-
-import "chartiq/plugins/crosssection/sample.css"
-/* Template-specific imports */
 import defaultConfig from "chartiq/js/defaultConfiguration";
 
-import PerfectScrollbar from "chartiq/js/thirdparty/perfect-scrollbar.esm.js";
-
-import "chartiq/examples/feeds/symbolLookupChartIQ";
-
-import "chartiq/examples/markets/marketDefinitionsSample";
-import "chartiq/examples/markets/marketSymbologySample";
 
 // Creates a complete customised configuration object
-function getConfig() { 
-	return defaultConfig({
-		quoteFeed,
-		// forecastQuoteFeed, // uncomment to enable forecast quote feed simulator
-		scrollStyle: PerfectScrollbar,
-	});
+function getConfig(resources = {}) {
+	if(!resources.quoteFeed && resources.quoteFeed!== null ) resources.quoteFeed = quoteFeed
+	return defaultConfig(resources);
 }
 
 // Creates a complete customised configuration object
-function getCustomConfig({ chartId, symbol, onChartReady } = {}) {
-	const config = getConfig();
+function getCustomConfig({ chartId, symbol, onChartReady, resources } = {}) {
+	const config = getConfig(resources);
 
 	config.enabledAddOns.rangeSlider = false;
 	config.enabledAddOns.shortcuts = false;
@@ -38,7 +20,6 @@ function getCustomConfig({ chartId, symbol, onChartReady } = {}) {
 	config.chartId = chartId || "_cross-section-chart";
 	
 	if (onChartReady) config.onChartReady = onChartReady;
-		// config.quoteFeeds[0].behavior.refreshInterval = 0; // disables quotefeed refresh
 
 	config.menuYaxisField = [
 		{ type: "item", label: "Yield", cmd: "Layout.setYaxisField('yield')" },
@@ -93,4 +74,4 @@ function getCustomConfig({ chartId, symbol, onChartReady } = {}) {
 	return config;
 }
 
-export { CIQ, getConfig, getCustomConfig };
+export { getConfig, getCustomConfig };
