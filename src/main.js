@@ -5,6 +5,7 @@ import { BrowserRouter, HashRouter, Route } from "react-router-dom";
 import { default as RouteList } from "./containers/RouteList/RouteList";
 
 import AdvancedChartPage from "./containers/AdvancedChart/AdvancedChartPage";
+import MultiChartPage from "./containers/MultiChartPage/MultiChartPage";
 import ActiveTraderPage from "./containers/ActiveTraderPage/ActiveTraderPage";
 
 import { CIQ } from "chartiq/js/chartiq"
@@ -21,7 +22,7 @@ if (el) {
 			<Route path='/' exact component={RouteList}></Route>
 			<Route path='/index.html' component={RouteList}></Route>
 			<Route path='/technical-analysis'component={AdvancedChartPage}></Route>
-			{/* <Route path='/multi-chart' component={MultiChart}></Route> */}
+			<Route path='/multi-chart' component={MultiChartPage}></Route>
 
 			{CIQ.TFC && CIQ.MarketDepth &&
 				<Route path="/active-trader" component={ActiveTraderPage}></Route>

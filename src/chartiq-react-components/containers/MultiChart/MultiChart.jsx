@@ -11,6 +11,20 @@ import { default as AdvancedChart } from "../AdvancedChart";
  */
 export default class MultiChart extends React.Component {
 	render() {
+		const { chart0 = {}, chart1 = {} } = this.props;
+		const {
+			symbol: symbol0,
+			chartId: id0,
+			chartInitialized: initialized0,
+			config: config0
+		} = chart0;
+		const {
+			symbol: symbol1,
+			chartId: id1,
+			chartInitialized: initialized1,
+			config: config1
+		} = chart1
+
 		const leftColumn = {
 			height: "100%",
 			position: "absolute",
@@ -27,14 +41,18 @@ export default class MultiChart extends React.Component {
 			<>
 				<div style={leftColumn}>
 					<AdvancedChart
-						chartId="chart0"
-						symbol="AAPL"
+						chartId={id0 || 'chart0'}
+						chartInitialized={initialized0}
+						config={config0}
+						symbol={symbol0 || 'AAPL' }
 					></AdvancedChart>
 				</div>
 				<div style={rightColumn}>
 					<AdvancedChart
-						chartId="chart1"
-						symbol="MSFT"
+						chartId={id1 || 'chart1'}
+						chartInitialized={initialized1}
+						config={config1}
+						symbol={symbol1 || 'MSFT' }
 					></AdvancedChart>
 				</div>
 			</>
