@@ -4,10 +4,10 @@ import { BrowserRouter, HashRouter, Route } from "react-router-dom";
 
 import { default as RouteList } from "./containers/RouteList/RouteList";
 
-import AdvancedChartPage from "./containers/AdvancedChart/AdvancedChartPage";
-import MultiChartPage from "./containers/MultiChartPage/MultiChartPage";
-import ActiveTraderPage from "./containers/ActiveTraderPage/ActiveTraderPage";
-import TermStructurePage from './containers/CrossSectionPage/CrossSectionPage';
+import AdvancedChartPage from "./containers/AdvancedChartPage";
+import MultiChartPage from "./containers/MultiChartPage";
+import ActiveTraderPage from "./containers/ActiveTraderPage";
+import TermStructurePage from './containers/CrossSectionPage';
 import CustomChart from "./containers/CustomChart/CustomChart";
 import { HelloWorld } from "@chartiq/chartiq-react-components";
 
