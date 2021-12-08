@@ -1,6 +1,9 @@
 import React from "react"
-import { ActiveTraderWorkstation } from "@chartiq/chartiq-react-components"
-import { CIQ, getCustomConfig } from "@chartiq/chartiq-react-components/containers/ActiveTraderWorkstation";
+import { 
+	default as ActiveTraderWorkstation, 
+	CIQ,
+	getCustomConfig
+} from "@chartiq/chartiq-react-components/src/containers/ActiveTraderWorkstation";
 
 import quoteFeedSimulator from "chartiq/examples/feeds/quoteFeedSimulator";
 import PerfectScrollbar from "chartiq/js/thirdparty/perfect-scrollbar.esm.js";

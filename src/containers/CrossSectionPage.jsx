@@ -1,5 +1,5 @@
 import React from 'react'
-import { default as TermStructure, getCustomConfig } from '@chartiq/chartiq-react-components/containers/TermStructure'
+import { default as TermStructure, getCustomConfig } from '@chartiq/chartiq-react-components/src/containers/TermStructure'
 
 // Import sample shading or use your own
 import "chartiq/plugins/crosssection/sample.css"
