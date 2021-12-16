@@ -43,7 +43,7 @@ exports.wdioConfigReact = {
 	// The template object is a way to set the name of the component's file for this specific repo.
 	// NOTE: this is something custom to our configs not a default option of WDIO
 	baseUrl: 'http://localhost:4040',
-	basePath: '..',
+	basePath: '../',
 	templates: {
 		'advancedChart': 'technical-analysis'
 	},

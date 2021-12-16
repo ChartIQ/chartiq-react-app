@@ -3,8 +3,8 @@ cd ./stx/tests && \
 npm pack && \
 
 echo "Copy tarball files from stx" && \
-cd ../../../ && \
-cp ./build-scripts/stx/tests/chartiq-ui-tests-*.*.*.tgz ./ && \
+cd ../../ && \
+cp ./stx/tests/chartiq-ui-tests-*.*.*.tgz ./ && \
 
 echo "Install tests" && \
 npm i chartiq-ui-tests-*.*.*.tgz

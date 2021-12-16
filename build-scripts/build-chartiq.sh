@@ -4,6 +4,7 @@ npm run build && \
 
 echo "Copy tarball files from stx" && \
 cd ../../ && \
+echo $(ls) && \
 cp ./build-scripts/stx/dist/chartiq-*.*.*.tgz ./ && \
 
 echo "Install library" && \
