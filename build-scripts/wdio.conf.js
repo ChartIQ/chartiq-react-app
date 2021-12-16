@@ -2,7 +2,7 @@ const fs = require('fs');
 const StaticServer = require('static-server');
 let ci = process.env.CI;
 const path = require('path');
-global.downloadDir = path.join(__dirname, './dist/test-lib/tempDownload');
+global.downloadDir = path.join(__dirname, '../dist/test-lib/tempDownload');
 
 exports.wdioConfigReact = {
 	appName: 'chartiq-react-app',
@@ -43,7 +43,7 @@ exports.wdioConfigReact = {
 	// The template object is a way to set the name of the component's file for this specific repo.
 	// NOTE: this is something custom to our configs not a default option of WDIO
 	baseUrl: 'http://localhost:4040',
-	basePath: './',
+	basePath: '..',
 	templates: {
 		'advancedChart': 'technical-analysis'
 	},
@@ -60,15 +60,15 @@ exports.wdioConfigReact = {
 			fs.mkdirSync(global.downloadDir);
 		}
 		var server = new StaticServer({
-			rootPath: './dist/',            // required, the root of the server file tree
+			rootPath: '../dist/',            // required, the root of the server file tree
 			port: 4040,               // required, the port to listen
 			// name: 'my-http-server',   // optional, will set "X-Powered-by" HTTP header
 			host: 'localhost',       // optional, defaults to any interface
 			cors: '*',                // optional, defaults to undefined
 			followSymlink: true,      // optional, defaults to a 404 error
 			templates: {
-				index: './dist/index.html',      // optional, defaults to 'index.html'
-				notFound: './dist/index.html'    // optional, defaults to undefined
+				index: '../dist/index.html',      // optional, defaults to 'index.html'
+				notFound: '../dist/index.html'    // optional, defaults to undefined
 			}
 		});
 

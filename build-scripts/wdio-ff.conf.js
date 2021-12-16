@@ -19,5 +19,5 @@ const browserPrefs = {
 wdioConfig.capabilities[0]["moz:firefoxOptions"]["prefs"] = browserPrefs;
 console.log(`Check browser capabilities: `)
 console.log(wdioConfig.capabilities[0]);
-wdioConfig.mochaOpts.require = "./build-scripts/babel-register.js";
+wdioConfig.mochaOpts.require = "./babel-register.js";
 exports.config = wdioConfig;

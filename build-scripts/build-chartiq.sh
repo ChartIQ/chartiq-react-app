@@ -3,8 +3,8 @@ cd ./stx && \
 npm run build && \
 
 echo "Copy tarball files from stx" && \
-cd ../ && \
-cp ./stx/dist/chartiq-*.*.*.tgz ./ && \
+cd ../../ && \
+cp ./build-scripts/stx/dist/chartiq-*.*.*.tgz ./ && \
 
 echo "Install library" && \
 npm uninstall chartiq && \

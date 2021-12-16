@@ -1,5 +1,5 @@
 const shell = require("shelljs");
-const { wdioConfigReact } = require('../wdio.conf.js')
+const { wdioConfigReact } = require('./wdio.conf.js')
 
 module.exports.specsChecker = function () {
 	let specsExclude = wdioConfigReact.exclude;
