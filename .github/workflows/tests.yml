@@ -17,8 +17,7 @@ env:
     github.event.client_payload.github.event.head_commit.test_branch != NaN && github.event.client_payload.github.event.head_commit.test_branch }}
   STX_BRANCH: ${{
     github.event.inputs.stxBranch != NaN && github.event.inputs.stxBranch ||
-    github.event.client_payload.github.event.head_commit.stx_branch != NaN && github.event.client_payload.github.event.head_commit.stx_branch ||
-    'master'
+    github.event.client_payload.github.event.head_commit.stx_branch != NaN && github.event.client_payload.github.event.head_commit.stx_branch
     }}
   CHROMEDRIVER: ${{ secrets.CHROMEDRIVER_VERSION }}
   GECKODRIVER: ${{ secrets.GECKODRIVER_VERSION }}
