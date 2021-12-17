@@ -9,7 +9,7 @@
     "build:test": "sh build-test.sh",
     "build:stx-symlink": "sh build-stx-symlink.sh",
     "check-specs": "CI=true node -e 'require(\"./specsChecker.js\").specsChecker()'",
-    "ciq-prep-app": "sh clear-dist.sh && cd ../ && npm run build && cd ./build-scripts && node webserver-symlinks.js",
+    "ciq-prep-app": "sh clear-dist.sh && cd ../ && npm run build && cd ./tests && node webserver-symlinks.js",
     "start": "npm run watch -- --host=127.0.0.1 --disable-host-check=true",
     "test-chrome": "wdio wdio-chrome.conf.js --mochaOpts.grep '@NoReact' --mochaOpts.invert=true",
     "test-chrome-ci": "CI=true wdio wdio-chrome.conf.js --mochaOpts.grep '@NoReact' --mochaOpts.invert=true",
