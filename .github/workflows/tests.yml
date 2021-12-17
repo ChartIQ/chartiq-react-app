@@ -52,46 +52,62 @@ jobs:
 
       - name: Clone stx repository(input branch)
         continue-on-error: true
+        working-directory: ./tests
         id: input-branch
         run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.STX_BRANCH != NaN && env.STX_BRANCH }}
 
       - name: Clone stx repository(counterpart branch)
         continue-on-error: true
         if: steps.input-branch.outcome != 'success'
+        working-directory: ./tests
         id: counterpart
         run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.COUNTERPART_BRANCH != NaN && env.COUNTERPART_BRANCH }}
 
       - name: Clone stx repository(master)
         continue-on-error: false
         if: steps.input-branch.outcome != 'success' && steps.counterpart.outcome != 'success'
+        working-directory: ./tests
         id: master
         run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b master
 
+      - name: Install dependencies for React app
+        run: npm install
+
+      - name: Install dependencies for tests
+        working-directory: ./tests
+        run: npm install
+
       - name: Show secrets.CHROMEDRIVER_VERSION
+        if: ${{ env.CHROMEDRIVER != NaN && env.CHROMEDRIVER != '' && env.CHROMEDRIVER }}
         run: echo ${{env.CHROMEDRIVER}} | sed 's/./& /g'
 
       - name: Install chromedriver version from secret
         if: ${{ env.CHROMEDRIVER != NaN && env.CHROMEDRIVER != '' && env.CHROMEDRIVER }}
-        working-directory: ./stx/tests
+        working-directory: ./tests/stx/tests
         run: npm install chromedriver@${{ env.CHROMEDRIVER }}
 
       - name: Install dependencies for stx
-        working-directory: ./stx
+        working-directory: ./tests/stx
         run: npm install
 
       - name: Build project-test
+        working-directory: ./tests
         run: npm run build:test
 
       - name: Build project-chartiq
+        working-directory: ./tests
         run: npm run build:chartiq
 
       - name: Prepare application
+        working-directory: ./tests
         run: npm run ciq-prep-app
 
       - name: Check tests groups
+        working-directory: ./tests
         run: npm run check-specs
 
       - name: Run e2e-v2 tests with Chrome browser
+        working-directory: ./tests
         run: npm run test-chrome-ci
 
       - name: Save allure-results artifact
@@ -99,7 +115,7 @@ jobs:
         uses: actions/upload-artifact@master
         with:
           name: allure-chrome
-          path: allure-results
+          path: ./tests/allure-results
 
   firefox:
     runs-on: ubuntu-latest
@@ -124,33 +140,44 @@ jobs:
         with:
           timezoneLinux: "America/New_York"
 
-      - name: Extract counterpark branch name
+      - name: Extract counterpart branch name
         shell: bash
         run: echo "COUNTERPART_BRANCH=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_ENV
 
       - name: Clone stx repository(input branch)
         continue-on-error: true
+        working-directory: ./tests
         id: input-branch
         run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.STX_BRANCH != NaN && env.STX_BRANCH }}
 
       - name: Clone stx repository(counterpart branch)
         continue-on-error: true
         if: steps.input-branch.outcome != 'success'
+        working-directory: ./tests
         id: counterpart
         run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.COUNTERPART_BRANCH != NaN && env.COUNTERPART_BRANCH }}
 
       - name: Clone stx repository(master)
         continue-on-error: false
         if: steps.input-branch.outcome != 'success' && steps.counterpart.outcome != 'success'
+        working-directory: ./tests
         id: master
         run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b master
 
+      - name: Install dependencies for React app
+        run: npm install
+
+      - name: Install dependencies for tests
+        working-directory: ./tests
+        run: npm install
+
       - name: Show secrets.GECKODRIVER_VERSION
+        if: ${{ env.GECKODRIVER != NaN && env.GECKODRIVER != '' && env.GECKODRIVER }}
         run: echo ${{env.GECKODRIVER}} | sed 's/./& /g'
 
       - name: Install geckodriver secret version
         if: ${{ env.GECKODRIVER != NaN && env.GECKODRIVER != '' && env.GECKODRIVER }}
-        working-directory: ./stx/tests
+        working-directory: ./tests/stx/tests
         run: npm install geckodriver@${{ env.GECKODRIVER }}
 
       - name: Install dependencies for stx
@@ -158,18 +185,23 @@ jobs:
         run: npm install
 
       - name: Build project-test
+        working-directory: ./tests
         run: npm run build:test
 
       - name: Build project-chartiq
+        working-directory: ./tests
         run: npm run build:chartiq
 
       - name: Prepare application
+        working-directory: ./tests
         run: npm run ciq-prep-app
 
       - name: Check tests groups
+        working-directory: ./tests
         run: npm run check-specs
 
       - name: Run e2e-v2 tests with Firefox browser
+        working-directory: ./tests
         run: npm run test-ff-ci
 
       - name: Save allure-results artifact
@@ -177,7 +209,7 @@ jobs:
         uses: actions/upload-artifact@master
         with:
           name: allure-ff
-          path: allure-results
+          path: ./tests/allure-results
 
   allure:
     runs-on: ubuntu-latest
@@ -204,50 +236,55 @@ jobs:
         with:
           timezoneLinux: "America/New_York"
 
-      - name: Extract branch name
+      - name: Extract counterpart branch name
         shell: bash
         run: echo "COUNTERPART_BRANCH=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_ENV
 
       - name: Clone stx repository(input branch)
         continue-on-error: true
-        id: event
-        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ github.event.inputs.stxBranch != NaN && github.event.inputs.stxBranch }}
+        working-directory: ./tests
+        id: input-branch
+        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.STX_BRANCH != NaN && env.STX_BRANCH }}
 
       - name: Clone stx repository(counterpart branch)
         continue-on-error: true
-        if: steps.event.outcome != 'success'
-        id: similar
+        if: steps.input-branch.outcome != 'success'
+        working-directory: ./tests
+        id: counterpart
         run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.COUNTERPART_BRANCH != NaN && env.COUNTERPART_BRANCH }}
 
       - name: Clone stx repository(master)
         continue-on-error: false
-        if: steps.event.outcome != 'success' && steps.similar.outcome != 'success'
+        if: steps.input-branch.outcome != 'success' && steps.counterpart.outcome != 'success'
+        working-directory: ./tests
         id: master
         run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b master
 
       - name: Build project-test
+        working-directory: ./tests
         run: npm run build:test
 
       - name: Load allure-results from Chrome
         uses: actions/download-artifact@master
         with:
           name: allure-chrome
-          path: "./allure-results"
+          path: "./tests/allure-results"
 
       - name: Load allure-results from Firefox
         uses: actions/download-artifact@master
         with:
           name: allure-ff
-          path: "./allure-results"
+          path: "./tests/allure-results"
 
       - name: Generate allure report
         if: ${{ failure() || success() }}
+        working-directory: ./tests
         run: npm run report-ci
         continue-on-error: true
 
       - name: Sync Allure to S3
         if: ${{ failure() || success() }}
-        run: aws s3 sync ./allure-report/ s3://react-app-allurereports.chartiq.com/${{ github.sha }} --acl public-read --delete
+        run: aws s3 sync ./tests/allure-report/ s3://react-app-allurereports.chartiq.com/${{ github.sha }} --acl public-read --delete
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
