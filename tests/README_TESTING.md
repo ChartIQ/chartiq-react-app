@@ -1,19 +1,23 @@
 # chartiq-react-app automated tests
 
-Note: This build-scripts/ folder should not be copied to the public repo!
+Note: This ./tests folder should not be copied to the public repo!
 
 chartiq-react-app and stx should have the same parent folder!
 
 From chartiq-react-app-private/ :
 ```sh
 npm install
-npm run build:stx-symlink //"Used for local testing only. CI clones the stx repo instead."
 ```
-From chartiq-react-app-private/stx :
+From chartiq-react-app-private/tests/ :
+```sh
+npm install
+npm run build:stx-symlink "Used for local testing only. CI clones the stx repo instead."
+```
+From chartiq-react-app-private/tests/stx :
 ```sh
 npm install
 ```
-From chartiq-react-app-private/ :
+From chartiq-react-app-private/tests/ :
 ```sh
 npm run build:test
 npm run build:chartiq
@@ -33,13 +37,13 @@ npm run report
 - Testing dependencies are in react-app/node_modules/@chartiq/ui-tests/package.json .
 - npm build:test builds the chart-ui-test package from stx and installs into react-app.
     - The automated tests use the following resources from the stx project installed into node_modules with chartiq-ui-tests-*.tgz:
-        - stx/tests/test-lib/**
-        - stx/tests/test-rigs-automated/**
-    - Node dependencies from the installation of chartiq-ui-test orignate from stx/tests/package.json . Any changes in this file will need build:test re-run to apply.
+        - ./tests/stx/tests/test-lib/**
+        - ./tests/stx/tests/test-rigs-automated/**
+    - Node dependencies from the installation of chartiq-ui-test orignate from ./tests/stx/tests/package.json . Any changes in this file will need build:test re-run to apply.
 - WDIO configs are merged from:
 	- react-app/wdio-chrome.conf.js or react-app/wdio-ff.conf.js
-	- stx/tests/e2e-v2/wdio.conf.js
-- Spec files are located at stx/tests/e2e-v2/specs/sample-template-advanced/**.spec.js
+	- ./tests/stx/tests/e2e-v2/wdio.conf.js
+- Spec files are located at ./tests/stx/tests/e2e-v2/specs/sample-template-advanced/**.spec.js
     - defined in react-app/wdio-chrome.conf.js and react-app/wdio-ff.conf.js
 - The react app is built with files outputting to dist/ .
 - The tests are run against a webserver (static-server) started by WDIO with the root path at dist/ .
@@ -64,13 +68,13 @@ npm run report
 
 -	`npm run test-chrome-ci` - run test groups in parallel in Chrome
 -	`npm run test-ff-ci` - run test groups in parallel in FireFox
-	 - To see these groups go to wdio.conf.js file
+	 - To see these groups go to ./tests/wdio.conf.js file
 	 - Implemented to reduce the time required for a pipeline(could be used locally)
 
 ### specs checker:
 
-- Created to compare specifications from the /stx/tests/e2e-v2/specs/sample-template-advanced folder with specifications that are grouped in wdio.conf.js
-- Specifications specified in wdio.conf.js exclude field will not be considered for the specs checker
+- Created to compare specifications from the ./tests/stx/tests/e2e-v2/specs/sample-template-advanced folder with specifications that are grouped in wdio.conf.js
+- Specifications specified in ./tests/wdio.conf.js exclude field will not be considered for the specs checker
 - `npm run check-cpecs` - run specs checker
 - To test specs checker you should:
 	- Comment one of spec from group in wdio.conf.js
