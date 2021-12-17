@@ -7,14 +7,18 @@ on:
         description: 'React App branch name'
         required: true
       stxBranch:
-        description: 'Stx branch name'
-        required: true
+        description: 'Stx (precedence: input value, react app branch name, then master)'
+        required: false
   push:
 
 env:
-  # If available, use the react-app branch from the dispatch UI input, otherwise use the branch from the triggering event (commit).
-  TEST_BRANCH: ${{ github.event.inputs.testBranch != NaN && github.event.inputs.testBranch || github.event.client_payload.github.event.head_commit.test_branch != NaN && github.event.client_payload.github.event.head_commit.test_branch }}
-  STX_BRANCH: ${{ github.event.inputs.stxBranch != NaN && github.event.inputs.stxBranch || github.event.client_payload.github.event.head_commit.stx_branch != NaN && github.event.client_payload.github.event.head_commit.stx_branch || 'master' }}
+  TEST_BRANCH: ${{
+    github.event.inputs.testBranch != NaN && github.event.inputs.testBranch ||
+    github.event.client_payload.github.event.head_commit.test_branch != NaN && github.event.client_payload.github.event.head_commit.test_branch }}
+  STX_BRANCH: ${{
+    github.event.inputs.stxBranch != NaN && github.event.inputs.stxBranch ||
+    github.event.client_payload.github.event.head_commit.stx_branch != NaN && github.event.client_payload.github.event.head_commit.stx_branch
+    }}
   CHROMEDRIVER: ${{ secrets.CHROMEDRIVER_VERSION }}
   GECKODRIVER: ${{ secrets.GECKODRIVER_VERSION }}
 
@@ -42,8 +46,26 @@ jobs:
         with:
           timezoneLinux: "America/New_York"
 
-      - name: Clone stx repository
+      - name: Extract counterpart branch name
+        shell: bash
+        run: echo "COUNTERPART_BRANCH=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_ENV
+
+      - name: Clone stx repository(input branch)
+        continue-on-error: true
+        id: input-branch
         run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.STX_BRANCH != NaN && env.STX_BRANCH }}
+
+      - name: Clone stx repository(counterpart branch)
+        continue-on-error: true
+        if: steps.input-branch.outcome != 'success'
+        id: counterpart
+        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.COUNTERPART_BRANCH != NaN && env.COUNTERPART_BRANCH }}
+
+      - name: Clone stx repository(master)
+        continue-on-error: false
+        if: steps.input-branch.outcome != 'success' && steps.counterpart.outcome != 'success'
+        id: master
+        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b master
 
       - name: Show secrets.CHROMEDRIVER_VERSION
         run: echo ${{env.CHROMEDRIVER}} | sed 's/./& /g'
@@ -102,8 +124,26 @@ jobs:
         with:
           timezoneLinux: "America/New_York"
 
-      - name: Clone stx repository
+      - name: Extract counterpark branch name
+        shell: bash
+        run: echo "COUNTERPART_BRANCH=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_ENV
+
+      - name: Clone stx repository(input branch)
+        continue-on-error: true
+        id: input-branch
         run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.STX_BRANCH != NaN && env.STX_BRANCH }}
+
+      - name: Clone stx repository(counterpart branch)
+        continue-on-error: true
+        if: steps.input-branch.outcome != 'success'
+        id: counterpart
+        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.COUNTERPART_BRANCH != NaN && env.COUNTERPART_BRANCH }}
+
+      - name: Clone stx repository(master)
+        continue-on-error: false
+        if: steps.input-branch.outcome != 'success' && steps.counterpart.outcome != 'success'
+        id: master
+        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b master
 
       - name: Show secrets.GECKODRIVER_VERSION
         run: echo ${{env.GECKODRIVER}} | sed 's/./& /g'
@@ -164,8 +204,26 @@ jobs:
         with:
           timezoneLinux: "America/New_York"
 
-      - name: Clone stx repository
-        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.STX_BRANCH != NaN && env.STX_BRANCH }}
+      - name: Extract branch name
+        shell: bash
+        run: echo "COUNTERPART_BRANCH=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_ENV
+
+      - name: Clone stx repository(input branch)
+        continue-on-error: true
+        id: event
+        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ github.event.inputs.stxBranch != NaN && github.event.inputs.stxBranch }}
+
+      - name: Clone stx repository(counterpart branch)
+        continue-on-error: true
+        if: steps.event.outcome != 'success'
+        id: similar
+        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b ${{ env.COUNTERPART_BRANCH != NaN && env.COUNTERPART_BRANCH }}
+
+      - name: Clone stx repository(master)
+        continue-on-error: false
+        if: steps.event.outcome != 'success' && steps.similar.outcome != 'success'
+        id: master
+        run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b master
 
       - name: Build project-test
         run: npm run build:test
@@ -198,3 +256,4 @@ jobs:
       - name: Show the allure report location
         if: ${{ failure() || success() }}
         run: echo http://react-app-allurereports.chartiq.com.s3-website-us-east-1.amazonaws.com/${{ github.sha }}/
+

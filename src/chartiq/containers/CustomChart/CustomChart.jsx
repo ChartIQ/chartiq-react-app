@@ -346,7 +346,7 @@ export default class CustomChart extends React.Component {
 									</cq-info-toggle-dropdown>
 
 									<cq-toggle
-										className="ciq-DT tableview-ui"
+										class="ciq-DT tableview-ui"
 										cq-member="tableView"
 									>
 										<span></span>
