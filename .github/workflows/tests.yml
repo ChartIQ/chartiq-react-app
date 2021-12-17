@@ -181,7 +181,7 @@ jobs:
         run: npm install geckodriver@${{ env.GECKODRIVER }}
 
       - name: Install dependencies for stx
-        working-directory: ./stx
+        working-directory: ./tests/stx
         run: npm install
 
       - name: Build project-test
