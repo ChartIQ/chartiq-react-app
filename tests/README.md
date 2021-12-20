@@ -37,7 +37,7 @@ npm run report
 
 - Local testing, requires stx project to be symlinked.
 - In GH Actions, the stx repo is cloned to react-app/tests/stx/ .
-- Testing npm scripts and dependencies are in react-app/tests/package.json .
+- Testing npm scripts are in react-app/tests/package.json .
 - More testing dependencies are in react-app/tests/node_modules/@chartiq/ui-tests/package.json .
 - npm build:test builds the chart-ui-test package from stx and installs into react-app/tests/.
     - The automated tests use the following resources from the stx project installed into node_modules with chartiq-ui-tests-*.tgz . They are symlinked by tests/webserver-symlinks.js:
