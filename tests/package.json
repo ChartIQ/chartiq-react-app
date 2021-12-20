@@ -10,7 +10,6 @@
     "build:stx-symlink": "sh build-stx-symlink.sh",
     "check-specs": "CI=true node -e 'require(\"./specsChecker.js\").specsChecker()'",
     "ciq-prep-app": "sh clear-dist.sh && cd ../ && npm run build && cd ./tests && node webserver-symlinks.js",
-    "start": "npm run watch -- --host=127.0.0.1 --disable-host-check=true",
     "test-chrome": "wdio wdio-chrome.conf.js --mochaOpts.grep '@NoReact' --mochaOpts.invert=true",
     "test-chrome-ci": "CI=true wdio wdio-chrome.conf.js --mochaOpts.grep '@NoReact' --mochaOpts.invert=true",
     "test-chrome:debug": "DEBUG=true wdio wdio-chrome.conf.js --mochaOpts.grep '@NoReact' --mochaOpts.invert=true",
@@ -21,7 +20,6 @@
     "test-ff:debug": "DEBUG=true wdio wdio-ff.conf.js --mochaOpts.grep '@NoReact' --mochaOpts.invert=true",
     "test-ff:spec": "wdio wdio-ff.conf.js --mochaOpts.grep '@NoReact' --mochaOpts.invert=true --spec",
     "test-ff:debug:spec": "DEBUG=true wdio wdio-ff.conf.js --mochaOpts.grep '@NoReact' --mochaOpts.invert=true --spec",
-    "watch": "webpack-dev-server --inline --config=webpack.config.js --watch=true",
     "report": "allure generate ./allure-results --clean && allure open",
     "report-ci": "allure generate allure-results --clean -o allure-report"
   },
@@ -36,13 +34,5 @@
   "author": "ChartIQ",
   "license": "ISC",
   "devDependencies": {},
-  "dependencies": {
-    "@babel/cli": "^7.14.8",
-    "@babel/core": "^7.14.8",
-    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
-    "@babel/preset-env": "^7.14.8",
-    "@babel/preset-react": "^7.14.5",
-    "@babel/register": "^7.16.5",
-    "babel-loader": "^8.2.2"
-  }
+  "dependencies": {}
 }
