@@ -21,6 +21,7 @@ exports.wdioConfigReact = {
 			"./stx/tests/e2e-v2/specs/sample-template-advanced/pref-locale-adv.spec.js",
 			"./stx/tests/e2e-v2/specs/sample-template-advanced/display-chartstyles-adv.spec.js",
 			"./stx/tests/e2e-v2/specs/sample-template-advanced/drawing-palette-adv.spec.js",
+			"./stx/tests/e2e-v2/specs/sample-template-advanced/custom-themes.spec.js",
 		],
 		[
 			"./stx/tests/e2e-v2/specs/sample-template-advanced/table-view.spec.js",
