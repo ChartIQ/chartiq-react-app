@@ -102,13 +102,9 @@ jobs:
         working-directory: ./tests
         run: npm run ciq-prep-app
 
-      - name: Check tests groups
-        working-directory: ./tests
-        run: npm run check-specs
-
       - name: Run e2e-v2 tests with Chrome browser
         working-directory: ./tests
-        run: npm run test-chrome-ci
+        run: npm run test-chrome
 
       - name: Save allure-results artifact
         if: ${{ success() || failure() }}
@@ -196,13 +192,9 @@ jobs:
         working-directory: ./tests
         run: npm run ciq-prep-app
 
-      - name: Check tests groups
-        working-directory: ./tests
-        run: npm run check-specs
-
       - name: Run e2e-v2 tests with Firefox browser
         working-directory: ./tests
-        run: npm run test-ff-ci
+        run: npm run test-ff
 
       - name: Save allure-results artifact
         if: ${{ success() || failure() }}
