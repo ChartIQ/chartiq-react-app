@@ -70,8 +70,3 @@ npm run report
 - `npm run test-chrome:debug:spec` - run a single spec file in debug mode in Chrome
 - `npm run test-ff:debug:spec` - run a single spec file in debug mode in FireFox
     - E.g `npm run test-chrome:debug:spec ./stx/tests/e2e-v2/specs/hotkeys-adv.spec.js`
-
-- `npm run test-chrome-ci` - run test groups in parallel in Chrome
-- `npm run test-ff-ci` - run test groups in parallel in FireFox
-    - To see these groups look in react-app/tests/wdio.conf.js .
-    - Implemented to reduce the time required for a pipeline(could be used locally).
