@@ -36,7 +36,8 @@ exports.wdioConfigReact = {
 			"./stx/tests/e2e-v2/specs/sample-template-advanced/markers-menu-adv.spec.js",
 			"./stx/tests/e2e-v2/specs/sample-template-advanced/studies-advanced.spec.js",
 			"./stx/tests/e2e-v2/specs/sample-template-advanced/span-options.spec.js",
-			"./stx/tests/e2e-v2/specs/sample-template-advanced/dialogs/aggregation-dialog-adv.spec.js"
+			"./stx/tests/e2e-v2/specs/sample-template-advanced/dialogs/aggregation-dialog-adv.spec.js",
+			"./stx/tests/e2e-v2/specs/sample-template-advanced/dialogs/custom-themes.spec.js"
 		]
 	] : ['./stx/tests/e2e-v2/specs/sample-template-advanced/**/**.spec.js'],
 	// Because we have different names for our templates across projects, we are accessing them thru configured variables.
