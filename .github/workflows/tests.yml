@@ -71,11 +71,11 @@ jobs:
         run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b master
 
       - name: Install dependencies for React app
-        run: npm install
+        run: npm ci
 
       - name: Install dependencies for tests
         working-directory: ./tests
-        run: npm install
+        run: npm ci
 
       - name: Show secrets.CHROMEDRIVER_VERSION
         if: ${{ env.CHROMEDRIVER != NaN && env.CHROMEDRIVER != '' && env.CHROMEDRIVER }}
@@ -88,7 +88,7 @@ jobs:
 
       - name: Install dependencies for stx
         working-directory: ./tests/stx
-        run: npm install
+        run: npm ci
 
       - name: Build project-test
         working-directory: ./tests
@@ -161,11 +161,11 @@ jobs:
         run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b master
 
       - name: Install dependencies for React app
-        run: npm install
+        run: npm ci
 
       - name: Install dependencies for tests
         working-directory: ./tests
-        run: npm install
+        run: npm ci
 
       - name: Show secrets.GECKODRIVER_VERSION
         if: ${{ env.GECKODRIVER != NaN && env.GECKODRIVER != '' && env.GECKODRIVER }}
@@ -178,7 +178,7 @@ jobs:
 
       - name: Install dependencies for stx
         working-directory: ./tests/stx
-        run: npm install
+        run: npm ci
 
       - name: Build project-test
         working-directory: ./tests
