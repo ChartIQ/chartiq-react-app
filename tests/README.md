@@ -12,7 +12,7 @@ npm ci
 From chartiq-react-app-private/tests/ :
 
 ```sh
-npm ci
+npm install
 npm run build:stx-symlink "Used for local testing only. CI clones the stx repo instead."
 ```
 From chartiq-react-app-private/tests/stx :
