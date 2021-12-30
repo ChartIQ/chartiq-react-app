@@ -358,7 +358,7 @@ export default class CustomChart extends React.Component {
 							<div className="ciq-menu-section">
 								<div className="ciq-dropdowns">
 									<cq-menu class="ciq-menu ciq-display collapse">
-										<cq-clickable cq-toolbar-action stxbind="Layout.chartType" ciq-no-icon-text="Display">
+										<cq-clickable cq-tooltip-activator stxbind="Layout.chartType" ciq-no-icon-text="Display">
 												<span ciq-menu-icon="true"></span>
 												<cq-tooltip></cq-tooltip>
 										</cq-clickable>
@@ -368,6 +368,7 @@ export default class CustomChart extends React.Component {
 												<cq-menu-container cq-name="menuChartStyle"></cq-menu-container>
 											</cq-menu-dropdown-section>
 											<cq-menu-dropdown-section class="chart-aggregations">
+												<cq-separator></cq-separator>
 												<cq-heading>Aggregated Types</cq-heading>
 												<cq-menu-container cq-name="menuChartAggregates"></cq-menu-container>
 											</cq-menu-dropdown-section>
