@@ -73,10 +73,6 @@ jobs:
       - name: Install dependencies for React app
         run: npm ci
 
-      - name: Install dependencies for tests
-        working-directory: ./tests
-        run: npm install
-
       - name: Show secrets.CHROMEDRIVER_VERSION
         if: ${{ env.CHROMEDRIVER != NaN && env.CHROMEDRIVER != '' && env.CHROMEDRIVER }}
         run: echo ${{env.CHROMEDRIVER}} | sed 's/./& /g'
@@ -162,10 +158,6 @@ jobs:
 
       - name: Install dependencies for React app
         run: npm ci
-
-      - name: Install dependencies for tests
-        working-directory: ./tests
-        run: npm install
 
       - name: Show secrets.GECKODRIVER_VERSION
         if: ${{ env.GECKODRIVER != NaN && env.GECKODRIVER != '' && env.GECKODRIVER }}

@@ -1,8 +1,8 @@
 {
-  "name": "chartiq-react-app",
-  "version": "8.4.0",
-  "description": "ChartIQ's package for testing",
-  "main": "index.js",
+  "name": "chartiq-react-app-tests",
+  "version": "1.0.0",
+  "description": "ChartIQ's React App test package",
+  "main": "wdio.conf.js",
   "scripts": {
     "build": "webpack --config=webpack.config.js --env.production",
     "build:chartiq": "sh build-chartiq.sh",

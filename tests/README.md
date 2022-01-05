@@ -12,7 +12,6 @@ npm ci
 From chartiq-react-app-private/tests/ :
 
 ```sh
-npm install
 npm run build:stx-symlink "Used for local testing only. CI clones the stx repo instead."
 ```
 From chartiq-react-app-private/tests/stx :
@@ -48,7 +47,8 @@ npm run report
     - react-app/tests/wdio-chrome.conf.js or react-app/tests/wdio-ff.conf.js
     - react-app/tests/stx/tests/e2e-v2/wdio-chrome.conf.js or react-app/tests/stx/tests/e2e-v2/wdio-ff.conf.js
     - react-app/tests/stx/tests/e2e-v2/wdio.conf.js
-- Spec files are located at react-app/tests/stx/tests/e2e-v2/specs/sample-template-advanced/**.spec.js
+- Spec files are located at react-app/tests/stx/tests/e2e-v2/specs/sample-template-advanced/**/**.spec.js
+    - The spec run list is defined in react-app/tests/wdio.conf.js
 - The react app is built with files outputting to react-app/dist/ .
     - Symlinks for served test assets are added to react-app/dist/ by tests/webserver-symlinks.js .
 - The tests are run against a webserver (static-server) started by WDIO with the root path at react-app/dist/ .
