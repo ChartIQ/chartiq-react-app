@@ -8,7 +8,7 @@ createSymlink({
   symlink: "../dist/examples"
 });
 createSymlink({
-  target: "../node_modules/@chartiq/ui-tests/test-lib",
+  target: "./node_modules/@chartiq/ui-tests/test-lib",
   symlink: "../dist/test-lib"
 });
 createSymlink({
