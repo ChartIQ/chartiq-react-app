@@ -11,7 +11,7 @@ new Promise((resolve, reject) => {
 	const major = version[0];
 	console.log(`running npm ${major}`)
 	if (major >= 7) return;
-	console.log("manually linking to @chartiq/chartiq-react-components")
+	console.log("manually linking to @chartiq/react-components")
 	exec("npm link src/chartiq-react-components", (err, stdout, stderr) => {
 		if(err) throw new Error("Could not run npm link")
 		else console.log(stdout.trim());

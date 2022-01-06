@@ -36,7 +36,7 @@ If you accidentally make a mistake when you are publishing, you can unpublish ei
 
 To unpublish a specific release from the CLI you should run: 
 ```
-npm unpublish @chartiq/chartiq-react-components@<version> --otp=123456 //substitute your own MFA code
+npm unpublish @chartiq/react-components@<version> --otp=123456 //substitute your own MFA code
 ```
 
 If you are looking to delete an entire package from NPM you can delete the package from the "Settings" tab of npm website (available once signed in) or run the following:

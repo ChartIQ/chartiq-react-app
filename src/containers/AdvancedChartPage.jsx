@@ -1,6 +1,6 @@
 import React from "react"
-import { AdvancedChart } from "@chartiq/chartiq-react-components"
-import { CIQ, getCustomConfig } from "@chartiq/chartiq-react-components/src/containers/AdvancedChart";
+import { AdvancedChart } from "@chartiq/react-components"
+import { CIQ, getCustomConfig } from "@chartiq/react-components/src/containers/AdvancedChart";
 
 import quoteFeedSimulator from "chartiq/examples/feeds/quoteFeedSimulator";
 import PerfectScrollbar from "chartiq/js/thirdparty/perfect-scrollbar.esm.js";

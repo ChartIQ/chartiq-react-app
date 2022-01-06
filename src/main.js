@@ -9,7 +9,7 @@ import MultiChartPage from "./containers/MultiChartPage";
 import ActiveTraderPage from "./containers/ActiveTraderPage";
 import TermStructurePage from './containers/CrossSectionPage';
 import CustomChart from "./containers/CustomChart/CustomChart";
-import { HelloWorld } from "@chartiq/chartiq-react-components";
+import { HelloWorld } from "@chartiq/react-components";
 
 import { CIQ } from "chartiq/js/chartiq"
 

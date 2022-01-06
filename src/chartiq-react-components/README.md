@@ -22,7 +22,7 @@ You can then import one of the included components into your React app:
 
 ```jsx
 import { Component } from "react"
-import { AdvancedChart } from "@chartiq/chartiq-react-components"
+import { AdvancedChart } from "@chartiq/react-components"
 
 export default class ChartComponent extends Component {
 	render() {
@@ -59,7 +59,7 @@ The `getCustomConfig` method will return a specific config for each component. *
 import {
 		getConfig,
 		getCustomConfig
-	} from @chartiq/chartiq-react-components/containers/AdvancedChart/resources
+	} from @chartiq/react-components/containers/AdvancedChart/resources
 
 const config = getConfig()
 config.initialSymbol = 'FB'
@@ -75,7 +75,7 @@ After importing your own quotefeed, and getting a config to pass into the chart,
 
 ```jsx
 import MyCustomQuotefeed from './myCustomQuotefeed'
-import { getCustomConfig } from '@chartiq/chartiq-react-components/containers/AdvancedChart/resources'
+import { getCustomConfig } from '@chartiq/react-components/containers/AdvancedChart/resources'
 
 const config = getCustomConfig({ resources: { quoteFeed: myCustomQuoteFeed }})
 
@@ -91,7 +91,7 @@ The chart configuration includes the default Lookup.ChartIQ implementation but y
 
 ```jsx
 import customSymbolLookup from './myCustomSymbolLookup'
-import { getCustomConfig } from '@chartiq/chartiq-react-components/containers/AdvancedChart/resources'
+import { getCustomConfig } from '@chartiq/react-components/containers/AdvancedChart/resources'
 
 const config = getCustomConfig()
 
