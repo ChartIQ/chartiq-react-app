@@ -26,7 +26,6 @@ export default class AdvancedChart extends React.Component {
 		this.container = React.createRef();
 
 		this.state = {
-			chart: new CIQ.UI.Chart(),
 			stx: null,
 			UIContext: null,
 			chartInitializedCallback: props.chartInitialized
@@ -62,8 +61,7 @@ export default class AdvancedChart extends React.Component {
 	}
 
 	createChartAndUI({ container, config }) {
-		const uiContext = this.state.chart.createChartAndUI({ container, config });
-		return uiContext;
+		return new CIQ.UI.Chart().createChartAndUI({ container, config });
 	}
 
 	render() {

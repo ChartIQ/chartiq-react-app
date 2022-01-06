@@ -21,15 +21,16 @@ npm install chartiq-8.4.0 // or whatever version you are using!
 You can then import one of the included components into your React app:
 
 ```jsx
-<Route path='/technical-analysis'
-	render={() => (
-		<AdvancedChart
-			config={configObj}
-			chartInitialized={chartInitialized}
-			onChartReady={onChartReady}
-		/>
-	)}>
-</Route>
+import { Component } from "react"
+import { AdvancedChart } from "@chartiq/chartiq-react-components"
+
+export default class ChartComponent extends Component {
+	render() {
+		return (
+			<AdvancedChart />
+		)
+	}
+}
 ```
 
 ## Included Components
@@ -76,7 +77,7 @@ After importing your own quotefeed, and getting a config to pass into the chart,
 import MyCustomQuotefeed from './myCustomQuotefeed'
 import { getCustomConfig } from '@chartiq/chartiq-react-components/containers/AdvancedChart/resources'
 
-const config = getCustomConfig({ quoteFeed: myCustomQuoteFeed })
+const config = getCustomConfig({ resources: { quoteFeed: myCustomQuoteFeed }})
 
 <AdvancedChart config={config}/>
 ```
