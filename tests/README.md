@@ -7,18 +7,17 @@ chartiq-react-app and stx should have the same parent folder!
 From chartiq-react-app-private/ :
 
 ```sh
-npm install
+npm ci
 ```
 From chartiq-react-app-private/tests/ :
 
 ```sh
-npm install
 npm run build:stx-symlink "Used for local testing only. CI clones the stx repo instead."
 ```
 From chartiq-react-app-private/tests/stx :
 
 ```sh
-npm install
+npm ci
 ```
 From chartiq-react-app-private/tests/ :
 
@@ -48,7 +47,7 @@ npm run report
     - react-app/tests/wdio-chrome.conf.js or react-app/tests/wdio-ff.conf.js
     - react-app/tests/stx/tests/e2e-v2/wdio-chrome.conf.js or react-app/tests/stx/tests/e2e-v2/wdio-ff.conf.js
     - react-app/tests/stx/tests/e2e-v2/wdio.conf.js
-- Spec files are located at react-app/tests/stx/tests/e2e-v2/specs/sample-template-advanced/**.spec.js
+- Spec files are located at react-app/tests/stx/tests/e2e-v2/specs/sample-template-advanced/**/**.spec.js
     - The spec run list is defined in react-app/tests/wdio.conf.js
 - The react app is built with files outputting to react-app/dist/ .
     - Symlinks for served test assets are added to react-app/dist/ by tests/webserver-symlinks.js .
@@ -71,19 +70,3 @@ npm run report
 - `npm run test-chrome:debug:spec` - run a single spec file in debug mode in Chrome
 - `npm run test-ff:debug:spec` - run a single spec file in debug mode in FireFox
     - E.g `npm run test-chrome:debug:spec ./stx/tests/e2e-v2/specs/hotkeys-adv.spec.js`
-
-- `npm run test-chrome-ci` - run test groups in parallel in Chrome
-- `npm run test-ff-ci` - run test groups in parallel in FireFox
-    - To see these groups look in react-app/tests/wdio.conf.js .
-    - Implemented to reduce the time required for a pipeline(could be used locally).
-
-### specs checker:
-
-- Created to compare the directory list of spec files from the react-app/tests/stx/tests/e2e-v2/specs/sample-template-advanced folder versus the spec files that are listed in wdio.conf.js . The goal is avoid missing new specs that have been added to stx.
-- Specifications specified in react-app/tests/wdio.conf.js exclude field will not be considered for the specs checker.
-- `npm run check-specs` - run specs checker
-- To test the specs checker you should:
-    - Comment one of spec from group in wdio.conf.js
-    - Run spec checker (it should return an error with missing spec name)
-    - Copy commented spec into exclude field
-    - Run spec checker (now it should pass)

@@ -71,11 +71,7 @@ jobs:
         run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b master
 
       - name: Install dependencies for React app
-        run: npm install
-
-      - name: Install dependencies for tests
-        working-directory: ./tests
-        run: npm install
+        run: npm ci
 
       - name: Show secrets.CHROMEDRIVER_VERSION
         if: ${{ env.CHROMEDRIVER != NaN && env.CHROMEDRIVER != '' && env.CHROMEDRIVER }}
@@ -88,7 +84,7 @@ jobs:
 
       - name: Install dependencies for stx
         working-directory: ./tests/stx
-        run: npm install
+        run: npm ci
 
       - name: Build project-test
         working-directory: ./tests
@@ -102,13 +98,9 @@ jobs:
         working-directory: ./tests
         run: npm run ciq-prep-app
 
-      - name: Check tests groups
-        working-directory: ./tests
-        run: npm run check-specs
-
       - name: Run e2e-v2 tests with Chrome browser
         working-directory: ./tests
-        run: npm run test-chrome-ci
+        run: npm run test-chrome
 
       - name: Save allure-results artifact
         if: ${{ success() || failure() }}
@@ -165,11 +157,7 @@ jobs:
         run: git clone https://${{ secrets.GHA_ACCESS_TOKEN }}@github.com/ChartIQ/stx.git -b master
 
       - name: Install dependencies for React app
-        run: npm install
-
-      - name: Install dependencies for tests
-        working-directory: ./tests
-        run: npm install
+        run: npm ci
 
       - name: Show secrets.GECKODRIVER_VERSION
         if: ${{ env.GECKODRIVER != NaN && env.GECKODRIVER != '' && env.GECKODRIVER }}
@@ -182,7 +170,7 @@ jobs:
 
       - name: Install dependencies for stx
         working-directory: ./tests/stx
-        run: npm install
+        run: npm ci
 
       - name: Build project-test
         working-directory: ./tests
@@ -196,13 +184,9 @@ jobs:
         working-directory: ./tests
         run: npm run ciq-prep-app
 
-      - name: Check tests groups
-        working-directory: ./tests
-        run: npm run check-specs
-
       - name: Run e2e-v2 tests with Firefox browser
         working-directory: ./tests
-        run: npm run test-ff-ci
+        run: npm run test-ff
 
       - name: Save allure-results artifact
         if: ${{ success() || failure() }}
