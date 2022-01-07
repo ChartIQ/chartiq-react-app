@@ -15,7 +15,6 @@
     "check-specs": "CI=true node -e 'require(\"./build-scripts/specsChecker.js\").specsChecker()'",
     "ciq-prep-app": "sh ./build-scripts/clear-dist.sh && npm run build && node ./build-scripts/webserver-symlinks.js",
     "publish:components": "npm pack --workspace=src/chartiq-react-components",
-    "preinstall": "node check-npm-version.js",
     "start": "npm run watch -- --host=127.0.0.1 --disable-host-check=true",
     "test-chrome": "wdio wdio-chrome.conf.js --mochaOpts.grep '@NoReact' --mochaOpts.invert=true",
     "test-chrome-ci": "CI=true wdio wdio-chrome.conf.js --mochaOpts.grep '@NoReact' --mochaOpts.invert=true",
@@ -68,7 +67,7 @@
   },
   "dependencies": {
     "@babel/preset-env": "^7.14.8",
-    "@chartiq/react-components": "file:src/chartiq-react-components",
+    "@chartiq/react-components": "8.4.0-beta.4",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-router-dom": "^5.2.0"

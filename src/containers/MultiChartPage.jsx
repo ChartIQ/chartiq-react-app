@@ -1,6 +1,6 @@
 import React from 'react';
 import { MultiChart } from '@chartiq/react-components'
-import { getConfig } from '@chartiq/react-components/src/containers/MultiChart'
+import { getConfig } from '@chartiq/react-components/containers/MultiChart'
 
 
 

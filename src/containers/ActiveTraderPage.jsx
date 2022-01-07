@@ -3,7 +3,7 @@ import {
 	default as ActiveTraderWorkstation, 
 	CIQ,
 	getCustomConfig
-} from "@chartiq/react-components/src/containers/ActiveTraderWorkstation";
+} from "@chartiq/react-components/containers/ActiveTraderWorkstation";
 
 import quoteFeedSimulator from "chartiq/examples/feeds/quoteFeedSimulator";
 import PerfectScrollbar from "chartiq/js/thirdparty/perfect-scrollbar.esm.js";

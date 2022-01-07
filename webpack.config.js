@@ -21,6 +21,7 @@ module.exports = env => {
         mode: environment,
         devtool: devtool,
         entry: {
+            // components: path.join(__dirname, 'chartiq-react-components'),
             bundle: path.join(__dirname, 'src', 'main.js')
         },
         output: {
@@ -126,6 +127,9 @@ module.exports = env => {
             })
         ],
         resolve: {
+            alias: {
+                '@chartiq/react-components': path.resolve(__dirname, 'chartiq-react-components', 'src'),
+            },
             extensions: ['.js', '.jsx']
         }
     };
