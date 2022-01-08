@@ -21,7 +21,6 @@ module.exports = env => {
         mode: environment,
         devtool: devtool,
         entry: {
-            // components: path.join(__dirname, 'chartiq-react-components'),
             bundle: path.join(__dirname, 'src', 'main.js')
         },
         output: {

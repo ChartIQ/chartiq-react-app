@@ -3,9 +3,6 @@
   "version": "8.4.0",
   "description": "ChartIQ's full featured charting application written in ReactJS",
   "main": "index.js",
-  "workspaces": [
-    "src/chartiq-react-components"
-  ],
   "scripts": {
     "build": "webpack --config=webpack.config.js --env.production",
     "build:chartiq": "sh build-scripts/build-chartiq.sh",

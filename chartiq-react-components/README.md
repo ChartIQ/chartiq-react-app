@@ -10,6 +10,16 @@ If you do not have a copy of the library, please contact your account manager or
 
 **NOTE** While you can install the React components, they do require the ChartIQ library to work. If you do not have a copy of the library you may evaluate one from [here](https://cosaic.io/chartiq-sdk-library-download/).
 
+## Included Components
+
+The exported components include:
+
+- HelloWorld &mdash; A simple HelloWorld example without any extra UI features to get you started.
+- AdvancedChart &mdash; Full featured advanced chart component with everything needed for technical analysis.
+- MultiChart &mdash; Implementation of dual AdvancedCharts in a single component.
+- ActiveTraderWorkstation &mdash; Sets up an information-rich component ready for traders.
+- TermStructure &mdash; Creates a working CrossSection (TermStructure) component for dealing with non&ndash;time series data.
+
 ## Getting Started
 
 After installing this package into your React project you will need to install the ChartIQ library (included separately).
@@ -21,27 +31,13 @@ npm install chartiq-8.4.0 // or whatever version you are using!
 You can then import one of the included components into your React app:
 
 ```jsx
-import { Component } from "react"
 import { AdvancedChart } from "@chartiq/react-components"
 
-export default class ChartComponent extends Component {
-	render() {
-		return (
-			<AdvancedChart />
-		)
-	}
+export default function Chart() {
+	return <AdvancedChart />
 }
+
 ```
-
-## Included Components
-
-The exported components include:
-
-- HelloWorld &mdash; A simple HelloWorld example without any extra UI features to get you started.
-- AdvancedChart &mdash; Full featured advanced chart component with everything needed for technical analysis.
-- MultiChart &mdash; Implementation of dual AdvancedCharts in a single component.
-- ActiveTraderWorkstation &mdash; Sets up an information-rich component ready for traders.
-- TermStructure &mdash; Creates a working CrossSection (TermStructure) component for dealing with non&ndash;time series data.
 
 ## Basic Customization
 
