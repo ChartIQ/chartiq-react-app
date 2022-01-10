@@ -5,11 +5,10 @@ import { BrowserRouter, HashRouter, Route } from "react-router-dom";
 import { default as RouteList } from "./containers/RouteList/RouteList";
 
 // import AdvancedChartPage from "./containers/AdvancedChartPage";
-import MultiChartPage from "./containers/MultiChartPage";
 import ActiveTraderPage from "./containers/ActiveTraderPage";
 import TermStructurePage from './containers/CrossSectionPage';
 import CustomChart from "./containers/CustomChart/CustomChart";
-import { AdvancedChartPage, HelloWorld } from "@chartiq/react-components";
+import { AdvancedChartPage, MultiChartPage, HelloWorld } from "@chartiq/react-components";
 
 import { CIQ } from "chartiq/js/chartiq"
 
