@@ -17,23 +17,22 @@ const onChartReady = (chartEngine) => {
 	// Ready do work with the chart!
 }
 
-const config = defaultConfig({
-	markerSample: marker.MarkersSample,
+const resources = {
 	quoteFeed: quoteFeedSimulator,
+	markerSample: marker.MarkersSample,
 	scrollStyle: PerfectScrollbar
-})
+}
 
-config.chartId = "_advanced-chart";
-config.initialSymbol = {
-	symbol: "AAPL",
-	name: "Apple Inc",
-	exchDisp: "NASDAQ"
-};
-
-config.onChartReady = onChartReady;
-
-// Disable plugins by default
-config.plugins = { /* Actived plugins go here!! */};
+const config = {
+	chartId: '_advancedChart',
+	initialSymbol: {
+		symbol: 'AAPL',
+		name: 'Apple Inc',
+		exchDisp: 'NASDAQ'
+	},
+	plugins: {}, // Activated Plugins go here!
+	onChartReady
+}
 
 // ChartIQ example resources for markets and translations.
 // Replace it with your own or feel free to use ours.
@@ -85,6 +84,7 @@ export default function AdvancedChartPage () {
 	return (
 		<AdvancedChart
 			config={config}
+			resources={resources}
 			chartInitialized={chartInitialized}
 		/>
 	)
