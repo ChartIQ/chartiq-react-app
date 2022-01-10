@@ -4,6 +4,7 @@ import { default as AdvancedChart, CIQ } from "./AdvancedChart";
 
 import { getConfig, getCustomConfig } from "./resources"; // ChartIQ library resources
 import "./AdvancedChart.css";
+import AdvancedChartPage from "./AdvancedChartPage"
 
 export default function ({ chartInitialized, config, symbol, chartId }) {
 	const [configObj] = useState(config || getCustomConfig({ symbol, chartId }));
@@ -11,4 +12,4 @@ export default function ({ chartInitialized, config, symbol, chartId }) {
 	return <AdvancedChart config={configObj} chartInitialized={chartInitialized} />;
 }
 
-export { CIQ, getConfig, getCustomConfig }
+export { AdvancedChartPage, CIQ, getConfig, getCustomConfig }

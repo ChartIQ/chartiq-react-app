@@ -1,7 +1,7 @@
 import React from "react"
-import { AdvancedChart } from "@chartiq/react-components"
-import { CIQ, getCustomConfig } from "@chartiq/react-components/containers/AdvancedChart";
+import AdvancedChart, { CIQ } from "../AdvancedChart"
 
+import defaultConfig from "chartiq/js/defaultConfiguration"
 import quoteFeedSimulator from "chartiq/examples/feeds/quoteFeedSimulator";
 import PerfectScrollbar from "chartiq/js/thirdparty/perfect-scrollbar.esm.js";
 import marker from "chartiq/examples/markers/markersSample";
@@ -17,14 +17,23 @@ const onChartReady = (chartEngine) => {
 	// Ready do work with the chart!
 }
 
-const config = getCustomConfig({
-	resources: {
-		markerSample: marker.MarkersSample,
-		quoteFeed: quoteFeedSimulator,
-		scrollStyle: PerfectScrollbar
-	},
-	onChartReady
+const config = defaultConfig({
+	markerSample: marker.MarkersSample,
+	quoteFeed: quoteFeedSimulator,
+	scrollStyle: PerfectScrollbar
 })
+
+config.chartId = "_advanced-chart";
+config.initialSymbol = {
+	symbol: "AAPL",
+	name: "Apple Inc",
+	exchDisp: "NASDAQ"
+};
+
+config.onChartReady = onChartReady;
+
+// Disable plugins by default
+config.plugins = { /* Actived plugins go here!! */};
 
 // ChartIQ example resources for markets and translations.
 // Replace it with your own or feel free to use ours.
@@ -72,13 +81,11 @@ import 'chartiq/examples/markers/videoSample'
 // Uncomment the following for the L2 simulator (required for the crypto sample and MarketDepth addOn)
 // import 'chartiq/examples/feeds/L2_simulator'; /* for use with cryptoiq */
 
-export default class AdvancedChartPage extends React.Component {
-	render() {
-		return (
-			<AdvancedChart 
-				config={config}
-				chartInitialized={chartInitialized}
-			/>
-		)
-	}
+export default function AdvancedChartPage () {
+	return (
+		<AdvancedChart
+			config={config}
+			chartInitialized={chartInitialized}
+		/>
+	)
 }
