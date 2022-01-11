@@ -5,6 +5,7 @@ import tfcHtml from "chartiq/plugins/tfc/tfcHtml";
 
 import { getConfig, getCustomConfig } from "./resources"; // ChartIQ library resources
 import "./ActiveTraderWorkstation.css";
+import ActiveTraderPage from "./ActiveTraderPage";
 
 export default function ({ chartInitialized, config, symbol, chartId }) {
 	const [configObj] = useState(config || getCustomConfig({ symbol, chartId }));
@@ -18,4 +19,4 @@ export default function ({ chartInitialized, config, symbol, chartId }) {
 	);
 }
 
-export { CIQ, getConfig, getCustomConfig, tfcHtml }
+export { ActiveTraderPage, CIQ, getConfig, getCustomConfig, tfcHtml }

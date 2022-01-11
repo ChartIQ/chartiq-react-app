@@ -5,10 +5,14 @@ import { BrowserRouter, HashRouter, Route } from "react-router-dom";
 import { default as RouteList } from "./containers/RouteList/RouteList";
 
 // import AdvancedChartPage from "./containers/AdvancedChartPage";
-import ActiveTraderPage from "./containers/ActiveTraderPage";
-import TermStructurePage from './containers/CrossSectionPage';
+// import TermStructurePage from './containers/CrossSectionPage';
 import CustomChart from "./containers/CustomChart/CustomChart";
-import { AdvancedChartPage, MultiChartPage, HelloWorld } from "@chartiq/react-components";
+import {
+	AdvancedChartPage,
+	MultiChartPage,
+	ActiveTraderPage,
+	HelloWorld
+} from "@chartiq/react-components";
 
 import { CIQ } from "chartiq/js/chartiq"
 
@@ -30,9 +34,9 @@ if (el) {
 				<Route path="/active-trader" component={ActiveTraderPage}></Route>
 			}
 
-			{CIQ.CrossSection &&
+			{/* {CIQ.CrossSection &&
 				<Route path='/term-structure' component={TermStructurePage}></Route>
-			}
+			} */}
 			<Route path='/custom-chart' component={CustomChart}></Route>
 			<Route path='/hello-world' component={HelloWorld}></Route>
 		</Router>,

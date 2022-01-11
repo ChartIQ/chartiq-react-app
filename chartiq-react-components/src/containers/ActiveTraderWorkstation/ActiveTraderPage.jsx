@@ -1,9 +1,5 @@
 import React from "react"
-import { 
-	default as ActiveTraderWorkstation, 
-	CIQ,
-	getCustomConfig
-} from "@chartiq/react-components/containers/ActiveTraderWorkstation";
+import ActiveTraderWorkstation from "../ActiveTraderWorkstation";
 
 import quoteFeedSimulator from "chartiq/examples/feeds/quoteFeedSimulator";
 import PerfectScrollbar from "chartiq/js/thirdparty/perfect-scrollbar.esm.js";
@@ -19,15 +15,15 @@ const chartInitialized = ({chartEngine, uiContext}) => {
 const onChartReady = (chartEngine) => {
 	// Ready do work with the chart!
 }
+const resources = {
+	markerSample: marker.MarkersSample,
+	quoteFeed: quoteFeedSimulator,
+	scrollStyle: PerfectScrollbar
+}
 
-const config = getCustomConfig({
-	resources: {
-		markerSample: marker.MarkersSample,
-		quoteFeed: quoteFeedSimulator,
-		scrollStyle: PerfectScrollbar
-	},
+const config = {
 	onChartReady
-})
+}
 
 // ChartIQ example resources for markets and translations.
 // Replace it with your own or feel free to use ours.
@@ -46,13 +42,12 @@ import 'chartiq/examples/markers/videoSample'
 import 'chartiq/plugins/tfc/tfc-demo';
 import 'chartiq/examples/feeds/L2_simulator'; /* for use with cryptoiq */
 
-export default class ActiveTraderPage extends React.Component {
-	render() {
-		return(
-			<ActiveTraderWorkstation
-				config={config}
-				chartInitialized={chartInitialized}
-			/>
-		)
-	}
+export default function () {
+	return(
+		<ActiveTraderWorkstation
+			config={config}
+			resources={resources}
+			chartInitialized={chartInitialized}
+		/>
+	)
 }

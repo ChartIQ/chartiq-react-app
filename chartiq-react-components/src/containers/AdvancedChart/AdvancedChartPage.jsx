@@ -1,7 +1,6 @@
 import React from "react"
 import AdvancedChart, { CIQ } from "../AdvancedChart"
 
-import defaultConfig from "chartiq/js/defaultConfiguration"
 import quoteFeedSimulator from "chartiq/examples/feeds/quoteFeedSimulator";
 import PerfectScrollbar from "chartiq/js/thirdparty/perfect-scrollbar.esm.js";
 import marker from "chartiq/examples/markers/markersSample";
