@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import { default as ActiveTraderWorkstation, CIQ } from "./ActiveTraderWorkstation";
 import tfcHtml from "chartiq/plugins/tfc/tfcHtml";
@@ -7,8 +7,9 @@ import { getConfig, getCustomConfig } from "./resources"; // ChartIQ library res
 import "./ActiveTraderWorkstation.css";
 import ActiveTraderPage from "./ActiveTraderPage";
 
-export default function ({ chartInitialized, config, symbol, chartId }) {
-	const [configObj] = useState(config || getCustomConfig({ symbol, chartId }));
+export default function ({ chartInitialized, config,resources }) {
+	const configObj = getCustomConfig({ resources });
+	CIQ.extend(configObj, config);
 
 	return (
 		<ActiveTraderWorkstation

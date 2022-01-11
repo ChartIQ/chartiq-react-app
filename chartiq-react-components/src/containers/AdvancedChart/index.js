@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import { default as AdvancedChart, CIQ } from "./AdvancedChart";
 
@@ -6,11 +6,9 @@ import { getConfig, getCustomConfig } from "./resources"; // ChartIQ library res
 import "./AdvancedChart.css";
 import AdvancedChartPage from "./AdvancedChartPage"
 
-export default function ({ chartInitialized, config, symbol, chartId, resources }) {
-	// Make a copy so we can preserve original config props
-	const configCopy = Object.assign({}, config);
-
-	const [configObj] = useState(CIQ.extend(configCopy, getCustomConfig({ symbol, chartId, resources })));
+export default function ({ chartInitialized, config, resources }) {
+	const configObj = getCustomConfig({ resources });
+	CIQ.extend(configObj, config);
 
 	return <AdvancedChart config={configObj} chartInitialized={chartInitialized} />;
 }

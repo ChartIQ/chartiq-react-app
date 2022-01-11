@@ -14,9 +14,12 @@ export { CIQ }
 /**
  * An example of a term structure chart.
  *
- * @export
  * @class TermStructure
+ * @export
  * @extends {React.Component}
+ * @param {object} config Configuration used for the chart.
+ * @param {object} resources Object of resources passed into configuration to be applied
+ * @param {TermStructure~chartInitialized} chartInitialized Callback that fires when the chart is interactive
  */
 export default class TermStructure extends React.Component {
 	constructor(props) {
@@ -24,26 +27,24 @@ export default class TermStructure extends React.Component {
 		this.container = React.createRef();
 
 		this.state = {
-			chart: new CIQ.UI.Chart(),
 			stx: null,
 			UIContext: null,
-			chartInitializedCallback: props.chartInitialized
 		};
 	}
 
 	componentDidMount() {
 		const container = this.container.current;
-		const { chartInitializedCallback } = this.state;
+		const { chartInitialized } = this.props
 		let { config } = this.props;
 
 		window.setTimeout(() => {
-			const uiContext = this.createChartAndUI({ container, config });
+			const uiContext = new CIQ.UI.Chart().createChartAndUI({ container, config });
 			const chartEngine = uiContext.stx;
 
-			this.setState({ stx: chartEngine, UIContext: uiContext });
+			this.setState({ stx, UIContext: uiContext });
 
-			if (chartInitializedCallback) {
-				chartInitializedCallback({ chartEngine, uiContext });
+			if (chartInitialized) {
+				chartInitialized({ chartEngine: stx, uiContext });
 			}
 		}, 0);
 	}
@@ -51,12 +52,9 @@ export default class TermStructure extends React.Component {
 	componentWillUnmount() {
 		// Destroy the ChartEngine instance when unloading the component.
 		// This will stop internal processes such as quotefeed polling.
-		this.state.stx.destroy();
-	}
-
-	createChartAndUI({ container, config }) {
-		const uiContext = this.state.chart.createChartAndUI({ container, config });
-		return uiContext;
+		const { stx } = this.state;
+		stx.destroy();
+		stx.draw = () => {};
 	}
 
 	render() {
@@ -67,3 +65,9 @@ export default class TermStructure extends React.Component {
 		);
 	}
 }
+
+/**
+ * @callback TermStructure~chartInitialized
+ * @param {CIQ.ChartEngine} chartEngine
+ * @param {CIQ.UI.Context} uiContext
+ */
