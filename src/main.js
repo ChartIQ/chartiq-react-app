@@ -11,6 +11,7 @@ import {
 	AdvancedChartPage,
 	MultiChartPage,
 	ActiveTraderPage,
+	TermStructurePage,
 	HelloWorld
 } from "@chartiq/react-components";
 
@@ -34,9 +35,9 @@ if (el) {
 				<Route path="/active-trader" component={ActiveTraderPage}></Route>
 			}
 
-			{/* {CIQ.CrossSection &&
+			{CIQ.CrossSection &&
 				<Route path='/term-structure' component={TermStructurePage}></Route>
-			} */}
+			}
 			<Route path='/custom-chart' component={CustomChart}></Route>
 			<Route path='/hello-world' component={HelloWorld}></Route>
 		</Router>,
