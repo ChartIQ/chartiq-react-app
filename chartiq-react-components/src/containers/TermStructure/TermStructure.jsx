@@ -44,7 +44,7 @@ export default class TermStructure extends React.Component {
 			this.setState({ stx, UIContext: uiContext });
 
 			if (chartInitialized) {
-				chartInitialized({ chartEngine: stx, uiContext });
+				chartInitialized({ chartEngine, uiContext });
 			}
 		}, 0);
 	}

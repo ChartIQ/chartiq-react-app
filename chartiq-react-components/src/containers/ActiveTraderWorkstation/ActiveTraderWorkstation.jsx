@@ -24,7 +24,6 @@ export default class ActiveTraderWorkstation extends React.Component {
 	constructor(props) {
 		super(props);
 		this.container = React.createRef();
-		this.chart = new CIQ.UI.Chart();
 		this.stx = null;
 		this.UIContext = null;
 	}
