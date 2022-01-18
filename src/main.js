@@ -8,13 +8,14 @@ import { default as RouteList } from "./containers/RouteList/RouteList";
 // import TermStructurePage from './containers/CrossSectionPage';
 import CustomChart from "./containers/CustomChart/CustomChart";
 import {
-	AdvancedChartPage,
+	// AdvancedChartPage,
 	MultiChartPage,
 	ActiveTraderPage,
 	TermStructurePage,
 	HelloWorld
 } from "@chartiq/react-components";
 
+import { ChartPage as AdvancedChart } from '@chartiq/react-components/Advanced'
 import { CIQ } from "chartiq/js/chartiq"
 
 // comment rendering to DOM if used only as export for example in CRA App.js
@@ -28,7 +29,7 @@ if (el) {
 		<Router basename={baseLocation}>
 			<Route path='/' exact component={RouteList}></Route>
 			<Route path='/index.html' component={RouteList}></Route>
-			<Route path='/technical-analysis'component={AdvancedChartPage}></Route>
+			<Route path='/technical-analysis'component={AdvancedChart}></Route>
 			<Route path='/multi-chart' component={MultiChartPage}></Route>
 
 			{CIQ.TFC && CIQ.MarketDepth &&

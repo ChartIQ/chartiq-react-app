@@ -1,10 +1,10 @@
 import React from "react";
 
-import { default as AdvancedChart, CIQ } from "./AdvancedChart";
+import { default as AdvancedChart, CIQ } from "./Chart";
 
 import { getConfig, getCustomConfig } from "./resources"; // ChartIQ library resources
-import "./AdvancedChart.css";
-import AdvancedChartPage from "./AdvancedChartPage"
+import "./Chart.css";
+import ChartPage from "./ChartPage"
 
 export default function ({ chartInitialized, config, resources }) {
 	const configObj = getCustomConfig({ resources });
@@ -13,4 +13,4 @@ export default function ({ chartInitialized, config, resources }) {
 	return <AdvancedChart config={configObj} chartInitialized={chartInitialized} />;
 }
 
-export { AdvancedChartPage, CIQ, getConfig, getCustomConfig }
+export { ChartPage, CIQ, getConfig, getCustomConfig }

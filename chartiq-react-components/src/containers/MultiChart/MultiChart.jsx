@@ -1,6 +1,6 @@
 import React from "react";
 
-import { default as AdvancedChart } from "../AdvancedChart";
+import { default as AdvancedChart } from "../../Advanced";
 
 /**
  * This is an example of two AdvancedChart components on the same page.

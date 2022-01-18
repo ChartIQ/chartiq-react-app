@@ -1,5 +1,5 @@
 import React from "react"
-import AdvancedChart, { CIQ } from "../AdvancedChart"
+import Chart, { CIQ } from "../Advanced"
 
 import quoteFeedSimulator from "chartiq/examples/feeds/quoteFeedSimulator";
 import PerfectScrollbar from "chartiq/js/thirdparty/perfect-scrollbar.esm.js";
@@ -81,7 +81,7 @@ import 'chartiq/examples/markers/videoSample'
 
 export default function AdvancedChartPage () {
 	return (
-		<AdvancedChart
+		<Chart
 			config={config}
 			resources={resources}
 			chartInitialized={chartInitialized}
