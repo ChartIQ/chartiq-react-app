@@ -8,11 +8,9 @@
     "src/"
   ],
   "scripts": {
-    "build": "babel src -d dist/ --copy-files --source-maps inline",
-    "build:prod": "babel src -d dist --copy-files",
-    "postinstall": "npm run build",
-    "prepare": "npm run build:prod",
-    "watch": "npm run build --watch"
+    "build": "babel src -d dist/ --source-maps inline",
+    "build:prod": "babel src -d dist",
+    "prepublish": "npm run build:prod"
   },
   "babel": {
     "presets": [
