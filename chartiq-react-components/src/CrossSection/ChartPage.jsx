@@ -1,5 +1,5 @@
 import React from 'react'
-import { default as TermStructure } from '../TermStructure'
+import { default as CrossSection } from '../CrossSection'
 
 // Import sample shading or use your own
 import "chartiq/plugins/crosssection/sample.css"
@@ -21,6 +21,6 @@ import "chartiq/examples/markets/marketSymbologySample";
  */
 export default function CrossSectionPage() {
 	return(
-		<TermStructure config={config} resources={{scrollStyle: PerfectScrollbar}} />
+		<CrossSection config={config} resources={{scrollStyle: PerfectScrollbar}} />
 	)
 }

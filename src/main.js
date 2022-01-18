@@ -17,6 +17,7 @@ import {
 
 import { ChartPage as AdvancedChart } from '@chartiq/react-components/Advanced'
 import { WorkstationPage as ActiveTrader } from '@chartiq/react-components/ActiveTrader'
+import { ChartPage as CrossSection } from '@chartiq/react-components/CrossSection'
 import { CIQ } from "chartiq/js/chartiq"
 
 // comment rendering to DOM if used only as export for example in CRA App.js
@@ -38,7 +39,7 @@ if (el) {
 			}
 
 			{CIQ.CrossSection &&
-				<Route path='/term-structure' component={TermStructurePage}></Route>
+				<Route path='/term-structure' component={CrossSection}></Route>
 			}
 			<Route path='/custom-chart' component={CustomChart}></Route>
 			<Route path='/hello-world' component={HelloWorld}></Route>

@@ -1,8 +1,8 @@
 import React from "react";
 
-import { default as TermStructure, CIQ } from "./TermStructure";
+import { default as CrossSection, CIQ } from "./Chart";
 import { getConfig, getCustomConfig } from "./resources";
-import TermStructurePage from "./CrossSectionPage";
+import ChartPage from "./ChartPage";
 
 /**
  * @name TermStructure
@@ -19,8 +19,8 @@ export default function ({ chartInitialized, config, resources }) {
 	CIQ.extend(configObj, config);
 
 	return (
-		<TermStructure config={configObj} chartInitialized={chartInitialized} />
+		<CrossSection config={configObj} chartInitialized={chartInitialized} />
 	);
 }
 
-export { CIQ, getConfig, getCustomConfig, TermStructurePage }
+export { CIQ, getConfig, getCustomConfig, ChartPage }
