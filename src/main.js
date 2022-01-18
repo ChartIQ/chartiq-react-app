@@ -10,12 +10,13 @@ import CustomChart from "./containers/CustomChart/CustomChart";
 import {
 	// AdvancedChartPage,
 	MultiChartPage,
-	ActiveTraderPage,
+	// ActiveTraderPage,
 	TermStructurePage,
 	HelloWorld
 } from "@chartiq/react-components";
 
 import { ChartPage as AdvancedChart } from '@chartiq/react-components/Advanced'
+import { WorkstationPage as ActiveTrader } from '@chartiq/react-components/ActiveTrader'
 import { CIQ } from "chartiq/js/chartiq"
 
 // comment rendering to DOM if used only as export for example in CRA App.js
@@ -33,7 +34,7 @@ if (el) {
 			<Route path='/multi-chart' component={MultiChartPage}></Route>
 
 			{CIQ.TFC && CIQ.MarketDepth &&
-				<Route path="/active-trader" component={ActiveTraderPage}></Route>
+				<Route path="/active-trader" component={ActiveTrader}></Route>
 			}
 
 			{CIQ.CrossSection &&

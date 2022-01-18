@@ -1,5 +1,5 @@
 import React from "react"
-import ActiveTraderWorkstation from "../ActiveTraderWorkstation";
+import Workstation from "../ActiveTrader";
 
 import quoteFeedSimulator from "chartiq/examples/feeds/quoteFeedSimulator";
 import PerfectScrollbar from "chartiq/js/thirdparty/perfect-scrollbar.esm.js";
@@ -44,7 +44,7 @@ import 'chartiq/examples/feeds/L2_simulator'; /* for use with cryptoiq */
 
 export default function () {
 	return(
-		<ActiveTraderWorkstation
+		<Workstation
 			config={config}
 			resources={resources}
 			chartInitialized={chartInitialized}
