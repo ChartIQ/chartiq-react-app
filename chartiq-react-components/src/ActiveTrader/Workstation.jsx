@@ -32,7 +32,7 @@ export default class ActiveTraderWorkstation extends React.Component {
 		const container = this.container.current;
 		const { config, chartInitialized } = this.props;
 
-		const uiContext = (this.UIContext = this.chart.createChartAndUI({
+		const uiContext = (this.UIContext = new CIQ.UI.Chart().createChartAndUI({
 			container,
 			config
 		}));

@@ -1,5 +1,5 @@
 import React from "react"
-import Workstation from "../ActiveTrader";
+import Workstation,{ CIQ } from "../ActiveTrader";
 
 import quoteFeedSimulator from "chartiq/examples/feeds/quoteFeedSimulator";
 import PerfectScrollbar from "chartiq/js/thirdparty/perfect-scrollbar.esm.js";

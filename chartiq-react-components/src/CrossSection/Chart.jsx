@@ -41,7 +41,7 @@ export default class TermStructure extends React.Component {
 			const uiContext = new CIQ.UI.Chart().createChartAndUI({ container, config });
 			const chartEngine = uiContext.stx;
 
-			this.setState({ stx, UIContext: uiContext });
+			this.setState({ stx: chartEngine, UIContext: uiContext });
 
 			if (chartInitialized) {
 				chartInitialized({ chartEngine, uiContext });
