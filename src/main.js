@@ -6,14 +6,18 @@ import { default as RouteList } from "./containers/RouteList/RouteList";
 
 // import AdvancedChartPage from "./containers/AdvancedChartPage";
 // import TermStructurePage from './containers/CrossSectionPage';
+
+import HelloWorld from "./containers/HelloWorld/HelloWorld";
+import { MultiChartPage } from "./containers/MultiChart";
 import CustomChart from "./containers/CustomChart/CustomChart";
-import {
+// import {
 	// AdvancedChartPage,
-	MultiChartPage,
+	// MultiChartPage,
 	// ActiveTraderPage,
-	TermStructurePage,
-	HelloWorld
-} from "@chartiq/react-components";
+	// TermStructurePage,
+// } from "@chartiq/react-components";
+
+import "@chartiq/react-components"
 
 import { ChartPage as AdvancedChart } from '@chartiq/react-components/Advanced'
 import { WorkstationPage as ActiveTrader } from '@chartiq/react-components/ActiveTrader'

@@ -1,7 +1,8 @@
 import React from "react";
 
-import { default as AdvancedChart } from "../../Advanced";
+import AdvancedChart, { getConfig, getCustomConfig } from "@chartiq/react-components/Advanced";
 
+export { getConfig, getCustomConfig }
 /**
  * This is an example of two AdvancedChart components on the same page.
  *
@@ -11,19 +12,12 @@ import { default as AdvancedChart } from "../../Advanced";
  */
 export default class MultiChart extends React.Component {
 	render() {
-		const { chart0 = {}, chart1 = {} } = this.props;
-		const {
-			symbol: symbol0,
-			chartId: id0,
-			chartInitialized: initialized0,
-			config: config0
-		} = chart0;
-		const {
-			symbol: symbol1,
-			chartId: id1,
-			chartInitialized: initialized1,
-			config: config1
-		} = chart1
+		const { configs = [] } = this.props;
+
+		const [config0, config1] = configs;
+
+		if(!config0.id) config0.id = 'chart0';
+		if(!config1.id) config1.id = 'chart1';
 
 		const leftColumn = {
 			height: "100%",
@@ -41,18 +35,12 @@ export default class MultiChart extends React.Component {
 			<>
 				<div style={leftColumn}>
 					<AdvancedChart
-						chartId={id0 || 'chart0'}
-						chartInitialized={initialized0}
 						config={config0}
-						symbol={symbol0 || 'AAPL' }
 					></AdvancedChart>
 				</div>
 				<div style={rightColumn}>
 					<AdvancedChart
-						chartId={id1 || 'chart1'}
-						chartInitialized={initialized1}
 						config={config1}
-						symbol={symbol1 || 'MSFT' }
 					></AdvancedChart>
 				</div>
 			</>
