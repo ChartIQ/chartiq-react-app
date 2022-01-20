@@ -1,6 +1,6 @@
 {
   "name": "@chartiq/react-components",
-  "version": "8.6.0-beta.4",
+  "version": "8.6.0-beta.5",
   "description": "React Components for ChartIQ library",
   "main": "lib/index.js",
   "files": [
@@ -10,6 +10,7 @@
   "scripts": {
     "build": "babel src -d lib/ --copy-files --source-maps inline",
     "build:prod": "babel src -d lib --copy-files",
+    "watch": "babel src -d lib/ -w --copy-files --source-maps inline",
     "prepublish": "npm run build:prod"
   },
   "babel": {
