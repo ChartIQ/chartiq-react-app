@@ -1,15 +1,15 @@
 {
   "name": "@chartiq/react-components",
-  "version": "8.6.0-beta.1",
+  "version": "8.6.0-beta.2",
   "description": "React Components for ChartIQ library",
   "main": "dist/index.js",
   "files": [
-    "dist/",
+    "lib/",
     "src/"
   ],
   "scripts": {
-    "build": "babel src -d dist/ --source-maps inline",
-    "build:prod": "babel src -d dist",
+    "build": "babel src -d lib/ --source-maps inline",
+    "build:prod": "babel src -d lib",
     "prepublish": "npm run build:prod"
   },
   "babel": {

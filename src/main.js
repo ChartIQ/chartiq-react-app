@@ -10,15 +10,8 @@ import { default as RouteList } from "./containers/RouteList/RouteList";
 import HelloWorld from "./containers/HelloWorld/HelloWorld";
 import { MultiChartPage } from "./containers/MultiChart";
 import CustomChart from "./containers/CustomChart/CustomChart";
-// import {
-	// AdvancedChartPage,
-	// MultiChartPage,
-	// ActiveTraderPage,
-	// TermStructurePage,
-// } from "@chartiq/react-components";
 
-import "@chartiq/react-components"
-
+import Chart from "@chartiq/react-components"
 import { ChartPage as AdvancedChart } from '@chartiq/react-components/Advanced'
 import { WorkstationPage as ActiveTrader } from '@chartiq/react-components/ActiveTrader'
 import { ChartPage as CrossSection } from '@chartiq/react-components/CrossSection'
@@ -35,6 +28,7 @@ if (el) {
 		<Router basename={baseLocation}>
 			<Route path='/' exact component={RouteList}></Route>
 			<Route path='/index.html' component={RouteList}></Route>
+			<Route path='/core-chart' component={Chart}></Route>
 			<Route path='/technical-analysis'component={AdvancedChart}></Route>
 			<Route path='/multi-chart' component={MultiChartPage}></Route>
 
