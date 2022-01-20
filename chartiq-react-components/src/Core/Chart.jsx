@@ -11,33 +11,42 @@ import ChartTemplate from "./Template";
 //import 'chartiq/css/stx-chart.css'; // Chart API
 //import 'chartiq/css/chartiq.css'; // Chart UI
 
-export { CIQ };
+import { getCustomConfig } from "./resources"; // ChartIQ library resources
+
+export { CIQ }
 
 /**
  * This is a fully functional example showing how to load a chart with complete user interface.
  *
  * @export
- * @class AdvancedChart
+ * @class CoreChart
  * @extends {React.Component}
  * @param {object} config Configuration used for the chart.
  * @param {object} resources Object of resources passed into configuration to be applied
- * @param {AdvancedChart~chartInitialized} chartInitialized Callback that fires when the chart is interactive
+ * @param {CoreChart~chartInitialized} chartInitialized Callback that fires when the chart is interactive
  */
-export default class AdvancedChart extends React.Component {
+export default class CoreChart extends React.Component {
 	constructor(props) {
 		super(props);
+		const { config, resources } = props;
+
 		this.container = React.createRef();
+
+		const configObj = getCustomConfig({ resources });
+		CIQ.extend(configObj, config);
+		this.config = configObj;
 
 		this.state = {
 			stx: null,
 			UIContext: null,
+			config: configObj
 		};
 	}
 
 	componentDidMount() {
 		const container = this.container.current;
 		const { chartInitialized } = this.props;
-		let { config } = this.props;
+		const { config } = this.state;
 
 		portalizeContextDialogs(container);
 		// Delay the call to createChartAndUI so any other AdvancedChart components on the page
