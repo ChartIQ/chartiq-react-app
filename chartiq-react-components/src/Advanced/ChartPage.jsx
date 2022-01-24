@@ -1,5 +1,5 @@
 import React from "react"
-import Chart, { CIQ } from "../Advanced"
+import Chart, { CIQ } from "./index"
 
 import quoteFeedSimulator from "chartiq/examples/feeds/quoteFeedSimulator";
 import PerfectScrollbar from "chartiq/js/thirdparty/perfect-scrollbar.esm.js";

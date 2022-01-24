@@ -1,1 +1,10 @@
-lib
+///// Ignore compiled folders //////
+
+index.js
+Chart/
+Advanced/
+styles/
+
+/// Plugins ///
+ActiveTrader/
+CrossSection/

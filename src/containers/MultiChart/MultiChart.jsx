@@ -1,6 +1,6 @@
 import React from "react";
 
-import AdvancedChart, { getConfig, getCustomConfig } from "@chartiq/react-components/lib/Advanced";
+import AdvancedChart, { getConfig, getCustomConfig } from "@chartiq/react-components/Advanced";
 
 export { getConfig, getCustomConfig }
 /**

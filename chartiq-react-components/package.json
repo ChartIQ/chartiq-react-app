@@ -2,15 +2,18 @@
   "name": "@chartiq/react-components",
   "version": "8.6.0-beta.5",
   "description": "React Components for ChartIQ library",
-  "main": "lib/index.js",
+  "main": "index.js",
   "files": [
-    "lib/",
+    "Chart/",
+    "Advanced/",
+    "ActiveTrader/",
+    "CrossSection",
     "src/"
   ],
   "scripts": {
-    "build": "babel src -d lib/ --copy-files --source-maps inline",
-    "build:prod": "babel src -d lib --copy-files",
-    "watch": "babel src -d lib/ -w --copy-files --source-maps inline",
+    "build": "babel src -d . --copy-files --source-maps inline",
+    "build:prod": "babel src -d . --copy-files",
+    "watch": "babel src -d . -w --copy-files --source-maps inline",
     "prepublish": "npm run build:prod"
   },
   "babel": {
