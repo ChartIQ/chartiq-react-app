@@ -9,6 +9,9 @@ import "chartiq/plugins/crosssection/crosssection.css"
 
 import ChartTemplate from "./Template";
 
+import 'chartiq/css/normalize.css';
+import 'chartiq/css/stx-chart.css';
+import 'chartiq/css/chartiq.css'
 export { CIQ }
 
 /**

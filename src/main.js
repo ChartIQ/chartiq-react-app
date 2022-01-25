@@ -4,6 +4,7 @@ import { BrowserRouter, HashRouter, Route } from "react-router-dom";
 
 import { default as RouteList } from "./containers/RouteList/RouteList";
 
+import "chartiq/css/page-defaults.css"
 // import AdvancedChartPage from "./containers/AdvancedChartPage";
 // import TermStructurePage from './containers/CrossSectionPage';
 

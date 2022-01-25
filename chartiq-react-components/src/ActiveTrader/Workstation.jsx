@@ -10,6 +10,11 @@ import 'chartiq/plugins/activetrader/cryptoiq';
 import 'chartiq/plugins/tfc/tfc-loader';
 
 import ChartTemplate from "./Template";
+
+import 'chartiq/css/normalize.css';
+import 'chartiq/css/stx-chart.css';
+import 'chartiq/css/chartiq.css'
+
 const { channelWrite } = CIQ.UI.BaseComponent.prototype;
 
 export { CIQ }

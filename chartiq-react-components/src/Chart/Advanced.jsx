@@ -2,6 +2,7 @@
 import { CIQ } from "chartiq/js/advanced";
 
 import Chart from "./Chart"
+import { getConfig, getCustomConfig } from "./resources"
 // Base styles required by the library to render color correctly.
 // If for some reason you are not including base-styles.css add these here.
 import 'chartiq/css/normalize.css';
@@ -19,7 +20,7 @@ import 'chartiq/css/chartiq.css'; // Chart UI
  * @param {AdvancedChart~chartInitialized} chartInitialized Callback that fires when the chart is interactive
  */
 
-export { Chart as default, CIQ };
+export { Chart as default, CIQ, getConfig, getCustomConfig };
 
 /**
  * @callback AdvancedChart~chartInitialized
