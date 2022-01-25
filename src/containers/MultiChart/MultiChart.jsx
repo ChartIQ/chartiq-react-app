@@ -1,6 +1,6 @@
 import React from "react";
 
-import AdvancedChart, { getConfig, getCustomConfig } from "@chartiq/react-components/Advanced";
+import AdvancedChart, { getConfig, getCustomConfig } from "@chartiq/react-components/Chart/Advanced";
 
 export { getConfig, getCustomConfig }
 /**
@@ -16,8 +16,8 @@ export default class MultiChart extends React.Component {
 
 		const [config0, config1] = configs;
 
-		if(!config0.id) config0.id = 'chart0';
-		if(!config1.id) config1.id = 'chart1';
+		if(!config0.id) config0.chartId = 'chart0';
+		if(!config1.id) config1.chartId = 'chart1';
 
 		const leftColumn = {
 			height: "100%",

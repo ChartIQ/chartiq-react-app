@@ -12,7 +12,7 @@ import { MultiChartPage } from "./containers/MultiChart";
 import CustomChart from "./containers/CustomChart/CustomChart";
 
 import Chart from "@chartiq/react-components"
-import { ChartPage as AdvancedChart } from '@chartiq/react-components/Advanced'
+import AdvancedChart from '@chartiq/react-components/Chart/AdvancedDemo'
 import { WorkstationPage as ActiveTrader } from '@chartiq/react-components/ActiveTrader'
 import { ChartPage as CrossSection } from '@chartiq/react-components/CrossSection'
 import { CIQ } from "chartiq/js/chartiq"
