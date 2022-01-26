@@ -10,7 +10,7 @@ import HelloWorld from "./containers/HelloWorld/HelloWorld";
 import { MultiChartPage } from "./containers/MultiChart";
 import CustomChart from "./containers/CustomChart/CustomChart";
 
-import Chart from "@chartiq/react-components"
+import { ChartExample as Chart } from "@chartiq/react-components/Chart"
 import AdvancedChart from '@chartiq/react-components/Chart/AdvancedExample'
 // import { WorkstationExample as ActiveTrader } from '@chartiq/react-components/ActiveTrader'
 // import { ChartExample as CrossSection } from '@chartiq/react-components/CrossSection'

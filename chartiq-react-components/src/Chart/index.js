@@ -2,5 +2,5 @@ import "../styles/base-imports"
 import { default as Chart, CIQ } from "./Chart";
 
 import { getConfig, getCustomConfig } from "./resources"; // ChartIQ library resources
-import ChartPage from "./ChartPage"
-export { Chart as default, ChartPage, CIQ, getConfig, getCustomConfig }
+import ChartExample from "./ChartExample"
+export { Chart as default, ChartExample, CIQ, getConfig, getCustomConfig }

@@ -81,7 +81,7 @@ export default class CoreChart extends React.Component {
 		conf.eventMarkersImplementation = resources.markerSample;
 		return (
 			<cq-context ref={this.container}>
-				{this.props.children || <ChartTemplate config={config} />}
+				{this.props.children || <ChartTemplate config={conf} />}
 			</cq-context>
 		);
 	}
