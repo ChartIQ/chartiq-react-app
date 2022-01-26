@@ -1,11 +1,13 @@
 import React from "react";
-import { CIQ } from "chartiq/js/components";
+import { CIQ } from "chartiq/js/standard";
+import "chartiq/js/components"
 import "chartiq/plugins/crosssection/core";
 import "chartiq/plugins/crosssection/datepicker";
 import "chartiq/plugins/crosssection/ui";
 import "chartiq/plugins/crosssection/timelineDateSelector";
 
 import "chartiq/plugins/crosssection/crosssection.css"
+import "chartiq/plugins/crosssection/datepicker.css"
 
 import ChartTemplate from "./Template";
 

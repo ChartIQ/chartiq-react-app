@@ -1,13 +1,16 @@
 import React from "react";
+import "chartiq/js/advanced"
 import { CIQ } from "chartiq/js/components";
 
 import "chartiq/js/extras/svgcharts/piechart";
 
 // Crypto, L2 Heat Map, Market Depth,
 import 'chartiq/plugins/activetrader/cryptoiq';
+import 'chartiq/plugins/activetrader/cryptoiq.css'
 
 // TFC plugin
 import 'chartiq/plugins/tfc/tfc-loader';
+import 'chartiq/plugins/tfc/tfc.css';
 
 import ChartTemplate from "./Template";
 

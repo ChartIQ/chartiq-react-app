@@ -76,8 +76,9 @@ export default class CoreChart extends React.Component {
 	}
 
 	render() {
-		const { config, resources }= this.props;
-		config.eventMarkersImplementation = resources.markerSample; 
+		const { config = {}, resources = {} }= this.props;
+		const conf = Object.assign({}, config)
+		conf.eventMarkersImplementation = resources.markerSample;
 		return (
 			<cq-context ref={this.container}>
 				{this.props.children || <ChartTemplate config={config} />}

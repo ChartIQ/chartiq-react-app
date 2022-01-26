@@ -5,7 +5,7 @@ import tfcHtml from "chartiq/plugins/tfc/tfcHtml";
 
 import { getConfig, getCustomConfig } from "./resources"; // ChartIQ library resources
 import "./Workstation.css";
-import WorkstationPage from "./WorkstationPage";
+import WorkstationExample from "./WorkstationExample";
 
 export default function ({ chartInitialized, config,resources }) {
 	const configObj = getCustomConfig({ resources });
@@ -20,4 +20,4 @@ export default function ({ chartInitialized, config,resources }) {
 	);
 }
 
-export { WorkstationPage, CIQ, getConfig, getCustomConfig, tfcHtml }
+export { WorkstationExample, CIQ, getConfig, getCustomConfig, tfcHtml }

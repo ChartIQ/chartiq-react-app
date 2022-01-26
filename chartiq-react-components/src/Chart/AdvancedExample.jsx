@@ -79,10 +79,12 @@ import 'chartiq/examples/markers/videoSample'
 // Uncomment the following for the L2 simulator (required for the crypto sample and MarketDepth addOn)
 // import 'chartiq/examples/feeds/L2_simulator'; /* for use with cryptoiq */
 
-export default function AdvancedChartPage () {
+export default function AdvancedChartPage (props) {
+	const { config: conf = {} } = props;
+	const configObj = CIQ.extend(config, conf)
 	return (
 		<Chart
-			config={config}
+			config={configObj}
 			resources={resources}
 			chartInitialized={chartInitialized}
 		/>
