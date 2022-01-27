@@ -2,7 +2,7 @@ import React from "react";
 
 import { default as CrossSection, CIQ } from "./Chart";
 import { getConfig, getCustomConfig } from "./resources";
-import ChartPage from "./ChartPage";
+import ChartExample from "./ChartExample";
 
 /**
  * @name TermStructure
@@ -23,4 +23,4 @@ export default function ({ chartInitialized, config, resources }) {
 	);
 }
 
-export { CIQ, getConfig, getCustomConfig, ChartPage }
+export { CIQ, getConfig, getCustomConfig, ChartExample }
