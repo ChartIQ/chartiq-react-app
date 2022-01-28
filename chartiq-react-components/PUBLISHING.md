@@ -1,5 +1,15 @@
 # Publishing and Updating
 
+## Testing for release
+
+Before you publish the components, be sure you have tested your changes and that you are still able to use all the components by importing them into the chartiq-react-app. The simplest way to do this is to follow these steps:
+
+1. Comment out the module.resolve.alias in webpack.config.js
+2. Clean components with `npm run prepublish-clean-components` from root package.json or `npm run clean` in chartiq-react-components/package.json
+3. Rebuild components for production with `npm run build:prod` from components package.json
+4. Using copy of the ChartIQ license with with all plugins comment in plugin components and build chartiq-react-app to test.
+
+
 ## Publishing
 As a scoped npm module this package is not published publically by default. 
 

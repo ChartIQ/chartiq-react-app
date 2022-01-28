@@ -14,27 +14,26 @@ If you do not have a copy of the library, please contact your account manager or
 
 The exported components include:
 
-- HelloWorld &mdash; A simple HelloWorld example without any extra UI features to get you started.
+- Chart &mdash; Core chart component with everythng needed to get started for financial time series charts.
 - AdvancedChart &mdash; Full featured advanced chart component with everything needed for technical analysis.
-- MultiChart &mdash; Implementation of dual AdvancedCharts in a single component.
-- ActiveTraderWorkstation &mdash; Sets up an information-rich component ready for traders.
-- TermStructure &mdash; Creates a working CrossSection (TermStructure) component for dealing with non&ndash;time series data.
+- ActiveTrader &mdash; Sets up an information-rich component ready for traders.
+- CrossSection &mdash; Creates a working CrossSection (previously TermStructure) component for dealing with non&ndash;time series data.
 
 ## Getting Started
 
 After installing this package into your React project you will need to install the ChartIQ library (included separately).
 
 ```js
-npm install chartiq-8.4.0 // or whatever version you are using!
+npm install chartiq-8.6.0 // or whatever version you are using!
 ```
 
 You can then import one of the included components into your React app:
 
 ```jsx
-import { AdvancedChart } from "@chartiq/react-components"
+import Chart from '@chartiq/react-components'
 
-export default function Chart() {
-	return <AdvancedChart />
+export default function MyChart() {
+	return <Chart />
 }
 
 ```
@@ -43,25 +42,21 @@ export default function Chart() {
 
 ### Customizing the chart config
 
-All components work with the default configuration for the chart which can be modified to enable various features, set chart properties, load data, setup quotefeeds and more (for full documentation see [ChartIQ Default Chart Configuration](https://documentation.chartiq.com/tutorial-Chart%20Configuration.html)).
+All components accept a config prop which can be modified to enable varuios features, set chart properties, load data and more (for full documentation see [ChartIQ Default Chart Configuration](https://documentation.chartiq.com/tutorial-Chart%20Configuration.html)).
 
-There are two ways you can get the config for a component. You can import `getConfig` or `getCustomConfig` from the components resources file. Each will return a chart config object that you can adjust.
+By default you may pass in only the the parts of the config you want to customize and these changes will be merged onto the the default configuration. For example to create a chart with a custom initial symbol you can do:
 
-The `getConfig` method will import the defaultConfig from the ChartIQ SDK and add the quoteFeedSimulator so you can immediately get started developing with simulated data.
+```jsx
+import Chart from @chartiq/react-components
+const config = { initialSymbol: 'FB' }
 
-The `getCustomConfig` method will return a specific config for each component. **If you do not provide a config prop, this is what will be used.**
-
-```js
-import {
-		getConfig,
-		getCustomConfig
-	} from @chartiq/react-components/containers/AdvancedChart/resources
-
-const config = getConfig()
-config.initialSymbol = 'FB'
+export default function MyChart() {
+	return (
+		<Chart config={config} />
+	)
+}
 ```
 
-Each method accepts a resources object where you can pass a quotefeed, nameValueStore, and more. Full documentation can be found [here](https://documentation.chartiq.com/tutorial-Chart%20Configuration.html)
 
 ### Adding your own quotefeed
 
@@ -81,19 +76,17 @@ const config = getCustomConfig({ resources: { quoteFeed: myCustomQuoteFeed }})
 ### Customizing Component Template
 
 Every component accepts children that it will render instead of its default JSX template. 
-### Addiong your own LookupDriver
+### Adding your own LookupDriver
 
 The chart configuration includes the default Lookup.ChartIQ implementation but you can substitute your own lookup driver to power symbol searches. After getting a config object you can assign a custom lookup.
 
 ```jsx
+import Chart from '@chartiq/react-components'
 import customSymbolLookup from './myCustomSymbolLookup'
-import { getCustomConfig } from '@chartiq/react-components/containers/AdvancedChart/resources'
 
-const config = getCustomConfig()
+const config { lookupDriver: customSymbolLookup }
 
-config.lookupDriver = customSymbolLookup
-
-<AdvancedChart config={config}/>
+<Chart config={config}/>
 ```
 
 More information about [Lookup Drivers](https://documentation.chartiq.com/CIQ.ChartEngine.Driver.Lookup.html) can be found in the [data integration](https://documentation.chartiq.com/tutorial-DataIntegrationQuoteFeeds.html#main) ChartIQ Documentation.
