@@ -23,11 +23,11 @@ The ChartIQ React application is a toolkit of components that enable you to buil
 - `CustomChart` &mdash; Integrates native React components with ChartIQ W3C-standard web components
 - `HelloWorld` &mdash; Creates a basic chart with no user interface as a starting point for your React app
 
-### Note:
+***Notes***
 
-- This application has been designed as an example application to show off the ChartIQ templates in React. **If you are looking for the components themselves, visit the ChartIQ React Components package located at _src/chartiq-react-components_.**
+This application has been designed as a demo of the ChartIQ React Components and the charting applications they can be used to build. **If you are looking for the components themselves, visit the ChartIQ React Components package located at _src/chartiq-react-components_.**
 
-- For an example of creating a chart user interface entirely with native React components, see the [chartiq-react-seed](https://github.com/ChartIQ/chartiq-react-seed) project.
+For an example of creating a chart user interface entirely with native React components, see the [chartiq-react-seed](https://github.com/ChartIQ/chartiq-react-seed) project.
 
 ## Requirements
 
