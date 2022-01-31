@@ -22,9 +22,10 @@ export { CIQ }
  * @export
  * @class CoreChart
  * @extends {React.Component}
- * @param {object} config Configuration used for the chart.
- * @param {object} resources Object of resources passed into configuration to be applied
- * @param {CoreChart~chartInitialized} chartInitialized Callback that fires when the chart is interactive
+ * @param {object} [props] React props
+ * @param {object} [props.config] Configuration used for the chart.
+ * @param {object} [props.resources] Object of resources passed into configuration to be applied
+ * @param {CoreChart~chartInitialized} [props.chartInitialized] Callback that fires when the chart is created
  */
 export default class CoreChart extends React.Component {
 	constructor(props) {
@@ -40,14 +41,13 @@ export default class CoreChart extends React.Component {
 		this.state = {
 			stx: null,
 			UIContext: null,
-			config: configObj
 		};
 	}
 
 	componentDidMount() {
 		const container = this.container.current;
 		const { chartInitialized } = this.props;
-		const { config } = this.state;
+		const { config } = this;
 
 		portalizeContextDialogs(container);
 		// Delay the call to createChartAndUI so any other AdvancedChart components on the page
