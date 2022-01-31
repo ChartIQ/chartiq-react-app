@@ -46,7 +46,6 @@ import 'chartiq/examples/translations/translationSample';
 // Example Marker files
 import 'chartiq/examples/markers/tradeAnalyticsSample'
 import 'chartiq/examples/markers/videoSample'
-import chartiqReactComponents from "../..";
 
 // Plugins
 
