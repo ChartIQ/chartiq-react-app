@@ -8,8 +8,9 @@ import "chartiq/js/addOns";
 import ChartTemplate from "./Template";
 // Base styles required by the library to render color correctly.
 // If for some reason you are not including base-styles.css add these here.
-//import 'chartiq/css/stx-chart.css'; // Chart API
-//import 'chartiq/css/chartiq.css'; // Chart UI
+import 'chartiq/css/normalize.css';
+import 'chartiq/css/stx-chart.css'; // Chart API
+import 'chartiq/css/chartiq.css'; // Chart UI
 
 import { getCustomConfig } from "./resources"; // ChartIQ library resources
 

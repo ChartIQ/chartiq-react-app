@@ -5,34 +5,6 @@ import quoteFeedSimulator from "chartiq/examples/feeds/quoteFeedSimulator";
 import PerfectScrollbar from "chartiq/js/thirdparty/perfect-scrollbar.esm.js";
 import marker from "chartiq/examples/markers/markersSample";
 
-// Callback function where you can access both the chartEngine and the UIContext.
-const chartInitialized = ({chartEngine, uiContext}) => {
-	// Assign stx and CIQ to window for development convenience
-	Object.assign(window, {stx: chartEngine, CIQ })
-}
-
-// Callback function for when the chartEngine is initialized but before loadChart has been called.
-const onChartReady = (chartEngine) => {
-	// Ready do work with the chart!
-}
-
-const resources = {
-	quoteFeed: quoteFeedSimulator,
-	markerSample: marker.MarkersSample,
-	scrollStyle: PerfectScrollbar
-}
-
-const config = {
-	chartId: '_advancedChart',
-	initialSymbol: {
-		symbol: 'AAPL',
-		name: 'Apple Inc',
-		exchDisp: 'NASDAQ'
-	},
-	plugins: {}, // Activated Plugins go here!
-	onChartReady
-}
-
 // ChartIQ example resources for markets and translations.
 // Replace it with your own or feel free to use ours.
 
@@ -78,6 +50,34 @@ import 'chartiq/examples/markers/videoSample'
 
 // Uncomment the following for the L2 simulator (required for the crypto sample and MarketDepth addOn)
 // import 'chartiq/examples/feeds/L2_simulator'; /* for use with cryptoiq */
+
+// Callback function where you can access both the chartEngine and the UIContext.
+const chartInitialized = ({chartEngine, uiContext}) => {
+	// Assign stx and CIQ to window for development convenience
+	Object.assign(window, {stx: chartEngine, CIQ })
+}
+
+// Callback function for when the chartEngine is initialized but before loadChart has been called.
+const onChartReady = (chartEngine) => {
+	// Ready do work with the chart!
+}
+
+const resources = {
+	quoteFeed: quoteFeedSimulator,
+	markerSample: marker.MarkersSample,
+	scrollStyle: PerfectScrollbar
+}
+
+const config = {
+	chartId: '_advancedChart',
+	initialSymbol: {
+		symbol: 'AAPL',
+		name: 'Apple Inc',
+		exchDisp: 'NASDAQ'
+	},
+	plugins: {}, // Activated Plugins go here!
+	onChartReady
+}
 
 export default function AdvancedChartPage (props) {
 	const { config: conf = {} } = props;
