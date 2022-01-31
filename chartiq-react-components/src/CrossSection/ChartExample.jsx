@@ -9,6 +9,11 @@ import PerfectScrollbar from "chartiq/js/thirdparty/perfect-scrollbar.esm.js";
 const config = {}
 const resources = { scrollStyle: PerfectScrollbar }
 
+// Callback function where you can access both the chartEngine and the UIContext.
+const chartInitialized = ({chartEngine, uiContext}) => {
+	// Assign stx and CIQ to window for development convenience
+	Object.assign(window, {stx: chartEngine, CIQ })
+}
 import "chartiq/examples/markets/marketDefinitionsSample";
 import "chartiq/examples/markets/marketSymbologySample";
 
@@ -21,13 +26,14 @@ import "chartiq/examples/markets/marketSymbologySample";
  * @prop {function} chartInitialized
  */
 export default function CrossSectionPage(props) {
-	const {config: conf = {}, resources: sources = {} } = props;
-	const configObj = CIQ.extend(config, conf)
+	const {config: conf = {} } = props;
+	const configObj = CIQ.extend(config, conf);
+	const sources = props.resources || resources;
 	const initialized = props.chartInitialized || chartInitialized;
 	return(
 		<CrossSection
 			config={configObj}
-			resources={ sources || resources}
+			resources={sources}
 			chartInitialized={initialized}
 		/>
 	)

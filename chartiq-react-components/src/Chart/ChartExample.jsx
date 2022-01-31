@@ -80,8 +80,9 @@ import 'chartiq/examples/markers/videoSample'
 // import 'chartiq/examples/feeds/L2_simulator'; /* for use with cryptoiq */
 
 export default function CoreChartPage (props) {
-	const {config: conf = {}, resources: sources = {} } = props;
+	const {config: conf = {} } = props;
 	const configObj = CIQ.extend(config, conf);
+	const sources = props.resources || resources;
 	const initialized = props.chartInitialized || chartInitialized; 
 	return (
 		<Chart

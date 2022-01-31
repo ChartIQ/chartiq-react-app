@@ -43,13 +43,14 @@ import 'chartiq/plugins/tfc/tfc-demo';
 import 'chartiq/examples/feeds/L2_simulator'; /* for use with cryptoiq */
 
 export default function (props) {
-	const {config: conf = {}, resources: sources = {} } = props;
-	const configObj = CIQ.extend(config, conf)
-	const initialized = props.chartInitialized || chartInitialized
+	const {config: conf = {} } = props;
+	const configObj = CIQ.extend(config, conf);
+	const sources = props.resources || resources;
+	const initialized = props.chartInitialized || chartInitialized;
 	return(
 		<Workstation
 			config={configObj}
-			resources={sources || resources}
+			resources={sources}
 			chartInitialized={initialized}
 		/>
 	)
