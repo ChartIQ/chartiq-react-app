@@ -46,6 +46,7 @@ import 'chartiq/examples/translations/translationSample';
 // Example Marker files
 import 'chartiq/examples/markers/tradeAnalyticsSample'
 import 'chartiq/examples/markers/videoSample'
+import chartiqReactComponents from "../..";
 
 // Plugins
 
@@ -79,12 +80,15 @@ import 'chartiq/examples/markers/videoSample'
 // Uncomment the following for the L2 simulator (required for the crypto sample and MarketDepth addOn)
 // import 'chartiq/examples/feeds/L2_simulator'; /* for use with cryptoiq */
 
-export default function CoreChartPage () {
+export default function CoreChartPage (props) {
+	const {config: conf = {}, resources: sources = {} } = props;
+	const configObj = CIQ.extend(config, conf);
+	const initialized = props.chartInitialized || chartInitialized; 
 	return (
 		<Chart
-			config={config}
-			resources={resources}
-			chartInitialized={chartInitialized}
+			config={configObj}
+			resources={sources}
+			chartInitialized={initialized}
 		/>
 	)
 }

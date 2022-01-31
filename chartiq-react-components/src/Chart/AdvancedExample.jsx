@@ -80,13 +80,14 @@ import 'chartiq/examples/markers/videoSample'
 // import 'chartiq/examples/feeds/L2_simulator'; /* for use with cryptoiq */
 
 export default function AdvancedChartPage (props) {
-	const { config: conf = {} } = props;
-	const configObj = CIQ.extend(config, conf)
+	const { config: conf = {}, resources: sources = {} } = props;
+	const configObj = CIQ.extend(config, conf);
+	const initialized = props.chartInitialized || chartInitialized;
 	return (
 		<Chart
 			config={configObj}
-			resources={resources}
-			chartInitialized={chartInitialized}
+			resources={sources || resources}
+			chartInitialized={initialized}
 		/>
 	)
 }

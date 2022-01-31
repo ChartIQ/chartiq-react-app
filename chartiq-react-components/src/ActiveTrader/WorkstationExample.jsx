@@ -42,12 +42,15 @@ import 'chartiq/examples/markers/videoSample'
 import 'chartiq/plugins/tfc/tfc-demo';
 import 'chartiq/examples/feeds/L2_simulator'; /* for use with cryptoiq */
 
-export default function () {
+export default function (props) {
+	const {config: conf = {}, resources: sources = {} } = props;
+	const configObj = CIQ.extend(config, conf)
+	const initialized = props.chartInitialized || chartInitialized
 	return(
 		<Workstation
-			config={config}
-			resources={resources}
-			chartInitialized={chartInitialized}
+			config={configObj}
+			resources={sources || resources}
+			chartInitialized={initialized}
 		/>
 	)
 }

@@ -7,6 +7,7 @@ import "chartiq/plugins/crosssection/sample.css"
 import PerfectScrollbar from "chartiq/js/thirdparty/perfect-scrollbar.esm.js";
 
 const config = {}
+const resources = { scrollStyle: PerfectScrollbar }
 
 import "chartiq/examples/markets/marketDefinitionsSample";
 import "chartiq/examples/markets/marketSymbologySample";
@@ -19,8 +20,15 @@ import "chartiq/examples/markets/marketSymbologySample";
  * @prop {object} resources
  * @prop {function} chartInitialized
  */
-export default function CrossSectionPage() {
+export default function CrossSectionPage(props) {
+	const {config: conf = {}, resources: sources = {} } = props;
+	const configObj = CIQ.extend(config, conf)
+	const initialized = props.chartInitialized || chartInitialized;
 	return(
-		<CrossSection config={config} resources={{scrollStyle: PerfectScrollbar}} />
+		<CrossSection
+			config={configObj}
+			resources={ sources || resources}
+			chartInitialized={initialized}
+		/>
 	)
 }
