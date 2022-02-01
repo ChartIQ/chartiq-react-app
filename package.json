@@ -7,9 +7,10 @@
     "build": "webpack --config=webpack.config.js --env.production",
     "start": "npm run watch -- --host=127.0.0.1 --disable-host-check=true",
     "prepublish-clean-components": "npm run clean --prefix=chartiq-react-components",
-    "prepublish-public": "npm run prepublish-clean-components && npm run prepublish-get-source && npm run prepublish-copy && npm run prepublish-updates && npm run prepublish-git-add",
+    "prepublish-public": "npm run prepublish-clean-components && npm run prepublish-get-source && npm run prepublish-copy && npm run prepublish-copy-components && npm run prepublish-updates && npm run prepublish-git-add",
     "prepublish-get-source": "rm -rf public_repo &&  git clone -n https://github.com/ChartIQ/chartiq-react-app public_repo",
     "prepublish-copy": "cp -r ./.github public src .gitignore .prettierignore .prettierrc .babelrc index.html README.md webpack.config.js public_repo/ && rm -rf public_repo/.github/workflows",
+    "prepublish-copy-components": "cp -r chartiq-react-components public_repo && rm public_repo/chartiq-react-components/README.md public_repo/chartiq-react-components/PUBLISHING.md",
     "prepublish-updates": "sed '/\"prepublish-/d;' package.json > public_repo/package.json",
     "prepublish-git-add": "cd public_repo && git add . && cd ..",
     "watch": "webpack-dev-server --inline --config=webpack.config.js --watch=true"
