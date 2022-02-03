@@ -75,7 +75,6 @@ const config = {
 		name: 'Apple Inc',
 		exchDisp: 'NASDAQ'
 	},
-	plugins: {}, // Activated Plugins go here!
 	onChartReady
 }
 

@@ -12,13 +12,13 @@ If you do not have a copy of the library, please contact your account manager or
 
 ## Included Components
 
-Each component includes only the bare necessities to get you started to allow for maximum customization with the smallest size possible. To get started, we also include example components that come with ChartIQ's example files loaded.
+Each component includes only the bare necessities to allow for maximum customization with the smallest size possible. To get started, we also include example components that come with ChartIQ's example files loaded.
 
 The exported components include:
 
 #### Charts
 
-- Chart &mdash; Core chart component with everythng needed to get started for financial time series charts.
+- Chart &mdash; Core chart component to get started for financial time series charts.
 - AdvancedChart &mdash; Full featured advanced chart component with everything needed for technical analysis.
 - ActiveTrader/Workstation &mdash; Sets up an information-rich component ready for traders.
 - CrossSection/Chart &mdash; Creates a working CrossSection (previously TermStructure) component for dealing with non&ndash;time series data.
@@ -51,7 +51,7 @@ export default function MyChart() {
 
 ## Basic Customization
 
-Chart components accept two basic props, config and resources, that allow them to be customized. The config describes how the chart should be set up, what addOns and plug-ins should be enabled, hotkeys, and more. Typically the config describes the structure of the chart and its loaded features. Resources are passed to the chart and contain utilities that the chart should use, such as a quoteFeed or a storage constructor.
+Chart components accept two basic props, config and resources, that allow them to be customized. The config describes how the chart should be set up, what addOns and plug-ins should be enabled, hotkeys, and more. Resources are passed to the chart and contain utilities that the chart should use, such as a quoteFeed or a storage constructor.
 
 > While the chart config prop is merged onto the default chart configuration, resources are not merged. If you pass in resources to a component, then it will not use the default resources provided in the example.
 

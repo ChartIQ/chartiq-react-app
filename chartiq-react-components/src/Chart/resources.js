@@ -21,8 +21,9 @@ function getCustomConfig({ chartId, symbol, onChartReady, resources } = {}) {
 
 	config.onChartReady = onChartReady;
 
-	// Disable plugins by default
-	config.plugins = { /* Actived plugins go here!! */};
+	// Disable crossSection plugins by default
+	// It can throw errors if when loaded with time series charts.
+	config.plugins.crossSection = null;
 
 	return config;
 }
