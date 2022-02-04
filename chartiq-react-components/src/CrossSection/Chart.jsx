@@ -14,22 +14,32 @@ import ChartTemplate from "./Template";
 import 'chartiq/css/normalize.css';
 import 'chartiq/css/stx-chart.css';
 import 'chartiq/css/chartiq.css'
+
+import { getCustomConfig } from "./resources"; // ChartIQ library resources
+
 export { CIQ }
 
 /**
- * An example of a term structure chart.
+ * An example of a cross section chart for non time series data.
  *
- * @class TermStructure
+ * @class CrossSection
  * @export
- * @extends {React.Component}
- * @param {object} config Configuration used for the chart.
- * @param {object} resources Object of resources passed into configuration to be applied
- * @param {TermStructure~chartInitialized} chartInitialized Callback that fires when the chart is interactive
+ * @extends {React.Component} 
+ * @param {object} [props] React props
+ * @param {object} [props.config] Configuration used for the chart.
+ * @param {object} [props.resources] Object of resources passed into configuration to be applied
+ * @param {CrossSection~chartInitialized} [props.chartInitialized] Callback that fires when the chart is created
  */
 export default class TermStructure extends React.Component {
 	constructor(props) {
 		super(props);
+		const { config, resources } = props;
+
 		this.container = React.createRef();
+
+		const configObj = getCustomConfig({ resources });
+		CIQ.extend(configObj, config);
+		this.config = configObj;
 
 		this.state = {
 			stx: null,
@@ -39,8 +49,8 @@ export default class TermStructure extends React.Component {
 
 	componentDidMount() {
 		const container = this.container.current;
-		const { chartInitialized } = this.props
-		let { config } = this.props;
+		const { chartInitialized } = this.props;
+		const { config } = this;
 
 		window.setTimeout(() => {
 			const uiContext = new CIQ.UI.Chart().createChartAndUI({ container, config });
@@ -72,7 +82,7 @@ export default class TermStructure extends React.Component {
 }
 
 /**
- * @callback TermStructure~chartInitialized
+ * @callback CrossSection~chartInitialized
  * @param {CIQ.ChartEngine} chartEngine
  * @param {CIQ.UI.Context} uiContext
  */

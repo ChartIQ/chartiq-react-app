@@ -18,6 +18,9 @@ import 'chartiq/css/normalize.css';
 import 'chartiq/css/stx-chart.css';
 import 'chartiq/css/chartiq.css'
 
+import './library-overrides.css'
+
+import { getCustomConfig } from "./resources"; // ChartIQ library resources
 const { channelWrite } = CIQ.UI.BaseComponent.prototype;
 
 export { CIQ }
@@ -25,20 +28,32 @@ export { CIQ }
  * This is a fully functional example showing how to load a chart with the Active Trader plugin and UI.
  *
  * @export
- * @class ActiveTraderWorkstation
+ * @class Workstation
  * @extends {React.Component}
+ * @param {object} [props] React props
+ * @param {object} [props.config] Configuration used for the chart.
+ * @param {object} [props.resources] Object of resources passed into configuration to be applied
+ * @param {Workstation~chartInitialized} [props.chartInitialized] Callback that fires when the chart is created
  */
-export default class ActiveTraderWorkstation extends React.Component {
+export default class Workstation extends React.Component {
 	constructor(props) {
 		super(props);
+		const { config, resources } = props;
+
 		this.container = React.createRef();
+
+		const configObj = getCustomConfig({ resources });
+		CIQ.extend(configObj, config);
+		this.config = configObj;
+
 		this.stx = null;
 		this.UIContext = null;
 	}
 
 	componentDidMount() {
 		const container = this.container.current;
-		const { config, chartInitialized } = this.props;
+		const { chartInitialized } = this.props;
+		const { config } = this;
 
 		const uiContext = (this.UIContext = new CIQ.UI.Chart().createChartAndUI({
 			container,
@@ -138,9 +153,14 @@ export default class ActiveTraderWorkstation extends React.Component {
 	}
 
 	render() {
-		let chartTemplate = <ChartTemplate />;
+		let chartTemplate = <ChartTemplate config={this.config} />;
 		if (this.props.children) chartTemplate = this.props.children;
 
 		return <cq-context ref={this.container}>{chartTemplate}</cq-context>;
 	}
 }
+/**
+ * @callback Workstation~chartInitialized
+ * @param {CIQ.ChartEngine} chartEngine
+ * @param {CIQ.UI.Context} uiContext
+ */

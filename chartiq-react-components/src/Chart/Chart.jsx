@@ -108,7 +108,7 @@ function dialogPortalized(el) {
 }
 
 /**
- * @callback AdvancedChart~chartInitialized
+ * @callback Core~chartInitialized
  * @param {CIQ.ChartEngine} chartEngine
  * @param {CIQ.UI.Context} uiContext
  */
