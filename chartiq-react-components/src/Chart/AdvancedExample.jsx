@@ -29,7 +29,7 @@ export default function AdvancedExample (props) {
 		<Chart
 			config={config}
 			resources={resources}
-			chartInitialized={chartInitialized}
+			chartInitialized={props.chartInitialized}
 		/>
 	)
 }
