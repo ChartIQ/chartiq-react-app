@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import Chart, { CIQ } from "./Chart"
 
 import quoteFeedSimulator from "chartiq/examples/feeds/quoteFeedSimulator";
@@ -22,15 +22,17 @@ const resources = {
 	scrollStyle: PerfectScrollbar
 }
 
-const config = {
-	chartId: '_coreChart',
-	initialSymbol: {
-		symbol: 'AAPL',
-		name: 'Apple Inc',
-		exchDisp: 'NASDAQ'
-	},
-	plugins: {}, // Activated Plugins go here!
-	onChartReady
+function getExampleConfig () {
+	return {
+			chartId: '_coreChart',
+			initialSymbol: {
+				symbol: 'AAPL',
+				name: 'Apple Inc',
+				exchDisp: 'NASDAQ'
+			},
+			plugins: {}, // Activated Plugins go here!
+			onChartReady
+		}
 }
 
 // ChartIQ example resources for markets and translations.
@@ -81,9 +83,9 @@ import 'chartiq/examples/markers/videoSample'
 
 export default function CoreChartPage (props) {
 	const {config: conf = {} } = props;
-	const configObj = CIQ.extend(config, conf);
+	const [configObj] = useState(() => CIQ.extend(getExampleConfig(), conf));
 	const sources = props.resources || resources;
-	const initialized = props.chartInitialized || chartInitialized; 
+	const initialized = props.chartInitialized || chartInitialized;
 	return (
 		<Chart
 			config={configObj}

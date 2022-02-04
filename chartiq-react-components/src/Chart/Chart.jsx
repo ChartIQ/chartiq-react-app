@@ -11,6 +11,7 @@ import ChartTemplate from "./Template";
 import 'chartiq/css/normalize.css';
 import 'chartiq/css/stx-chart.css'; // Chart API
 import 'chartiq/css/chartiq.css'; // Chart UI
+import './library-overrides.css'
 
 import { getCustomConfig } from "./resources"; // ChartIQ library resources
 
@@ -20,14 +21,14 @@ export { CIQ }
  * This is a fully functional example showing how to load a chart with complete user interface.
  *
  * @export
- * @class CoreChart
+ * @class Core
  * @extends {React.Component}
  * @param {object} [props] React props
  * @param {object} [props.config] Configuration used for the chart.
  * @param {object} [props.resources] Object of resources passed into configuration to be applied
- * @param {CoreChart~chartInitialized} [props.chartInitialized] Callback that fires when the chart is created
+ * @param {Core~chartInitialized} [props.chartInitialized] Callback that fires when the chart is created
  */
-export default class CoreChart extends React.Component {
+export default class Core extends React.Component {
 	constructor(props) {
 		super(props);
 		const { config, resources } = props;
@@ -77,12 +78,9 @@ export default class CoreChart extends React.Component {
 	}
 
 	render() {
-		const { config = {}, resources = {} }= this.props;
-		const conf = Object.assign({}, config)
-		conf.eventMarkersImplementation = resources.markerSample;
 		return (
 			<cq-context ref={this.container}>
-				{this.props.children || <ChartTemplate config={conf} />}
+				{this.props.children || <ChartTemplate config={this.config} />}
 			</cq-context>
 		);
 	}
