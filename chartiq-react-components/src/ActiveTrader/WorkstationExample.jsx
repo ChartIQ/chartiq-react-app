@@ -1,5 +1,5 @@
-import React from "react"
-import Workstation,{ CIQ } from "../ActiveTrader";
+import React, { useState } from "react"
+import Workstation, { CIQ } from "./Workstation";
 
 import quoteFeedSimulator from "chartiq/examples/feeds/quoteFeedSimulator";
 import PerfectScrollbar from "chartiq/js/thirdparty/perfect-scrollbar.esm.js";
@@ -15,14 +15,14 @@ const chartInitialized = ({chartEngine, uiContext}) => {
 const onChartReady = (chartEngine) => {
 	// Ready do work with the chart!
 }
-const resources = {
+const exampleResources = {
 	markerSample: marker.MarkersSample,
 	quoteFeed: quoteFeedSimulator,
 	scrollStyle: PerfectScrollbar
 }
 
-const config = {
-	onChartReady
+function getExampleConfig () {
+	return { onChartReady }
 }
 
 // ChartIQ example resources for markets and translations.
@@ -42,15 +42,20 @@ import 'chartiq/examples/markers/videoSample'
 import 'chartiq/plugins/tfc/tfc-demo';
 import 'chartiq/examples/feeds/L2_simulator'; /* for use with cryptoiq */
 
-export default function (props) {
-	const {config: conf = {} } = props;
-	const configObj = CIQ.extend(config, conf);
-	const sources = props.resources || resources;
+export default function WorkstationExample (props) {
+	const [{ config, resources }] = useState(() => {
+
+		const config = getExampleConfig();
+		CIQ.extend(config, props.config || {});
+
+		return { config, resources: { ...exampleResources, ...props.resources } };
+	});
 	const initialized = props.chartInitialized || chartInitialized;
+
 	return(
 		<Workstation
-			config={configObj}
-			resources={sources}
+			config={config}
+			resources={resources}
 			chartInitialized={initialized}
 		/>
 	)

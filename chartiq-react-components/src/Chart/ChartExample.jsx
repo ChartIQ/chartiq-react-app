@@ -16,7 +16,7 @@ const onChartReady = (chartEngine) => {
 	// Ready do work with the chart!
 }
 
-const resources = {
+const exampleResources = {
 	quoteFeed: quoteFeedSimulator,
 	markerSample: marker.MarkersSample,
 	scrollStyle: PerfectScrollbar
@@ -81,14 +81,14 @@ import 'chartiq/examples/markers/videoSample'
 // Uncomment the following for the L2 simulator (required for the crypto sample and MarketDepth addOn)
 // import 'chartiq/examples/feeds/L2_simulator'; /* for use with cryptoiq */
 
-export default function CoreChartPage (props) {
+export default function ChartExample (props) {
 	const [{ config, resources }] = useState(() => {
 
 		const config = getExampleConfig();
 		CIQ.extend(config, props.config || {});
 
-		return { config, resources: { ...resources, ...props.resources } };
-	  });
+		return { config, resources: { ...exampleResources, ...props.resources } };
+	});
 	const initialized = props.chartInitialized || chartInitialized;
 
 	return (
