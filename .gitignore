@@ -32,11 +32,11 @@ allure-results
 
 # Ignore Components compiled folders
 
-chartiq-react-components/index.js
-chartiq-react-components/Chart/
-chartiq-react-components/Advanced/
+react-components/index.js
+react-components/Chart/
+react-components/Advanced/
 
-chartiq-react-components/ActiveTrader/
-chartiq-react-components/CrossSection/
+react-components/ActiveTrader/
+react-components/CrossSection/
 
-chartiq-react-components/node_modules/
+react-components/node_modules/
