@@ -46,7 +46,7 @@ export default function WorkstationExample (props) {
 	const [{ config, resources }] = useState(() => {
 
 		const config = getExampleConfig();
-		CIQ.extend(config, props.config || {});
+		CIQ.extend(config, props.config);
 
 		return { config, resources: { ...exampleResources, ...props.resources } };
 	});

@@ -30,7 +30,7 @@ npm publish --access public
 
 ## Updating Versions
 
-The version of this app should match the ChartIQ library release. If the lastest release of STX is 8.5.0, then we should update the version in package.json to match. If we need to do an out of cycle release (for security audits or some other reason) then we should mark that as a patch release.
+The version of this app should match the ChartIQ library release. For example if the lastest release of STX is 8.6.0, then we should update the major/minor version in package.json to match (v8.6.0). We **DO NOT** try to sync up with patch releases for STX. A library patch release does not mean that we must release a patch here (unless required for the patch). If we need to do an out of cycle release (for security audits or some other reason) then we should mark that as a patch release so we maintain major/minor cycle of STX.
 
 ## Release Checklist:
 

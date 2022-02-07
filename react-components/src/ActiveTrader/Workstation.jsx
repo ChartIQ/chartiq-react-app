@@ -14,6 +14,7 @@ import 'chartiq/plugins/tfc/tfc.css';
 
 import ChartTemplate from "./Template";
 
+import './Workstation.css'
 import 'chartiq/css/normalize.css';
 import 'chartiq/css/stx-chart.css';
 import 'chartiq/css/chartiq.css'

@@ -4,6 +4,7 @@
 - [Overview](#overview)
 - [Included Components](#included-components)
   - [Charts](#charts)
+  - [Examples](#examples)
 - [Getting Started](#getting-started)
 - [Basic Customization](#basic-customization)
   - [Customizing the Chart config](#customizing-the-chart-config)
@@ -64,7 +65,7 @@ export default function MyChart() {
 
 ## Basic Customization
 
-Chart components accept two basic props, config and resources, that allow them to be customized. The config describes how the chart should be set up, what addOns and plug-ins should be enabled, hotkeys, and more. Resources are passed to the chart and contain utilities that the chart should use, such as a quoteFeed or a storage constructor.
+Chart components accept two basic props, config and resources, that allow them to be customized. The config describes how the chart should be set up, what addOns and plug-ins should be enabled, hotkeys, and more. Resources are passed to the chart and contain utilities that the chart should use, such as a quoteFeed or a search lookup.
 
 ### Customizing the chart config
 
@@ -98,7 +99,7 @@ Every component accepts children that it will render instead of its default JSX 
 import MyChartTemplate from './MyTemplate.jsx'
 
 <Chart>
-	<MyChartTemplate>
+	<MyChartTemplate />
 </Chart>
 ```
 
@@ -123,7 +124,7 @@ The default configuration enables add-ons by default. If you would like to disab
 ```jsx
 import Chart from 'chartiq/react-components/Chart'
 
-<Chart config={{enabledAddOns: { rangeSlider: null}}}/>
+<Chart config={{enabledAddOns: { rangeSlider: null } }} />
 
 ```
 ## Enabling plug-ins

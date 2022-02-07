@@ -58,7 +58,7 @@ npm install ./chartiq-x.x.x.tgz
 
 ## Basic Customization
 
-For basic component customization see component documentation at [chartiq-react-components](./chartiq-react-components/README.md).
+For basic component customization see component documentation at [react-components](./react-components/README.md).
 
 ## Customization
 

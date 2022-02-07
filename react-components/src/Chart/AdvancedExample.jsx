@@ -18,17 +18,17 @@ function getExampleConfig() {
 }
 
 export default function AdvancedExample (props) {
-	const [{ config, resources }] = useState(() => {
+	const [{ config }] = useState(() => {
 
 		const config = getExampleConfig();
 		CIQ.extend(config, props.config || {});
 
-		return { config, resources: { ...resources, ...props.resources } };
+		return config;
 	  });
 	return (
 		<Chart
 			config={config}
-			resources={resources}
+			resources={props.resources}
 			chartInitialized={props.chartInitialized}
 		/>
 	)
