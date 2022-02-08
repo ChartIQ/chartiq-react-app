@@ -68,7 +68,7 @@ The *Template.jsx* files of the `AdvancedChart`, `ActiveTraderWorkstation`, and 
 
 ### Configuration
 
-You can configure a variety of chart features by modifying the configuration object provided to the component definition files of `AdvancedChart`, `CustomChart`, `ActiveTraderWorkstation`, and `TermStructure`. Sample configurations are available as `getConfig` and `getCustomConfig` functions in the resources files.
+You can configure a variety of chart features by modifying the configuration object provided to the component definition files of `AdvancedChart`, `CustomChart`, `ActiveTrader/Workstation`, and `CrossSection/Chart`. Sample configurations are available as `getConfig` and `getCustomConfig` functions in the resources files.
 
 A default configuration is part of the ChartIQ library. See the [Chart Configuration](tutorial-Chart%20Configuration.html) tutorial for all the configuration details.
 
