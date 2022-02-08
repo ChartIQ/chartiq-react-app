@@ -10,33 +10,45 @@ import CustomChart from "../CustomChart/CustomChart";
 import { ChartExample as Chart } from "@chartiq/react-components/Chart"
 import AdvancedChart from '@chartiq/react-components/Chart/AdvancedExample'
 // import { WorkstationExample as ActiveTrader } from '@chartiq/react-components/ActiveTrader'
-// import { ChartExample as CrossSection } from '@chartiq/react-components/CrossSection'
+import { ChartExample as CrossSection } from '@chartiq/react-components/CrossSection'
 import { CIQ } from "chartiq/js/chartiq"
 
-import './RouteList.css';
+import './Router.css';
 
 const { protocol, pathname } = document.location;
 const baseLocation = pathname.replace(/[^/]*$/, "");
 const Router = protocol === "file:" ? HashRouter : BrowserRouter;
 
+const taEnabled = !!CIQ.Marker.Performance
+const ActiveTraderEnabled = !!CIQ.TFC && !!CIQ.MarketDepth;
+const CrossSectionEnabled = !!CIQ.CrossSection;
+
+console.log(`Check Technical Analysis package: ${taEnabled}`)
+console.log(`Check ActiveTrader plugin: ${ActiveTraderEnabled}`);
+console.log(`Check CrossSection plugin: ${CrossSectionEnabled}`);
+
 export default function Routes() {
 	return <Router basename={baseLocation}>
-			 <Route path='/' exact component={RouteList}></Route>
-			 <Route path='/index.html' component={RouteList}></Route>
-			 <Route path='/core-chart' component={Chart}></Route>
-			 {CIQ.Marker.Performance && <Route path='/technical-analysis' component={AdvancedChart}></Route>}
-			 <Route path='/multi-chart' component={MultiChartPage}></Route>
+			<Route path='/' exact component={RouteList}></Route>
+			<Route path='/index.html' component={RouteList}></Route>
+			<Route path='/core-chart' component={Chart}></Route>
+			{ taEnabled && 
+				<Route path='/technical-analysis' component={AdvancedChart}></Route>
+			}
+			<Route path='/multi-chart' component={MultiChartPage}></Route>
  
-			 {CIQ.TFC && CIQ.MarketDepth &&
-				 <Route path="/active-trader" component={ActiveTrader}></Route>
-			 }
+			{ ActiveTraderEnabled &&
+				<Route path="/active-trader" component={ActiveTrader}></Route>
+			}
  
-			 {CIQ.CrossSection &&
-				 <Route path='/term-structure' component={CrossSection}></Route>
-			 }
-			 <Route path='/custom-chart' component={CustomChart}></Route>
-			 <Route path='/hello-world' component={HelloWorld}></Route>
-		 </Router>;
+			{ CrossSectionEnabled && <>
+				<Route path='/term-structure' component={CrossSection}></Route>
+				<Route path='/cross-section' component={CrossSection}></Route>
+			</>
+			}
+			<Route path='/custom-chart' component={CustomChart}></Route>
+			<Route path='/hello-world' component={HelloWorld}></Route>
+		</Router>;
  }
 
 /**
@@ -68,12 +80,15 @@ function RouteList () {
 				</p>
 			</li>
 			<li>
-				{/* <h3 className="disabled-link" style={{ color: "#888", marginBottom: 0 }}>ActiveTraderWorkstation</h3>
-				<p style={{fontSize: 0.75 + "rem", marginTop: 0, marginBottom: 0.70 + "rem"}}>
-					(To enable this link, uncomment all lines in the <i>src</i> directory following the <code>// Enable ActiveTraderWorkstation</code> comment.)
-				</p>
-				Enable ActiveTraderWorkstation */}
-					<h3><Link to="active-trader">ActiveTraderWorkstation</Link></h3>
+				{ ActiveTraderEnabled ? 
+				(<>
+					<h3><Link to="active-trader">ActiveTrader Workstation</Link></h3>
+				</>) : (<>
+					<h3 className='disabled-link'>ActiveTrader Workstation</h3>
+					<p>
+						(Import ActiveTrader/WorkstationExample to enable. Requires TFC and MarketDepth plugins.)
+					</p>
+				</>) }
 				<p>
 					Features the advanced chart component enhanced with the following plug-ins:
 				</p>
@@ -85,12 +100,15 @@ function RouteList () {
 					</ul>
 			</li>
 			<li>
-				{/* <h3 className="disabled-link" style={{ color: '#888', marginBottom: 0 }}>TermStructure</h3>
-				<p style={{fontSize: 0.75 + "rem", marginTop: 0, marginBottom: 0.70 + "rem"}}>
-					(To enable this link, uncomment all lines in the <i>src</i> directory following the <code>// Enable TermStructure</code> comment.)
+				{ CrossSectionEnabled ? 
+				(<>
+					<h3><Link to="term-structure">CrossSection (formerly TermStructure)</Link></h3>
+				</>) : (<>
+					<h3 className="disabled-link">CrossSection (formerly TermStructure)</h3>
+				<p>
+				(Import CrossSection/ChartExample to enable. Requires CrossSection plugin.)
 				</p>
-					Enable TermStructure */}
-					<h3><Link to="term-structure">Term Structure Chart</Link></h3>
+				</>) }
 				<p>
 					Creates a term structure chart for working with non&ndash;time series data.
 				</p>

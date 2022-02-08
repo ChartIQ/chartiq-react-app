@@ -48,11 +48,13 @@
 }
 
 .route-list h3.disabled-link {
-	color: '#888'
+	color: #888;
+	margin-bottom: 0;
 }
 
-.route-list h3.disabled-link div {
-	font-size: .8em;
-	padding-left: 6p;
+.route-list h3.disabled-link + * {
+	font-size: .8rem;
+	margin: 0.25rem;
+	padding-left: 6px;
 	font-weight: normal
 }
