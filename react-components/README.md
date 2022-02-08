@@ -12,7 +12,7 @@
   - [Modifying the Template](#customizing-component-template)
   - [Adding a lookup driver](#adding-your-own-lookupdriver)
 - [Setting add-ons](#setting-add-ons)
-- [Enabling plug-ins](#enabling-plug\-ins)
+- [Setting plug-ins](#setting-plug\-ins)
 - [Advanced Customization](#advanced-customization)
 ## Overview
 
@@ -84,7 +84,7 @@ creates a chart with an initial symbol of 'FB' instead of 'AAPL' (the initial sy
 
 ### Adding your own quotefeed
 
-By default, all components will load the quoteFeedSimulator so that you have some working data to get started. When you are ready to add your own quotefeed, it should be aded to the resources prop passed into the chart component.
+By default, all components will load simulated data using the quoteFeedSimulator so that you have some working data to get started. When you are ready to add your own quotefeed, it should be aded to the resources prop passed into the chart component.
 ```jsx
 import MyCustomQuotefeed from './myCustomQuotefeed'
 
@@ -155,7 +155,7 @@ const config = {
 ```
 
 This configuration would enable the continous zoom add on for daily data only with a custom bondary width.
-## Enabling plug-ins
+## Setting plug-ins
 
 ChartIQ comes with a variety of plug-ins that add enhanced functionality to charts. The default chart configuration contains entries to start plugins once they are imported.
 
@@ -186,6 +186,16 @@ function simulate({ chartEngine }) {
 
 export default function MyComponent() {
     return <Chart chartInitialized={simulate} />
+}
+```
+
+There may be a scenario (like loading multiple charts in one document or a single page app) where you need to manually disable a plugin for a certain chart. If you need to disable a plugin it can be disabled by setting its value in `config.plugins` to null. For example loading a cross section chart with a time series chart:
+
+```jsx
+import Chart from '@chartiq/react-components'
+
+export default function MyTimeSeriesChart() {
+  return <Chart config={{ plugins: { crosssection: null } }} />
 }
 ```
 
