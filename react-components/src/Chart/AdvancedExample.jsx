@@ -3,10 +3,9 @@ import Chart, { CIQ } from "./ChartExample"
 
 export { CIQ }
 
-// Callback function for when the chartEngine is initialized but before loadChart has been called.
-const onChartReady = (chartEngine) => {
-	// Ready do work with the chart!
-}
+// Callback to execute when chart is loaded for first time
+const onChartReady = (chartEngine) => {}
+
 function getExampleConfig() {
 	return {
 		chartId: '_advancedChart',

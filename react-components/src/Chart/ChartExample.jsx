@@ -13,10 +13,8 @@ const chartInitialized = ({chartEngine, uiContext}) => {
 	Object.assign(window, {stx: chartEngine, CIQ })
 }
 
-// Callback function for when the chartEngine is initialized but before loadChart has been called.
-const onChartReady = (chartEngine) => {
-	// Ready do work with the chart!
-}
+// Callback to execute when chart is loaded for first time
+const onChartReady = (chartEngine) => {}
 
 const exampleResources = {
 	quoteFeed: quoteFeedSimulator,
