@@ -1,4 +1,4 @@
-import { default as Chart, CIQ } from "./Chart";
+import { default as Chart, CIQ } from "./Core";
 
 import { getConfig, getCustomConfig } from "./resources"; // ChartIQ library resources
 import ChartExample from "./ChartExample"

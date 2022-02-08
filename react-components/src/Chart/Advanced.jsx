@@ -1,7 +1,7 @@
 // Import necessary ChartIQ library files
 import { CIQ } from "chartiq/js/advanced";
 
-import Chart from "./Chart"
+import Chart from "./Core"
 import { getConfig, getCustomConfig } from "./resources"
 
 
