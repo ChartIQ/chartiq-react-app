@@ -10,7 +10,7 @@ import CustomChart from "../CustomChart/CustomChart";
 import { ChartExample as Chart } from "@chartiq/react-components/Chart"
 import AdvancedChart from '@chartiq/react-components/Chart/AdvancedExample'
 // import { WorkstationExample as ActiveTrader } from '@chartiq/react-components/ActiveTrader'
-import { ChartExample as CrossSection } from '@chartiq/react-components/CrossSection'
+// import { ChartExample as CrossSection } from '@chartiq/react-components/CrossSection'
 import { CIQ } from "chartiq/js/chartiq"
 
 import './Router.css';

@@ -9,6 +9,7 @@ Before you publish the components, be sure you have tested your changes and that
 1. Run npm ci to install node_modules
 1. Rebuild components for production with `npm run build:prod` from components package.json
 1. Using copy of the ChartIQ license with with all plugins comment in plugin components and build chartiq-react-app to test.
+1. Manually import and smoke test each component to make sure that they load correctly.
 
 
 ## Publishing
