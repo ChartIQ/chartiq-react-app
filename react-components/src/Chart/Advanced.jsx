@@ -10,16 +10,7 @@ import { getConfig, getCustomConfig } from "./resources"
  *
  * @export
  * @class AdvancedChart
- * @extends {React.Component}
- * @param {object} config Configuration used for the chart.
- * @param {object} resources Object of resources passed into configuration to be applied
- * @param {AdvancedChart~chartInitialized} chartInitialized Callback that fires when the chart is interactive
+ * @extends {Core}
  */
 
 export { Chart as default, CIQ, getConfig, getCustomConfig };
-
-/**
- * @callback AdvancedChart~chartInitialized
- * @param {CIQ.ChartEngine} chartEngine
- * @param {CIQ.UI.Context} uiContext
- */

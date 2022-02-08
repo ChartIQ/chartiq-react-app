@@ -31,12 +31,15 @@ export { CIQ }
  * @export
  * @class Workstation
  * @extends {React.Component}
- * @param {object} [props] React props
- * @param {object} [props.config] Configuration used for the chart.
- * @param {object} [props.resources] Object of resources passed into configuration to be applied
- * @param {Workstation~chartInitialized} [props.chartInitialized] Callback that fires when the chart is created
  */
 export default class Workstation extends React.Component {
+	/**
+	 * @constructor
+	 * @param {object} [props] React props
+	 * @param {object} [props.config] Configuration used for the chart.
+	 * @param {object} [props.resources] Object of resources passed into configuration to be applied
+	 * @param {Workstation~chartInitialized} [props.chartInitialized] Callback that fires when the chart is created
+	 */
 	constructor(props) {
 		super(props);
 		const { config, resources } = props;
