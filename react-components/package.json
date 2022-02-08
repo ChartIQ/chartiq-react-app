@@ -1,6 +1,6 @@
 {
   "name": "@chartiq/react-components",
-  "version": "8.6.0-beta.5",
+  "version": "8.6.0-beta.6",
   "description": "React Components for ChartIQ library",
   "main": "index.js",
   "files": [
@@ -13,7 +13,7 @@
   "scripts": {
     "build": "babel src -d . --copy-files --source-maps inline",
     "build:prod": "babel src -d . --copy-files",
-    "clean":"rm -rf Chart/ Advanced/ styles/ ActiveTrader/ CrossSection/ node_modules/",
+    "clean": "rm -rf Chart/ Advanced/ styles/ ActiveTrader/ CrossSection/ node_modules/",
     "watch": "babel src -d . -w --copy-files --source-maps inline",
     "prepublish": "npm run build:prod"
   },
