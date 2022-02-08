@@ -11,7 +11,7 @@
   - [Adding a quotefeed](#adding-your-own-quotefeed)
   - [Modifying the Template](#customizing-component-template)
   - [Adding a lookup driver](#adding-your-own-lookupdriver)
-- [Enabling add-ons](#enabling-add-ons)
+- [Setting add-ons](#setting-add-ons)
 - [Enabling plug-ins](#enabling-plug\-ins)
 - [Advanced Customization](#advanced-customization)
 ## Overview
@@ -65,7 +65,7 @@ export default function MyChart() {
 
 ## Basic Customization
 
-Chart components accept two basic props, config and resources, that allow them to be customized. The config describes how the chart should be set up, what addOns and plug-ins should be enabled, hotkeys, and more. Resources are passed to the chart and contain utilities that the chart should use, such as a quoteFeed or a search lookup.
+Chart components accept two basic props, config and resources, that allow them to be customized. The config describes how the chart should be set up, what addOns and plug-ins should be enabled, hotkeys, and more. Resources are passed to the chart and contain utilities that the chart should use, such as a quoteFeed or a storage constructor.
 
 ### Customizing the chart config
 
@@ -111,15 +111,15 @@ The chart configuration includes the default Lookup.ChartIQ implementation but y
 import Chart from '@chartiq/react-components'
 import CustomSymbolLookup from './myCustomSymbolLookup'
 
-<Chart config={{ lookupDriver: CustomSymbolLookup }}/>
+<Chart config={{ lookupDriver: CustomSymbolLookup }} />
 ```
 
 More information about [Lookup Drivers](https://documentation.chartiq.com/CIQ.ChartEngine.Driver.Lookup.html) can be found in the [data integration](https://documentation.chartiq.com/tutorial-DataIntegrationQuoteFeeds.html#main) ChartIQ Documentation.
 
 
-## Enabling add-ons
+## Setting add-ons
 
-The default configuration enables add-ons by default. If you would like to disable an addon, set the value in config.enabledAddOns to null. For example to disable the RangeSlider add-on:
+The default configuration contains initialization for all add ons (see `config.addOns`) and filters which are enabled with the `config.enabledAddOns` property. If you would like to disable an add on, set the value in `config.enabledAddOns` to null. For example to disable the RangeSlider add-on:
 
 ```jsx
 import Chart from 'chartiq/react-components/Chart'
@@ -127,6 +127,34 @@ import Chart from 'chartiq/react-components/Chart'
 <Chart config={{enabledAddOns: { rangeSlider: null } }} />
 
 ```
+
+If you would like to pass custom configuration options to a specific add on then you must pass the arguments to the `config.addOns` property and make sure the add on is included in the `config.enabledAddOns` property. For example: 
+
+```jsx
+import Chart from 'chartiq/react-components/Chart'
+const config = {
+  addOns: {
+    continuousZoom: {
+      periodicities: [
+        // daily interval data
+        {period: 1,   interval: "month"},
+        {period: 1,   interval: "week"},
+        {period: 1,   interval: "day"},
+      ],
+      boundaries: {
+        maxCandleWidth: 20,
+        minCandleWidth: 5
+      }
+    }
+  },
+  enabledAddOns: {
+    continousZoom: true
+  }
+}
+<Chart config={config} />
+```
+
+This configuration would enable the continous zoom add on for daily data only with a custom bondary width.
 ## Enabling plug-ins
 
 ChartIQ comes with a variety of plug-ins that add enhanced functionality to charts. The default chart configuration contains entries to start plugins once they are imported.

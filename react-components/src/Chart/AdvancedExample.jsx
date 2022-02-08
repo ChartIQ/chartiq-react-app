@@ -1,5 +1,7 @@
 import React, { useState } from "react"
-import Chart from "./ChartExample"
+import Chart, { CIQ } from "./ChartExample"
+
+export { CIQ }
 
 // Callback function for when the chartEngine is initialized but before loadChart has been called.
 const onChartReady = (chartEngine) => {
@@ -18,7 +20,7 @@ function getExampleConfig() {
 }
 
 export default function AdvancedExample (props) {
-	const [{ config }] = useState(() => {
+	const [ config ] = useState(() => {
 
 		const config = getExampleConfig();
 		CIQ.extend(config, props.config || {});
