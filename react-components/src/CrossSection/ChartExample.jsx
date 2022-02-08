@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { default as CrossSection } from '../CrossSection'
+import CrossSection,  { CIQ } from './Chart'
 
 // Import sample shading or use your own
 import "chartiq/plugins/crosssection/sample.css"
