@@ -8,10 +8,12 @@ import { MultiChartPage } from "../MultiChart";
 import CustomChart from "../CustomChart/CustomChart";
 
 import { ChartExample as Chart } from "@chartiq/react-components/Chart"
-import AdvancedChart from '@chartiq/react-components/Chart/AdvancedExample'
+// import AdvancedChart from '@chartiq/react-components/Chart/AdvancedExample'
 // import { WorkstationExample as ActiveTrader } from '@chartiq/react-components/ActiveTrader'
 // import { ChartExample as CrossSection } from '@chartiq/react-components/CrossSection'
 import { CIQ } from "chartiq/js/chartiq"
+
+import MissingFeature from '../MissingFeature'
 
 import './Router.css';
 
@@ -32,20 +34,16 @@ export default function Routes() {
 			<Route path='/' exact component={RouteList}></Route>
 			<Route path='/index.html' component={RouteList}></Route>
 			<Route path='/core-chart' component={Chart}></Route>
-			{ taEnabled && 
-				<Route path='/technical-analysis' component={AdvancedChart}></Route>
-			}
+				
+			<Route path='/technical-analysis' component={AdvancedChartComponent}></Route>
+
 			<Route path='/multi-chart' component={MultiChartPage}></Route>
+
+			<Route path="/active-trader" component={WorkstationComponent}></Route>
  
-			{ ActiveTraderEnabled &&
-				<Route path="/active-trader" component={ActiveTrader}></Route>
-			}
- 
-			{ CrossSectionEnabled && <>
-				<Route path='/term-structure' component={CrossSection}></Route>
-				<Route path='/cross-section' component={CrossSection}></Route>
-			</>
-			}
+			<Route path='/term-structure' component={CrossSectionComponent}></Route>
+			<Route path='/cross-section' component={CrossSectionComponent}></Route>
+
 			<Route path='/custom-chart' component={CustomChart}></Route>
 			<Route path='/hello-world' component={HelloWorld}></Route>
 		</Router>;
@@ -67,7 +65,7 @@ function RouteList () {
 
 			<ul className="top-level">
 			<li>
-				<h3><Link to="technical-analysis">AdvancedChart</Link></h3>
+				<h3 title='Requires Technical Analsysis Package'><Link to="technical-analysis">AdvancedChart</Link></h3>
 				<p>
 					Creates a chart with a full-featured user interface. AdvancedChartComponent is
 					the equivalent of ChartIQ's <i>technical-analysis-chart.html</i> advanced template.
@@ -80,15 +78,7 @@ function RouteList () {
 				</p>
 			</li>
 			<li>
-				{ ActiveTraderEnabled ? 
-				(<>
-					<h3><Link to="active-trader">ActiveTrader Workstation</Link></h3>
-				</>) : (<>
-					<h3 className='disabled-link'>ActiveTrader Workstation</h3>
-					<p>
-						(Import ActiveTrader/WorkstationExample to enable. Requires TFC and MarketDepth plugins.)
-					</p>
-				</>) }
+				<h3 title='Requires ActiveTrader and TFC plugins'><Link to="active-trader">ActiveTrader Workstation</Link></h3>
 				<p>
 					Features the advanced chart component enhanced with the following plug-ins:
 				</p>
@@ -100,15 +90,7 @@ function RouteList () {
 					</ul>
 			</li>
 			<li>
-				{ CrossSectionEnabled ? 
-				(<>
-					<h3><Link to="term-structure">CrossSection (formerly TermStructure)</Link></h3>
-				</>) : (<>
-					<h3 className="disabled-link">CrossSection (formerly TermStructure)</h3>
-				<p>
-				(Import CrossSection/ChartExample to enable. Requires CrossSection plugin.)
-				</p>
-				</>) }
+				<h3 title='Requires CrossSection plugin'><Link to='term-structure'>CrossSection (formerly TermStructure)</Link></h3>
 				<p>
 					Creates a term structure chart for working with non&ndash;time series data.
 				</p>
@@ -129,4 +111,22 @@ function RouteList () {
 			</ul>
 		</main>
 	);
+}
+
+function AdvancedChartComponent() {
+	return taEnabled
+		? <AdvancedChart />
+		: <MissingFeature feature={'Technical Analysis'} type={'package'} />
+}
+
+function WorkstationComponent() {
+	return ActiveTraderEnabled
+		? <Workstation />
+		: <MissingFeature feature={'ActiveTrader'} type={'plugin'} />
+}
+
+function CrossSectionComponent() {
+	return CrossSectionEnabled 
+		? <CrossSection /> 
+		: <MissingFeature feature={'CrossSection'} type={'plugin'} />
 }
