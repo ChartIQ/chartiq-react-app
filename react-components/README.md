@@ -16,13 +16,11 @@
 - [Advanced Customization](#advanced-customization)
 ## Overview
 
-The ChartIQ React Components is a React component library featuring several advanced components that can be easily imported into an existing React application.
+The ChartIQ React Components is a React component library featuring chart components that can be easily imported into an existing React application.
 
-A copy of the ChartIQ library, version 8.4.0 or later.
+This package simplifies ChartIQ library use in React framework. It requires ChartIQ library v8.6.0 or later.
 
-If you do not have a copy of the library, please contact your account manager or send an email to <info@cosaic.io>.
-
-**NOTE** While you can install the React components, they do require the ChartIQ library to work. If you do not have a copy of the library you may evaluate one from [here](https://cosaic.io/chartiq-sdk-library-download/).
+If you do not have a copy of the library, please contact your account manager or send an email to <info@cosaic.io> or you may evaluate one from [here](https://cosaic.io/chartiq-sdk-library-download/).
 
 ## Included Components
 
@@ -65,13 +63,13 @@ export default function MyChart() {
 
 ## Basic Customization
 
-Chart components accept two basic props, config and resources, that allow them to be customized. The config describes how the chart should be set up, what addOns and plug-ins should be enabled, hotkeys, and more. Resources are passed to the chart and contain utilities that the chart should use, such as a quoteFeed or a storage constructor.
+Chart components use two primary props, config and resources, that allow them to be customized. The config describes how the chart should be set up, what addOns and plug-ins should be enabled, hotkeys, and more. Resources are passed to the chart and contain utilities that the chart should use, such as a quoteFeed or a storage constructor.
 
 ### Customizing the chart config
 
 All components accept a config prop which can be modified to enable various features, set chart properties, load data and more (for full documentation see [ChartIQ Default Chart Configuration](https://documentation.chartiq.com/tutorial-Chart%20Configuration.html)).
 
-By default, you may pass in only the the parts of the config you want to customize, and these changes will be merged onto the the default configuration. For example:
+Components require only parts of the default that requires customization, although full configuration can be provided as well. For example to create a chart with an initial symbol of 'FB' instead of 'AAPL' use:
 
 ```jsx
 import Chart from @chartiq/react-components
@@ -84,7 +82,7 @@ creates a chart with an initial symbol of 'FB' instead of 'AAPL' (the initial sy
 
 ### Adding your own quotefeed
 
-By default, all components will load simulated data using the quoteFeedSimulator so that you have some working data to get started. When you are ready to add your own quotefeed, it should be aded to the resources prop passed into the chart component.
+All components will load simulated data using the quoteFeedSimulator so that you have some working data to get started. When you are ready to add your own quotefeed, it should be aded to the resources prop passed into the chart component. Quote feed simulator can be disabled by setting `quoteFeed` property in resources prop to a `null` value.
 ```jsx
 import MyCustomQuotefeed from './myCustomQuotefeed'
 
