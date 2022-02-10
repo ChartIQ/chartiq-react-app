@@ -1,5 +1,5 @@
 import React from "react";
-import "chartiq/js/advanced"
+import "chartiq/js/advanced.js"
 import { CIQ } from "chartiq/js/components";
 
 import "chartiq/js/extras/svgcharts/piechart";
