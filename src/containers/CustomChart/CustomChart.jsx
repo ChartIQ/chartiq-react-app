@@ -1,14 +1,14 @@
 import React from "react";
 import { CIQ } from "chartiq/js/componentUI";
 
-import { ChartExample as AdvancedChart, getCustomConfig } from "@chartiq/react-components/Chart";
+import { ChartExample as Chart, getCustomConfig } from "@chartiq/react-components/Chart";
 
 import "./CustomChart.css";
 import { default as ShortcutDialog } from "./ShortcutDialog/ShortcutDialog";
 import { default as RecentSymbols } from "./RecentSymbols/RecentSymbols";
 
 /**
- * This is an example custom implementation of the AdvancedChart component with added React components.
+ * This is an example custom implementation of the Chart component with added React components.
  *
  * @export
  * @class CustomChart
@@ -228,7 +228,7 @@ export default class CustomChart extends React.Component {
 					<h2>Custom chart</h2>
 
 					<div>
-						...is a customization of the AdvancedChart template, featuring the
+						...is a customization of the Chart template, featuring the
 						addition of:
 						<ul>
 							<li>
@@ -260,7 +260,7 @@ export default class CustomChart extends React.Component {
 					</div>
 				</div>
 				<div className="chartWrapper">
-					<AdvancedChart
+					<Chart
 						config={this.config}
 						chartInitialized={this.postInit.bind(this)}
 						onChartReady={this.props.onChartReady}
@@ -687,7 +687,7 @@ export default class CustomChart extends React.Component {
 						<cq-side-panel></cq-side-panel>
 
 						{shortcutDialog}
-					</AdvancedChart>
+					</Chart>
 				</div>
 			</>
 		);
