@@ -1,7 +1,7 @@
 
 import React from 'react'
 
-export default function MissingFeature({ feature, type, line }) {
+export default function MissingFeature({ feature, type }) {
 	return (
 		<section style={{
 			display:'flex',
