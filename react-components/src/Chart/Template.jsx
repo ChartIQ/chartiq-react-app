@@ -172,6 +172,24 @@ export default function ({ config, pluginToggles }) {
 						<cq-menu class="ciq-menu stx-markers collapse">
 							<span>Events</span>
 							<cq-menu-dropdown>
+								<div className="signaliq-ui">
+									<cq-heading>SignalIQ</cq-heading>
+									<cq-item><cq-clickable cq-selector="cq-signaliq-dialog" cq-method="open"><cq-plus></cq-plus> New Signal</cq-clickable></cq-item>
+									<cq-separator></cq-separator>
+									<cq-study-legend cq-signal-studies-only cq-no-close>
+										<cq-section-dynamic>
+											<cq-study-legend-content>
+												<template cq-study-legend>
+													<cq-item>
+														<cq-label class="click-to-edit"></cq-label>
+														<div className="ciq-icon ciq-close"></div>
+													</cq-item>
+												</template>
+											</cq-study-legend-content>
+										</cq-section-dynamic>
+										<cq-separator></cq-separator>
+									</cq-study-legend>
+								</div>
 								<cq-heading>Chart Events</cq-heading>
 								<cq-item stxtap="Markers.showMarkers('square')">
 									Simple Square
