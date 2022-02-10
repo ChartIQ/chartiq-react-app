@@ -32,8 +32,7 @@ import Chart from '@chartiq/react-components/Chart/ChartExample'
 
 /**
  * If you would like to see a full listing of the different components that can
- * be built in React import the Router and change the base component ReactDom
- * renders to be <Routes /> instead of <Chart />
+ * be built in React import the Router below
  */
 // import App from './containers/Router/Router'
 
