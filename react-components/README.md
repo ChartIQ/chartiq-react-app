@@ -26,7 +26,6 @@ If you do not have a copy of the library, please contact your account manager or
 
 Each component includes only the bare necessities to allow for maximum customization with the smallest size possible. To get started, we also include example components that come with ChartIQ's example files loaded.
 
-The exported components include:
 
 #### Charts
 
@@ -167,6 +166,27 @@ For example, to enable the Trade from Chart (TFC) plug-in for `Core` Chart, unco
 // import 'chartiq/plugins/tfc/tfc-loader';
 // import 'chartiq/plugins/tfc/tfc-demo';
 
+```
+Changing the default properties of the plugins is also as simple as passing in the arguments you prefer when setting the plugin. For example to configure the ActiveTrader plugin without the orderbook component and a custom height:
+```js
+import Chart from '@chartiq/react-components/Chart'
+import 'chartiq/js/plugins/activeTrader/cryptoiq'
+
+const config = {
+  plugins: {
+    marketDepth: {
+      volume: true,
+      mountain: true,
+      step: true,
+      record: true,
+      height: "35%",
+      orderbook: false,
+      interaction: true
+      },
+  }
+}
+
+<Chart config={config} />
 ```
 
 To enable the Market Depth chart and L2 Heat Map when using `AdvancedChart` from [Chart/Advanced](./src/Chart/Advanced.jsx) inside your own component 
