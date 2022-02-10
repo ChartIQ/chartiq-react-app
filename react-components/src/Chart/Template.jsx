@@ -179,7 +179,7 @@ export default function ({ config, pluginToggles }) {
 									<cq-study-legend cq-signal-studies-only cq-no-close>
 										<cq-section-dynamic>
 											<cq-study-legend-content>
-												<template cq-study-legend>
+												<template cq-study-legend="true">
 													<cq-item>
 														<cq-label class="click-to-edit"></cq-label>
 														<div className="ciq-icon ciq-close"></div>
