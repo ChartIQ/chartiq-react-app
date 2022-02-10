@@ -1,7 +1,7 @@
-import React from "react";
-import ReactDom from "react-dom";
+import React from 'react'
+import ReactDom from 'react-dom';
 
-import "chartiq/css/page-defaults.css"
+import 'hartiq/css/page-defaults.css'
 
 import App from './containers/Router/Router';
 
@@ -33,7 +33,17 @@ import App from './containers/Router/Router';
  */
 // import App from '@chartiq/react-components/CrossSection'
 
+/**
+ * If you would like to see a full listing of the different components that can
+ * be built in React import the Router below
+ */
+// import App from './containers/Router/Router'
 
-const el = document.querySelector("#app");
+const el = document.querySelector('#app');
 
-ReactDom.render(<App />,document.querySelector("#app"));
+if (el) {
+	ReactDom.render(
+		<App />,
+		el
+	);
+}
