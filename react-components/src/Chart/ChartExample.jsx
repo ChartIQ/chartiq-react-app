@@ -19,7 +19,7 @@ const onChartReady = (chartEngine) => {}
 const exampleResources = {
 	quoteFeed: quoteFeedSimulator,
 	markerSample: marker.MarkersSample,
-	scrollStyle: PerfectScrollbar
+	scrollStyle: PerfectScrollbar // use improved component scrollbar appearance https://perfectscrollbar.com
 }
 
 function getExampleConfig () {

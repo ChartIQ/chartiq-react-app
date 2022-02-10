@@ -121,7 +121,7 @@ The default configuration contains initialization for all add ons (see `config.a
 ```jsx
 import Chart from 'chartiq/react-components/Chart'
 
-<Chart config={{enabledAddOns: { rangeSlider: null } }} />
+<Chart config={{ enabledAddOns: { rangeSlider: null } }} />
 
 ```
 

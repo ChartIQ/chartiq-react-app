@@ -41,7 +41,6 @@ export default function Routes() {
 
 			<Route path="/active-trader" component={WorkstationComponent}></Route>
  
-			<Route path='/term-structure' component={CrossSectionComponent}></Route>
 			<Route path='/cross-section' component={CrossSectionComponent}></Route>
 
 			<Route path='/custom-chart' component={CustomChart}></Route>
@@ -90,7 +89,7 @@ function RouteList () {
 					</ul>
 			</li>
 			<li>
-				<h3 title='Requires CrossSection plugin'><Link to='term-structure'>CrossSection (formerly TermStructure)</Link></h3>
+				<h3 title='Requires CrossSection plugin'><Link to='cross-section'>CrossSection (formerly TermStructure)</Link></h3>
 				<p>
 					Creates a term structure chart for working with non&ndash;time series data.
 				</p>
