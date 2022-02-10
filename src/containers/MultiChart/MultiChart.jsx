@@ -1,10 +1,10 @@
 import React from "react";
 
-import { getConfig, getCustomConfig, ChartExample as AdvancedChart } from "@chartiq/react-components/Chart";
+import { getConfig, getCustomConfig, ChartExample as Chart } from "@chartiq/react-components/Chart";
 
 export { getConfig, getCustomConfig }
 /**
- * This is an example of two AdvancedChart components on the same page.
+ * This is an example of two Chart components on the same page.
  *
  * @export
  * @class MultiChart
@@ -34,14 +34,14 @@ export default class MultiChart extends React.Component {
 		return (
 			<>
 				<div style={leftColumn}>
-					<AdvancedChart
+					<Chart
 						config={config0}
-					></AdvancedChart>
+					></Chart>
 				</div>
 				<div style={rightColumn}>
-					<AdvancedChart
+					<Chart
 						config={config1}
-					></AdvancedChart>
+					></Chart>
 				</div>
 			</>
 		);
