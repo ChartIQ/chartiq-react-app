@@ -6,6 +6,7 @@
   "scripts": {
     "build": "webpack --config=webpack.config.js --env.production",
     "start": "npm run watch -- --host=127.0.0.1 --disable-host-check=true",
+    "format": "prettier --write src/**/*.{js,jsx} react-components/**/*.{js,jsx} tests/**/*.js --config .prettierrc",
     "prepublish-clean-components": "npm run clean --prefix=react-components",
     "prepublish-public": "npm run prepublish-clean-components && npm run prepublish-get-source && npm run prepublish-copy && npm run prepublish-copy-components && npm run prepublish-updates && npm run prepublish-git-add",
     "prepublish-get-source": "rm -rf public_repo &&  git clone -n https://github.com/ChartIQ/chartiq-react-app public_repo",
@@ -38,6 +39,7 @@
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^4.5.2",
     "node-sass": "^6.0.1",
+    "prettier": "2.5.1",
     "resolve-url-loader": "^3.1.4",
     "sass-loader": "^10.2.0",
     "url-loader": "^4.1.1",

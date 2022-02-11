@@ -8,14 +8,14 @@ import "chartiq/js/addOns";
 import ChartTemplate from "./Template";
 // Base styles required by the library to render color correctly.
 // If for some reason you are not including base-styles.css add these here.
-import 'chartiq/css/normalize.css';
-import 'chartiq/css/stx-chart.css'; // Chart API
-import 'chartiq/css/chartiq.css'; // Chart UI
-import './library-overrides.css'
+import "chartiq/css/normalize.css";
+import "chartiq/css/stx-chart.css"; // Chart API
+import "chartiq/css/chartiq.css"; // Chart UI
+import "./library-overrides.css";
 
 import { getCustomConfig } from "./resources"; // ChartIQ library resources
 
-export { CIQ }
+export { CIQ };
 
 /**
  * This is a fully functional example showing how to load a chart with complete user interface.
@@ -24,7 +24,7 @@ export { CIQ }
  * @class Core
  * @extends {React.Component}
  */
- export default class Core extends React.Component {
+export default class Core extends React.Component {
 	/**
 	 * @constructor
 	 * @param {object} [props] React props
@@ -44,7 +44,7 @@ export { CIQ }
 
 		this.state = {
 			stx: null,
-			UIContext: null,
+			UIContext: null
 		};
 	}
 

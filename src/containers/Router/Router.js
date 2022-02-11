@@ -36,13 +36,15 @@ export default function Routes() {
 						// load and update react component
 						import("@chartiq/react-components/ActiveTrader").then((module) => {
 							ActiveTrader = module.WorkstationExample;
-							setAvailableResources({ ...availableResources, activeTrader: true });
+							setAvailableResources({
+								...availableResources,
+								activeTrader: true
+							});
 						});
 					})
 					.catch(() => {});
 			})
 			.catch(() => {});
-
 
 		import("chartiq/plugins/crosssection/core") // check if library plugin is available
 			.then(() => {
@@ -124,26 +126,33 @@ function RouteList({ availableResources }) {
 						<li>Trade Book</li>
 						<li>Market Depth Chart</li>
 					</ul>
-			</li>
-			<li>
-				<h3 title='Requires CrossSection plugin'><Link to='cross-section'>CrossSection (formerly TermStructure)</Link></h3>
-				<p>
-					Creates a term structure chart for working with non&ndash;time series data.
-				</p>
-			</li>
-			<li>
-				<h3><Link to="custom-chart">CustomChart</Link></h3>
-				<p>
-					Integrates native React components with ChartIQ web components.
-				</p>
-			</li>
-			<li>
-				<h3><Link to="hello-world">HelloWorld</Link></h3>
-				<p>
-					Creates a basic chart with no user interface as a starting point for using the ChartIQ
-					API in React.
-				</p>
-			</li>
+				</li>
+				<li>
+					<h3 title='Requires CrossSection plugin'>
+						<Link to='cross-section'>
+							CrossSection (formerly TermStructure)
+						</Link>
+					</h3>
+					<p>
+						Creates a term structure chart for working with non&ndash;time
+						series data.
+					</p>
+				</li>
+				<li>
+					<h3>
+						<Link to='custom-chart'>CustomChart</Link>
+					</h3>
+					<p>Integrates native React components with ChartIQ web components.</p>
+				</li>
+				<li>
+					<h3>
+						<Link to='hello-world'>HelloWorld</Link>
+					</h3>
+					<p>
+						Creates a basic chart with no user interface as a starting point for
+						using the ChartIQ API in React.
+					</p>
+				</li>
 			</ul>
 		</main>
 	);

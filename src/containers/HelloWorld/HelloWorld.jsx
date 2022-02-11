@@ -802,7 +802,7 @@ export default class HelloWorld extends React.Component {
 				<h2>Hello world static chart example</h2>
 				<div
 					ref={this.container}
-					className="chartContainer"
+					className='chartContainer'
 					style={{
 						width: "800px",
 						height: "460px",

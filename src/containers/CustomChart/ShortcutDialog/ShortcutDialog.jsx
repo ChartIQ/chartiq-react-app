@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import './ShortcutDialog.css';
+import "./ShortcutDialog.css";
 
 /**
  * Custom component that adds a drawing tools keyboard shortcut settings dialog.
@@ -18,12 +18,10 @@ export default class ShortcutDialog extends React.Component {
 		this.state = {
 			drawingTools: props.drawingToolsInfo,
 			selectedTool: {}
-		}
+		};
 	}
 
-	componentDidMount() {
-
-	}
+	componentDidMount() {}
 
 	shortcutChanged(tool, e) {
 		if (e) {
@@ -34,23 +32,24 @@ export default class ShortcutDialog extends React.Component {
 		const tools = this.state.drawingTools.slice();
 		const shortcut = event.target.value;
 		tools
-			.filter(item => item.tool === tool)
-			.map(item => item.shortcut = shortcut);
-		
-		this.setState({drawingTools: tools});
+			.filter((item) => item.tool === tool)
+			.map((item) => (item.shortcut = shortcut));
+
+		this.setState({ drawingTools: tools });
 
 		this.updateDuplicates();
 	}
 
-	infoAbout(tool){
-		let selectedTool = this.state.drawingTools.find(item => item.tool === tool) || {};
-		this.setState({selectedTool: selectedTool});
+	infoAbout(tool) {
+		let selectedTool =
+			this.state.drawingTools.find((item) => item.tool === tool) || {};
+		this.setState({ selectedTool: selectedTool });
 	}
 
 	updateDuplicates() {
 		const tools = this.state.drawingTools.slice();
 		// find duplicates
-		const duplicates= tools.reduce((acc, item, index) => {
+		const duplicates = tools.reduce((acc, item, index) => {
 			item.duplicate = false; // clear duplicates
 			if (!item.shortcut) return acc;
 			acc[item.shortcut] = (acc[item.shortcut] || []).concat(index);
@@ -60,11 +59,11 @@ export default class ShortcutDialog extends React.Component {
 		// mark duplicates
 		Object.entries(duplicates).forEach(([shortcut, indexes]) => {
 			if (indexes.length > 1) {
-				indexes.forEach(index => tools[index].duplicate = true)
+				indexes.forEach((index) => (tools[index].duplicate = true));
 			}
 		});
 
-		this.setState({drawingTools: tools});
+		this.setState({ drawingTools: tools });
 	}
 
 	sortBy(field) {
@@ -77,12 +76,12 @@ export default class ShortcutDialog extends React.Component {
 			return x1 > x2 ? 1 : -1;
 		});
 
-		this.setState({drawingTools: tools});
+		this.setState({ drawingTools: tools });
 	}
 
 	onSave() {
 		const shortcuts = this.state.drawingTools
-			.filter(item => item.shortcut)
+			.filter((item) => item.shortcut)
 			.reduce((acc, item) => {
 				acc[item.tool] = item.shortcut;
 				return acc;
@@ -93,53 +92,80 @@ export default class ShortcutDialog extends React.Component {
 	}
 
 	render() {
-
 		let descriptionTable = this.state.drawingTools.map((item, index) => {
 			return (
 				<tr key={index}>
-					<td className="label" onClick={(event)=>{this.infoAbout(item.tool)}}>{item.label}</td>
-					<td className="shortcut">
+					<td
+						className='label'
+						onClick={(event) => {
+							this.infoAbout(item.tool);
+						}}
+					>
+						{item.label}
+					</td>
+					<td className='shortcut'>
 						<input
-							type="text"
-							maxLength="1"
+							type='text'
+							maxLength='1'
 							value={item.shortcut}
-							onChange={(event)=>{this.shortcutChanged(item.tool, event)}}
-							className={item.duplicate ? 'duplicate': ''}
+							onChange={(event) => {
+								this.shortcutChanged(item.tool, event);
+							}}
+							className={item.duplicate ? "duplicate" : ""}
 						/>
 					</td>
 				</tr>
-			)
+			);
 		});
 
-		let selectedToolLabel = this.state.selectedTool.label || 'No tool has been selected';
-		let selectedToolDetail = this.state.selectedTool.detail || '';
+		let selectedToolLabel =
+			this.state.selectedTool.label || "No tool has been selected";
+		let selectedToolDetail = this.state.selectedTool.detail || "";
 
 		return (
-			<div className="shortcut-dialog">
-				<div className="container">
-					<div className="title">Drawing tool shortcuts</div>
-					<div className="content">
+			<div className='shortcut-dialog'>
+				<div className='container'>
+					<div className='title'>Drawing tool shortcuts</div>
+					<div className='content'>
+						<div className='list'>
+							<table>
+								<tbody>
+									<tr>
+										<td
+											title='Sort by label'
+											onClick={(event) => {
+												this.sortBy("label");
+											}}
+										>
+											Label
+										</td>
+										<td
+											title='Sort by shortcut'
+											onClick={(event) => {
+												this.sortBy("shortcut");
+											}}
+										>
+											Alt + Shortcut
+										</td>
+									</tr>
+									{descriptionTable}
+								</tbody>
+							</table>
+						</div>
 
-					<div className="list">
-						<table>
-							<tbody>
-							<tr>
-								<td title="Sort by label" onClick={(event)=>{this.sortBy('label')}}>Label</td>
-								<td title="Sort by shortcut" onClick={(event)=>{this.sortBy('shortcut')}}>Alt + Shortcut</td>
-							</tr>
-							{descriptionTable}
-							</tbody>
-						</table>
+						<div className='detail'>
+							Detail about Tool: <b>{selectedToolLabel}</b>
+							<div>{selectedToolDetail}</div>
+						</div>
 					</div>
-
-					<div className="detail">
-						Detail about Tool: <b>{selectedToolLabel}</b>
-						<div>{selectedToolDetail}</div>
-					</div>
-
-					</div>
-					<div className="action">
-						<button onClick={(event)=>{this.onSave()}}>Save</button>
+					<div className='action'>
+						<button
+							onClick={(event) => {
+								this.onSave();
+							}}
+						>
+							Save
+						</button>
 						<button onClick={this.onClose}>Close</button>
 					</div>
 				</div>

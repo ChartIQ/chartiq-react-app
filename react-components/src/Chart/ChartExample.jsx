@@ -1,53 +1,53 @@
-import React, { useState } from "react"
-import Chart, { CIQ } from "./Core"
+import React, { useState } from "react";
+import Chart, { CIQ } from "./Core";
 
 import quoteFeedSimulator from "chartiq/examples/feeds/quoteFeedSimulator";
 import PerfectScrollbar from "chartiq/js/thirdparty/perfect-scrollbar.esm.js";
 import marker from "chartiq/examples/markers/markersSample";
 
-export { CIQ }
+export { CIQ };
 
 // Callback function where you can access both the chartEngine and the UIContext.
-const chartInitialized = ({chartEngine, uiContext}) => {
+const chartInitialized = ({ chartEngine, uiContext }) => {
 	// Assign stx and CIQ to window for development convenience
-	Object.assign(window, {stx: chartEngine, CIQ })
-}
+	Object.assign(window, { stx: chartEngine, CIQ });
+};
 
 // Callback to execute when chart is loaded for first time
-const onChartReady = (chartEngine) => {}
+const onChartReady = (chartEngine) => {};
 
 const exampleResources = {
 	quoteFeed: quoteFeedSimulator,
 	markerSample: marker.MarkersSample,
 	scrollStyle: PerfectScrollbar // use improved component scrollbar appearance https://perfectscrollbar.com
-}
+};
 
-function getExampleConfig () {
+function getExampleConfig() {
 	return {
-			chartId: '_coreChart',
-			initialSymbol: {
-				symbol: 'AAPL',
-				name: 'Apple Inc',
-				exchDisp: 'NASDAQ'
-			},
-			plugins: {}, // Activated Plugins go here!
-			onChartReady
-		}
+		chartId: "_coreChart",
+		initialSymbol: {
+			symbol: "AAPL",
+			name: "Apple Inc",
+			exchDisp: "NASDAQ"
+		},
+		plugins: {}, // Activated Plugins go here!
+		onChartReady
+	};
 }
 
 // ChartIQ example resources for markets and translations.
 // Replace it with your own or feel free to use ours.
 
 // Symbol mapping to market definition
-import 'chartiq/examples/markets/marketDefinitionsSample';
-import 'chartiq/examples/markets/marketSymbologySample';
+import "chartiq/examples/markets/marketDefinitionsSample";
+import "chartiq/examples/markets/marketSymbologySample";
 
 // Translation file
-import 'chartiq/examples/translations/translationSample';
+import "chartiq/examples/translations/translationSample";
 
 // Example Marker files
-import 'chartiq/examples/markers/tradeAnalyticsSample'
-import 'chartiq/examples/markers/videoSample'
+import "chartiq/examples/markers/tradeAnalyticsSample";
+import "chartiq/examples/markers/videoSample";
 
 // Plugins
 
@@ -85,9 +85,8 @@ import "chartiq/plugins/signaliq/signaliq-marker";
 // Uncomment the following for the L2 simulator (required for the crypto sample and MarketDepth addOn)
 // import 'chartiq/examples/feeds/L2_simulator'; /* for use with cryptoiq */
 
-export default function ChartExample (props) {
+export default function ChartExample(props) {
 	const [{ config, resources }] = useState(() => {
-
 		const config = getExampleConfig();
 		CIQ.extend(config, props.config || {});
 
@@ -101,5 +100,5 @@ export default function ChartExample (props) {
 			resources={resources}
 			chartInitialized={initialized}
 		/>
-	)
+	);
 }

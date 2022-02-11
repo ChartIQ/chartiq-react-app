@@ -1,9 +1,9 @@
-import React from 'react'
-import ReactDom from 'react-dom';
+import React from "react";
+import ReactDom from "react-dom";
 
-import 'chartiq/css/page-defaults.css'
+import "chartiq/css/page-defaults.css";
 
-import App from '@chartiq/react-components/Chart/ChartExample'
+import App from "@chartiq/react-components/Chart/ChartExample";
 
 /**
  * If you would like a minimul example of the Core Chart package, use the following
@@ -37,11 +37,8 @@ import App from '@chartiq/react-components/Chart/ChartExample'
  */
 // import App from './containers/Router/Router'
 
-const el = document.querySelector('#app');
+const el = document.querySelector("#app");
 
 if (el) {
-	ReactDom.render(
-		<App />,
-		el
-	);
+	ReactDom.render(<App />, el);
 }

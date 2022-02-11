@@ -1,2 +1,2 @@
-import Chart from "./Chart"
-export { Chart as default }
+import Chart from "./Chart";
+export { Chart as default };

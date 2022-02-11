@@ -1,21 +1,21 @@
-import React, { useState } from "react"
-import Chart, { CIQ } from "./ChartExample"
+import React, { useState } from "react";
+import Chart, { CIQ } from "./ChartExample";
 
-export { CIQ }
+export { CIQ };
 
 // Callback to execute when chart is loaded for first time
-const onChartReady = (chartEngine) => {}
+const onChartReady = (chartEngine) => {};
 
 function getExampleConfig() {
 	return {
-		chartId: '_advancedChart',
+		chartId: "_advancedChart",
 		initialSymbol: {
-			symbol: 'AAPL',
-			name: 'Apple Inc',
-			exchDisp: 'NASDAQ'
+			symbol: "AAPL",
+			name: "Apple Inc",
+			exchDisp: "NASDAQ"
 		},
 		onChartReady
-	}
+	};
 }
 
 // Plugins
@@ -54,19 +54,18 @@ import "chartiq/plugins/signaliq/signaliq-marker";
 // Uncomment the following for the L2 simulator (required for the crypto sample and MarketDepth addOn)
 // import 'chartiq/examples/feeds/L2_simulator'; /* for use with cryptoiq */
 
-export default function AdvancedExample (props) {
-	const [ config ] = useState(() => {
-
+export default function AdvancedExample(props) {
+	const [config] = useState(() => {
 		const config = getExampleConfig();
 		CIQ.extend(config, props.config || {});
 
 		return config;
-	  });
+	});
 	return (
 		<Chart
 			config={config}
 			resources={props.resources}
 			chartInitialized={props.chartInitialized}
 		/>
-	)
+	);
 }
