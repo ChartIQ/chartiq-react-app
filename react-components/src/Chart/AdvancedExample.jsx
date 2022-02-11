@@ -27,6 +27,10 @@ function getExampleConfig() {
 // ScriptIQ
 // import 'chartiq/plugins/scriptiq/scriptiq';
 
+// SignalIQ
+import "chartiq/plugins/signaliq/signaliqDialog";
+import "chartiq/plugins/signaliq/signaliq-marker";
+
 // Trading Central: Technical Insights
 // import 'chartiq/plugins/technicalinsights/components'
 
