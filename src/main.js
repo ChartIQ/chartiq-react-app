@@ -3,12 +3,15 @@ import ReactDom from 'react-dom';
 
 import 'hartiq/css/page-defaults.css'
 
-import Chart from '@chartiq/react-components/Chart/ChartExample'
+import App from './containers/Router/Router';
+
+// import App from '@chartiq/react-components/Chart/ChartExample'
+
 /**
  * If you would like a minimul example of the Core Chart package, use the following
  * import to directly import Chart from the react components package.
  */
-//import Chart from '@chartiq/react-components
+//import App from '@chartiq/react-components
 
 /**
  * If you would like to render the AdvancedChart for technical analysis, use the

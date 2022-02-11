@@ -7,11 +7,12 @@ export default function MissingFeature({ feature, type }) {
 			display:'flex',
 			flexDirection: 'column',
 			alignItems: 'center',
-			marginTop: '15vh'
+			marginTop: '15vh',
+			fontSize: '16px'
 		}}>
 			<h3>{ feature }</h3>
 			<p>
-				Feature not found! If {feature} {type} is available, import it in Router.js<br/>
+				{feature} {type} is not available in your ChartIQ installed library<br /><br />
 				Contact <a href='mailto:support.chartiq.com'>support@chartiq.com</a> if you have questions about obtaining this feature. 
 			</p>
 			
