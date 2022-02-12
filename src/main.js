@@ -3,7 +3,12 @@ import ReactDom from 'react-dom';
 
 import 'chartiq/css/page-defaults.css'
 
-import App from '@chartiq/react-components/Chart/ChartExample'
+/**
+ * If you would like to get started with the Core Chart package with included
+ * example markets, translations, and markers, use the following
+ * import to directly import Chart from the react components package.
+ */
+//import App from '@chartiq/react-components/Chart/ChartExample'
 
 /**
  * If you would like a minimul example of the Core Chart package, use the following
@@ -35,7 +40,7 @@ import App from '@chartiq/react-components/Chart/ChartExample'
  * If you would like to see a full listing of the different components that can
  * be built in React import the Router below
  */
-// import App from './containers/Router/Router'
+import App from './containers/Router/Router'
 
 const el = document.querySelector('#app');
 

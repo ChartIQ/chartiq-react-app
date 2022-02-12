@@ -18,6 +18,9 @@
 	margin: 4px 0;
 }
 
+.route-list p i:before {
+	content: " "
+}
 .route-list h3 {
 	margin: 32px 0 8px;
 	color: #222;

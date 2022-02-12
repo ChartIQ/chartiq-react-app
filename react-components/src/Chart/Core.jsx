@@ -6,8 +6,8 @@ import "chartiq/js/components";
 import "chartiq/js/addOns";
 
 import ChartTemplate from "./Template";
+
 // Base styles required by the library to render color correctly.
-// If for some reason you are not including base-styles.css add these here.
 import 'chartiq/css/normalize.css';
 import 'chartiq/css/stx-chart.css'; // Chart API
 import 'chartiq/css/chartiq.css'; // Chart UI
@@ -54,7 +54,7 @@ export { CIQ }
 		const { config } = this;
 
 		portalizeContextDialogs(container);
-		// Delay the call to createChartAndUI so any other AdvancedChart components on the page
+		// Delay the call to createChartAndUI so any other chart components on the page
 		// using multi chart setup have a chance to call portalizeContextDialogs
 		window.setTimeout(() => {
 			const uiContext = this.createChartAndUI({ container, config });
