@@ -13,7 +13,7 @@ exports.wdioConfigReact = {
 	baseUrl: 'http://localhost:4040',
 	basePath: '../',
 	templates: {
-		'advancedChart': 'technical-analysis'
+		'advancedChart': 'chart'
 	},
 	/**
 	 * Gets executed once before all workers get launched.

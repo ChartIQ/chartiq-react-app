@@ -127,7 +127,7 @@ function RouteList({ availableResources }) {
 						<Link to='active-trader'>ActiveTrader Workstation</Link>
 					</h3>
 					<p>
-						Tade ready workstation built around the chart component enhanced with the following
+						Trade ready workstation built around the chart component enhanced with the following
 						plug-ins:
 					</p>
 					<ul>
