@@ -101,19 +101,6 @@ function RouteList({ availableResources }) {
 					</p>
 				</li>
 				<li>
-				<li>
-					<h3 title='Requires Technical Analsysis Package'>
-						<Link to='technical-analysis'>AdvancedChart</Link>
-					</h3>
-					<p>
-						Creates a chart with a full-featured user interface. Includes additional
-						studies, drawings, and features to provide everything needed for Technial Analysis.
-						<br></br>
-						<br></br>
-						This component is the equivalent of ChartIQ's
-						<i>technical-analysis-chart.html</i> advanced template.
-					</p>
-				</li>
 				<h3>
 						<Link to='multi-chart'>MultiChart</Link>
 					</h3>
