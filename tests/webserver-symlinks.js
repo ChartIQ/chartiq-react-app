@@ -19,7 +19,7 @@ createSymlink({
 // without StaticServer returning a 404 code.
 createSymlink({ 
    target: "../dist/index.html",
-   symlink: "../dist/technical-analysis",
+   symlink: "../dist/chart",
    isDir: false,
 });
 
