@@ -24,8 +24,7 @@ import 'chartiq/css/page-defaults.css'
 
 /**
  * If you would like render the ActiveTrader Workstation with Trade From Chart
- * and MarketDepth, use the following import. Requires the ActiveTrader package or
- * Technical Analysis with ActiveTrader plug-in.
+ * and MarketDepth, use the following import. Requires the ActiveTrader package or plug-in.
  */
 // import App from '@chartiq/react-components/ActiveTrader'
 

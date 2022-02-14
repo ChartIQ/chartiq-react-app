@@ -30,16 +30,16 @@ export default function Routes() {
 			.then(() => {
 				// check if library advanced features are available
 				setAvailableResources({ ...availableResources, advancedChart: true });
+			})
+			.catch(() => {});
 
-				import("chartiq/plugins/activetrader/cryptoiq") // check if library plugin is available
-					.then(() => {
-						// load and update react component
-						import("@chartiq/react-components/ActiveTrader").then((module) => {
-							ActiveTrader = module.WorkstationExample;
-							setAvailableResources({ ...availableResources, activeTrader: true });
-						});
-					})
-					.catch(() => {});
+		import("chartiq/plugins/activetrader/cryptoiq") // check if library plugin is available
+			.then(() => {
+				// load and update react component
+				import("@chartiq/react-components/ActiveTrader").then((module) => {
+					ActiveTrader = module.WorkstationExample;
+					setAvailableResources({ ...availableResources, activeTrader: true });
+				});
 			})
 			.catch(() => {});
 
@@ -62,7 +62,7 @@ export default function Routes() {
 			</Route>
 			<Route path='/index.html' component={RouteList}></Route>
 
-			<Route path='core-chart' component={Chart}></Route>
+			<Route path='/core-chart' component={Chart}></Route>
 
 			<Route path='/technical-analysis' component={Chart}></Route>
 			<Route path='/multi-chart' component={MultiChartPage}></Route>
@@ -133,7 +133,7 @@ function RouteList({ availableResources }) {
 						<Link to='active-trader'>ActiveTrader Workstation</Link>
 					</h3>
 					<p>
-						Features the advanced chart component enhanced with the following
+						Tade ready workstation built around the chart component enhanced with the following
 						plug-ins:
 					</p>
 					<ul>
