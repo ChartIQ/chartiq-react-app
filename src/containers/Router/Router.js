@@ -96,16 +96,16 @@ function RouteList({ availableResources }) {
 						<Link to='chart'>Chart</Link>
 					</h3>
 					<p>
-						Chart component based on configuration. If using Technical Analysis package will render an advanced chart.						<br></br>
+						Chart component based on configuration. If using Technical Analysis
+						package will render an advanced chart. <br></br>
 					</p>
 				</li>
 				<li>
-				<h3>
+					<h3>
 						<Link to='multi-chart'>MultiChart</Link>
 					</h3>
 					<p>
-						Displays two chart components side by side in the same
-						document.
+						Displays two chart components side by side in the same document.
 					</p>
 				</li>
 				<li>
@@ -113,8 +113,8 @@ function RouteList({ availableResources }) {
 						<Link to='active-trader'>ActiveTrader Workstation</Link>
 					</h3>
 					<p>
-						Trade ready workstation built around the chart component enhanced with the following
-						plug-ins:
+						Trade ready workstation built around the chart component enhanced
+						with the following plug-ins:
 					</p>
 					<ul>
 						<li>Trade From Chart</li>

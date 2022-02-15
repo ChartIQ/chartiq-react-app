@@ -39,7 +39,7 @@ import "chartiq/css/page-defaults.css";
  * If you would like to see a full listing of the different components that can
  * be built in React import the Router below
  */
-import App from './containers/Router/Router'
+import App from "./containers/Router/Router";
 
 const el = document.querySelector("#app");
 
