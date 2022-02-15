@@ -19,10 +19,10 @@ createSymlink({
 });
 // Symlink techical-analysis folder to index.html file so that routes work
 // without StaticServer returning a 404 code.
-createSymlink({
-	target: "../dist/index.html",
-	symlink: "../dist/technical-analysis",
-	isDir: false
+createSymlink({ 
+   target: "../dist/index.html",
+   symlink: "../dist/chart",
+   isDir: false,
 });
 
 function createSymlink({ target, symlink, isDir = true, cb = callback }) {

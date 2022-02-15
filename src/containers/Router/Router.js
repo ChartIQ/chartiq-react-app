@@ -30,19 +30,16 @@ export default function Routes() {
 			.then(() => {
 				// check if library advanced features are available
 				setAvailableResources({ ...availableResources, advancedChart: true });
+			})
+			.catch(() => {});
 
-				import("chartiq/plugins/activetrader/cryptoiq") // check if library plugin is available
-					.then(() => {
-						// load and update react component
-						import("@chartiq/react-components/ActiveTrader").then((module) => {
-							ActiveTrader = module.WorkstationExample;
-							setAvailableResources({
-								...availableResources,
-								activeTrader: true
-							});
-						});
-					})
-					.catch(() => {});
+		import("chartiq/plugins/activetrader/cryptoiq") // check if library plugin is available
+			.then(() => {
+				// load and update react component
+				import("@chartiq/react-components/ActiveTrader").then((module) => {
+					ActiveTrader = module.WorkstationExample;
+					setAvailableResources({ ...availableResources, activeTrader: true });
+				});
 			})
 			.catch(() => {});
 
@@ -64,7 +61,8 @@ export default function Routes() {
 			</Route>
 			<Route path='/index.html' component={RouteList}></Route>
 
-			<Route path='/technical-analysis' component={Chart}></Route>
+			<Route path='/chart' component={Chart}></Route>
+
 			<Route path='/multi-chart' component={MultiChartPage}></Route>
 
 			<Route path='/active-trader' component={ActiveTrader}></Route>
@@ -94,21 +92,19 @@ function RouteList({ availableResources }) {
 
 			<ul className='top-level'>
 				<li>
-					<h3 title='Requires Technical Analsysis Package'>
-						<Link to='technical-analysis'>AdvancedChart</Link>
+					<h3>
+						<Link to='chart'>Chart</Link>
 					</h3>
 					<p>
-						Creates a chart with a full-featured user interface.
-						AdvancedChartComponent is the equivalent of ChartIQ's{" "}
-						<i>technical-analysis-chart.html</i> advanced template.
+						Chart component based on configuration. If using Technical Analysis package will render an advanced chart.						<br></br>
 					</p>
 				</li>
 				<li>
-					<h3>
+				<h3>
 						<Link to='multi-chart'>MultiChart</Link>
 					</h3>
 					<p>
-						Displays two advanced chart components side by side in the same
+						Displays two chart components side by side in the same
 						document.
 					</p>
 				</li>
@@ -117,7 +113,7 @@ function RouteList({ availableResources }) {
 						<Link to='active-trader'>ActiveTrader Workstation</Link>
 					</h3>
 					<p>
-						Features the advanced chart component enhanced with the following
+						Trade ready workstation built around the chart component enhanced with the following
 						plug-ins:
 					</p>
 					<ul>
