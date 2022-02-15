@@ -126,6 +126,9 @@ module.exports = env => {
             })
         ],
         resolve: {
+            alias: {
+                '@chartiq/react-components': path.resolve(__dirname, 'react-components', 'src'),
+            },
             extensions: ['.js', '.jsx']
         }
     };
