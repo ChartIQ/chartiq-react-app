@@ -29,7 +29,11 @@ export default function Routes() {
 		import("chartiq/js/advanced.js")
 			.then(() => {
 				// check if library advanced features are available
-				setAvailableResources({ ...availableResources, advancedChart: true });
+				import("@chartiq/react-components/Chart/AdvancedExample").then((module) => {
+					Chart = module.Chart;
+					setAvailableResources({ ...availableResources, advancedChart: true });
+				})
+				.catch(() => {});
 			})
 			.catch(() => {});
 
