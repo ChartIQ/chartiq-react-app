@@ -1,7 +1,7 @@
 # ChartIQ React Components
 
 ## Contents
-- [ChartIQ React Components](#chartiq-react-components)
+- [ChartIQ React Components]
   - [Contents](#contents)
   - [Overview](#overview)
   - [Included Components](#included-components)

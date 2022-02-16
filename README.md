@@ -2,7 +2,7 @@
 
 ## Contents
 
-- [ChartIQ React Application](#chartiq-react-application)
+- [ChartIQ React Application]
   - [Contents](#contents)
   - [Overview](#overview)
   - [Requirements](#requirements)
@@ -23,7 +23,9 @@
 The ChartIQ React application features components that enable you to build charting applications in the React framework. The components include everything from a basic chart to a complex, active trader desktop.
 
 React components in *react-components/src/* (also available from @chartiq/react-components package on npm)
-- `AdvancedChart (Chart/Advanced)` &mdash; Creates a full-featured chart with a fully developed user interface.
+
+- `Chart (Chart/Core)` — Creates a basic chart with a basic user interface. Use with Core package.
+- `AdvancedChart (Chart/Advanced)` — Creates a full-featured chart with a fully developed user interface. Use with Technical Analysis package.
 - `ActiveTraderWorkstation (ActiveTrader/Workstation)` &mdash; Sets up an information-rich desktop for traders who trade frequently.
 - `TermStructure (CrossSection/Chart)` &mdash; Creates a term structure chart for working with non-time-series data.
 
