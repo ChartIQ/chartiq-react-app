@@ -2,8 +2,6 @@
 
 ## Contents
 
-- [ChartIQ React Application]
-  - [Contents](#contents)
   - [Overview](#overview)
   - [Requirements](#requirements)
   - [Getting started](#getting-started)
