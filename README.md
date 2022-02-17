@@ -2,29 +2,35 @@
 
 ## Contents
 
-- [Overview](#overview)
-- [Requirements](#requirements)
-- [Getting started](#getting-started)
-- [Basic Customization](#basic-customization)
-- [Customization](#customization)
-- [Important notes](#important-notes)
-- [Questions and support](#questions-and-support)
-- [Contributing to this project](#contributing-to-this-project)
+  - [Overview](#overview)
+  - [Requirements](#requirements)
+  - [Getting started](#getting-started)
+  - [Basic Customization](#basic-customization)
+  - [Customization](#customization)
+    - [Web component templates](#web-component-templates)
+    - [Configuration](#configuration)
+    - [Template component customization](#template-component-customization)
+    - [Component integration](#component-integration)
+  - [Important notes](#important-notes)
+  - [Questions and support](#questions-and-support)
+  - [Contributing to this project](#contributing-to-this-project)
 
 
 ## Overview
 
 The ChartIQ React application features components that enable you to build charting applications in the React framework. The components include everything from a basic chart to a complex, active trader desktop.
 
-react-components (also available from @chartiq/react-components package on npm)
-- `AdvancedChart (Chart/Advanced)` &mdash; Creates a full-featured chart with a fully developed user interface
-- `ActiveTraderWorkstation (ActiveTrader/Workstation)` &mdash; Sets up an information-rich desktop for traders who trade frequently
-- `TermStructure (CrossSection/Chart)` &mdash; Creates a term structure chart for working with non&ndash;time series data
+React components in *react-components/src/* (also available from @chartiq/react-components package on npm)
 
-Custom implementations in src/containers/
-- `MultiChart` &mdash; Displays two advanced charts on screen simultaneously
-- `CustomChart` &mdash; Integrates native React components with ChartIQ W3C-standard web components
-- `HelloWorld` &mdash; Creates a basic chart with no user interface as a starting point for your React app
+- `Chart (Chart/Core)` — Creates a basic chart with a basic user interface. Use with Core package.
+- `AdvancedChart (Chart/Advanced)` — Creates a full-featured chart with a fully developed user interface. Use with Technical Analysis package.
+- `ActiveTraderWorkstation (ActiveTrader/Workstation)` &mdash; Sets up an information-rich desktop for traders who trade frequently.
+- `TermStructure (CrossSection/Chart)` &mdash; Creates a term structure chart for working with non-time-series data.
+
+Custom implementations in *src/containers/*
+- `MultiChart` &mdash; Displays two advanced charts on screen simultaneously.
+- `CustomChart` &mdash; Integrates native React components with ChartIQ W3C-standard web components.
+- `HelloWorld` &mdash; Creates a basic chart with no user interface as a starting point for your React app.
 
 For an example of creating a chart user interface entirely with native React components, see the [chartiq-react-seed](https://github.com/ChartIQ/chartiq-react-seed) project.
 
@@ -40,14 +46,14 @@ To get a free trial version of the library, go to the ChartIQ <a href="https://c
 
 To implement this project:
 
-1. Clone the repository
-2. Extract the contents of your zipped ChartIQ library package
-3. Copy the tarball (.tgz file) from the extracted library package into the root of this project
+1. Clone the repository.
+2. Extract the contents of your zipped ChartIQ library package.
+3. Copy the tarball (.tgz file) from the extracted library package into the root of this project.
 4. Run the following commands from the root of the project:
     - `npm install ./chartiq-x.x.x.tgz` to install the charting library
     - `npm install` to install the rest of the dependencies
     - `npm start` to start up the development server
-5. Open your browser to [http://localhost:4002](http://localhost:4002) to load the application
+5. Open your browser to [http://localhost:4002](http://localhost:4002) to load the application.
 
 **Note:** When you are upgrading or changing your license, we recommend that you completely remove the old library before reinstalling the new one, for example:
 
@@ -58,7 +64,7 @@ npm install ./chartiq-x.x.x.tgz
 
 ## Basic Customization
 
-For basic component customization see component documentation at [react-components](./react-components/README.md).
+For basic component customization, see component documentation at [react-components/README](./react-components/README.md).
 
 ## Customization
 
