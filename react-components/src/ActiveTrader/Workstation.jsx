@@ -4,26 +4,26 @@ import { CIQ } from "chartiq/js/components";
 import "chartiq/js/extras/svgcharts/piechart";
 
 // Crypto, L2 Heat Map, Market Depth,
-import 'chartiq/plugins/activetrader/cryptoiq';
-import 'chartiq/plugins/activetrader/cryptoiq.css'
+import "chartiq/plugins/activetrader/cryptoiq";
+import "chartiq/plugins/activetrader/cryptoiq.css";
 
 // TFC plugin
-import 'chartiq/plugins/tfc/tfc-loader';
-import 'chartiq/plugins/tfc/tfc.css';
+import "chartiq/plugins/tfc/tfc-loader";
+import "chartiq/plugins/tfc/tfc.css";
 
 import ChartTemplate from "./Template";
 
-import './Workstation.css'
-import 'chartiq/css/normalize.css';
-import 'chartiq/css/stx-chart.css';
-import 'chartiq/css/chartiq.css'
+import "./Workstation.css";
+import "chartiq/css/normalize.css";
+import "chartiq/css/stx-chart.css";
+import "chartiq/css/chartiq.css";
 
-import './library-overrides.css'
+import "./library-overrides.css";
 
 import { getCustomConfig } from "./resources"; // ChartIQ library resources
 const { channelWrite } = CIQ.UI.BaseComponent.prototype;
 
-export { CIQ }
+export { CIQ };
 /**
  * This is a fully functional example showing how to load a chart with the Active Trader plugin and UI.
  *
@@ -125,29 +125,29 @@ export default class Workstation extends React.Component {
 			}).updateData(CIQ.clone(initialPieData));
 
 			let last = null;
-			stx.append("updateCurrentMarketData", function (
-				data,
-				chart,
-				symbol,
-				params
-			) {
-				if (symbol) return;
-				const items = document.querySelectorAll("cq-tradehistory-body cq-item");
-				var d = {};
-				for (var i = 0; i < items.length; i++) {
-					const item = items[i];
-					if (item === last) break;
-					var dir = item.getAttribute("dir");
-					if (!dir) dir = "even";
-					dir = CIQ.capitalize(dir);
-					if (!d[dir]) d[dir] = 0;
-					d[dir] += parseFloat(
-						item.querySelector("[col=amount]").getAttribute("rawval")
+			stx.append(
+				"updateCurrentMarketData",
+				function (data, chart, symbol, params) {
+					if (symbol) return;
+					const items = document.querySelectorAll(
+						"cq-tradehistory-body cq-item"
 					);
+					var d = {};
+					for (var i = 0; i < items.length; i++) {
+						const item = items[i];
+						if (item === last) break;
+						var dir = item.getAttribute("dir");
+						if (!dir) dir = "even";
+						dir = CIQ.capitalize(dir);
+						if (!d[dir]) d[dir] = 0;
+						d[dir] += parseFloat(
+							item.querySelector("[col=amount]").getAttribute("rawval")
+						);
+					}
+					if (i) pieChart.updateData(d, "add");
+					last = items[0];
 				}
-				if (i) pieChart.updateData(d, "add");
-				last = items[0];
-			});
+			);
 			stx.addEventListener("symbolChange", function (obj) {
 				pieChart.updateData(CIQ.clone(initialPieData));
 			});

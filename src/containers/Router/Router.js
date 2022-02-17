@@ -29,7 +29,11 @@ export default function Routes() {
 		import("chartiq/js/advanced.js")
 			.then(() => {
 				// check if library advanced features are available
-				setAvailableResources({ ...availableResources, advancedChart: true });
+				import("@chartiq/react-components/Chart/AdvancedExample").then((module) => {
+					Chart = module.Chart;
+					setAvailableResources({ ...availableResources, advancedChart: true });
+				})
+				.catch(() => {});
 			})
 			.catch(() => {});
 
@@ -42,7 +46,6 @@ export default function Routes() {
 				});
 			})
 			.catch(() => {});
-
 
 		import("chartiq/plugins/crosssection/core") // check if library plugin is available
 			.then(() => {
@@ -97,16 +100,16 @@ function RouteList({ availableResources }) {
 						<Link to='chart'>Chart</Link>
 					</h3>
 					<p>
-						Chart component based on configuration. If using Technical Analysis package will render an advanced chart.						<br></br>
+						Chart component based on configuration. If using Technical Analysis
+						package will render an advanced chart. <br></br>
 					</p>
 				</li>
 				<li>
-				<h3>
+					<h3>
 						<Link to='multi-chart'>MultiChart</Link>
 					</h3>
 					<p>
-						Displays two chart components side by side in the same
-						document.
+						Displays two chart components side by side in the same document.
 					</p>
 				</li>
 				<li>
@@ -114,8 +117,8 @@ function RouteList({ availableResources }) {
 						<Link to='active-trader'>ActiveTrader Workstation</Link>
 					</h3>
 					<p>
-						Trade ready workstation built around the chart component enhanced with the following
-						plug-ins:
+						Trade ready workstation built around the chart component enhanced
+						with the following plug-ins:
 					</p>
 					<ul>
 						<li>Trade From Chart</li>
@@ -123,26 +126,33 @@ function RouteList({ availableResources }) {
 						<li>Trade Book</li>
 						<li>Market Depth Chart</li>
 					</ul>
-			</li>
-			<li>
-				<h3 title='Requires CrossSection plugin'><Link to='cross-section'>CrossSection (formerly TermStructure)</Link></h3>
-				<p>
-					Creates a term structure chart for working with non&ndash;time series data.
-				</p>
-			</li>
-			<li>
-				<h3><Link to="custom-chart">CustomChart</Link></h3>
-				<p>
-					Integrates native React components with ChartIQ web components.
-				</p>
-			</li>
-			<li>
-				<h3><Link to="hello-world">HelloWorld</Link></h3>
-				<p>
-					Creates a basic chart with no user interface as a starting point for using the ChartIQ
-					API in React.
-				</p>
-			</li>
+				</li>
+				<li>
+					<h3 title='Requires CrossSection plugin'>
+						<Link to='cross-section'>
+							CrossSection (formerly TermStructure)
+						</Link>
+					</h3>
+					<p>
+						Creates a term structure chart for working with non&ndash;time
+						series data.
+					</p>
+				</li>
+				<li>
+					<h3>
+						<Link to='custom-chart'>CustomChart</Link>
+					</h3>
+					<p>Integrates native React components with ChartIQ web components.</p>
+				</li>
+				<li>
+					<h3>
+						<Link to='hello-world'>HelloWorld</Link>
+					</h3>
+					<p>
+						Creates a basic chart with no user interface as a starting point for
+						using the ChartIQ API in React.
+					</p>
+				</li>
 			</ul>
 		</main>
 	);

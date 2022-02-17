@@ -1,14 +1,17 @@
 module.exports = {
 	presets: [
 		[
-			'@babel/env',
+			"@babel/env",
 			{
 				targets: {
-					node: 'current',
-				},
+					node: "current"
+				}
 			},
 			"@babel/react"
-		],
+		]
 	],
-	plugins: ["@babel/plugin-syntax-dynamic-import", ['@babel/plugin-proposal-decorators', {legacy: true}]],
+	plugins: [
+		"@babel/plugin-syntax-dynamic-import",
+		["@babel/plugin-proposal-decorators", { legacy: true }]
+	]
 };

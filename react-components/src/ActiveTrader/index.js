@@ -4,4 +4,11 @@ import tfcHtml from "chartiq/plugins/tfc/tfcHtml";
 import { getConfig, getCustomConfig } from "./resources"; // ChartIQ library resources
 import WorkstationExample from "./WorkstationExample";
 
-export {Workstation as default, WorkstationExample, CIQ, getConfig, getCustomConfig, tfcHtml }
+export {
+	Workstation as default,
+	WorkstationExample,
+	CIQ,
+	getConfig,
+	getCustomConfig,
+	tfcHtml
+};

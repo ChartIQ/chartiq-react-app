@@ -11,7 +11,8 @@ export default function () {
 						cq-keystroke-claim
 						cq-keystroke-default
 						cq-uppercase
-						cq-exchanges='futures,govt,muni,corp'>
+						cq-exchanges='futures,govt,muni,corp'
+					>
 						<cq-lookup-input cq-no-close>
 							<input
 								type='text'
@@ -49,9 +50,7 @@ export default function () {
 
 					<div className='ciq-dropdowns'>
 						<cq-menu class='ciq-menu'>
-							<cq-clickable
-								stxbind='Layout.yaxisField'
-								class='ciq-menu-field'>
+							<cq-clickable stxbind='Layout.yaxisField' class='ciq-menu-field'>
 								Yield
 							</cq-clickable>
 							<cq-menu-dropdown class='ciq-value-dropdown'>
@@ -129,7 +128,8 @@ export default function () {
 
 						<cq-curve-comparison
 							cq-marker
-							class='ciq-comparison ciq-entity-comparison'>
+							class='ciq-comparison ciq-entity-comparison'
+						>
 							<cq-menu class='cq-comparison-new'>
 								<cq-comparison-tap-capture>
 									<cq-comparison-add-label class='ciq-no-share'>
@@ -155,7 +155,8 @@ export default function () {
 												cq-keystroke-claim
 												cq-keystroke-default
 												cq-uppercase
-												cq-exchanges='futures,govt,muni,corp'>
+												cq-exchanges='futures,govt,muni,corp'
+											>
 												<cq-lookup-input cq-no-close>
 													<input
 														type='text'
@@ -193,7 +194,8 @@ export default function () {
 							cq-panel-only
 							cq-marker
 							cq-hovershow
-							cq-content-keys='cq-label,cq-comparison-label'>
+							cq-content-keys='cq-label,cq-comparison-label'
+						>
 							<cq-curve-comparison>
 								<cq-curve-comparison-key cq-panel-only cq-all-series>
 									<template cq-comparison-item='true'>
@@ -232,7 +234,7 @@ export default function () {
 				<cq-freshness-dialog>
 					<h4 className='title'>Set Highlight Duration</h4>
 					<cq-close></cq-close>
-					<div style={{textAlign: "center", marginTop: "10px"}}>
+					<div style={{ textAlign: "center", marginTop: "10px" }}>
 						<div>
 							<i>Enter number of minutes and hit "Enter"</i>
 							<p>
@@ -256,7 +258,7 @@ export default function () {
 						<cq-swatch></cq-swatch>
 					</div>
 					<hr />
-					<div className='ciq-options-group' style={{marginTop: '10px'}}>
+					<div className='ciq-options-group' style={{ marginTop: "10px" }}>
 						<cq-item stxtap='select()' cq-name='1-day' className='ciq-active'>
 							1 Day Ago
 							<span className='ciq-radio'>
@@ -289,8 +291,11 @@ export default function () {
 						</cq-item>
 						<cq-item stxtap="select('custom')">Custom...</cq-item>
 					</div>
-					<cq-datepicker comparison-datepicker="true"></cq-datepicker>
-					<div stxtap='done()' style={{display: "flex", justifyContent: "center"}}>
+					<cq-datepicker comparison-datepicker='true'></cq-datepicker>
+					<div
+						stxtap='done()'
+						style={{ display: "flex", justifyContent: "center" }}
+					>
 						<div className='ciq-btn'>Done</div>
 					</div>
 				</cq-historical-comparison-dialog>

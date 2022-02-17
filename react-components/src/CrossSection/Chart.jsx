@@ -1,30 +1,30 @@
 import React from "react";
 import { CIQ } from "chartiq/js/standard";
-import "chartiq/js/components"
+import "chartiq/js/components";
 import "chartiq/plugins/crosssection/core";
 import "chartiq/plugins/crosssection/datepicker";
 import "chartiq/plugins/crosssection/ui";
 import "chartiq/plugins/crosssection/timelineDateSelector";
 
-import "chartiq/plugins/crosssection/crosssection.css"
-import "chartiq/plugins/crosssection/datepicker.css"
+import "chartiq/plugins/crosssection/crosssection.css";
+import "chartiq/plugins/crosssection/datepicker.css";
 
 import ChartTemplate from "./Template";
 
-import 'chartiq/css/normalize.css';
-import 'chartiq/css/stx-chart.css';
-import 'chartiq/css/chartiq.css'
+import "chartiq/css/normalize.css";
+import "chartiq/css/stx-chart.css";
+import "chartiq/css/chartiq.css";
 
 import { getCustomConfig } from "./resources"; // ChartIQ library resources
 
-export { CIQ }
+export { CIQ };
 
 /**
  * An example of a cross section chart for non time series data.
  *
  * @class CrossSection
  * @export
- * @extends {React.Component} 
+ * @extends {React.Component}
  */
 export default class TermStructure extends React.Component {
 	/**
@@ -46,7 +46,7 @@ export default class TermStructure extends React.Component {
 
 		this.state = {
 			stx: null,
-			UIContext: null,
+			UIContext: null
 		};
 	}
 
@@ -56,7 +56,10 @@ export default class TermStructure extends React.Component {
 		const { config } = this;
 
 		window.setTimeout(() => {
-			const uiContext = new CIQ.UI.Chart().createChartAndUI({ container, config });
+			const uiContext = new CIQ.UI.Chart().createChartAndUI({
+				container,
+				config
+			});
 			const chartEngine = uiContext.stx;
 
 			this.setState({ stx: chartEngine, UIContext: uiContext });
