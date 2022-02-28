@@ -1,11 +1,12 @@
 {
   "name": "chartiq-react-app",
-  "version": "8.4.0",
+  "version": "8.6.0",
   "description": "ChartIQ's full featured charting application written in ReactJS",
   "main": "index.js",
   "scripts": {
     "build": "webpack --config=webpack.config.js --env.production",
     "start": "npm run watch -- --host=127.0.0.1 --disable-host-check=true",
+    "format": "prettier --write src/**/*.{js,jsx} react-components/**/*.{js,jsx} tests/**/*.js --config .prettierrc",
     "watch": "webpack-dev-server --inline --config=webpack.config.js --watch=true"
   },
   "keywords": [
@@ -31,6 +32,7 @@
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^4.5.2",
     "node-sass": "^6.0.1",
+    "prettier": "2.5.1",
     "resolve-url-loader": "^3.1.4",
     "sass-loader": "^10.2.0",
     "url-loader": "^4.1.1",
@@ -40,6 +42,7 @@
   },
   "dependencies": {
     "@babel/preset-env": "^7.14.8",
+    "@chartiq/react-components": "file:./react-components",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-router-dom": "^5.2.0"
