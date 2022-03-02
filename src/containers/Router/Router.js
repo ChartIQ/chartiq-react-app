@@ -65,7 +65,9 @@ export default function Routes() {
 			</Route>
 			<Route path='/index.html' component={RouteList}></Route>
 
-			<Route path='/chart' component={Chart}></Route>
+			<Route path='/chart'>
+				<Chart config={ { plugins: { tfc: null } } } />
+			</Route>
 
 			<Route path='/multi-chart' component={MultiChartPage}></Route>
 
