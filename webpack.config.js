@@ -112,6 +112,10 @@ module.exports = env => {
                         from: 'node_modules/chartiq/plugins/timespanevent/images',
                         to: 'plugins/timespanevent/images',
                         noErrorOnMissing: true
+                    },
+                    {
+                        from: 'node_modules/chartiq/js/thirdparty',
+                        to: 'js/thirdparty'
                     }
                 ]
             }),
@@ -122,6 +126,9 @@ module.exports = env => {
             })
         ],
         resolve: {
+            alias: {
+                '@chartiq/react-components': path.resolve(__dirname, 'react-components', 'src'),
+            },
             extensions: ['.js', '.jsx']
         }
     };
