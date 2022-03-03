@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import Chart, { CIQ } from "./ChartExample";
+import { CIQ } from "chartiq/js/advanced";
+import Chart from "./ChartExample";
 
 export { CIQ };
 

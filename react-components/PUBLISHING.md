@@ -12,6 +12,65 @@ Before you publish the components, be sure you have tested your changes and that
 	1. Test in chartiq-react-app by changing imported components in main.js 
 	1. Test in new create-react-app and manually add `@chartiq/react-components` dependency to test
 
+## Testing post release
+
+1. Create an instance of create-react-app
+	
+	`npx create-react-app test-react-components`
+1. Navigate to the test-react-components copy chartiq library and install library and react components
+
+	`npm i chartiq-x.x.x.tgz @chartiq/react-components`
+
+1. Replace src/index.js file content with
+
+	```js
+	import React from "react";
+	import ReactDom from "react-dom";
+
+	import "chartiq/css/page-defaults.css";
+
+	/**
+	 * If you would like to get started with the Core Chart package with included
+	 * example markets, translations, and markers, use the following
+	 * import to directly import Chart from the react components package.
+	 */
+	import App from "@chartiq/react-components/Chart/ChartExample";
+
+	/**
+	 * If you would like a minimul example of the Core Chart package, use the following
+	 * import to directly import Chart from the react components package.
+	 */
+	// import App from "@chartiq/react-components";
+
+	/**
+	 * If you would like to render the AdvancedChart for technical analysis, use the
+	 * following import. Requires the Technical Analysis package.
+	 */
+	// import App from "@chartiq/react-components/Chart/Advanced";
+
+	/**
+	 * If you would like render the ActiveTrader Workstation with Trade From Chart
+	 * and MarketDepth, use the following import. Requires the ActiveTrader package or plug-in.
+	 */
+	// import App from "@chartiq/react-components/ActiveTrader";
+
+	/**
+	 * If you would like to render a Cross Section for non time series data, use the
+	 * following import. Requires CrossSection Package or Technical Analysis Package with
+	 * CrossSection plug-in
+	 */
+	// import App from "@chartiq/react-components/CrossSection";
+
+	const el = document.querySelector("#root");
+
+	if (el) {
+		ReactDom.render(<App />, el);
+	}
+	```
+
+1. Run `npm start` and test all imports by uncommenting one at a time.
+
+
 
 
 ## Publishing
