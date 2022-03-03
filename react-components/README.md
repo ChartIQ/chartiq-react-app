@@ -87,7 +87,7 @@ All components will load simulated data using the quoteFeedSimulator so that you
 ```jsx
 import MyCustomQuotefeed from './myCustomQuotefeed'
 
-<Chart resources={{ quoteFeed: MyCustomQuoteFeed }}}/>
+<Chart resources={{ quoteFeed: MyCustomQuoteFeed }}/>
 ```
 
 ### Customizing Component Template
