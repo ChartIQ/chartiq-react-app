@@ -1,4 +1,5 @@
 import React from "react";
+import "chartiq/js/standard";
 import { CIQ } from "chartiq/js/components";
 
 import "chartiq/js/extras/svgcharts/piechart";
@@ -167,3 +168,13 @@ export default class Workstation extends React.Component {
  * @param {CIQ.ChartEngine} chartEngine
  * @param {CIQ.UI.Context} uiContext
  */
+
+// Adjustments to compensate for when webpack config is not available
+(function initDynamicShare() { // Decorate the library function to avoid copying html2canvas.min.js to distribution to js/thirdparty directory
+	const fullChart2PNG = CIQ.Share.fullChart2PNG;
+	CIQ.Share.fullChart2PNG = function (stx, params, cb) {
+		import("chartiq/js/thirdparty/html2canvas.min.js").then(() => {
+			fullChart2PNG(stx, params, cb);
+		});
+	}
+})();

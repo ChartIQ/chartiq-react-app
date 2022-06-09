@@ -5,12 +5,50 @@ import "chartiq/css/page-defaults.css";
 
 import HelloWorld from "../HelloWorld/HelloWorld";
 import { MultiChartPage } from "../MultiChart";
+import SharedMultiChart from "../SharedMultiChart/MultiExample";
 import CustomChart from "../CustomChart/CustomChart";
 
-import { ChartExample as Chart } from "@chartiq/react-components/Chart";
+import { ChartExample } from "@chartiq/react-components/Chart";
 import MissingFeature from "../MissingFeature";
 
 import "./Router.css";
+
+const Chart = ({ config }) => {
+	const [resolved, setResolved] = useState(false);
+
+	useEffect(() => {
+		// Preload advance and related modules prior invoking ChartExample if available
+		// to upgrade ChartExample to AdvancedExample equivalent
+		Promise.allSettled([
+			import("chartiq/js/advanced.js"),
+			import("chartiq/plugins/signaliq/signaliqDialog"),
+			import("chartiq/plugins/signaliq/signaliq-marker"),
+			import("chartiq/plugins/signaliq/signaliq-paintbar")
+		])
+			.then(() => setResolved(true))
+			.catch(() => setResolved(true));
+	}, []);
+
+	return resolved ? <ChartExample config={config} /> : null;
+};
+
+let SharedMultiChartPage = ({ config }) => {
+	const [resolved, setResolved] = useState(false);
+
+	useEffect(() => {
+		// Preload advance and SignalIQ prior invoking SharedMultiChart
+		// to expand features if available in license
+		Promise.allSettled([
+			import("chartiq/js/advanced.js"),
+			import("chartiq/plugins/signaliq/signaliqDialog"),
+			import("chartiq/plugins/signaliq/signaliq-marker")
+		])
+			.then(() => setResolved(true))
+			.catch(() => setResolved(true));
+	}, []);
+
+	return resolved ? <SharedMultiChart config={config} /> : null;
+};
 
 let ActiveTrader = () => (
 	<MissingFeature feature={"ActiveTrader"} type={"plugin"} />
@@ -26,17 +64,6 @@ const Router = protocol === "file:" ? HashRouter : BrowserRouter;
 export default function Routes() {
 	const [availableResources, setAvailableResources] = useState({});
 	useEffect(() => {
-		import("chartiq/js/advanced.js")
-			.then(() => {
-				// check if library advanced features are available
-				import("@chartiq/react-components/Chart/AdvancedExample").then((module) => {
-					Chart = module.Chart;
-					setAvailableResources({ ...availableResources, advancedChart: true });
-				})
-				.catch(() => {});
-			})
-			.catch(() => {});
-
 		import("chartiq/plugins/activetrader/cryptoiq") // check if library plugin is available
 			.then(() => {
 				// load and update react component
@@ -66,10 +93,13 @@ export default function Routes() {
 			<Route path='/index.html' component={RouteList}></Route>
 
 			<Route path='/chart'>
-				<Chart config={ { plugins: { tfc: null } } } />
+				<Chart config={{ plugins: { tfc: null } }} />
 			</Route>
 
 			<Route path='/multi-chart' component={MultiChartPage}></Route>
+			<Route
+				path='/shared-multi-chart'
+				component={SharedMultiChartPage}></Route>
 
 			<Route path='/active-trader' component={ActiveTrader}></Route>
 			<Route path='/cross-section' component={Crosssection}></Route>
@@ -113,6 +143,12 @@ function RouteList({ availableResources }) {
 					<p>
 						Displays two chart components side by side in the same document.
 					</p>
+				</li>
+				<li>
+					<h3>
+						<Link to='shared-multi-chart'>Shared MultiChart</Link>
+					</h3>
+					<p>Displays multiple charts with a shared header and footer.</p>
 				</li>
 				<li>
 					<h3 title='Requires ActiveTrader and TFC plugins'>

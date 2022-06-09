@@ -1,12 +1,9 @@
-import { CIQ } from "chartiq";
 import React from "react";
 
 export default function ({ config, pluginToggles }) {
 	return (
 		<>
-			<cq-chart-instructions role='contentinfo'></cq-chart-instructions>
-
-			<div className='ciq-nav full-screen-hide' role='navigation'>
+			<div className='ciq-nav full-screen-hide'>
 				<div className='sidenav-toggle ciq-toggles'>
 					<cq-toggle
 						class='ciq-sidenav'
@@ -20,13 +17,7 @@ export default function ({ config, pluginToggles }) {
 				</div>
 
 				<cq-menu class='ciq-search'>
-					<cq-lookup cq-keystroke-claim cq-uppercase role='search'
-						aria-labelledby='mainSymbol'
-						label-name='mainSymbol'
-						label-text='Main Symbol'
-						class='hide-label'
-					>
-					</cq-lookup>
+					<cq-lookup cq-keystroke-claim cq-uppercase></cq-lookup>
 				</cq-menu>
 
 				<cq-side-nav cq-on='sidenavOn'>
@@ -86,7 +77,7 @@ export default function ({ config, pluginToggles }) {
 							</cq-menu>
 						</cq-info-toggle-dropdown>
 
-						<cq-toggle class='ciq-DT tableview-ui' cq-member='tableView' role='button' aria-pressed='false'>
+						<cq-toggle class='ciq-DT tableview-ui' cq-member='tableView'>
 							<span></span>
 							<cq-tooltip>Table View</cq-tooltip>
 						</cq-toggle>
@@ -95,6 +86,22 @@ export default function ({ config, pluginToggles }) {
 
 				<div className='ciq-menu-section'>
 					<div className='ciq-dropdowns'>
+						<cq-menu class="ciq-menu ciq-grid">
+							<span><cq-clickable>Grid</cq-clickable></span>
+							<cq-menu-dropdown>
+								<cq-item class="ciq-columns"> 
+									<span>
+										Columns
+									</span>
+									<cq-grid-size-picker maxrows="1" maxcols="5"></cq-grid-size-picker>
+								</cq-item>
+								<cq-item stxtap="Layout.addChart('before')" title="Add a new chart before the active chart">Add Before Active</cq-item>
+								<cq-item stxtap="Layout.addChart('after')" title="Add a new chart after the active chart">Add After Active</cq-item>
+								<cq-item stxtap="Layout.removeChart()">Remove Chart</cq-item>
+								<cq-item class="ciq-solo-only">Not available in solo mode</cq-item>
+							</cq-menu-dropdown>
+						</cq-menu>
+				
 						<cq-menu class='ciq-menu ciq-display collapse'>
 							<cq-clickable
 								cq-tooltip-activator
@@ -178,7 +185,7 @@ export default function ({ config, pluginToggles }) {
 							</cq-menu-dropdown>
 						</cq-menu>
 
-						{config && (config.eventMarkersImplementation || CIQ.SignalIQ || CIQ.UI.TimeSpanEvent) && (
+						{config && config.eventMarkersImplementation && (
 							<cq-menu class='ciq-menu stx-markers collapse'>
 								<span>Events</span>
 								<cq-menu-dropdown>
@@ -207,55 +214,21 @@ export default function ({ config, pluginToggles }) {
 											<cq-separator></cq-separator>
 										</cq-study-legend>
 									</div>
-									{config && config.eventMarkersImplementation &&  (
-										<div className="markers-ui">
-											<cq-heading>Chart Events</cq-heading>
-											<cq-item stxtap="Markers.showMarkers('square')" cq-no-close>
-												Simple Square
-												<span className='ciq-switch'>
-													<span></span>
-												</span>
-											</cq-item>
-											<cq-item stxtap="Markers.showMarkers('circle')" cq-no-close>
-												Simple Circle
-												<span className='ciq-switch'>
-													<span></span>
-												</span>
-											</cq-item>
-											<cq-item stxtap="Markers.showMarkers('callout')" cq-no-close>
-												Callouts
-												<span className='ciq-switch'>
-													<span></span>
-												</span>
-											</cq-item>
-											<cq-item
-												class='ta_markers-ui'
-												stxtap="Markers.showMarkers('trade')"
-												cq-no-close
-											>
-												Trade
-												<span className='ciq-switch'>
-													<span></span>
-												</span>
-											</cq-item>
-											<cq-item
-												class='video_markers-ui'
-												stxtap="Markers.showMarkers('video')"
-												cq-no-close
-											>
-												Video
-												<span className='ciq-switch'>
-													<span></span>
-												</span>
-											</cq-item>
-											<cq-item stxtap="Markers.showMarkers('helicopter')" cq-no-close>
-												Abstract
-												<span className='ciq-switch'>
-													<span></span>
-												</span>
-											</cq-item>
-										</div>
-									)}
+									<div className="markers-ui">
+										<cq-heading>Chart Events</cq-heading>
+										<cq-item stxtap="Markers.showMarkers('square')" cq-no-close>Simple Square<span className="ciq-switch"><span></span></span>
+										</cq-item>
+										<cq-item stxtap="Markers.showMarkers('circle')" cq-no-close>Simple Circle<span className="ciq-switch"><span></span></span>
+										</cq-item>
+										<cq-item stxtap="Markers.showMarkers('callout')" cq-no-close>Callouts<span className="ciq-switch"><span></span></span>
+										</cq-item>
+										<cq-item class="ta_markers-ui" stxtap="Markers.showMarkers('trade')" cq-no-close>Trade<span className="ciq-switch"><span></span></span>
+										</cq-item>
+										<cq-item class="video_markers-ui" stxtap="Markers.showMarkers('video')" cq-no-close>Video<span className="ciq-switch"><span></span></span>
+										</cq-item>
+										<cq-item stxtap="Markers.showMarkers('helicopter')" cq-no-close>Abstract<span className="ciq-switch"><span></span></span>
+										</cq-item>
+									</div>
 									<div className='timespanevent-ui'>
 										<cq-separator></cq-separator>
 										<cq-heading>Panel Events</cq-heading>
@@ -265,7 +238,7 @@ export default function ({ config, pluginToggles }) {
 											cq-no-close
 										>
 											Order
-											<span className='ciq-switch ciq-active'>
+											<span className='ciq-checkbox ciq-active'>
 												<span></span>
 											</span>
 										</cq-item>
@@ -275,7 +248,7 @@ export default function ({ config, pluginToggles }) {
 											cq-no-close
 										>
 											CEO
-											<span className='ciq-switch ciq-active'>
+											<span className='ciq-checkbox ciq-active'>
 												<span></span>
 											</span>
 										</cq-item>
@@ -285,7 +258,7 @@ export default function ({ config, pluginToggles }) {
 											cq-no-close
 										>
 											News
-											<span className='ciq-switch ciq-active'>
+											<span className='ciq-checkbox ciq-active'>
 												<span></span>
 											</span>
 										</cq-item>
@@ -359,6 +332,10 @@ export default function ({ config, pluginToggles }) {
 				</div>
 			</div>
 
+			<div>
+				<div cq-context-engine=''></div>
+			</div>
+
 			<cq-scriptiq class='scriptiq-ui'></cq-scriptiq>
 
 			<cq-analystviews
@@ -370,59 +347,77 @@ export default function ({ config, pluginToggles }) {
 
 			<cq-technicalinsights uid='' lang='en' disabled></cq-technicalinsights>
 
-			<div className='ciq-chart-area' role='main'>
-				<div className='ciq-chart'>
-					<cq-message-toaster
-						defaultDisplayTime='10'
-						defaultTransition='slide'
-						defaultPosition='top'
-					></cq-message-toaster>
+			<div className="ciq-multi-chart-container-wrapper">
+				<div className="ciq-multi-chart-container ciq-multi-chart-reverse">
 
-					<cq-palette-dock>
-						<div className='palette-dock-container'>
-							<cq-drawing-palette
-								class='palette-drawing grid palette-hide'
-								docked='true'
-								orientation='vertical'
-								min-height='300'
-								cq-drawing-edit='none'
-							></cq-drawing-palette>
-							<cq-drawing-settings
-								class='palette-settings'
-								docked='true'
-								hide='true'
-								orientation='horizontal'
-								min-height='40'
-								cq-drawing-edit='none'
-							></cq-drawing-settings>
-						</div>
-					</cq-palette-dock>
+					<cq-context-wrapper>
+						<cq-context>
+							<div className='ciq-chart-area'>
+								<div className='ciq-chart'>
+									<cq-message-toaster
+										defaultDisplayTime='10'
+										defaultTransition='slide'
+										defaultPosition='top'
+									></cq-message-toaster>
 
-					<div className='chartContainer'>
-						<stx-hu-tooltip>
-							<stx-hu-tooltip-field field='DT'>
-								<stx-hu-tooltip-field-name>Date/Time</stx-hu-tooltip-field-name>
-								<stx-hu-tooltip-field-value></stx-hu-tooltip-field-value>
-							</stx-hu-tooltip-field>
-							<stx-hu-tooltip-field field='Close'>
-								<stx-hu-tooltip-field-name></stx-hu-tooltip-field-name>
-								<stx-hu-tooltip-field-value></stx-hu-tooltip-field-value>
-							</stx-hu-tooltip-field>
-						</stx-hu-tooltip>
+									<cq-palette-dock>
+										<div className='palette-dock-container'>
+											<cq-drawing-palette
+												class='palette-drawing grid palette-hide'
+												docked='true'
+												orientation='vertical'
+												min-height='300'
+												cq-drawing-edit='none'
+											></cq-drawing-palette>
+											<cq-drawing-settings
+												class='palette-settings'
+												docked='true'
+												hide='true'
+												orientation='horizontal'
+												min-height='40'
+												cq-drawing-edit='none'
+											></cq-drawing-settings>
+										</div>
+									</cq-palette-dock>
 
-						<cq-chart-title cq-marker cq-browser-tab></cq-chart-title>
+									<div className='chartContainer'>
+										<stx-hu-tooltip>
+											<stx-hu-tooltip-field field='DT'>
+												<stx-hu-tooltip-field-name>Date/Time</stx-hu-tooltip-field-name>
+												<stx-hu-tooltip-field-value></stx-hu-tooltip-field-value>
+											</stx-hu-tooltip-field>
+											<stx-hu-tooltip-field field='Close'>
+												<stx-hu-tooltip-field-name></stx-hu-tooltip-field-name>
+												<stx-hu-tooltip-field-value></stx-hu-tooltip-field-value>
+											</stx-hu-tooltip-field>
+										</stx-hu-tooltip>
 
-						<cq-chartcontrol-group
-							class='full-screen-show'
-							cq-marker
-						></cq-chartcontrol-group>
+										<cq-chart-title cq-marker cq-browser-tab></cq-chart-title>
 
-						<cq-comparison-lookup></cq-comparison-lookup>
+										<cq-chartcontrol-group
+											class='full-screen-show'
+											cq-marker
+										></cq-chartcontrol-group>
 
-						<cq-chart-legend></cq-chart-legend>
+										<cq-comparison-lookup></cq-comparison-lookup>
 
-						<cq-loader></cq-loader>
-					</div>
+										<cq-chart-legend></cq-chart-legend>
+
+										<cq-loader></cq-loader>
+									</div>
+								</div>
+								<div className="ciq-multi-chart-controls">
+									<span stxtap="addChart('before')" title="New chart before">+ &lt;</span>
+									<span stxtap="addChart()" title="New chart after"> &gt; +</span>
+									<span>
+										<span className="ciq-solo-toggle" stxtap="toggleSolo()" title="Toggle solo mode"></span>
+									</span>
+								</div>
+								<cq-close title="Remove this chart"></cq-close>
+							</div>
+							<cq-side-panel></cq-side-panel>
+						</cq-context>
+					</cq-context-wrapper>
 				</div>
 			</div>
 
@@ -444,6 +439,7 @@ export default function ({ config, pluginToggles }) {
 				></div>
 				<cq-show-range></cq-show-range>
 			</div>
+		
 
 			<div className='cq-context-dialog'>
 				<cq-dialog>
@@ -454,8 +450,6 @@ export default function ({ config, pluginToggles }) {
 					<cq-study-context></cq-study-context>
 				</cq-dialog>
 			</div>
-
-			<cq-side-panel></cq-side-panel>
 		</>
 	);
 }

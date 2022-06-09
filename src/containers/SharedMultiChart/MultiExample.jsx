@@ -1,39 +1,9 @@
 import React, { useState } from "react";
-import Chart, { CIQ } from "./Core";
+import Chart, { CIQ } from "./Multi";
 
 import quoteFeedSimulator from "chartiq/examples/feeds/quoteFeedSimulator";
 import PerfectScrollbar from "chartiq/js/thirdparty/perfect-scrollbar.esm.js";
 import marker from "chartiq/examples/markers/markersSample";
-
-export { CIQ };
-
-// Callback function where you can access both the chartEngine and the UIContext.
-const chartInitialized = ({ chartEngine, uiContext }) => {
-	// Assign stx and CIQ to window for development convenience
-	Object.assign(window, { stx: chartEngine, CIQ });
-};
-
-// Callback to execute when chart is loaded for first time
-const onChartReady = (chartEngine) => {};
-
-const exampleResources = {
-	quoteFeed: quoteFeedSimulator,
-	markerFeed: marker.MarkersSample,
-	scrollStyle: PerfectScrollbar // use improved component scrollbar appearance https://perfectscrollbar.com
-};
-
-function getExampleConfig() {
-	return {
-		chartId: "_coreChart",
-		initialSymbol: {
-			symbol: "AAPL",
-			name: "Apple Inc",
-			exchDisp: "NASDAQ"
-		},
-		plugins: {}, // Activated Plugins go here!
-		onChartReady
-	};
-}
 
 // ChartIQ example resources for markets and translations.
 // Replace it with your own or feel free to use ours.
@@ -49,42 +19,60 @@ import "chartiq/examples/translations/translationSample";
 import "chartiq/examples/markers/tradeAnalyticsSample";
 import "chartiq/examples/markers/videoSample";
 
+// Enable advanced features
+// import "chartiq/js/advanced";
+
 // Plugins
 
 // Crypto, L2 Heat Map, Market Depth,
 // Important: Uncomment marketDepth in config.plugins below when enabling this plug-in.
 // import "chartiq/plugins/activetrader/cryptoiq";
 
-// ScriptIQ
-// import "chartiq/plugins/scriptiq/scriptiq";
-
 // SignalIQ
 // import "chartiq/plugins/signaliq/signaliqDialog";
 // import "chartiq/plugins/signaliq/signaliq-marker";
-// import "chartiq/plugins/signaliq/signaliq-paintbar";
-
-// Trading Central: Technical Insights
-// import "chartiq/plugins/technicalinsights/components";
 
 // TFC plugin
 // Important: Uncomment tfc in config.plugins below when enabling this plug-in.
 // import "chartiq/plugins/tfc/tfc-loader";
 // import "chartiq/plugins/tfc/tfc-demo"; /* if using demo account class */
 
-// Time Span Events
-// Important: Uncomment timeSpanEventPanel in config.plugins below when enabling this plug-in.
-// import "chartiq/plugins/timespanevent/timespanevent";
-// import "chartiq/plugins/timespanevent/examples/timeSpanEventSample"; /* if using sample */
-
-// Trading Central: Analyst Views
-// import "chartiq/plugins/analystviews/components";
-
-// Visual Earnings
-// Important: Uncomment visualEarnings in config.plugins below when enabling this plug-in.
-// import "chartiq/plugins/visualearnings/visualearnings";
 
 // Uncomment the following for the L2 simulator (required for the crypto sample and MarketDepth addOn)
 // import "chartiq/examples/feeds/L2_simulator"; /* for use with cryptoiq */
+
+// Callback function where you can access both the chartEngine and the UIContext.
+const chartInitialized = ({ chartContainer }) => {
+	// Assign stx and CIQ to window for development convenience
+	Object.assign(window, { chartContainer });
+	// list active charts
+	// console.log(chartContainer.charts);
+};
+
+// Callback to execute when chart is loaded for first time
+const onChartReady = (chartEngine) => {
+	// Simulate L2 data
+	// Requires import of cryptoiq and L2_simulator
+	// In your implementation, you must instead load L2 data
+	// using https://documentation.chartiq.com/CIQ.ChartEngine.html#updateCurrentMarketData
+	// CIQ.simulateL2({ stx: chartEngine, onInterval: 1300, onTrade: true });
+};
+
+const exampleResources = {
+	quoteFeed: quoteFeedSimulator,
+	markerFeed: marker.MarkersSample,
+	scrollStyle: PerfectScrollbar // use improved component scrollbar appearance https://perfectscrollbar.com
+};
+
+function getExampleConfig() {
+	return {
+		chartId: "_multiChartExample",
+		onChartReady,
+		addOns: {
+			tableView: { coverContainer: ".ciq-multi-chart-container-wrapper" }
+		}
+	};
+}
 
 export default function ChartExample(props) {
 	const [{ config, resources }] = useState(() => {
@@ -100,6 +88,7 @@ export default function ChartExample(props) {
 			config={config}
 			resources={resources}
 			chartInitialized={initialized}
+			chartEntries={[{ symbol: "TSLA" }, { symbol: "AAPL" }]}
 		>
 			{props.children}
 		</Chart>

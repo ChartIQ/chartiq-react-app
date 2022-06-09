@@ -46,7 +46,7 @@ function getCustomConfig({ chartId, symbol, onChartReady, resources } = {}) {
 		(item) => item.label !== "Market Depth" && item.label !== "Extended Hours"
 	);
 
-	config.addOns.tableView.coverContainer = "#mainChartGroup .chartContainer";
+	config.addOns.tableView.coverContainer = ".ciq-chart-area";
 
 	return config;
 }

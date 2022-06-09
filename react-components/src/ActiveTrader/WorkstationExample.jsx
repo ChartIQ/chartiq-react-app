@@ -15,7 +15,7 @@ const chartInitialized = ({ chartEngine, uiContext }) => {
 const onChartReady = (chartEngine) => {};
 
 const exampleResources = {
-	markerSample: marker.MarkersSample,
+	markerFeed: marker.MarkersSample,
 	quoteFeed: quoteFeedSimulator,
 	scrollStyle: PerfectScrollbar
 };
@@ -58,3 +58,12 @@ export default function WorkstationExample(props) {
 		/>
 	);
 }
+
+// Adjustments to compensate for when webpack config is not available
+(function processCss() { // webpack processing can introduce extra 2 spaces for each translation line remove them here
+	if (!CIQ.I18N.csv) return;
+	const lines = CIQ.I18N.csv.split("\n");
+	const translationHasExtraSpace = lines[1][0] === ' ';
+	if (!translationHasExtraSpace) return;
+	CIQ.I18N.csv = lines.map((line, i) => (i ? line.slice(2) : line)).join('\n')
+})();

@@ -5,7 +5,7 @@ import { CIQ } from "chartiq/js/standard";
 import "chartiq/js/components";
 import "chartiq/js/addOns";
 
-import ChartTemplate from "./Template";
+import ChartTemplate from "./TemplateMulti";
 
 // Base styles required by the library to render color correctly.
 import "chartiq/css/normalize.css";
@@ -24,7 +24,7 @@ export { CIQ };
  * @class Core
  * @extends {React.Component}
  */
-export default class Core extends React.Component {
+export default class Multi extends React.Component {
 	/**
 	 * @constructor
 	 * @param {object} [props] React props
@@ -57,27 +57,57 @@ export default class Core extends React.Component {
 		// Delay the call to createChartAndUI so any other chart components on the page
 		// using multi chart setup have a chance to call portalizeContextDialogs
 		window.setTimeout(() => {
-			const uiContext = this.createChartAndUI({ container, config });
-			const chartEngine = uiContext.stx;
+			const store = new CIQ.NameValueStore();
+			config.multiChartId = "_ciq";
+			store.get("multiCharts" + config.multiChartId, (err, chartConfig) => {
+				let { charts, colCount = 2 } = chartConfig || {};
 
-			this.setState({ stx: chartEngine, UIContext: uiContext });
+				if (!charts)
+					charts = (this.props.chartEntries || [{ symbol: "APPL" }])
+						.slice()
+						.reverse();
 
-			if (chartInitialized) {
-				chartInitialized({ chartEngine, uiContext });
-			}
+				const stxArr = new CIQ.UI.Multichart().createCharts(
+					{
+						chartsConfig: {
+							charts,
+							colCount
+						},
+						container
+					},
+					config
+				);
+				// add allCharts property
+				Object.defineProperty(container, "charts", {
+					get: function () {
+						return container
+							.getCharts()
+							.filter(
+								({ container }) => !container.hasAttribute("cq-context-engine")
+							).reverse();
+					}
+				});
+
+				this.chartContainer = container;
+
+				if (chartInitialized) {
+					chartInitialized({ chartContainer: container });
+				}
+				Object.assign(window, { CIQ, stxArr });
+			});
 		}, 0);
 	}
 
 	componentWillUnmount() {
-		// Destroy the ChartEngine instance when unloading the component.
+		// Destroy the ChartEngine instances when unloading the component.
 		// This will stop internal processes such as quotefeed polling.
 		const { stx } = this.state;
-		stx.destroy();
-		stx.draw = () => {};
-	}
+		if (!this.container) return;
 
-	createChartAndUI({ container, config }) {
-		return new CIQ.UI.Chart().createChartAndUI({ container, config });
+		(this.chartContainer.charts || []).forEach((stx) => {
+			stx.destroy();
+			stx.draw = () => {};
+		})
 	}
 
 	render() {
@@ -86,16 +116,11 @@ export default class Core extends React.Component {
 			config
 		} = this;
 
-		let template = <ChartTemplate config={config} />;
-		const childrenCount = React.Children.count(children);
-		if (childrenCount === 1) {
-			template = React.cloneElement(children, { config });
-		} else if (childrenCount > 1) {
-			template = children;
-		}
 		return (
-			<cq-context ref={this.container}>
-				{template}
+			<cq-context ref={this.container} cq-hide-menu-periodicity="">
+				{(children && React.cloneElement(children, { config })) || (
+					<ChartTemplate config={config} />
+				)}
 			</cq-context>
 		);
 	}

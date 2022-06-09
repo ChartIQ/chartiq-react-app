@@ -268,7 +268,9 @@ export default class CustomChart extends React.Component {
 						chartInitialized={this.postInit.bind(this)}
 						onChartReady={this.props.onChartReady}
 					>
-						<div className='ciq-nav full-screen-hide'>
+						<cq-chart-instructions role='contentinfo'></cq-chart-instructions>
+
+						<div className='ciq-nav full-screen-hide' role='navigation'>
 							<div className='sidenav-toggle ciq-toggles'>
 								<cq-toggle
 									class='ciq-sidenav'
@@ -283,7 +285,13 @@ export default class CustomChart extends React.Component {
 
 							<cq-menu class='ciq-search'>
 								<RecentSymbols getRecentSymbols={() => this.getRecentSymbols()}>
-									<cq-lookup cq-keystroke-claim cq-uppercase></cq-lookup>
+									<cq-lookup cq-keystroke-claim cq-uppercase role='search'
+										aria-labelledby='mainSymbol'
+										label-name='mainSymbol'
+										label-text='Main Symbol'
+										class='hide-label'
+									>
+									</cq-lookup>
 								</RecentSymbols>
 							</cq-menu>
 
@@ -344,7 +352,7 @@ export default class CustomChart extends React.Component {
 										</cq-menu>
 									</cq-info-toggle-dropdown>
 
-									<cq-toggle class='ciq-DT tableview-ui' cq-member='tableView'>
+									<cq-toggle class='ciq-DT tableview-ui' cq-member='tableView' role='button' aria-pressed='false'>
 										<span></span>
 										<cq-tooltip>Table View</cq-tooltip>
 									</cq-toggle>
@@ -444,59 +452,46 @@ export default class CustomChart extends React.Component {
 									<cq-menu class='ciq-menu stx-markers collapse'>
 										<span>Events</span>
 										<cq-menu-dropdown>
-											<cq-heading>Chart Events</cq-heading>
-											<cq-item stxtap="Markers.showMarkers('square')">
-												Simple Square
-												<span className='ciq-radio'>
-													<span></span>
-												</span>
-											</cq-item>
-											<cq-item stxtap="Markers.showMarkers('circle')">
-												Simple Circle
-												<span className='ciq-radio'>
-													<span></span>
-												</span>
-											</cq-item>
-											<cq-item stxtap="Markers.showMarkers('callout')">
-												Callouts
-												<span className='ciq-radio'>
-													<span></span>
-												</span>
-											</cq-item>
-											<cq-item
-												class='ta_markers-ui'
-												stxtap="Markers.showMarkers('trade')"
-											>
-												Trade
-												<span className='ciq-radio'>
-													<span></span>
-												</span>
-											</cq-item>
-											<cq-item
-												class='video_markers-ui'
-												stxtap="Markers.showMarkers('video')"
-											>
-												Video
-												<span className='ciq-radio'>
-													<span></span>
-												</span>
-											</cq-item>
-											<cq-item stxtap="Markers.showMarkers('abstract')">
-												Abstract
-												<span className='ciq-radio'>
-													<span></span>
-												</span>
-											</cq-item>
-											<cq-separator></cq-separator>
-											<cq-item
-												stxtap='Markers.showMarkers()'
-												class='ciq-active'
-											>
-												None
-												<span className='ciq-radio'>
-													<span></span>
-												</span>
-											</cq-item>
+											<div className='signaliq-ui'>
+												<cq-heading>SignalIQ</cq-heading>
+												<cq-item>
+													<cq-clickable
+														cq-selector='cq-signaliq-dialog'
+														cq-method='open'
+													>
+														<cq-plus></cq-plus> New Signal
+													</cq-clickable>
+												</cq-item>
+												<cq-separator></cq-separator>
+												<cq-study-legend cq-signal-studies-only cq-no-close>
+													<cq-section-dynamic>
+														<cq-study-legend-content>
+															<template cq-study-legend='true'>
+																<cq-item>
+																	<cq-label class='click-to-edit'></cq-label>
+																	<div className='ciq-icon ciq-close'></div>
+																</cq-item>
+															</template>
+														</cq-study-legend-content>
+													</cq-section-dynamic>
+													<cq-separator></cq-separator>
+												</cq-study-legend>
+											</div>
+											<div className="markers-ui">
+												<cq-heading>Chart Events</cq-heading>
+												<cq-item stxtap="Markers.showMarkers('square')" cq-no-close>Simple Square<span className="ciq-switch"><span></span></span>
+												</cq-item>
+												<cq-item stxtap="Markers.showMarkers('circle')" cq-no-close>Simple Circle<span className="ciq-switch"><span></span></span>
+												</cq-item>
+												<cq-item stxtap="Markers.showMarkers('callout')" cq-no-close>Callouts<span className="ciq-switch"><span></span></span>
+												</cq-item>
+												<cq-item class="ta_markers-ui" stxtap="Markers.showMarkers('trade')" cq-no-close>Trade<span className="ciq-switch"><span></span></span>
+												</cq-item>
+												<cq-item class="video_markers-ui" stxtap="Markers.showMarkers('video')" cq-no-close>Video<span className="ciq-switch"><span></span></span>
+												</cq-item>
+												<cq-item stxtap="Markers.showMarkers('helicopter')" cq-no-close>Abstract<span className="ciq-switch"><span></span></span>
+												</cq-item>
+											</div>
 											<div className='timespanevent-ui'>
 												<cq-separator></cq-separator>
 												<cq-heading>Panel Events</cq-heading>
@@ -606,7 +601,7 @@ export default class CustomChart extends React.Component {
 							connectCount='2'
 							getRecentSymbols={() => this.getRecentSymbols()}
 						>
-							<div className='ciq-chart-area'>
+							<div className='ciq-chart-area' role='main'>
 								<div className='ciq-chart'>
 									<cq-message-toaster
 										defaultDisplayTime='10'

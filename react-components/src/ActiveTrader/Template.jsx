@@ -3,7 +3,9 @@ import React from "react";
 export default function () {
 	return (
 		<>
-			<div className='ciq-nav full-screen-hide'>
+			<cq-chart-instructions role='contentinfo'></cq-chart-instructions>
+
+			<div className='ciq-nav full-screen-hide' role='navigation'>
 				<div className='sidenav-toggle ciq-toggles'>
 					<cq-toggle
 						class='ciq-sidenav'
@@ -18,7 +20,13 @@ export default function () {
 				</div>
 
 				<cq-menu class='ciq-search'>
-					<cq-lookup cq-keystroke-claim cq-uppercase></cq-lookup>
+					<cq-lookup cq-keystroke-claim cq-uppercase role='search'
+							aria-labelledby='mainSymbol'
+							label-name='mainSymbol'
+							label-text='Main Symbol'
+							class='hide-label'
+						>
+						</cq-lookup>
 				</cq-menu>
 
 				<cq-side-nav cq-on='sidenavOn'>
@@ -78,7 +86,7 @@ export default function () {
 							</cq-menu>
 						</cq-info-toggle-dropdown>
 
-						<cq-toggle class='ciq-DT tableview-ui' cq-member='tableView'>
+						<cq-toggle class='ciq-DT tableview-ui' cq-member='tableView' role='button' aria-pressed='false'>
 							<span></span>
 							<cq-tooltip>Table View</cq-tooltip>
 						</cq-toggle>
@@ -173,50 +181,53 @@ export default function () {
 						<cq-menu class='ciq-menu stx-markers collapse'>
 							<span>Events</span>
 							<cq-menu-dropdown>
-								<cq-heading>Chart Events</cq-heading>
-								<cq-item stxtap="Markers.showMarkers('square')">
-									Simple Square
-									<span className='ciq-radio'>
-										<span></span>
-									</span>
-								</cq-item>
-								<cq-item stxtap="Markers.showMarkers('circle')">
-									Simple Circle
-									<span className='ciq-radio'>
-										<span></span>
-									</span>
-								</cq-item>
-								<cq-item stxtap="Markers.showMarkers('callout')">
-									Callouts
-									<span className='ciq-radio'>
-										<span></span>
-									</span>
-								</cq-item>
-								<cq-item
-									class='ta_markers-ui'
-									stxtap="Markers.showMarkers('trade')"
-								>
-									Trade
-									<span className='ciq-radio'>
-										<span></span>
-									</span>
-								</cq-item>
-								<cq-item
-									class='video_markers-ui'
-									stxtap="Markers.showMarkers('video')"
-								>
-									Video
-									<span className='ciq-radio'>
-										<span></span>
-									</span>
-								</cq-item>
-								<cq-separator></cq-separator>
-								<cq-item stxtap='Markers.showMarkers()' class='ciq-active'>
-									None
-									<span className='ciq-radio'>
-										<span></span>
-									</span>
-								</cq-item>
+								<div className="markers-ui">
+									<cq-heading>Chart Events</cq-heading>
+									<cq-item stxtap="Markers.showMarkers('square')" cq-no-close>
+										Simple Square
+										<span className='ciq-switch'>
+											<span></span>
+										</span>
+									</cq-item>
+									<cq-item stxtap="Markers.showMarkers('circle')" cq-no-close>
+										Simple Circle
+										<span className='ciq-switch'>
+											<span></span>
+										</span>
+									</cq-item>
+									<cq-item stxtap="Markers.showMarkers('callout')" cq-no-close>
+										Callouts
+										<span className='ciq-switch'>
+											<span></span>
+										</span>
+									</cq-item>
+									<cq-item
+										class='ta_markers-ui'
+										stxtap="Markers.showMarkers('trade')"
+										cq-no-close
+									>
+										Trade
+										<span className='ciq-switch'>
+											<span></span>
+										</span>
+									</cq-item>
+									<cq-item
+										class='video_markers-ui'
+										stxtap="Markers.showMarkers('video')"
+										cq-no-close
+									>
+										Video
+										<span className='ciq-switch'>
+											<span></span>
+										</span>
+									</cq-item>
+									<cq-item stxtap="Markers.showMarkers('helicopter')" cq-no-close>
+										Abstract
+										<span className='ciq-switch'>
+											<span></span>
+										</span>
+									</cq-item>
+								</div>
 								<div className='timespanevent-ui'>
 									<cq-separator></cq-separator>
 									<cq-heading>Panel Events</cq-heading>
@@ -226,7 +237,7 @@ export default function () {
 										cq-no-close
 									>
 										Order
-										<span className='ciq-checkbox ciq-active'>
+										<span className='ciq-switch ciq-active'>
 											<span></span>
 										</span>
 									</cq-item>
@@ -236,7 +247,7 @@ export default function () {
 										cq-no-close
 									>
 										CEO
-										<span className='ciq-checkbox ciq-active'>
+										<span className='ciq-switch ciq-active'>
 											<span></span>
 										</span>
 									</cq-item>
@@ -246,7 +257,7 @@ export default function () {
 										cq-no-close
 									>
 										News
-										<span className='ciq-checkbox ciq-active'>
+										<span className='ciq-switch ciq-active'>
 											<span></span>
 										</span>
 									</cq-item>
@@ -330,7 +341,7 @@ export default function () {
 
 			<cq-technicalinsights uid='' lang='en' disabled></cq-technicalinsights>
 
-			<div className='ciq-chart-area'>
+			<div className='ciq-chart-area' role='main'>
 				<div chartarea='true'>
 					<div id='flexContainer'>
 						<div id='cryptoGroup1'>
@@ -422,6 +433,8 @@ export default function () {
 					</div>
 				</div>
 			</div>
+
+			<cq-abstract-marker cq-type='helicopter'></cq-abstract-marker>
 
 			<cq-attribution></cq-attribution>
 

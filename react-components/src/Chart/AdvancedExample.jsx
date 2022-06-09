@@ -31,6 +31,7 @@ function getExampleConfig() {
 // SignalIQ
 import "chartiq/plugins/signaliq/signaliqDialog";
 import "chartiq/plugins/signaliq/signaliq-marker";
+import "chartiq/plugins/signaliq/signaliq-paintbar";
 
 // Trading Central: Technical Insights
 // import "chartiq/plugins/technicalinsights/components";
@@ -67,6 +68,8 @@ export default function AdvancedExample(props) {
 			config={config}
 			resources={props.resources}
 			chartInitialized={props.chartInitialized}
-		/>
+		>
+		{props.children}
+	</Chart>
 	);
 }
