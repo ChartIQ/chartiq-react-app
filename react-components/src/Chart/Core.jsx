@@ -6,6 +6,7 @@ import "chartiq/js/components";
 import "chartiq/js/addOns";
 
 import ChartTemplate from "./Template";
+import translations from "./translations";
 
 // Base styles required by the library to render color correctly.
 import "chartiq/css/normalize.css";
@@ -77,7 +78,20 @@ export default class Core extends React.Component {
 	}
 
 	createChartAndUI({ container, config }) {
-		return new CIQ.UI.Chart().createChartAndUI({ container, config });
+		CIQ.I18N.setLanguage = function(stx, language, translationCallback, csv, root) {
+			CIQ.I18N.wordLists = { zh: translations() };
+			CIQ.I18N.language = language;
+			CIQ.I18N.translateUI(language, root);
+
+			if (!translationCallback) translationCallback = CIQ.I18N.translate;
+			stx.translationCallback = translationCallback;
+		};
+
+		const chartEngine = new CIQ.UI.Chart().createChartAndUI({ container, config });
+
+		CIQ.I18N.setLanguage(chartEngine, "zh");
+
+		return chartEngine;
 	}
 
 	render() {

@@ -43,6 +43,7 @@
 	"dependencies": {
 		"@babel/preset-env": "^7.14.8",
 		"@chartiq/react-components": "file:./react-components",
+		"chartiq": "file:deps/chartiq.tgz",
 		"react": "^16.7.0",
 		"react-dom": "^16.7.0",
 		"react-router-dom": "^5.2.0"
