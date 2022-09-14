@@ -39,7 +39,7 @@ export default function ({ config, pluginToggles }) {
 						<cq-info-toggle-dropdown>
 							<cq-toggle class='ciq-CH' cq-member='crosshair'>
 								<span></span>
-								<cq-tooltip>Crosshair (Alt + \)</cq-tooltip>
+								<cq-tooltip><span>Crosshair</span> <span>(Alt + \)</span></cq-tooltip>
 							</cq-toggle>
 
 							<cq-menu class='ciq-menu toggle-options collapse'>
