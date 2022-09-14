@@ -48,9 +48,10 @@ To implement this project:
 
 1. Clone the repository.
 2. Extract the contents of your zipped ChartIQ library package.
-3. Copy the tarball (.tgz file) from the extracted library package into the root of this project.
+3. Copy the tarball (.tgz file) from the extracted library package into a new folder called /deps in the root of this project.
+4. Rename the tgz file to just chartiq.tgz (remove the version)
 4. Run the following commands from the root of the project:
-    - `npm install ./chartiq-x.x.x.tgz` to install the charting library
+    - `npm install ./deps/chartiq.tgz` to install the charting library
     - `npm install` to install the rest of the dependencies
     - `npm start` to start up the development server
 5. Open your browser to [http://localhost:4002](http://localhost:4002) to load the application.
@@ -59,7 +60,7 @@ To implement this project:
 
 ```sh
 npm uninstall chartiq
-npm install ./chartiq-x.x.x.tgz
+npm install ./deps/chartiq.tgz
 ```
 
 ## Basic Customization
