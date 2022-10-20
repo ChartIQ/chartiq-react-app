@@ -1,11 +1,25 @@
-*Overview:*
-Why does this need to change and how are you accomplishing that.
+## Resolves ticket [00000](https://devservices.chartiq.com/kanbanize/00000).
 
-*Technical Changes:*
- - Technical Change 1
-  - Technical Change 1.a
- - Technical Change 2
+Brief description of Changes:
 
- *Testing this Code:*
- - [ ] The following things should occur to be considered passing
- - [ ] The following things should occur to be considered passing
+- Technical change 1
+- Technical change 2
+  - Technical change 2.a
+
+### Testing
+This PR will be considered valid when:
+
+- [ ] Necessary condition 1 occurs
+- [ ] Necessary condition 2 occurs
+  - [ ] Necessary sub condition 2.a occurs
+- [ ] Automated tests added
+
+### Documentation
+- [ ] Added new documentation/updated old documentation
+- [ ] Requires new tutorial
+- [ ] N/A
+
+### Charting Library
+- [ ] PR requires changes to stx
+- [ ] Link to successor [KB Ticket 00001](devservices.chartiq.com/kanbanize/00001).
+- [ ] N/A

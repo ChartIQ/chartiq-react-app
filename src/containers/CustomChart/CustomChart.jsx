@@ -407,45 +407,7 @@ export default class CustomChart extends React.Component {
 									>
 										<span>Studies</span>
 										<cq-menu-dropdown>
-											<cq-study-legend cq-no-close>
-												<cq-section-dynamic>
-													<cq-heading>Current Studies</cq-heading>
-													<cq-study-legend-content>
-														<template cq-study-legend='true'>
-															<cq-item>
-																<cq-label class='click-to-edit'></cq-label>
-																<div className='ciq-icon ciq-close'></div>
-															</cq-item>
-														</template>
-													</cq-study-legend-content>
-													<cq-placeholder>
-														<div
-															stxtap='Layout.clearStudies()'
-															className='ciq-btn sm'
-															keyboard-selectable='true'
-														>
-															Clear All
-														</div>
-													</cq-placeholder>
-												</cq-section-dynamic>
-											</cq-study-legend>
-											<div className='scriptiq-ui'>
-												<cq-heading>ScriptIQ</cq-heading>
-												<cq-item>
-													<cq-clickable
-														cq-selector='cq-scriptiq-editor'
-														cq-method='open'
-													>
-														New Script
-													</cq-clickable>
-												</cq-item>
-												<cq-scriptiq-menu></cq-scriptiq-menu>
-												<cq-separator></cq-separator>
-											</div>
-											<cq-heading cq-filter cq-filter-min='-1'>
-												Studies
-											</cq-heading>
-											<cq-studies></cq-studies>
+											<cq-study-menu-manager></cq-study-menu-manager>
 										</cq-menu-dropdown>
 									</cq-menu>
 
@@ -629,20 +591,25 @@ export default class CustomChart extends React.Component {
 									</cq-palette-dock>
 
 									<div className='chartContainer'>
-										<stx-hu-tooltip>
-											<stx-hu-tooltip-field field='DT'>
-												<stx-hu-tooltip-field-name>
-													Date/Time
-												</stx-hu-tooltip-field-name>
-												<stx-hu-tooltip-field-value></stx-hu-tooltip-field-value>
-											</stx-hu-tooltip-field>
-											<stx-hu-tooltip-field field='Close'>
-												<stx-hu-tooltip-field-name></stx-hu-tooltip-field-name>
-												<stx-hu-tooltip-field-value></stx-hu-tooltip-field-value>
-											</stx-hu-tooltip-field>
-										</stx-hu-tooltip>
+										<table className="hu-tooltip">
+											<caption>Tooltip</caption>
+											<tbody>
+											<tr hu-tooltip-field="" className="hu-tooltip-sr-only">
+												<th>Field</th>
+												<th>Value</th>
+											</tr>
+											<tr hu-tooltip-field="DT">
+												<td className="hu-tooltip-name">Date/Time</td>
+												<td className="hu-tooltip-value"></td>
+											</tr>
+											<tr hu-tooltip-field="Close">
+												<td className="hu-tooltip-name"></td>
+												<td className="hu-tooltip-value"></td>
+											</tr>
+											</tbody>
+										</table>
 
-										<cq-chart-title cq-marker cq-browser-tab></cq-chart-title>
+										<cq-chart-title cq-marker cq-browser-tab cq-activate-symbol-search-on-click></cq-chart-title>
 
 										<cq-chartcontrol-group
 											class='full-screen-show'

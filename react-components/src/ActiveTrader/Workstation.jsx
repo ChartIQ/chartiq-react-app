@@ -51,44 +51,54 @@ export default class Workstation extends React.Component {
 		this.config = configObj;
 
 		this.stx = null;
-		this.UIContext = null;
+		this.uiContext = null;
 	}
 
 	componentDidMount() {
+		if (this.init) return;
 		const container = this.container.current;
 		const { chartInitialized } = this.props;
 		const { config } = this;
 
-		const uiContext = (this.UIContext = new CIQ.UI.Chart().createChartAndUI({
+		const uiContext = (this.uiContext = new CIQ.UI.Chart().createChartAndUI({
 			container,
 			config
 		}));
 		const chartEngine = (this.stx = uiContext.stx);
 
-		this.cryptoSetup(uiContext.stx);
+		this.cryptoSetup(this.stx);
 
 		if (window["d3"]) {
-			this.setUpMoneyFlowChart(uiContext.stx);
+			this.setUpMoneyFlowChart(this.stx);
 		} else {
 			CIQ.loadScript("https://d3js.org/d3.v5.min.js", () => {
-				this.setUpMoneyFlowChart(uiContext.stx);
+				this.setUpMoneyFlowChart(this.stx);
 			});
 		}
 
 		// Request TFC channel open
-		channelWrite(config.channels.tfc, true, uiContext.stx);
+		channelWrite(config.channels.tfc, true, this.stx);
 
 		if (chartInitialized) {
 			chartInitialized({ chartEngine, uiContext });
 		}
+		this.init = true;
+		this.rendered = false;
+		this.setState({ mounted: true });
 	}
 
 	componentWillUnmount() {
 		// Destroy the ChartEngine instance when unloading the component.
 		// This will stop internal processes such as quotefeed polling.
-		this.stx.moneyFlowChart.destroy();
+		// this.rendered ensures it is not test only unmount call
+		if (!this.stx || !this.rendered) return;
+
+		if (this.stx.moneyFlowChart) {
+			this.stx.moneyFlowChart.destroy();
+		}
 		this.stx.destroy();
 		this.stx.draw = () => {};
+		this.stx = null;
 	}
 
 	cryptoSetup(stx) {
@@ -157,6 +167,7 @@ export default class Workstation extends React.Component {
 	}
 
 	render() {
+		this.rendered = true;
 		let chartTemplate = <ChartTemplate config={this.config} />;
 		if (this.props.children) chartTemplate = this.props.children;
 

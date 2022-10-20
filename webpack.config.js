@@ -1,37 +1,27 @@
 const path = require('path');
-const MiniCssExtractPlugin = require('extract-css-chunks-webpack-plugin'); // used for packaging css into bundles
-const CopyPlugin = require('copy-webpack-plugin');
-const HTMLWebpackPlugin = require('html-webpack-plugin')
 const webpack = require('webpack');
+const CopyPlugin = require('copy-webpack-plugin');
+const HTMLWebpackPlugin = require('html-webpack-plugin');
+const CssPlugin = require("mini-css-extract-plugin"); // used for packaging css into bundles
+const TerserPlugin = require("terser-webpack-plugin"); // used to control what comments get removed
+
 const fs = require('fs');
 
 module.exports = env => {
-    let environment
-    let devtool = ''
-
-    console.log("Webpack env: ", env)
-    if(env)
-        environment = env.production ? 'production' : 'development'
-    else
-        environment = 'development'
-
-    devtool = environment === 'development' ? 'source-maps' : ''
-    
-    let output = {
-        mode: environment,
-        devtool: devtool,
+    const output = {
+        mode: env.production ? "production" : "development",
+        devtool: env.production ? undefined : "source-map",
         entry: {
-            bundle: path.join(__dirname, 'src', 'main.js')
+            main: path.join(__dirname, 'src', 'main.js')
         },
         output: {
-            chunkFilename: '[name].bundle.js'
+            chunkFilename: 'js/[name].chunk.js',
+            filename: "js/bundle.js"
         },
         devServer: {
-            contentBase: path.join(__dirname, 'dist'),
             headers: {
                 'Access-Control-Allow-Origin': '*'
             },
-            publicPath: '/',
             host: 'localhost',
             port: 4002,
             historyApiFallback: true
@@ -43,47 +33,71 @@ module.exports = env => {
             rules: [
                 /* CSS bundling rule, using SASS */
                 {
+                    /**
+                     * Tests any file in the bundle for .scss or .css extension using the scss-loader or secondarily the css-loader
+                     * Use it for loading any styles in the dependency graph of your bundle.
+                     * By default it will load SASS files and bundle them and check for CSS files.
+                     * The options object sets a public path where you can find the output.
+                     * Read more about css-loader:
+                     * https://webpack.js.org/loaders/css-loader/
+                     */
                     test: /\.(s)?css$/,
+                    type: "javascript/auto",
                     use: [
                         {
-                            loader: MiniCssExtractPlugin.loader,
-                            options: { publicPath: 'css/' }
+                            loader: CssPlugin.loader,
+                            options: { esModule: false, publicPath: "css/" }
                         },
-                        'css-loader',
-                        'sass-loader'
+                        'css-loader'
                     ]
                 },
-                /* font bundling rule, fonts are referenced via css */
                 {
-                    test: /\.(woff|woff2)$/,
-                    use: {
-                        loader: "url-loader"
+                    /**
+                     * Tests any file for woff or woff2 extension (fonts).
+                     * This loader allows you to include these file types within your bundle.
+                     * It is used for packaging imported fonts in stylesheets when referenced with url() in setting a CSS property value (both CSS and SCSS).
+                     * Read more: https://webpack.js.org/guides/asset-modules
+                     */
+                    test: /\.(woff2?)$/,
+                    type: "asset/inline"
+                },
+                {
+                    /**
+                     * Tests any file for a variety of different image file extensions.
+                     * This loader will create files for the images; they will not be in the bundle.
+                     * It is used for packaging imported images and images in stylesheets when referenced with url() in setting a CSS property value.
+                     * The options object sets a public path where you can find the output.
+                     * Read more: https://webpack.js.org/guides/asset-modules/
+                     */
+                    test: /\.(jpg|gif|png|svg|cur)$/,
+                    resource: /(?![\\/]images[\\/])/,
+                    type: "asset/resource",
+                    generator: {
+                        filename: "css/img/[name][ext]",
+                        publicPath: "../"
                     }
                 },
-                /* image bundling rule, images are referenced via css */
                 {
+                    /**
+                     * Tests any file for a variety of different image file extensions.
+                     * This loader will create files for the images; they will not be in the bundle.
+                     * It is used for packaging imported images.
+                     * The options object sets a public path where you can find the output.
+                     * Read more: https://webpack.js.org/guides/asset-modules/
+                     */
                     test: /\.(jpg|gif|png|svg|cur)$/,
-                    use: [
-                        {
-                            loader: 'file-loader',
-                            options: {
-                                name: '[name].[ext]',
-                                outputPath: './css/img/',
-                                publicPath: 'css/img/'
-                            }
-                        }
-                    ]
-                },
-                /* import.meta support for webpack 4 */
-                {
-                    test: /\.js$/,
-                    loader: require.resolve("@open-wc/webpack-import-meta-loader")
+                    resource: /[\\/]images[\\/]/,
+                    type: "asset/resource",
+                    generator: {
+                        filename: "img/[name][ext]",
+                        publicPath: "./"
+                    }
                 },
                 /* Javascript and JSX loading */
                 {
                     test: /\.(js|jsx)$/,
                     include: [/src/],
-                    exclude: [/translationSample/],
+                    exclude: [/node_modules/, /translationSample/],
                     // exclude: [/node_modules/,/\.spec\.js$/, /translationSample/, /webcomponent-containers/],
                     use: {
                         loader: 'babel-loader',
@@ -94,15 +108,12 @@ module.exports = env => {
                 }
             ]
         },
-    
+        optimization: {
+        },
         plugins: [
-            // ignores not available chartiq resource due to not all licenses having
-            // the same number of addOns or plugins
+            // ignores not available chartiq resource due to not all licenses having the same number of addOns or plugins
             new webpack.IgnorePlugin({
                 checkResource 
-            }),
-            new MiniCssExtractPlugin({
-                filename: '[name].css'
             }),
             new CopyPlugin({
                 patterns: [
@@ -119,6 +130,22 @@ module.exports = env => {
                     }
                 ]
             }),
+            /**
+             * Extracts all of our CSS and SCSS and emits them into one unified stylesheet output.
+             * Read more about the Extract CSS Chunks Plugin:
+             * https://webpack.js.org/plugins/mini-css-extract-plugin/
+             */
+            new CssPlugin({
+                experimentalUseImportModule: false,
+                filename: "./css/chartiq-[name].css"
+            }),
+            /**
+             * Generates an HTML file for your bundle and inserts the output files into it with script tags.
+             * By using the HTML Plugin you can create a fresh copy of your HTML page on each build,
+             * this allows you to serve the entire output of /dist/ instead of needing to reference files from /dist/ in your index.html
+             * Read more about the HTML Plugin:
+             * https://webpack.js.org/plugins/html-webpack-plugin/
+             */
             new HTMLWebpackPlugin({
                 title: 'AdvancedChart',
                 filename: path.join(__dirname, 'dist', 'index.html'),
@@ -132,8 +159,26 @@ module.exports = env => {
             extensions: ['.js', '.jsx']
         }
     };
-    
-    console.log('final merged webpack config: ',output)
+
+    if (env.production) {
+        /**
+         * Minimizer allows us to define minification parameters.
+         * The TerserPlugin configuration makes sure license comments remain in the bundle.
+         * The CssMinimizerPlugin minifies the css output.
+         */
+        output.optimization.minimizer = [
+            env.production
+            ? new TerserPlugin({
+                terserOptions: {
+                    format: {
+                        comments: /(^\**!)|@preserve|@license|@cc_on/i
+                    }
+                },
+                extractComments: false
+            })
+            : undefined
+        ]
+    }
 
     return output  
 }
