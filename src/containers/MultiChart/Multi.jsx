@@ -75,7 +75,8 @@ export default class Multi extends React.Component {
 							colCount,
 							rowCount,
 							gridTemplate
-						}
+						},
+						container
 					},
 					config
 				);
