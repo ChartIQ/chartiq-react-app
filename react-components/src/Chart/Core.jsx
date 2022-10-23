@@ -42,13 +42,12 @@ export default class Core extends React.Component {
 		CIQ.extend(configObj, config);
 		this.config = configObj;
 
-		this.state = {
-			stx: null,
-			UIContext: null
-		};
+		this.stx = null;
+		this.uiContext = null;
 	}
 
 	componentDidMount() {
+		if (this.init) return;
 		const container = this.container.current;
 		const { chartInitialized } = this.props;
 		const { config } = this;
@@ -57,8 +56,8 @@ export default class Core extends React.Component {
 		// Delay the call to createChartAndUI so any other chart components on the page
 		// using multi chart setup have a chance to call portalizeContextDialogs
 		window.setTimeout(() => {
-			const uiContext = this.createChartAndUI({ container, config });
-			const chartEngine = uiContext.stx;
+			const uiContext = this.uiContext = this.createChartAndUI({ container, config });
+			const chartEngine = this.stx = uiContext.stx;
 
 			this.setState({ stx: chartEngine, UIContext: uiContext });
 
@@ -66,14 +65,17 @@ export default class Core extends React.Component {
 				chartInitialized({ chartEngine, uiContext });
 			}
 		}, 0);
+		this.init = true;
+		this.rendered = false;
 	}
 
 	componentWillUnmount() {
 		// Destroy the ChartEngine instance when unloading the component.
 		// This will stop internal processes such as quotefeed polling.
-		const { stx } = this.state;
-		stx.destroy();
-		stx.draw = () => {};
+		if (!this.stx || !this.rendered) return;
+
+		this.stx.destroy();
+		this.stx.draw = () => {};
 	}
 
 	createChartAndUI({ container, config }) {
@@ -81,6 +83,7 @@ export default class Core extends React.Component {
 	}
 
 	render() {
+		this.rendered = true;
 		const {
 			props: { children },
 			config

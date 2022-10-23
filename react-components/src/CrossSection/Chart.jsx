@@ -44,41 +44,43 @@ export default class TermStructure extends React.Component {
 		CIQ.extend(configObj, config);
 		this.config = configObj;
 
-		this.state = {
-			stx: null,
-			UIContext: null
-		};
+		this.stx = null;
+		this.uiContext = null;
 	}
 
 	componentDidMount() {
+		if (this.init) return;
 		const container = this.container.current;
 		const { chartInitialized } = this.props;
 		const { config } = this;
 
 		window.setTimeout(() => {
-			const uiContext = new CIQ.UI.Chart().createChartAndUI({
+			const uiContext = this.uiContext = new CIQ.UI.Chart().createChartAndUI({
 				container,
 				config
 			});
-			const chartEngine = uiContext.stx;
-
-			this.setState({ stx: chartEngine, UIContext: uiContext });
+			const chartEngine = this.stx = uiContext.stx;
 
 			if (chartInitialized) {
 				chartInitialized({ chartEngine, uiContext });
 			}
 		}, 0);
+		this.init = true;
+		this.rendered = false;
 	}
 
 	componentWillUnmount() {
 		// Destroy the ChartEngine instance when unloading the component.
 		// This will stop internal processes such as quotefeed polling.
-		const { stx } = this.state;
-		stx.destroy();
-		stx.draw = () => {};
+		if (!this.stx || !this.rendered) return;
+
+		this.stx.destroy();
+		this.stx.draw = () => {};
+		this.stx = null;
 	}
 
 	render() {
+		this.rendered = true;
 		return (
 			<cq-context ref={this.container}>
 				{this.props.children || <ChartTemplate />}
