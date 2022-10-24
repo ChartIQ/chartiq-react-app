@@ -46,7 +46,7 @@ Each component includes only the bare necessities to allow for maximum customiza
 After installing this package into your React project you will also need to copy and install the ChartIQ library using tarball from your license.
 
 ```js
-npm install ./chartiq-8.8.0.tgz // or whatever version you are using from your copy of the ChartIQ library!
+npm install ./chartiq-8.8.1.tgz // or whatever location you are using for your copy of the ChartIQ library!
 ```
 
 You can then import one of the included components into your React app:
