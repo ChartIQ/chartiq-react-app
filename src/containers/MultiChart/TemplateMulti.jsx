@@ -16,9 +16,22 @@ export default function ({ config, pluginToggles }) {
 					</cq-toggle>
 				</div>
 
-				<cq-menu class='ciq-search'>
-					<cq-lookup cq-keystroke-claim cq-uppercase></cq-lookup>
-				</cq-menu>
+				<cq-clickable role="button" class="symbol-search" cq-selector="cq-lookup-dialog" cq-method="open" delay="true">
+					<span className="ciq-lookup-icon"></span>
+					<cq-tooltip>Symbol Search</cq-tooltip>
+				</cq-clickable>
+
+				<cq-clickable
+					role="button"
+					class="symbol-search"
+					cq-selector="cq-lookup-dialog"
+					cq-method="open"
+					comparison="true"
+					delay="true"
+				>
+					<span className="ciq-comparison-icon"></span>
+					<cq-tooltip>Add Comparison</cq-tooltip>
+				</cq-clickable>
 
 				<cq-side-nav cq-on='sidenavOn'>
 					<div className='icon-toggles ciq-toggles'>
@@ -89,15 +102,15 @@ export default function ({ config, pluginToggles }) {
 						<cq-menu class="ciq-menu ciq-grid">
 							<span><cq-clickable>Grid</cq-clickable></span>
 							<cq-menu-dropdown>
-								<cq-item class="ciq-columns"> 
-									<span>
-										Columns
-									</span>
-									<cq-grid-size-picker maxrows="1" maxcols="5"></cq-grid-size-picker>
+								<cq-heading>Templates</cq-heading>
+								<cq-item class="ciq-grid-layout"> 
+									<cq-grid-size-picker
+										maxrows="5"
+										maxcols="5"
+										resize="fixed"
+										templates = "ciq-auto-grid-1 ciq-auto-grid-2 ciq-auto-grid-3 ciq-auto-grid-4 ciq-auto-grid-5 ciq-auto-grid-6 ciq-auto-grid-7 ciq-auto-grid-8 ciq-auto-grid-9 ciq-auto-grid-10 ciq-auto-grid-11 ciq-auto-grid-12"
+									></cq-grid-size-picker>
 								</cq-item>
-								<cq-item stxtap="Layout.addChart('before')" title="Add a new chart before the active chart">Add Before Active</cq-item>
-								<cq-item stxtap="Layout.addChart('after')" title="Add a new chart after the active chart">Add After Active</cq-item>
-								<cq-item stxtap="Layout.removeChart()">Remove Chart</cq-item>
 								<cq-item class="ciq-solo-only">Not available in solo mode</cq-item>
 							</cq-menu-dropdown>
 						</cq-menu>
@@ -143,45 +156,7 @@ export default function ({ config, pluginToggles }) {
 						<cq-menu class='ciq-menu ciq-studies collapse' cq-focus='input'>
 							<span>Studies</span>
 							<cq-menu-dropdown>
-								<cq-study-legend cq-no-close>
-									<cq-section-dynamic>
-										<cq-heading>Current Studies</cq-heading>
-										<cq-study-legend-content>
-											<template cq-study-legend='true'>
-												<cq-item>
-													<cq-label class='click-to-edit'></cq-label>
-													<div className='ciq-icon ciq-close'></div>
-												</cq-item>
-											</template>
-										</cq-study-legend-content>
-										<cq-placeholder>
-											<div
-												stxtap='Layout.clearStudies()'
-												className='ciq-btn sm'
-												keyboard-selectable='true'
-											>
-												Clear All
-											</div>
-										</cq-placeholder>
-									</cq-section-dynamic>
-								</cq-study-legend>
-								<div className='scriptiq-ui'>
-									<cq-heading>ScriptIQ</cq-heading>
-									<cq-item>
-										<cq-clickable
-											cq-selector='cq-scriptiq-editor'
-											cq-method='open'
-										>
-											New Script
-										</cq-clickable>
-									</cq-item>
-									<cq-scriptiq-menu></cq-scriptiq-menu>
-									<cq-separator></cq-separator>
-								</div>
-								<cq-heading cq-filter='' cq-filter-min='-1'>
-									Studies
-								</cq-heading>
-								<cq-studies></cq-studies>
+								<cq-study-menu-manager></cq-study-menu-manager>
 							</cq-menu-dropdown>
 						</cq-menu>
 
@@ -348,7 +323,28 @@ export default function ({ config, pluginToggles }) {
 			<cq-technicalinsights uid='' lang='en' disabled></cq-technicalinsights>
 
 			<div className="ciq-multi-chart-container-wrapper">
-				<div className="ciq-multi-chart-container ciq-multi-chart-reverse">
+
+			<cq-palette-dock>
+					<div className='palette-dock-container'>
+						<cq-drawing-palette
+							class='palette-drawing grid palette-hide'
+							docked='true'
+							orientation='vertical'
+							min-height='300'
+							cq-drawing-edit='none'
+						></cq-drawing-palette>
+						<cq-drawing-settings
+							class='palette-settings'
+							docked='true'
+							hide='true'
+							orientation='horizontal'
+							min-height='40'
+							cq-drawing-edit='none'
+						></cq-drawing-settings>
+					</div>
+				</cq-palette-dock>
+
+				<div className="ciq-multi-chart-container">
 
 					<cq-context-wrapper>
 						<cq-context>
@@ -360,46 +356,31 @@ export default function ({ config, pluginToggles }) {
 										defaultPosition='top'
 									></cq-message-toaster>
 
-									<cq-palette-dock>
-										<div className='palette-dock-container'>
-											<cq-drawing-palette
-												class='palette-drawing grid palette-hide'
-												docked='true'
-												orientation='vertical'
-												min-height='300'
-												cq-drawing-edit='none'
-											></cq-drawing-palette>
-											<cq-drawing-settings
-												class='palette-settings'
-												docked='true'
-												hide='true'
-												orientation='horizontal'
-												min-height='40'
-												cq-drawing-edit='none'
-											></cq-drawing-settings>
-										</div>
-									</cq-palette-dock>
-
 									<div className='chartContainer'>
-										<stx-hu-tooltip>
-											<stx-hu-tooltip-field field='DT'>
-												<stx-hu-tooltip-field-name>Date/Time</stx-hu-tooltip-field-name>
-												<stx-hu-tooltip-field-value></stx-hu-tooltip-field-value>
-											</stx-hu-tooltip-field>
-											<stx-hu-tooltip-field field='Close'>
-												<stx-hu-tooltip-field-name></stx-hu-tooltip-field-name>
-												<stx-hu-tooltip-field-value></stx-hu-tooltip-field-value>
-											</stx-hu-tooltip-field>
-										</stx-hu-tooltip>
+										<table className="hu-tooltip">
+											<caption>Tooltip</caption>
+											<tbody>
+											<tr hu-tooltip-field="" className="hu-tooltip-sr-only">
+												<th>Field</th>
+												<th>Value</th>
+											</tr>
+											<tr hu-tooltip-field="DT">
+												<td className="hu-tooltip-name">Date/Time</td>
+												<td className="hu-tooltip-value"></td>
+											</tr>
+											<tr hu-tooltip-field="Close">
+												<td className="hu-tooltip-name"></td>
+												<td className="hu-tooltip-value"></td>
+											</tr>
+											</tbody>
+										</table>
 
-										<cq-chart-title cq-marker cq-browser-tab></cq-chart-title>
+										<cq-chart-title cq-marker cq-browser-tab cq-activate-symbol-search-on-click></cq-chart-title>
 
 										<cq-chartcontrol-group
 											class='full-screen-show'
 											cq-marker
 										></cq-chartcontrol-group>
-
-										<cq-comparison-lookup></cq-comparison-lookup>
 
 										<cq-chart-legend></cq-chart-legend>
 
@@ -407,13 +388,18 @@ export default function ({ config, pluginToggles }) {
 									</div>
 								</div>
 								<div className="ciq-multi-chart-controls">
-									<span stxtap="addChart('before')" title="New chart before">+ &lt;</span>
-									<span stxtap="addChart()" title="New chart after"> &gt; +</span>
-									<span>
-										<span className="ciq-solo-toggle" stxtap="toggleSolo()" title="Toggle solo mode"></span>
-									</span>
+									<cq-menu class="ciq-menu ciq-multi-chart-options collapse">
+										<span></span>
+										<cq-menu-dropdown>
+											<cq-item stxtap="addChart('before')" title="Add Chart Left">Add Left</cq-item>
+											<cq-item stxtap="addChart()" title="Add Chart Right">Add Right</cq-item>
+											<cq-item stxtap="move('before')" title="Move Chart Left">Move Left</cq-item>
+											<cq-item stxtap="move()" title="Move Chart Right">Move Right</cq-item>
+											<cq-item stxtap="close()" title="Remove Chart" class="ciq-warning">Remove</cq-item>
+										</cq-menu-dropdown>
+									</cq-menu>
+									<span className="ciq-solo-toggle" stxtap="toggleSolo()" title="Toggle solo mode"></span>
 								</div>
-								<cq-close title="Remove this chart"></cq-close>
 							</div>
 							<cq-side-panel></cq-side-panel>
 						</cq-context>

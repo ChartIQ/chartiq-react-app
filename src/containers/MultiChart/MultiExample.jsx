@@ -3,6 +3,8 @@ import Chart, { CIQ } from "./Multi";
 
 import quoteFeedSimulator from "chartiq/examples/feeds/quoteFeedSimulator";
 import PerfectScrollbar from "chartiq/js/thirdparty/perfect-scrollbar.esm.js";
+// use for SignalIQ
+// import EmojiPopover from "chartiq/js/thirdparty/emoji-popover.es.js";
 import marker from "chartiq/examples/markers/markersSample";
 
 // ChartIQ example resources for markets and translations.
@@ -31,6 +33,9 @@ import "chartiq/examples/markers/videoSample";
 // SignalIQ
 // import "chartiq/plugins/signaliq/signaliqDialog";
 // import "chartiq/plugins/signaliq/signaliq-marker";
+// import "chartiq/plugins/signaliq/signaliq-paintbar";
+
+// import "chartiq/plugins/studybrowser";
 
 // TFC plugin
 // Important: Uncomment tfc in config.plugins below when enabling this plug-in.
@@ -61,7 +66,8 @@ const onChartReady = (chartEngine) => {
 const exampleResources = {
 	quoteFeed: quoteFeedSimulator,
 	markerFeed: marker.MarkersSample,
-	scrollStyle: PerfectScrollbar // use improved component scrollbar appearance https://perfectscrollbar.com
+	scrollStyle: PerfectScrollbar, // use improved component scrollbar appearance https://perfectscrollbar.com
+	// emojiPicker: EmojiPopover // use for SignalIQ
 };
 
 function getExampleConfig() {

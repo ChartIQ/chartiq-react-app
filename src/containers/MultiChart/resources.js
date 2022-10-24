@@ -1,11 +1,11 @@
 import 'chartiq/examples/feeds/symbolLookupChartIQ';
 import quoteFeed from "chartiq/examples/feeds/quoteFeedSimulator";
-import defaultConfig from 'chartiq/js/defaultConfiguration';
+import getDefaultConfig from 'chartiq/js/defaultConfiguration';
 
 // Creates a complete customised configuration object
 function getConfig(resources = {}) {
 	if(!resources.quoteFeed && resources.quoteFeed!== null ) resources.quoteFeed = quoteFeed
-	return defaultConfig( resources );
+	return getDefaultConfig( resources );
 }
 
 // Creates a complete customised configuration object

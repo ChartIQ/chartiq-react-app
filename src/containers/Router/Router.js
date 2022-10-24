@@ -4,8 +4,7 @@ import { BrowserRouter, HashRouter, Link, Route } from "react-router-dom";
 import "chartiq/css/page-defaults.css";
 
 import HelloWorld from "../HelloWorld/HelloWorld";
-import { MultiChartPage } from "../MultiChart";
-import SharedMultiChart from "../SharedMultiChart/MultiExample";
+import MultiChartExample from "../MultiChart/MultiExample";
 import CustomChart from "../CustomChart/CustomChart";
 
 import { ChartExample } from "@chartiq/react-components/Chart";
@@ -32,24 +31,6 @@ const Chart = ({ config }) => {
 	return resolved ? <ChartExample config={config} /> : null;
 };
 
-let SharedMultiChartPage = ({ config }) => {
-	const [resolved, setResolved] = useState(false);
-
-	useEffect(() => {
-		// Preload advance and SignalIQ prior invoking SharedMultiChart
-		// to expand features if available in license
-		Promise.allSettled([
-			import("chartiq/js/advanced.js"),
-			import("chartiq/plugins/signaliq/signaliqDialog"),
-			import("chartiq/plugins/signaliq/signaliq-marker")
-		])
-			.then(() => setResolved(true))
-			.catch(() => setResolved(true));
-	}, []);
-
-	return resolved ? <SharedMultiChart config={config} /> : null;
-};
-
 let ActiveTrader = () => (
 	<MissingFeature feature={"ActiveTrader"} type={"plugin"} />
 );
@@ -62,14 +43,14 @@ const baseLocation = pathname.replace(/[^/]*$/, "");
 const Router = protocol === "file:" ? HashRouter : BrowserRouter;
 
 export default function Routes() {
-	const [availableResources, setAvailableResources] = useState({});
+	const [, setAvailableResources] = useState({});
 	useEffect(() => {
 		import("chartiq/plugins/activetrader/cryptoiq") // check if library plugin is available
 			.then(() => {
 				// load and update react component
 				import("@chartiq/react-components/ActiveTrader").then((module) => {
 					ActiveTrader = module.WorkstationExample;
-					setAvailableResources({ ...availableResources, activeTrader: true });
+					setAvailableResources({ activeTrader: true });
 				});
 			})
 			.catch(() => {});
@@ -79,7 +60,7 @@ export default function Routes() {
 				// load and update react component
 				import("@chartiq/react-components/CrossSection").then((module) => {
 					Crosssection = module.ChartExample;
-					setAvailableResources({ ...availableResources, crosssection: true });
+					setAvailableResources({ crosssection: true });
 				});
 			})
 			.catch(() => {});
@@ -88,18 +69,19 @@ export default function Routes() {
 	return (
 		<Router basename={baseLocation}>
 			<Route path='/' exact>
-				<RouteList availableResources={availableResources} />
+				<RouteList />
 			</Route>
 			<Route path='/index.html' component={RouteList}></Route>
 
 			<Route path='/chart'>
-				<Chart config={{ plugins: { tfc: null } }} />
+				<Chart config={{ plugins: { tfc: null, marketDepth: null } }} />
 			</Route>
 
-			<Route path='/multi-chart' component={MultiChartPage}></Route>
-			<Route
-				path='/shared-multi-chart'
-				component={SharedMultiChartPage}></Route>
+			<Route path='/multi-chart'>
+				<MultiChartExample
+					config={{ plugins: { tfc: null, marketDepth: null } }}
+				/>
+			</Route>
 
 			<Route path='/active-trader' component={ActiveTrader}></Route>
 			<Route path='/cross-section' component={Crosssection}></Route>
@@ -115,7 +97,7 @@ export default function Routes() {
  *
  * @function RouteList
  */
-function RouteList({ availableResources }) {
+function RouteList() {
 	return (
 		<main className='route-list'>
 			<h2>ChartIQ React Application</h2>
@@ -139,14 +121,6 @@ function RouteList({ availableResources }) {
 				<li>
 					<h3>
 						<Link to='multi-chart'>MultiChart</Link>
-					</h3>
-					<p>
-						Displays two chart components side by side in the same document.
-					</p>
-				</li>
-				<li>
-					<h3>
-						<Link to='shared-multi-chart'>Shared MultiChart</Link>
 					</h3>
 					<p>Displays multiple charts with a shared header and footer.</p>
 				</li>

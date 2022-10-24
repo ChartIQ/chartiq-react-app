@@ -36,7 +36,7 @@ For an example of creating a chart user interface entirely with native React com
 
 ## Requirements
 
-A copy of the ChartIQ library, version 8.6.0 or later.
+A copy of the ChartIQ library, version 8.8.1 or later.
 
 If you do not have a copy of the library, please contact your account manager or send an email to <info@cosaic.io>.
 

@@ -57,23 +57,26 @@ export default class Multi extends React.Component {
 		// Delay the call to createChartAndUI so any other chart components on the page
 		// using multi chart setup have a chance to call portalizeContextDialogs
 		window.setTimeout(() => {
+			const chartEntries = [{ symbol: "IBM" }, { symbol: "AAPL" }];
 			const store = new CIQ.NameValueStore();
 			config.multiChartId = "_ciq";
 			store.get("multiCharts" + config.multiChartId, (err, chartConfig) => {
-				let { charts, colCount = 2 } = chartConfig || {};
-
-				if (!charts)
-					charts = (this.props.chartEntries || [{ symbol: "APPL" }])
-						.slice()
-						.reverse();
+				const {
+					charts = chartEntries,
+					colCount = 2,
+					rowCount = 1,
+					gridTemplate
+				} = chartConfig || {};
 
 				const stxArr = new CIQ.UI.Multichart().createCharts(
 					{
 						chartsConfig: {
 							charts,
-							colCount
+							colCount,
+							rowCount,
+							gridTemplate
 						},
-						container
+						containerId: container
 					},
 					config
 				);

@@ -3,6 +3,8 @@ import Chart, { CIQ } from "./Core";
 
 import quoteFeedSimulator from "chartiq/examples/feeds/quoteFeedSimulator";
 import PerfectScrollbar from "chartiq/js/thirdparty/perfect-scrollbar.esm.js";
+import EmojiPopover from "chartiq/js/thirdparty/emoji-popover.es.js";
+
 import marker from "chartiq/examples/markers/markersSample";
 
 export { CIQ };
@@ -19,7 +21,8 @@ const onChartReady = (chartEngine) => {};
 const exampleResources = {
 	quoteFeed: quoteFeedSimulator,
 	markerFeed: marker.MarkersSample,
-	scrollStyle: PerfectScrollbar // use improved component scrollbar appearance https://perfectscrollbar.com
+	scrollStyle: PerfectScrollbar, // use improved component scrollbar appearance https://perfectscrollbar.com
+	emojiPicker: EmojiPopover
 };
 
 function getExampleConfig() {
