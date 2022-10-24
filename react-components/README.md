@@ -19,7 +19,7 @@
 
 The ChartIQ React Components is a React component library featuring chart components that can be easily imported into an existing React application.
 
-This package simplifies ChartIQ library use in the React framework. It requires ChartIQ library v8.8.0 or later.
+This package simplifies ChartIQ library use in the React framework. It requires ChartIQ library v8.8.1 or later.
 
 **If you do not have a copy of the library, please contact your account manager or send an email to <info@cosaic.io> or you may evaluate one from [here](https://cosaic.io/chartiq-sdk-library-download/).**
 
