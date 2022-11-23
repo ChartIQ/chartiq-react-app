@@ -116,11 +116,13 @@ export default function () {
 									<cq-heading>Chart Types</cq-heading>
 									<cq-menu-container cq-name='menuChartStyle'></cq-menu-container>
 								</cq-menu-dropdown-section>
-								<cq-menu-dropdown-section class='chart-aggregations'>
-									<cq-separator></cq-separator>
-									<cq-heading>Aggregated Types</cq-heading>
-									<cq-menu-container cq-name='menuChartAggregates'></cq-menu-container>
-								</cq-menu-dropdown-section>
+								{config && config.menuChartAggregates && config.menuChartAggregates.length > 0 && (
+									<cq-menu-dropdown-section class='chart-aggregations'>
+										<cq-separator></cq-separator>
+										<cq-heading>Aggregated Types</cq-heading>
+										<cq-menu-container cq-name='menuChartAggregates'></cq-menu-container>
+									</cq-menu-dropdown-section>
+								)}
 							</cq-menu-dropdown>
 						</cq-menu>
 
