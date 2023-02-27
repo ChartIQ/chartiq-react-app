@@ -1,7 +1,3 @@
-cq-context:not([crosssection-active]) .ciq-search {
-	width: 130px;
-}
-
 cq-context:not([crosssection-active]) .toggle-options {
 	display: inherit;
 }

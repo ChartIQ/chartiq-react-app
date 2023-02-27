@@ -116,7 +116,7 @@ export default function () {
 									<cq-heading>Chart Types</cq-heading>
 									<cq-menu-container cq-name='menuChartStyle'></cq-menu-container>
 								</cq-menu-dropdown-section>
-								<cq-menu-dropdown-section class='chart-aggregations'>
+								<cq-menu-dropdown-section class='chart-aggregations advanced-ui'>
 									<cq-separator></cq-separator>
 									<cq-heading>Aggregated Types</cq-heading>
 									<cq-menu-container cq-name='menuChartAggregates'></cq-menu-container>
@@ -276,39 +276,9 @@ export default function () {
 						</cq-menu>
 					</div>
 
-					<div className='trade-toggles ciq-toggles'>
-						<cq-toggle class='tfc-ui sidebar stx-trade' cq-member='tfc'>
-							<span></span>
-							<cq-tooltip>Trade</cq-tooltip>
-						</cq-toggle>
-						<cq-toggle
-							class='analystviews-ui stx-analystviews'
-							cq-member='analystviews'
-						>
-							<span></span>
-							<cq-tooltip>Analyst Views</cq-tooltip>
-						</cq-toggle>
-						<cq-toggle
-							class='technicalinsights-ui stx-technicalinsights'
-							cq-member='technicalinsights'
-						>
-							<span></span>
-							<cq-tooltip>Technical Insights</cq-tooltip>
-						</cq-toggle>
-					</div>
+					<div className="ciq-toggles"></div>
 				</div>
 			</div>
-
-			<cq-scriptiq class='scriptiq-ui'></cq-scriptiq>
-
-			<cq-analystviews
-				class='analystviews-ui'
-				token='eZOrIVNU3KR1f0cf6PTUYg=='
-				partner='1000'
-				disabled
-			></cq-analystviews>
-
-			<cq-technicalinsights uid='' lang='en' disabled></cq-technicalinsights>
 
 			<div className='ciq-chart-area' role='main'>
 				<div chartarea='true'>

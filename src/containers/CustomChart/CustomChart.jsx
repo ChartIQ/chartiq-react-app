@@ -179,38 +179,7 @@ export default class CustomChart extends React.Component {
 		this.setState({ shortcutDialog: false });
 	}
 
-	// Return elements for chart plugin toggle buttons
-	getPluginToggles() {
-		const { tfc } = this.state.stx || {};
-		return (
-			<div className='trade-toggles ciq-toggles'>
-				{tfc && (
-					<cq-toggle class='tfc-ui sidebar stx-trade' cq-member='tfc'>
-						<span></span>
-						<cq-tooltip>Trade</cq-tooltip>
-					</cq-toggle>
-				)}
-				<cq-toggle
-					class='analystviews-ui stx-analystviews'
-					cq-member='analystviews'
-				>
-					<span></span>
-					<cq-tooltip>Analyst Views</cq-tooltip>
-				</cq-toggle>
-				<cq-toggle
-					class='technicalinsights-ui stx-technicalinsights'
-					cq-member='technicalinsights'
-				>
-					<span></span>
-					<cq-tooltip>Technical Insights</cq-tooltip>
-				</cq-toggle>
-			</div>
-		);
-	}
-
 	render() {
-		const pluginToggles = this.getPluginToggles();
-
 		let shortcutDialog = null;
 		if (this.state.shortcutDialog)
 			shortcutDialog = (
@@ -375,7 +344,7 @@ export default class CustomChart extends React.Component {
 												<cq-heading>Chart Types</cq-heading>
 												<cq-menu-container cq-name='menuChartStyle'></cq-menu-container>
 											</cq-menu-dropdown-section>
-											<cq-menu-dropdown-section class='chart-aggregations'>
+											<cq-menu-dropdown-section class='chart-aggregations advanced-ui'>
 												<cq-separator></cq-separator>
 												<cq-heading>Aggregated Types</cq-heading>
 												<cq-menu-container cq-name='menuChartAggregates'></cq-menu-container>
@@ -540,7 +509,7 @@ export default class CustomChart extends React.Component {
 									</cq-menu>
 								</div>
 
-								{pluginToggles}
+								<div className="ciq-toggles"></div>
 							</div>
 						</div>
 

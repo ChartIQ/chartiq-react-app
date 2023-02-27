@@ -114,6 +114,9 @@ export default function ChartExample(props) {
 (function processCss() { // webpack processing can introduce extra 2 spaces for each translation line remove them here
 	if (!CIQ.I18N.csv) return;
 	const lines = CIQ.I18N.csv.split("\n");
+	if (lines.length < 2) return console.warn(
+		"Minification may have stripped out translation data. See 'Important Note Regarding Localization' in the react-components package ReadMe"
+	);
 	const translationHasExtraSpace = lines[1][0] === ' ';
 	if (!translationHasExtraSpace) return;
 	CIQ.I18N.csv = lines.map((line, i) => (i ? line.slice(2) : line)).join('\n')
