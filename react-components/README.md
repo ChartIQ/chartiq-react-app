@@ -41,6 +41,8 @@ Each component includes only the bare necessities to allow for maximum customiza
 - ActiveTrader/WorkstationExample &mdash; Workstation with all included ChartIQ example files.
 - CrossSection/ChartExample &mdash; CrossSection Chart with all included ChartIQ example files.
 
+> **Important Note Regarding Localization:** When compiling in production mode, default minification may strip out translation data. Webpack optimization parameters may be used to preserve the translation data. As an example, see the output.optimization.minimizer setting in the [chartiq-react-app webpack.config.js file](https://github.com/ChartIQ/chartiq-react-app/blob/master/webpack.config.js).
+
 ## Getting Started
 
 After installing this package into your React project you will also need to copy and install the ChartIQ library using tarball from your license.
@@ -158,7 +160,7 @@ This configuration enables the continuous zoom add-on for daily data only with a
 
 ChartIQ comes with a variety of plug-ins that add enhanced functionality to charts. The default chart configuration contains entries to start plug-ins once they are imported.
 
-**Note:** Plug-ins are optional extras that must be purchased. To determine the plug-ins included in your library, see the *./node_modules/chartiq/plugins* folder.
+> **Note:** Plug-ins are optional extras that must be purchased. To determine the plug-ins included in your library, see the *./node_modules/chartiq/plugins* folder.
 
 The application includes the ChartIQ plug-ins as component resources that are enabled by uncommenting the relevant imports in the component resources file.
 

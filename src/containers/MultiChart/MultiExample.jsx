@@ -18,7 +18,6 @@ import "chartiq/examples/markets/marketSymbologySample";
 import "chartiq/examples/translations/translationSample";
 
 // Example Marker files
-import "chartiq/examples/markers/tradeAnalyticsSample";
 import "chartiq/examples/markers/videoSample";
 
 // Enable advanced features

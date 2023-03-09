@@ -48,8 +48,8 @@ export default function Routes() {
 		import("chartiq/plugins/activetrader/cryptoiq") // check if library plugin is available
 			.then(() => {
 				// load and update react component
-				import("@chartiq/react-components/ActiveTrader").then((module) => {
-					ActiveTrader = module.WorkstationExample;
+				import("@chartiq/react-components/ActiveTrader/WorkstationExample").then((module) => {
+					ActiveTrader = module.default;
 					setAvailableResources({ activeTrader: true });
 				});
 			})
