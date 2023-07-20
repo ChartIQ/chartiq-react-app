@@ -37,8 +37,10 @@
 	},
 	"dependencies": {
 		"@babel/preset-env": "^7.14.8",
-		"react": "^16.7.0",
-		"react-dom": "^16.7.0",
+		"@mui/material": "^5.14.1",
+		"chartiq": "file:chartiq-8.9.2.tgz",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
 		"react-router-dom": "^5.3.4"
 	}
 }
