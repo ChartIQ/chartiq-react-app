@@ -18,7 +18,7 @@ function getCustomConfig({ chartId, symbol, onChartReady, resources } = {}) {
 
 	config.initialSymbol = symbol || symbol === "" ? symbol : "US-T BENCHMARK";
 	config.chartId = chartId || "_cross-section-chart";
-	
+
 	if (onChartReady) config.onChartReady = onChartReady;
 
 	config.menuYaxisField = [
@@ -57,7 +57,7 @@ function getCustomConfig({ chartId, symbol, onChartReady, resources } = {}) {
 		let diff =
 			weight.indexOf(l1[l1.length - 1]) - weight.indexOf(r1[r1.length - 1]);
 		if (diff) return diff > 0 ? 1 : -1;
-	
+
 		if (isNaN(l1[0])) return 1;
 		if (isNaN(r1[0])) return -1;
 		if (Number(l1[0]) < Number(r1[0])) return -1;

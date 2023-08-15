@@ -27,6 +27,8 @@ import "chartiq/css/page-defaults.css";
  * and MarketDepth, use the following import. Requires the ActiveTrader package or plug-in.
  */
 // import App from "@chartiq/react-components/ActiveTrader";
+/* ActiveTrader requires TFC account. The tfc-demo provides an example implementation */
+// import "chartiq/plugins/tfc/tfc-demo";
 
 /**
  * If you would like to render a Cross Section for non time series data, use the

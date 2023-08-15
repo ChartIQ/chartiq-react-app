@@ -33,7 +33,6 @@ function getExampleConfig() {
 			name: "Apple Inc",
 			exchDisp: "NASDAQ"
 		},
-		plugins: {}, // Activated Plugins go here!
 		onChartReady
 	};
 }
@@ -44,12 +43,13 @@ function getExampleConfig() {
 // Symbol mapping to market definition
 import "chartiq/examples/markets/marketDefinitionsSample";
 import "chartiq/examples/markets/marketSymbologySample";
+import "chartiq/examples/markets/timezones.js";
 
 // Translation file
 import "chartiq/examples/translations/translationSample";
 
 // Example Marker files
-import "chartiq/examples/markers/tradeAnalyticsSample";
+// import "chartiq/examples/markers/tradeAnalyticsSample";
 import "chartiq/examples/markers/videoSample";
 
 // Plugins
@@ -92,6 +92,25 @@ import "chartiq/examples/markers/videoSample";
 export default function ChartExample(props) {
 	const [{ config, resources }] = useState(() => {
 		const config = getExampleConfig();
+
+		/* Use dynamic load on demand as an alternative to static import */
+		config.plugins = {
+			// analystViews: {
+			// 	load() { return import("chartiq/plugins/analystviews/components") }
+			// },
+			// tfc: {
+			// 	load() {
+			// 		return Promise.all([
+			// 			import("chartiq/plugins/tfc/tfc-loader"),
+			// 			import("chartiq/plugins/tfc/tfc-demo")
+			// 		]);
+			// 	}
+			// },
+			// technicalInsights: {
+			// 	load() { return import("chartiq/plugins/technicalinsights/components") },
+			// 	uid: "" // uid for plugin
+			// }
+		}
 		CIQ.extend(config, props.config || {});
 
 		return { config, resources: { ...exampleResources, ...props.resources } };

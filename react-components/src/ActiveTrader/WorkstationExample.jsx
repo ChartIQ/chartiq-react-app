@@ -30,6 +30,7 @@ function getExampleConfig() {
 // Symbol mapping to market definition
 import "chartiq/examples/markets/marketDefinitionsSample";
 import "chartiq/examples/markets/marketSymbologySample";
+import "chartiq/examples/markets/timezones.js";
 
 // Translation file
 import "chartiq/examples/translations/translationSample";
