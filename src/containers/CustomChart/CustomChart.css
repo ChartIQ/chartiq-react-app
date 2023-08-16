@@ -38,10 +38,3 @@
 	margin: 10px;
 	height: 65vh;
 }
-
-/* center dialogs on screen*/
-.cq-dialogs {
-	position: absolute;
-	width: 100vw;
-	top: 0;
-}

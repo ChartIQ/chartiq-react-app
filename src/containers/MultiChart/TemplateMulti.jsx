@@ -197,8 +197,8 @@ export default function ({ config, pluginToggles }) {
 										</cq-item>
 										<cq-item stxtap="Markers.showMarkers('callout')" cq-no-close>Callouts<span className="ciq-switch"><span></span></span>
 										</cq-item>
-										<cq-item class="ta_markers-ui" stxtap="Markers.showMarkers('trade')" cq-no-close>Trade<span className="ciq-switch"><span></span></span>
-										</cq-item>
+										{/* <cq-item class="ta_markers-ui" stxtap="Markers.showMarkers('trade')" cq-no-close>Trade<span className="ciq-switch"><span></span></span>
+										</cq-item> */}
 										<cq-item class="video_markers-ui" stxtap="Markers.showMarkers('video')" cq-no-close>Video<span className="ciq-switch"><span></span></span>
 										</cq-item>
 										<cq-item stxtap="Markers.showMarkers('helicopter')" cq-no-close>Abstract<span className="ciq-switch"><span></span></span>

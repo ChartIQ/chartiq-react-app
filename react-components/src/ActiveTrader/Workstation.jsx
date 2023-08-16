@@ -24,6 +24,9 @@ import "./library-overrides.css";
 import { getCustomConfig } from "./resources"; // ChartIQ library resources
 const { channelWrite } = CIQ.UI.BaseComponent.prototype;
 
+import getLicenseKey from "chartiq/key.js";
+getLicenseKey(CIQ);
+
 export { CIQ };
 /**
  * This is a fully functional example showing how to load a chart with the Active Trader plugin and UI.
@@ -181,11 +184,14 @@ export default class Workstation extends React.Component {
  */
 
 // Adjustments to compensate for when webpack config is not available
-(function initDynamicShare() { // Decorate the library function to avoid copying html2canvas.min.js to distribution to js/thirdparty directory
+(function initDynamicShare() {
+	// Decorate the library function to avoid copying html2canvas.min.js to distribution to js/thirdparty directory
+	if (CIQ.Share.fullChart2PNG_init) return;
 	const fullChart2PNG = CIQ.Share.fullChart2PNG;
 	CIQ.Share.fullChart2PNG = function (stx, params, cb) {
 		import("chartiq/js/thirdparty/html2canvas.min.js").then(() => {
 			fullChart2PNG(stx, params, cb);
 		});
-	}
+	};
+	CIQ.Share.fullChart2PNG_init = true;
 })();

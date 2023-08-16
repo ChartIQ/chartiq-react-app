@@ -19,6 +19,7 @@ const chartInitialized = ({ chartEngine, uiContext }) => {
 };
 import "chartiq/examples/markets/marketDefinitionsSample";
 import "chartiq/examples/markets/marketSymbologySample";
+import "chartiq/examples/markets/timezones.js";
 
 export default function ChartExample(props) {
 	const [{ config, resources }] = useState(() => {

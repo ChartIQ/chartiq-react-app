@@ -1,6 +1,6 @@
 {
 	"name": "chartiq-react-app",
-	"version": "8.9.0",
+	"version": "9.0.0",
 	"description": "ChartIQ's full featured charting application written in ReactJS",
 	"main": "index.js",
 	"scripts": {

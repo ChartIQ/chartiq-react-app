@@ -15,6 +15,9 @@ import "./library-overrides.css";
 
 import { getCustomConfig } from "./resources"; // ChartIQ library resources
 
+import getLicenseKey from "chartiq/key.js";
+getLicenseKey(CIQ);
+
 export { CIQ };
 
 /**
@@ -79,6 +82,14 @@ export default class Core extends React.Component {
 	}
 
 	createChartAndUI({ container, config }) {
+		// A Strategy to optionally use the Study Menu or the default Study Browser via URL query string.
+		const useStudyMenu = /studymenu=y/i.test(document.location.href);
+		if (useStudyMenu && CIQ.Studies.Favorites) {
+			CIQ.Studies.Favorites_disabled = CIQ.Studies.Favorites;
+			delete CIQ.Studies.Favorites;
+		} else if (!useStudyMenu && CIQ.Studies.Favorites_disabled) {
+			CIQ.Studies.Favorites = CIQ.Studies.Favorites_disabled;
+		}
 		return new CIQ.UI.Chart().createChartAndUI({ container, config });
 	}
 
@@ -134,10 +145,12 @@ function dialogPortalized(el) {
 // Adjustments to compensate for when webpack config is not available
 (function initDynamicShare() {
 	// Decorate the library function to avoid copying html2canvas.min.js to distribution to js/thirdparty directory
+	if (CIQ.Share.fullChart2PNG_init) return;
 	const fullChart2PNG = CIQ.Share.fullChart2PNG;
 	CIQ.Share.fullChart2PNG = function (stx, params, cb) {
 		import("chartiq/js/thirdparty/html2canvas.min.js").then(() => {
 			fullChart2PNG(stx, params, cb);
 		});
 	};
+	CIQ.Share.fullChart2PNG_init = true;
 })();

@@ -23,12 +23,12 @@ function getCustomConfig({ chartId, symbol, onChartReady, resources } = {}) {
 	// Enable / disable addOns here before creating the chart
 	config.enabledAddOns.animation = true;
 
-	const { 
+	const {
 		marketDepth,
 		tfc,
 	} = config.plugins;
 	// Select only plugin configurations that needs to be active for this chart
-	config.plugins = { 
+	config.plugins = {
 		marketDepth,
 		tfc,
 	};
@@ -43,7 +43,7 @@ function getCustomConfig({ chartId, symbol, onChartReady, resources } = {}) {
 	};
 
 	config.menuChartPreferences = config.menuChartPreferences.filter(
-		(item) => item.label !== "Market Depth" && item.label !== "Extended Hours"
+		(item) => item.label !== "Extended Hours"
 	);
 
 	config.addOns.tableView.coverContainer = ".ciq-chart-area";

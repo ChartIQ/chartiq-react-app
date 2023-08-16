@@ -22,7 +22,9 @@ const Chart = ({ config }) => {
 			import("chartiq/js/advanced.js"),
 			import("chartiq/plugins/signaliq/signaliqDialog"),
 			import("chartiq/plugins/signaliq/signaliq-marker"),
-			import("chartiq/plugins/signaliq/signaliq-paintbar")
+			import("chartiq/plugins/signaliq/signaliq-paintbar"),
+			import("chartiq/plugins/studybrowser"),
+			import("chartiq/examples/markers/tradeAnalyticsSample")
 		])
 			.then(() => setResolved(true))
 			.catch(() => setResolved(true));
@@ -74,19 +76,29 @@ export default function Routes() {
 			<Route path='/index.html' component={RouteList}></Route>
 
 			<Route path='/chart'>
-				<Chart config={{ plugins: { tfc: null, marketDepth: null } }} />
+				<Chart config={{
+					plugins: { tfc: null, marketDepth: null },
+					menuStudiesConfig: { excludedStudies: { DoM: true } }
+				}} />
 			</Route>
 
 			<Route path='/multi-chart'>
-				<MultiChartExample
-					config={{ plugins: { tfc: null, marketDepth: null } }}
+				<MultiChartExample config={{
+					plugins: { tfc: null, marketDepth: null, studyBrowser: null },
+					menuStudiesConfig: { excludedStudies: { DoM: true } }
+				}}
 				/>
 			</Route>
 
 			<Route path='/active-trader' component={ActiveTrader}></Route>
 			<Route path='/cross-section' component={Crosssection}></Route>
 
-			<Route path='/custom-chart' component={CustomChart}></Route>
+			<Route path='/custom-chart'>
+				<CustomChart config={{
+					plugins: { tfc: null, marketDepth: null, studyBrowser: null },
+					menuStudiesConfig: { excludedStudies: { DoM: true } }
+				}} />
+			</Route>
 			<Route path='/hello-world' component={HelloWorld}></Route>
 		</Router>
 	);

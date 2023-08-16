@@ -13,11 +13,13 @@ import marker from "chartiq/examples/markers/markersSample";
 // Symbol mapping to market definition
 import "chartiq/examples/markets/marketDefinitionsSample";
 import "chartiq/examples/markets/marketSymbologySample";
+import "chartiq/examples/markets/timezones.js";
 
 // Translation file
 import "chartiq/examples/translations/translationSample";
 
 // Example Marker files
+//import "chartiq/examples/markers/tradeAnalyticsSample";
 import "chartiq/examples/markers/videoSample";
 
 // Enable advanced features

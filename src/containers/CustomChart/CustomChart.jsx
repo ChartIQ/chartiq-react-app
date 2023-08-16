@@ -10,6 +10,9 @@ import "./CustomChart.css";
 import { default as ShortcutDialog } from "./ShortcutDialog/ShortcutDialog";
 import { default as RecentSymbols } from "./RecentSymbols/RecentSymbols";
 
+import getLicenseKey from "chartiq/key.js";
+getLicenseKey(CIQ);
+
 /**
  * This is an example custom implementation of the Chart component with added React components.
  *
@@ -35,7 +38,7 @@ export default class CustomChart extends React.Component {
 			`
 		};
 
-		this.config = props.config || getCustomConfig(props);
+		this.config = CIQ.extend(getCustomConfig(props), props.config || {});
 
 		this.state = {
 			chart: new CIQ.UI.Chart(),
@@ -416,8 +419,8 @@ export default class CustomChart extends React.Component {
 												</cq-item>
 												<cq-item stxtap="Markers.showMarkers('callout')" cq-no-close>Callouts<span className="ciq-switch"><span></span></span>
 												</cq-item>
-												<cq-item class="ta_markers-ui" stxtap="Markers.showMarkers('trade')" cq-no-close>Trade<span className="ciq-switch"><span></span></span>
-												</cq-item>
+												{/* <cq-item class="ta_markers-ui" stxtap="Markers.showMarkers('trade')" cq-no-close>Trade<span className="ciq-switch"><span></span></span>
+												</cq-item> --> */}
 												<cq-item class="video_markers-ui" stxtap="Markers.showMarkers('video')" cq-no-close>Video<span className="ciq-switch"><span></span></span>
 												</cq-item>
 												<cq-item stxtap="Markers.showMarkers('helicopter')" cq-no-close>Abstract<span className="ciq-switch"><span></span></span>

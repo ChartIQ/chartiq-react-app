@@ -170,7 +170,7 @@ export default function () {
 											<span></span>
 										</span>
 									</cq-item>
-									<cq-item
+									{/* <cq-item
 										class='ta_markers-ui'
 										stxtap="Markers.showMarkers('trade')"
 										cq-no-close
@@ -179,7 +179,7 @@ export default function () {
 										<span className='ciq-switch'>
 											<span></span>
 										</span>
-									</cq-item>
+									</cq-item> */}
 									<cq-item
 										class='video_markers-ui'
 										stxtap="Markers.showMarkers('video')"

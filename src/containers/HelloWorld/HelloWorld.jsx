@@ -1,6 +1,9 @@
 import React from "react";
 import { CIQ } from "chartiq/js/chartiq";
 
+import getLicenseKey from "chartiq/key.js";
+getLicenseKey(CIQ);
+
 /**
  * The Hello World component creates a basic chart from a built-in static data source. The chart
  * does not have a user interface.
