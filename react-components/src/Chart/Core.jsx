@@ -11,6 +11,7 @@ import ChartTemplate from "./Template";
 import "chartiq/css/normalize.css";
 import "chartiq/css/stx-chart.css"; // Chart API
 import "chartiq/css/chartiq.css"; // Chart UI
+import "chartiq/css/webcomponents.css";
 import "./library-overrides.css";
 
 import { getCustomConfig } from "./resources"; // ChartIQ library resources
@@ -59,7 +60,7 @@ export default class Core extends React.Component {
 		// Delay the call to createChartAndUI so any other chart components on the page
 		// using multi chart setup have a chance to call portalizeContextDialogs
 		window.setTimeout(() => {
-			const uiContext = this.uiContext = this.createChartAndUI({ container, config });
+			const uiContext = this.uiContext = (new CIQ.UI.Chart()).createChartAndUI({ container, config });;
 			const chartEngine = this.stx = uiContext.stx;
 
 			this.setState({ stx: chartEngine, UIContext: uiContext });
@@ -79,18 +80,6 @@ export default class Core extends React.Component {
 
 		this.stx.destroy();
 		this.stx.draw = () => {};
-	}
-
-	createChartAndUI({ container, config }) {
-		// A Strategy to optionally use the Study Menu or the default Study Browser via URL query string.
-		const useStudyMenu = /studymenu=y/i.test(document.location.href);
-		if (useStudyMenu && CIQ.Studies.Favorites) {
-			CIQ.Studies.Favorites_disabled = CIQ.Studies.Favorites;
-			delete CIQ.Studies.Favorites;
-		} else if (!useStudyMenu && CIQ.Studies.Favorites_disabled) {
-			CIQ.Studies.Favorites = CIQ.Studies.Favorites_disabled;
-		}
-		return new CIQ.UI.Chart().createChartAndUI({ container, config });
 	}
 
 	render() {

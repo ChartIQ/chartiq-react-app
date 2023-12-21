@@ -39,10 +39,11 @@ function getCustomConfig({ chartId, symbol, onChartReady, resources } = {}) {
 		step: true,
 		record: true,
 		height: "40%",
-		precedingContainer: "#marketDepthBookmark"
+		precedingContainer: "#marketDepthBookmark",
+		interaction: true
 	};
 
-	config.menuChartPreferences = config.menuChartPreferences.filter(
+	config.menus.preferences.content = config.menus.preferences.content.filter(
 		(item) => item.label !== "Extended Hours"
 	);
 

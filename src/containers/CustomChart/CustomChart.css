@@ -1,4 +1,4 @@
-.info {
+.custom-chart-info {
 	user-select: text;
 	padding: 8px 14px;
 	font-size: 0.8rem;
@@ -7,7 +7,7 @@
 	color: #000;
 }
 
-.info h2 {
+.custom-chart-info h2 {
 	font: 600 1.2rem Helvetica, sans-serif;
 	text-transform: uppercase;
 	letter-spacing: 6px;
@@ -16,20 +16,20 @@
 	color: #398dff;
 }
 
-.info ul {
+.custom-chart-info ul {
 	margin: 0;
 	padding: 0px 16px;
 }
 
-.info li {
+.custom-chart-info li {
 	margin-top: 4px;
 }
 
-.info div {
+.custom-chart-info div {
 	width: 65%;
 }
 
-.info .instruction {
+.custom-chart-info .instruction {
 	font-style: italic;
 }
 

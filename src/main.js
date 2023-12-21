@@ -4,17 +4,23 @@ import ReactDom from "react-dom";
 import "chartiq/css/page-defaults.css";
 
 /**
+ * This import is used for automated testing of the chart library. It is not needed 
+ * for customer projects.
+ */
+import "./testInitialization";
+
+/**
+ * If you would like a minimal example of the Core Chart package, use the following
+ * import to directly import Chart from the react components package.
+ */
+// import App from "@chartiq/react-components";
+
+/**
  * If you would like to get started with the Core Chart package with included
  * example markets, translations, and markers, use the following
  * import to directly import Chart from the react components package.
  */
 // import App from "@chartiq/react-components/Chart/ChartExample";
-
-/**
- * If you would like a minimul example of the Core Chart package, use the following
- * import to directly import Chart from the react components package.
- */
-// import App from "@chartiq/react-components";
 
 /**
  * If you would like to render the AdvancedChart for technical analysis, use the
@@ -23,10 +29,21 @@ import "chartiq/css/page-defaults.css";
 // import App from "@chartiq/react-components/Chart/Advanced";
 
 /**
+ * AdvancedChart with example markets, translations, and markers
+ */
+// import App from "@chartiq/react-components/Chart/AdvancedExample";
+
+/**
  * If you would like render the ActiveTrader Workstation with Trade From Chart
  * and MarketDepth, use the following import. Requires the ActiveTrader package or plug-in.
  */
 // import App from "@chartiq/react-components/ActiveTrader";
+
+/**
+ * ActiveTrader Workstation with example markets, translations, and markers
+ */
+// import App from "@chartiq/react-components/ActiveTrader/WorkstationExample";
+
 /* ActiveTrader requires TFC account. The tfc-demo provides an example implementation */
 // import "chartiq/plugins/tfc/tfc-demo";
 

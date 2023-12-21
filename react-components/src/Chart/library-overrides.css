@@ -1,3 +1,11 @@
 cq-context:not([crosssection-active]) .toggle-options {
 	display: inherit;
 }
+/* Display video markers in menu */
+[feature=video_markers] {
+	display: revert;
+}
+
+cq-dialog {
+	top: 0;
+}

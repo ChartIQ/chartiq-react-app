@@ -1,6 +1,7 @@
 import React from "react";
 import { CIQ } from "chartiq/js/standard";
 import "chartiq/js/components";
+import "chartiq/js/components-legacy";
 import "chartiq/plugins/crosssection/core";
 import "chartiq/plugins/crosssection/datepicker";
 import "chartiq/plugins/crosssection/ui";

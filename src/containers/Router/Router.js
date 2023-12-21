@@ -23,10 +23,14 @@ const Chart = ({ config }) => {
 			import("chartiq/plugins/signaliq/signaliqDialog"),
 			import("chartiq/plugins/signaliq/signaliq-marker"),
 			import("chartiq/plugins/signaliq/signaliq-paintbar"),
-			import("chartiq/plugins/studybrowser"),
-			import("chartiq/examples/markers/tradeAnalyticsSample")
+			import("chartiq/plugins/studybrowser")
 		])
-			.then(() => setResolved(true))
+			.then((modules) => {
+				// TA markers require highPerformance markers available in advanced.js
+				if (modules[0].status !== "rejected") import("chartiq/examples/markers/tradeAnalyticsSample");
+				setResolved(true);
+				return modules;
+			})
 			.catch(() => setResolved(true));
 	}, []);
 
@@ -57,15 +61,16 @@ export default function Routes() {
 			})
 			.catch(() => {});
 
-		import("chartiq/plugins/crosssection/core") // check if library plugin is available
-			.then(() => {
-				// load and update react component
-				import("@chartiq/react-components/CrossSection").then((module) => {
-					Crosssection = module.ChartExample;
-					setAvailableResources({ crosssection: true });
-				});
-			})
-			.catch(() => {});
+		// NOTE: Cross section is presently incompatible with library components version 9.1
+		// import("chartiq/plugins/crosssection/core") // check if library plugin is available
+		// 	.then(() => {
+		// 		// load and update react component
+		// 		import("@chartiq/react-components/CrossSection").then((module) => {
+		// 			Crosssection = module.ChartExample;
+		// 			setAvailableResources({ crosssection: true });
+		// 		});
+		// 	})
+		// 	.catch(() => {});
 	}, []);
 
 	return (
@@ -82,16 +87,22 @@ export default function Routes() {
 				}} />
 			</Route>
 
-			<Route path='/multi-chart'>
-				<MultiChartExample config={{
-					plugins: { tfc: null, marketDepth: null, studyBrowser: null },
-					menuStudiesConfig: { excludedStudies: { DoM: true } }
-				}}
-				/>
-			</Route>
+			{/* 
+				NOTE: MultiChart is presently incompatible with library web components version 9.1
+				<Route path='/multi-chart'>
+					<MultiChartExample config={{
+						plugins: { tfc: null, marketDepth: null, studyBrowser: null },
+						menuStudiesConfig: { excludedStudies: { DoM: true } }
+					}}
+					/>
+				</Route> 
+			*/}
 
 			<Route path='/active-trader' component={ActiveTrader}></Route>
-			<Route path='/cross-section' component={Crosssection}></Route>
+			{/* 
+				NOTE: TermStructure is presently incompatible with library web components version 9.1
+				<Route path='/cross-section' component={Crosssection}></Route> 
+			*/}
 
 			<Route path='/custom-chart'>
 				<CustomChart config={{
@@ -132,8 +143,15 @@ function RouteList() {
 				</li>
 				<li>
 					<h3>
-						<Link to='multi-chart'>MultiChart</Link>
+						{/* <Link to='multi-chart'> */}
+							MultiChart
+						{/* </Link> */}
 					</h3>
+					<p>
+						NOTE: MultiChart is presently incompatible with library web components version 9.1
+						<br/>
+						To use this chart, you need to import legacy web components. See the <a href="https://documentation.chartiq.com/tutorial-Upgradelog_9.0.0-9.1.2.html" target="_blank">upgrade guide</a> for more information on working with legacy web components.
+					</p>
 					<p>Displays multiple charts with a shared header and footer.</p>
 				</li>
 				<li>
@@ -153,10 +171,15 @@ function RouteList() {
 				</li>
 				<li>
 					<h3 title='Requires CrossSection plugin'>
-						<Link to='cross-section'>
+						{/* <Link to='cross-section'> */}
 							CrossSection (formerly TermStructure)
-						</Link>
+						{/* </Link> */}
 					</h3>
+					<p>
+						NOTE: TermStructure is presently incompatible with library web components version 9.1
+						<br/>
+						To use this chart, you need to import legacy web components. See the <a href="https://documentation.chartiq.com/tutorial-Upgradelog_9.0.0-9.1.2.html" target="_blank">upgrade guide</a> for more information on working with legacy web components.
+					</p>
 					<p>
 						Creates a term structure chart for working with non&ndash;time
 						series data.

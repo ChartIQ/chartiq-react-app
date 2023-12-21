@@ -18,6 +18,7 @@ import "./Workstation.css";
 import "chartiq/css/normalize.css";
 import "chartiq/css/stx-chart.css";
 import "chartiq/css/chartiq.css";
+import "chartiq/css/webcomponents.css";
 
 import "./library-overrides.css";
 
