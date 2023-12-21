@@ -382,10 +382,10 @@ export default function ({ config, pluginToggles }) {
 									<span className="ciq-solo-toggle" stxtap="toggleSolo()" title="Toggle solo mode"></span>
 								</div>
 							</div>
-							<cq-side-panel></cq-side-panel>
 						</cq-context>
 					</cq-context-wrapper>
 				</div>
+				<cq-side-panel></cq-side-panel>
 			</div>
 
 			<cq-abstract-marker cq-type='helicopter'></cq-abstract-marker>

@@ -6,7 +6,7 @@ import defaultConfig from "chartiq/js/defaultConfiguration";
 // Creates a complete customised configuration object
 function getConfig(resources = {}) {
 	if(!resources.quoteFeed && resources.quoteFeed!== null ) resources.quoteFeed = quoteFeed
-	return defaultConfig(resources);
+	return defaultConfig({ ...resources, deprecatedSettings: true });
 }
 
 // Creates a complete customised configuration object

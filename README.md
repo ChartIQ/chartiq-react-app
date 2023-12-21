@@ -26,9 +26,13 @@ React components in *react-components/src/* (also available from @chartiq/react-
 - `AdvancedChart (Chart/Advanced)` — Creates a full-featured chart with a fully developed user interface. Use with Technical Analysis package.
 - `ActiveTraderWorkstation (ActiveTrader/Workstation)` &mdash; Sets up an information-rich desktop for traders who trade frequently.
 - `TermStructure (CrossSection/Chart)` &mdash; Creates a term structure chart for working with non-time-series data.
+  - NOTE: TermStructure is presently incompatible with library web components version 9.1
+  - To use this chart, you need to import legacy web components. See the [upgrade guide](https://documentation.chartiq.com/tutorial-Upgradelog_9.0.0-9.1.2.html) for more information on working with legacy web components.
 
 Custom implementations in *src/containers/*
 - `MultiChart` &mdash; Displays two advanced charts on screen simultaneously.
+  - NOTE: MultiChart is presently incompatible with library web components version 9.1
+  - To use this chart, you need to import legacy web components. See the [upgrade guide](https://documentation.chartiq.com/tutorial-Upgradelog_9.0.0-9.1.2.html) for more information on working with legacy web components.
 - `CustomChart` &mdash; Integrates native React components with ChartIQ W3C-standard web components.
 - `HelloWorld` &mdash; Creates a basic chart with no user interface as a starting point for your React app.
 
@@ -36,11 +40,8 @@ For an example of creating a chart user interface entirely with native React com
 
 ## Requirements
 
-A copy of the ChartIQ library, version 9.0.0 or later.
-
-If you do not have a copy of the library, please contact your account manager or send an email to <info@chartiq.com>.
-
-To obtain an evaluation version of the ChartIQ library, visit our <a href="https://www.spglobal.com/marketintelligence/en/pages/request_follow_up_page" target="_blank">Request Follow Up site</a> to get in contact with us!
+- A copy of the ChartIQ JavaScript library (works best with version 9.1.3).
+  - If you do not have a copy of the library or need a different version, please contact your account manager or visit our <a href="https://pages.marketintelligence.spglobal.com/ChartIQ-Follow-up-Request.html" target="_blank">Request Follow-Up Site</a>.
 
 ## Getting started
 
