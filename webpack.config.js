@@ -148,7 +148,7 @@ module.exports = env => {
              */
             new HTMLWebpackPlugin({
                 title: 'AdvancedChart',
-                filename: path.join(__dirname, 'dist', 'index.html'),
+                filename: path.join("./", 'index.html'),
                 template: path.join(__dirname, 'index.html'),
             })
         ],
