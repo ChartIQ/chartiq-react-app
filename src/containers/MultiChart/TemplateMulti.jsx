@@ -294,15 +294,6 @@ export default function ({ config, pluginToggles }) {
 
 			<cq-scriptiq class='scriptiq-ui'></cq-scriptiq>
 
-			<cq-analystviews
-				class='analystviews-ui'
-				token='eZOrIVNU3KR1f0cf6PTUYg=='
-				partner='1000'
-				disabled
-			></cq-analystviews>
-
-			<cq-technicalinsights uid='' lang='en' disabled></cq-technicalinsights>
-
 			<div className="ciq-multi-chart-container-wrapper">
 
 			<cq-palette-dock>

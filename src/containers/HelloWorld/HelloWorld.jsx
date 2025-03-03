@@ -1,7 +1,7 @@
 import React from "react";
 import { CIQ } from "chartiq/js/chartiq";
 
-import getLicenseKey from "chartiq/key.js";
+import getLicenseKey from "keyDir/key.js";
 getLicenseKey(CIQ);
 
 /**

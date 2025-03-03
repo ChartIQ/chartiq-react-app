@@ -1,6 +1,6 @@
 {
   "name": "@chartiq/react-components",
-  "version": "9.1.3",
+  "version": "9.6.2",
   "description": "React Components for ChartIQ library",
   "main": "index.js",
   "files": [
@@ -32,6 +32,8 @@
     "chartiq"
   ],
   "author": "ChartIQ",
+  "license": "ISC",
+  "repository": "https://github.com/ChartIQ/chartiq-react-app",
   "devDependencies": {
     "@babel/cli": "^7.16.0",
     "@babel/core": "^7.1.2",

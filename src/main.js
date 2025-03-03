@@ -7,7 +7,7 @@ import "chartiq/css/page-defaults.css";
  * This import is used for automated testing of the chart library. It is not needed 
  * for customer projects.
  */
-import "./testInitialization";
+import "./testInitialization.js";
 
 /**
  * If you would like a minimal example of the Core Chart package, use the following
@@ -58,7 +58,7 @@ import "./testInitialization";
  * If you would like to see a full listing of the different components that can
  * be built in React import the Router below
  */
-import App from "./containers/Router/Router";
+import App from "./containers/Router/Router.js";
 
 const el = document.querySelector("#app");
 

@@ -13,23 +13,32 @@ chartiq-*.*.*.tgz
 # Ignore built files
 dist
 
-# Ignore error screenshots
+# Ignore generated test files
 tests/errorShots
+tests/logs
 
 #Ignore any workspace files
-*.project
-*.code-workspace
 *.sublime-workspace
 *.sublime-project
 *~
 *.swp
 
-#Ignore stx folder
-stx
+#logs
+*.log
 
-#Ignore allure reports
+#Ignore tests
+stx
 allure-report
 allure-results
+tests/package-lock.json
+
+# vscode
+.vscode/
+*.code-workspace
+
+# eclipse
+.project
+.settings/
 
 # Ignore Components compiled folders
 

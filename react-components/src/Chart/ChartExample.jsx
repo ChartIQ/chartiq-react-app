@@ -55,7 +55,6 @@ import "chartiq/examples/markers/videoSample";
 // Plugins
 
 // Crypto, L2 Heat Map, Market Depth,
-// Important: Uncomment marketDepth in config.plugins below when enabling this plug-in.
 // import "chartiq/plugins/activetrader/cryptoiq";
 
 // ScriptIQ
@@ -66,24 +65,24 @@ import "chartiq/examples/markers/videoSample";
 // import "chartiq/plugins/signaliq/signaliq-marker";
 // import "chartiq/plugins/signaliq/signaliq-paintbar";
 
-// Trading Central: Technical Insights
-// import "chartiq/plugins/technicalinsights/components";
-
 // TFC plugin
 // Important: Uncomment tfc in config.plugins below when enabling this plug-in.
 // import "chartiq/plugins/tfc/tfc-loader";
 // import "chartiq/plugins/tfc/tfc-demo"; /* if using demo account class */
 
 // Time Span Events
-// Important: Uncomment timeSpanEventPanel in config.plugins below when enabling this plug-in.
 // import "chartiq/plugins/timespanevent/timespanevent";
 // import "chartiq/plugins/timespanevent/examples/timeSpanEventSample"; /* if using sample */
 
-// Trading Central: Analyst Views
-// import "chartiq/plugins/analystviews/components";
+// Trading Central: Technical Insights
+// Important: Uncomment technicalInsights in config.plugins below when enabling this plug-in.
+// import "chartiq/plugins/technicalinsights/components";
+
+// Trading Central: Technical Views
+// Important: Uncomment technicalViews in config.plugins below when enabling this plug-in.
+// import "chartiq/plugins/technicalviews/components";
 
 // Visual Earnings
-// Important: Uncomment visualEarnings in config.plugins below when enabling this plug-in.
 // import "chartiq/plugins/visualearnings/visualearnings";
 
 // Uncomment the following for the L2 simulator (required for the crypto sample and MarketDepth addOn)
@@ -95,20 +94,41 @@ export default function ChartExample(props) {
 
 		/* Use dynamic load on demand as an alternative to static import */
 		config.plugins = {
-			// analystViews: {
-			// 	load() { return import("chartiq/plugins/analystviews/components") }
-			// },
 			// tfc: {
-			// 	load() {
-			// 		return Promise.all([
-			// 			import("chartiq/plugins/tfc/tfc-loader"),
-			// 			import("chartiq/plugins/tfc/tfc-demo")
-			// 		]);
-			// 	}
+			// 	// use for dynamic plugin load
+			//  // @ts-ignore // ignore since load isn't defined in ts definition
+			// 	// load() {
+			// 	//	return Promise.all([
+			// 	//		import("chartiq/plugins/tfc/tfc-loader"),
+			// 	//		import("chartiq/plugins/tfc/tfc-demo")
+			// 	//	]);
+			// 	// }
 			// },
 			// technicalInsights: {
-			// 	load() { return import("chartiq/plugins/technicalinsights/components") },
-			// 	uid: "" // uid for plugin
+			// 	// use for dynamic plugin load
+			//  // @ts-ignore // ignore since load isn't defined in ts definition
+			// 	// load() {
+			// 	//	return import('chartiq/plugins/technicalinsights/components')
+			// 	// }
+			//	container: "",
+			//	moduleName: "",
+			//	lang: "en",
+			//	channel: "",
+			//	toggleMarkup: "",
+			//	token: ""
+			// },
+			// technicalViews: {
+			// 	// use for dynamic plugin load
+			//  // @ts-ignore // ignore since load isn't defined in ts definition
+			// 	// load() {
+			// 	//	return import('chartiq/plugins/technicalviews/components')
+			// 	// }
+			//	container: "",
+			//	moduleName: "",
+			//	channel: "",
+			//	toggleMarkup: "",
+			//	partner: 0,
+			//	token: ""
 			// }
 		}
 		CIQ.extend(config, props.config || {});
