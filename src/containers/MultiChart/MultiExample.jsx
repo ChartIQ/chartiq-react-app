@@ -28,7 +28,6 @@ import "chartiq/examples/markers/videoSample";
 // Plugins
 
 // Crypto, L2 Heat Map, Market Depth,
-// Important: Uncomment marketDepth in config.plugins below when enabling this plug-in.
 // import "chartiq/plugins/activetrader/cryptoiq";
 
 // SignalIQ

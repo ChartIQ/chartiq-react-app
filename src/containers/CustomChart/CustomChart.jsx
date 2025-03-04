@@ -9,7 +9,7 @@ import {
 import "./CustomChart.css";
 import { default as ShortcutDialog } from "./ShortcutDialog/ShortcutDialog";
 
-import getLicenseKey from "chartiq/key.js";
+import getLicenseKey from "keyDir/key.js";
 getLicenseKey(CIQ);
 
 /**
