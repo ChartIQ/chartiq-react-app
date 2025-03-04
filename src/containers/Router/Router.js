@@ -3,12 +3,12 @@ import { BrowserRouter, HashRouter, Link, Route } from "react-router-dom";
 
 import "chartiq/css/page-defaults.css";
 
-import HelloWorld from "../HelloWorld/HelloWorld";
-import MultiChartExample from "../MultiChart/MultiExample";
-import CustomChart from "../CustomChart/CustomChart";
+import HelloWorld from "../HelloWorld/HelloWorld.jsx";
+import MultiChartExample from "../MultiChart/MultiExample.jsx";
+import CustomChart from "../CustomChart/CustomChart.jsx";
 
 import { ChartExample } from "@chartiq/react-components/Chart";
-import MissingFeature from "../MissingFeature";
+import MissingFeature from "../MissingFeature.js";
 
 import "./Router.css";
 

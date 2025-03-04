@@ -40,23 +40,40 @@ For an example of creating a chart user interface entirely with native React com
 
 ## Requirements
 
-- A copy of the ChartIQ JavaScript library (works best with version 9.1.3).
+- A copy of the ChartIQ JavaScript library (works best with version 9.6.2).
   - If you do not have a copy of the library or need a different version, please contact your account manager or visit our <a href="https://pages.marketintelligence.spglobal.com/ChartIQ-Follow-up-Request.html" target="_blank">Request Follow-Up Site</a>.
 
 ## Getting started
 
-To implement this project:
+**Important:** When installing a package directly from npm (beginning with ChartIQ v9.5.1), the defaults are not npm compatible and will require adjustments.
+
+To implement this project **using the ChartIQ tarball**:
 
 1. Clone the repository.
 2. Extract the contents of your zipped ChartIQ library package.
 3. Copy the tarball (.tgz file) from the extracted library package into the root of this project.
-4. Run the following commands from the root of the project:
+4. Run the following command from the root of the project:
     - `npm install ./chartiq-x.x.x.tgz` to install the charting library
+5. If you want to locate your key.js file somewhere other than within the tarball, change the
+	webpack.config.js resolve.alias property to point to the proper key.js path. Alternatively, you may
+	specify the path directly when importing the key.js file.
+
+To implement this project using the ChartIQ packages **hosted on npmjs.org**:
+
+1. Clone the repository.
+2. In package.json, add the @chartiq/* packages from "chartiq-dependencies-for-npm" section into "dependencies" section.
+3. If you want to implement additional plugins from ChartIQ, you can install them from npmjs as well.
+4. Set up an environment variable KEY_FILE_DIR to use when starting webpack, that points to the proper key.js path.
+	Alternatively, you may specify the path directly when importing the key.js file.
+
+In both cases, continue with the following steps:
+
+- Run the following commands from the root of the project:
     - `npm install` to install the rest of the dependencies
     - `npm start` to start up the development server
-5. Open your browser to [http://localhost:4002](http://localhost:4002) to load the application.
+- Open your browser to [http://localhost:4002](http://localhost:4002) to load the application.
 
-**Note:** When you are upgrading or changing your license, we recommend that you completely remove the old library before reinstalling the new one, for example:
+**Note:** When you are upgrading or changing your license using the tarball, we recommend that you completely remove the old library before reinstalling the new one, for example:
 
 ```sh
 npm uninstall chartiq
@@ -124,8 +141,6 @@ The `ShortcutDialog` component is an example of a React component accessed by a 
 - This application runs only from IP address `127.0.0.1`, hostname `localhost`, or the explicit list of domains set on your ChartIQ license. If you need to bind the webpack development server to a different host, please contact your account manager to have additional domains added to your license.
 
 - If the web component polyfill is not required for supported browsers, the download size can be reduced by removing the polyfill script tag in the *index.html* file.
-
-- As of version 8.0.0 of the charting library, this project no longer supports Internet Explorer 11. Please contact [support@chartiq.com](mailto:support@chartiq.com) for information on using version 7.5.0 of the charting library to enable this project to work with IE 11.
 
 ## Questions and support
 

@@ -18,7 +18,7 @@ import "chartiq/css/chartiq.css";
 
 import { getCustomConfig } from "./resources"; // ChartIQ library resources
 
-import getLicenseKey from "chartiq/key.js";
+import getLicenseKey from "keyDir/key.js";
 getLicenseKey(CIQ);
 
 export { CIQ };
