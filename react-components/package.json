@@ -1,13 +1,13 @@
 {
   "name": "@chartiq/react-components",
-  "version": "9.6.2",
+  "version": "9.9.0",
   "description": "React Components for ChartIQ library",
   "main": "index.js",
   "files": [
     "Chart/",
-    "Advanced/",
     "ActiveTrader/",
     "CrossSection",
+    "MultiChart",
     "src/"
   ],
   "scripts": {
@@ -35,12 +35,12 @@
   "license": "ISC",
   "repository": "https://github.com/ChartIQ/chartiq-react-app",
   "devDependencies": {
-    "@babel/cli": "^7.16.0",
-    "@babel/core": "^7.1.2",
-    "@babel/plugin-syntax-dynamic-import": "^7.7.4",
+    "@babel/cli": "^7.26.4",
+    "@babel/core": "^7.26.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
     "@babel/polyfill": "^7.12.1",
-    "@babel/preset-env": "^7.14.0",
-    "@babel/preset-react": "^7.0.0"
+    "@babel/preset-env": "^7.26.0",
+    "@babel/preset-react": "^7.26.3"
   },
   "dependencies": {}
 }

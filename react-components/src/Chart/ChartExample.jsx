@@ -14,7 +14,7 @@ const chartInitialized = ({ chartEngine, uiContext }) => {
 	// Assign stx and CIQ to window for development convenience
 	Object.assign(window, { stx: chartEngine, CIQ });
 };
-
+ 
 // Callback to execute when chart is loaded for first time
 const onChartReady = (chartEngine) => {};
 
@@ -57,6 +57,10 @@ import "chartiq/examples/markers/videoSample";
 // Crypto, L2 Heat Map, Market Depth,
 // import "chartiq/plugins/activetrader/cryptoiq";
 
+// Importing the chart2music plugin from ChartIQ
+// chart2music will provide sonification (converting data into sound), support for screen readers, and keyboard handling capabilities.
+import 'chartiq/plugins/chart2music'
+
 // ScriptIQ
 // import "chartiq/plugins/scriptiq/scriptiq";
 
@@ -88,10 +92,10 @@ import "chartiq/examples/markers/videoSample";
 // Uncomment the following for the L2 simulator (required for the crypto sample and MarketDepth addOn)
 // import "chartiq/examples/feeds/L2_simulator"; /* for use with cryptoiq */
 
+
 export default function ChartExample(props) {
 	const [{ config, resources }] = useState(() => {
 		const config = getExampleConfig();
-
 		/* Use dynamic load on demand as an alternative to static import */
 		config.plugins = {
 			// tfc: {

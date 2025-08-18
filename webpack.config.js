@@ -20,12 +20,13 @@ const resolvedPaths = [
 	path.join(chartiqDir, "component-ui"),
 	path.join(chartiqDir, "web-components"),
 	path.join(chartiqDir, "active-trader"),
-	path.join(chartiqDir, "crossplot"),			 
+	path.join(chartiqDir, "crossplot"),
 	path.join(chartiqDir, "gonogo"),
 	path.join(chartiqDir, "institutional"),
 	path.join(chartiqDir, "scriptiq"),
 	path.join(chartiqDir, "trading-central"),
 	path.join(chartiqDir, "visual-earnings"),
+	path.join(chartiqDir, "chart2music"),
 	path.join(chartiqDir)
 ];
 const keyFileDir = process.env.KEY_FILE_DIR;

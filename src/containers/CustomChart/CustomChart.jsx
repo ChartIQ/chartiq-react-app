@@ -79,7 +79,6 @@ export default class CustomChart extends React.Component {
 			this.addPreferencesHelper(uiContext);
 			this.drawingToolsInfo = this.getDrawingTools(uiContext);
 		});
-		// portalizeContextDialogs(container);
 
 		this.setState({ stx: chartEngine, uiContext: uiContext });
 	}
@@ -344,26 +343,6 @@ export default class CustomChart extends React.Component {
 			</>
 		);
 	}
-}
-
-/**
- * For applications that have more then one chart, keep single dialog of the same type
- * and move it outside context node to be shared by all chart components
- */
-function portalizeContextDialogs(container) {
-	container.querySelectorAll("cq-dialog").forEach((dialog) => {
-		dialog.remove();
-		if (!dialogPortalized(dialog)) {
-			document.body.appendChild(dialog);
-		}
-	});
-}
-
-function dialogPortalized(el) {
-	const tag = el.firstChild.nodeName.toLowerCase();
-	return Array.from(document.querySelectorAll(tag)).some(
-		(el) => !el.closest("cq-context")
-	);
 }
 
 // Helper function that removes the existing drawing palette component and adds
