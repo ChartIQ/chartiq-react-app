@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter, HashRouter, Link, Route } from "react-router-dom";
+import { BrowserRouter, HashRouter, Link, Routes, Route } from "react-router";
 
 import "chartiq/css/page-defaults.css";
 
 import HelloWorld from "../HelloWorld/HelloWorld.jsx";
-import MultiChartExample from "../MultiChart/MultiExample.jsx";
+import MultiChartExample from "@chartiq/react-components/MultiChart/index.js";
 import CustomChart from "../CustomChart/CustomChart.jsx";
 
-import { ChartExample } from "@chartiq/react-components/Chart";
+import { ChartExample } from "@chartiq/react-components/Chart/index.js";
 import MissingFeature from "../MissingFeature.js";
-
 import "./Router.css";
 
 const Chart = ({ config }) => {
@@ -48,18 +47,18 @@ const { protocol, pathname } = document.location;
 const baseLocation = pathname.replace(/[^/]*$/, "");
 const Router = protocol === "file:" ? HashRouter : BrowserRouter;
 
-export default function Routes() {
+export default function MainRoutes() {
 	const [, setAvailableResources] = useState({});
 	useEffect(() => {
 		import("chartiq/plugins/activetrader/cryptoiq") // check if library plugin is available
 			.then(() => {
 				// load and update react component
-				import("@chartiq/react-components/ActiveTrader/WorkstationExample").then((module) => {
+				import("@chartiq/react-components/ActiveTrader/WorkstationExample.jsx").then((module) => {
 					ActiveTrader = module.default;
 					setAvailableResources({ activeTrader: true });
 				});
 			})
-			.catch(() => {});
+			.catch(() => { });
 
 		// NOTE: Cross section is presently incompatible with library components version 9.1
 		// import("chartiq/plugins/crosssection/core") // check if library plugin is available
@@ -75,42 +74,32 @@ export default function Routes() {
 
 	return (
 		<Router basename={baseLocation}>
-			<Route path='/' exact>
-				<RouteList />
-			</Route>
-			<Route path='/index.html' component={RouteList}></Route>
-
-			<Route path='/chart'>
-				<Chart config={{
+			<Routes>
+				<Route index path='/' element={<RouteList />} />
+				<Route path='/index.html' element={<RouteList />} />
+				<Route path='/chart' element={<Chart config={{
 					plugins: { tfc: null, marketDepth: null },
 					menuStudiesConfig: { excludedStudies: { DoM: true } }
-				}} />
-			</Route>
+				}} />} />
 
-			{/* 
-				NOTE: MultiChart is presently incompatible with library web components version 9.1
-				<Route path='/multi-chart'>
-					<MultiChartExample config={{
-						plugins: { tfc: null, marketDepth: null, studyBrowser: null },
-						menuStudiesConfig: { excludedStudies: { DoM: true } }
-					}}
-					/>
-				</Route> 
-			*/}
-
-			<Route path='/active-trader' component={ActiveTrader}></Route>
-			{/* 
+				<Route path='/multi-chart' element={<MultiChartExample config={{
+					plugins: { tfc: null, marketDepth: null, studyBrowser: null },
+					menuStudiesConfig: { excludedStudies: { DoM: true } }
+				}}
+				/>} />
+				<Route path='/active-trader' element={<ActiveTrader />} />
+				{/* 
 				NOTE: TermStructure is presently incompatible with library web components version 9.1
 				<Route path='/cross-section' component={Crosssection}></Route> 
 			*/}
 
-			<Route path='/custom-chart'>
-				<CustomChart config={{
+				<Route path='/custom-chart' element={<CustomChart config={{
 					plugins: { tfc: null, marketDepth: null, studyBrowser: null },
 					menuStudiesConfig: { excludedStudies: { DoM: true } }
-				}} />
-			</Route>
-			<Route path='/hello-world' component={HelloWorld}></Route>
+				}} />} />
+				<Route path='/hello-world' element={<HelloWorld />} />
+
+			</Routes>
 		</Router>
 	);
 }
@@ -143,15 +132,10 @@ function RouteList() {
 				</li>
 				<li>
 					<h3>
-						{/* <Link to='multi-chart'> */}
+						<Link to='multi-chart'>
 							MultiChart
-						{/* </Link> */}
+						</Link>
 					</h3>
-					<p>
-						NOTE: MultiChart is presently incompatible with library web components version 9.1
-						<br/>
-						To use this chart, you need to import legacy web components. See the <a href="https://documentation.chartiq.com/tutorial-Upgradelog_9.0.0-9.1.2.html" target="_blank">upgrade guide</a> for more information on working with legacy web components.
-					</p>
 					<p>Displays multiple charts with a shared header and footer.</p>
 				</li>
 				<li>
@@ -172,12 +156,12 @@ function RouteList() {
 				<li>
 					<h3 title='Requires CrossSection plugin'>
 						{/* <Link to='cross-section'> */}
-							CrossSection (formerly TermStructure)
+						CrossSection (formerly TermStructure)
 						{/* </Link> */}
 					</h3>
 					<p>
 						NOTE: TermStructure is presently incompatible with library web components version 9.1
-						<br/>
+						<br />
 						To use this chart, you need to import legacy web components. See the <a href="https://documentation.chartiq.com/tutorial-Upgradelog_9.0.0-9.1.2.html" target="_blank">upgrade guide</a> for more information on working with legacy web components.
 					</p>
 					<p>

@@ -2,24 +2,25 @@
 
 ## Contents
 
-  - [Overview](#overview)
-  - [Included Components](#included-components)
-      - [Charts](#charts)
-      - [Examples](#examples)
-  - [Getting Started](#getting-started)
-  - [Basic Customization](#basic-customization)
-    - [Customizing the chart config](#customizing-the-chart-config)
-    - [Adding your own quotefeed](#adding-your-own-quotefeed)
-    - [Customizing Component Template](#customizing-component-template)
-    - [Adding your own LookupDriver](#adding-your-own-lookupdriver)
-  - [Setting add-ons](#setting-add-ons)
-  - [Setting plug-ins](#setting-plug-ins)
-  - [Advanced Customization](#advanced-customization)
+- [Overview](#overview)
+- [Included Components](#included-components)
+  - [Charts](#charts)
+  - [Examples](#examples)
+- [Getting Started](#getting-started)
+- [Basic Customization](#basic-customization)
+  - [Customizing the chart config](#customizing-the-chart-config)
+  - [Adding your own quotefeed](#adding-your-own-quotefeed)
+  - [Customizing Component Template](#customizing-component-template)
+  - [Adding your own LookupDriver](#adding-your-own-lookupdriver)
+- [Setting add-ons](#setting-add-ons)
+- [Setting plug-ins](#setting-plug-ins)
+- [Advanced Customization](#advanced-customization)
+
 ## Overview
 
 The ChartIQ React Components is a React component library featuring chart components that can be easily imported into an existing React application.
 
-This package simplifies ChartIQ library use in the React framework. A copy of the ChartIQ JavaScript library is required (works best with version 9.6.2).
+This package simplifies ChartIQ library use in the React framework. A copy of the ChartIQ JavaScript library is required (works best with version 9.9.0).
 
 **If you do not have a copy of the library, please contact your account manager or send an email to <info@chartiq.com> or you may visit our <a href="https://pages.marketintelligence.spglobal.com/ChartIQ-Follow-up-Request.html" target="_blank">Request Follow Up site</a> to get in contact with us!**
 
@@ -33,6 +34,7 @@ Each component includes only the bare necessities to allow for maximum customiza
 - AdvancedChart &mdash; Full featured advanced chart component with everything needed for technical analysis.
 - ActiveTrader/Workstation &mdash; Sets up an information-rich component ready for traders.
 - CrossSection/Chart &mdash; Creates a working CrossSection (previously TermStructure) component for dealing with non-time-series data.
+- MultiChart &mdash; Provides the ability to use multiple charts in a grid, managed by a single UI.
 
 #### Examples
 
@@ -40,6 +42,7 @@ Each component includes only the bare necessities to allow for maximum customiza
 - AdvancedExample &mdash; AdvancedChart with all included ChartIQ example files.
 - ActiveTrader/WorkstationExample &mdash; Workstation with all included ChartIQ example files.
 - CrossSection/ChartExample &mdash; CrossSection Chart with all included ChartIQ example files.
+- MultiChart &mdash; Provides the ability to use multiple charts in a grid, managed by a single UI.
 
 > **Important Note Regarding Localization:** When compiling in production mode, default minification may strip out translation data. Webpack optimization parameters may be used to preserve the translation data. As an example, see the output.optimization.minimizer setting in the [chartiq-react-app webpack.config.js file](https://github.com/ChartIQ/chartiq-react-app/blob/master/webpack.config.js).
 
@@ -57,7 +60,7 @@ You can then import one of the included components into your React app:
 import Chart from '@chartiq/react-components'
 
 export default function MyChart() {
-	return <Chart />
+  return <Chart />
 }
 
 ```
@@ -76,7 +79,7 @@ Components require only parts of the default that requires customization, althou
 import Chart from @chartiq/react-components
 
 export default function MyChart() {
-	return <Chart config={{ initialSymbol: 'FB' }} />
+  return <Chart config={{ initialSymbol: 'FB' }} />
 }
 ```
 
@@ -84,7 +87,7 @@ which creates a chart with an initial symbol of 'FB' instead of 'AAPL' (the init
 
 ### Adding your own quotefeed
 
-All components will load simulated data using the quoteFeedSimulator so that you have some working data to get started. When you are ready to add your own quotefeed, it should be aded to the resources prop passed into the chart component. The quote feed simulator can be disabled by setting `quoteFeed` property in resources prop to a `null` value.
+All components will load simulated data using the quoteFeedSimulator so that you have some working data to get started. When you are ready to add your own quotefeed, it should be added to the resources prop passed into the chart component. The quote feed simulator can be disabled by setting `quoteFeed` property in resources prop to a `null` value.
 
 ```jsx
 import MyCustomQuotefeed from './myCustomQuotefeed'
@@ -100,7 +103,7 @@ Every component accepts children that it will render instead of its default JSX 
 import MyChartTemplate from './MyTemplate.jsx'
 
 <Chart>
-	<MyChartTemplate />
+  <MyChartTemplate />
 </Chart>
 ```
 
@@ -128,7 +131,7 @@ import Chart from 'chartiq/react-components/Chart'
 
 ```
 
-If you would like to pass custom configuration options to a specific add-on then you must pass the arguments to the `config.addOns` property and make sure the add-on is included in the `config.enabledAddOns` property. For example: 
+If you would like to pass custom configuration options to a specific add-on then you must pass the arguments to the `config.addOns` property and make sure the add-on is included in the `config.enabledAddOns` property. For example:
 
 ```jsx
 import Chart from 'chartiq/react-components/Chart'
@@ -148,7 +151,7 @@ const config = {
     }
   },
   enabledAddOns: {
-    continousZoom: true
+    continuousZoom: true
   }
 }
 <Chart config={config} />
@@ -194,7 +197,7 @@ const config = {
 <Chart config={config} />
 ```
 
-To enable the Market Depth chart and L2 Heat Map when using `AdvancedChart` from [Chart/Advanced](./src/Chart/Advanced.jsx) inside your own component 
+To enable the Market Depth chart and L2 Heat Map when using `AdvancedChart` from [Chart/Advanced](./src/Chart/Advanced.jsx) inside your own component
 
 ```js
 #MyComponent.js

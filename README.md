@@ -2,19 +2,18 @@
 
 ## Contents
 
-  - [Overview](#overview)
-  - [Requirements](#requirements)
-  - [Getting started](#getting-started)
-  - [Basic Customization](#basic-customization)
-  - [Customization](#customization)
-    - [Web component templates](#web-component-templates)
-    - [Configuration](#configuration)
-    - [Template component customization](#template-component-customization)
-    - [Component integration](#component-integration)
-  - [Important notes](#important-notes)
-  - [Questions and support](#questions-and-support)
-  - [Contributing to this project](#contributing-to-this-project)
-
+- [Overview](#overview)
+- [Requirements](#requirements)
+- [Getting started](#getting-started)
+- [Basic Customization](#basic-customization)
+- [Customization](#customization)
+  - [Web component templates](#web-component-templates)
+  - [Configuration](#configuration)
+  - [Template component customization](#template-component-customization)
+  - [Component integration](#component-integration)
+- [Important notes](#important-notes)
+- [Questions and support](#questions-and-support)
+- [Contributing to this project](#contributing-to-this-project)
 
 ## Overview
 
@@ -28,11 +27,11 @@ React components in *react-components/src/* (also available from @chartiq/react-
 - `TermStructure (CrossSection/Chart)` &mdash; Creates a term structure chart for working with non-time-series data.
   - NOTE: TermStructure is presently incompatible with library web components version 9.1
   - To use this chart, you need to import legacy web components. See the [upgrade guide](https://documentation.chartiq.com/tutorial-Upgradelog_9.0.0-9.1.2.html) for more information on working with legacy web components.
+- `MultiChart` &mdash; Provides the ability to use multiple charts in a grid, managed by a single UI.
 
 Custom implementations in *src/containers/*
-- `MultiChart` &mdash; Displays two advanced charts on screen simultaneously.
-  - NOTE: MultiChart is presently incompatible with library web components version 9.1
-  - To use this chart, you need to import legacy web components. See the [upgrade guide](https://documentation.chartiq.com/tutorial-Upgradelog_9.0.0-9.1.2.html) for more information on working with legacy web components.
+
+- `MultiChart` &mdash; Provides the ability to use multiple charts in a grid, managed by a single UI.
 - `CustomChart` &mdash; Integrates native React components with ChartIQ W3C-standard web components.
 - `HelloWorld` &mdash; Creates a basic chart with no user interface as a starting point for your React app.
 
@@ -40,7 +39,7 @@ For an example of creating a chart user interface entirely with native React com
 
 ## Requirements
 
-- A copy of the ChartIQ JavaScript library (works best with version 9.6.2).
+- A copy of the ChartIQ JavaScript library (works best with version 9.9.0).
   - If you do not have a copy of the library or need a different version, please contact your account manager or visit our <a href="https://pages.marketintelligence.spglobal.com/ChartIQ-Follow-up-Request.html" target="_blank">Request Follow-Up Site</a>.
 
 ## Getting started
@@ -55,8 +54,8 @@ To implement this project **using the ChartIQ tarball**:
 4. Run the following command from the root of the project:
     - `npm install ./chartiq-x.x.x.tgz` to install the charting library
 5. If you want to locate your key.js file somewhere other than within the tarball, change the
-	webpack.config.js resolve.alias property to point to the proper key.js path. Alternatively, you may
-	specify the path directly when importing the key.js file.
+webpack.config.js resolve.alias property to point to the proper key.js path. Alternatively, you may
+specify the path directly when importing the key.js file.
 
 To implement this project using the ChartIQ packages **hosted on npmjs.org**:
 
@@ -64,13 +63,13 @@ To implement this project using the ChartIQ packages **hosted on npmjs.org**:
 2. In package.json, add the @chartiq/* packages from "chartiq-dependencies-for-npm" section into "dependencies" section.
 3. If you want to implement additional plugins from ChartIQ, you can install them from npmjs as well.
 4. Set up an environment variable KEY_FILE_DIR to use when starting webpack, that points to the proper key.js path.
-	Alternatively, you may specify the path directly when importing the key.js file.
+Alternatively, you may specify the path directly when importing the key.js file.
 
 In both cases, continue with the following steps:
 
 - Run the following commands from the root of the project:
-    - `npm install` to install the rest of the dependencies
-    - `npm start` to start up the development server
+  - `npm install` to install the rest of the dependencies
+  - `npm start` to start up the development server
 - Open your browser to [http://localhost:4002](http://localhost:4002) to load the application.
 
 **Note:** When you are upgrading or changing your license using the tarball, we recommend that you completely remove the old library before reinstalling the new one, for example:
@@ -92,7 +91,7 @@ The *Template.jsx* files of the `AdvancedChart`, `ActiveTraderWorkstation`, and 
 
 ### Configuration
 
-You can configure a variety of chart features by modifying the configuration object provided to the component definition files of `AdvancedChart`, `CustomChart`, `ActiveTrader/Workstation`, and `CrossSection/Chart`. Sample configurations are available as `getConfig` and `getCustomConfig` functions in the resources files.
+You can configure a variety of chart features by modifying the configuration object provided to the component definition files of `CustomChart`, `ActiveTrader/Workstation`, `MultiChart` and `CrossSection/Chart`. Sample configurations are available as `getConfig` and `getCustomConfig` functions in the resources files.
 
 A default configuration is part of the ChartIQ library. See the [Chart Configuration](tutorial-Chart%20Configuration.html) tutorial for all the configuration details.
 
@@ -135,7 +134,6 @@ The `RecentSymbols` component provides an example of wrapping and enhancing a we
 
 The `ShortcutDialog` component is an example of a React component accessed by a web component. User interaction with a dropdown menu created by a ChartIQ `cq-menu` web component opens the dialog box created by the `ShortcutDialog` component. The dialog box enables users to set shortcut keys on the chart's drawing tools.
 
-
 ## Important notes
 
 - This application runs only from IP address `127.0.0.1`, hostname `localhost`, or the explicit list of domains set on your ChartIQ license. If you need to bind the webpack development server to a different host, please contact your account manager to have additional domains added to your license.
@@ -145,7 +143,7 @@ The `ShortcutDialog` component is an example of a React component accessed by a 
 ## Questions and support
 
 - Contact our development support team at [support@chartiq.com](mailto:support@chartiq.com).
-- See our SDK documentation at https://documentation.chartiq.com.
+- See our SDK documentation at <https://documentation.chartiq.com>.
 
 ## Contributing to this project
 

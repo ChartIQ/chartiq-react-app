@@ -52,10 +52,6 @@ export default class Multi extends React.Component {
 		const container = this.container.current;
 		const { chartInitialized } = this.props;
 		const { config } = this;
-
-		portalizeContextDialogs(container);
-		// Delay the call to createChartAndUI so any other chart components on the page
-		// using multi chart setup have a chance to call portalizeContextDialogs
 		window.setTimeout(() => {
 			const chartEntries = [{ symbol: "IBM" }, { symbol: "AAPL" }];
 			const store = new CIQ.NameValueStore();
@@ -128,28 +124,6 @@ export default class Multi extends React.Component {
 		);
 	}
 }
-
-/**
- * For applications that have more then one chart, keep single dialog of the same type
- * and move it outside context node to be shared by all chart components
- */
-function portalizeContextDialogs(container) {
-	container.querySelectorAll("cq-dialog").forEach((dialog) => {
-		dialog.remove();
-		if (!dialogPortalized(dialog)) {
-			document.body.appendChild(dialog);
-		}
-	});
-}
-
-function dialogPortalized(el) {
-	const tag = el.firstChild.nodeName.toLowerCase();
-	let result = Array.from(document.querySelectorAll(tag)).some(
-		(el) => !el.closest("cq-context")
-	);
-	return result;
-}
-
 /**
  * @callback Core~chartInitialized
  * @param {CIQ.ChartEngine} chartEngine

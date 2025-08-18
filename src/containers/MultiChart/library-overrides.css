@@ -1,8 +1,0 @@
-cq-context:not([crosssection-active]) .toggle-options {
-	display: inherit;
-}
-
-/* due to routing loading TA markers disable them explicitly here for multichart */
-cq-context:not([advanced-feature]) cq-item.ta_markers-ui {
-	display: none;
-}

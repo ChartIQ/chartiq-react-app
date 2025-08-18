@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Chart, { CIQ } from "./Multi";
+import Chart, { CIQ } from "./MultiChartExample";
 
 import quoteFeedSimulator from "chartiq/examples/feeds/quoteFeedSimulator";
 import PerfectScrollbar from "chartiq/js/thirdparty/perfect-scrollbar.esm.js";
@@ -21,6 +21,11 @@ import "chartiq/examples/translations/translationSample";
 // Example Marker files
 //import "chartiq/examples/markers/tradeAnalyticsSample";
 import "chartiq/examples/markers/videoSample";
+
+
+
+
+
 
 // Enable advanced features
 // import "chartiq/js/advanced";
