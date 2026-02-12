@@ -4,10 +4,9 @@ import { BrowserRouter, HashRouter, Link, Routes, Route } from "react-router";
 import "chartiq/css/page-defaults.css";
 
 import HelloWorld from "../HelloWorld/HelloWorld.jsx";
-import MultiChartExample from "@chartiq/react-components/MultiChart/index.js";
+import MultiChartExample from "../../components/MultiChart/index.js";
 import CustomChart from "../CustomChart/CustomChart.jsx";
-
-import { ChartExample } from "@chartiq/react-components/Chart/index.js";
+import { ChartExample } from "../../components/Chart/index.js";
 import MissingFeature from "../MissingFeature.js";
 import "./Router.css";
 
@@ -39,6 +38,7 @@ const Chart = ({ config }) => {
 let ActiveTrader = () => (
 	<MissingFeature feature={"ActiveTrader"} type={"plugin"} />
 );
+
 let Crosssection = () => (
 	<MissingFeature feature={"Crosssection"} type={"plugin"} />
 );
@@ -53,23 +53,30 @@ export default function MainRoutes() {
 		import("chartiq/plugins/activetrader/cryptoiq") // check if library plugin is available
 			.then(() => {
 				// load and update react component
-				import("@chartiq/react-components/ActiveTrader/WorkstationExample.jsx").then((module) => {
-					ActiveTrader = module.default;
+				import("../../components/ActiveTrader/WorkstationExample.jsx").then((module) => {
+				ActiveTrader = module.default;
 					setAvailableResources({ activeTrader: true });
 				});
 			})
 			.catch(() => { });
+		import("chartiq/plugins/crosssection/core")
+			.then(() => {
+				// load and update react component
+				import("../../components/CrossSection/index.js").then((module) => {
+					Crosssection = module.ChartExample;
+					setAvailableResources({ crosssection: true });
+				});
+			})
+			.catch(() => {});
+		
+		// Reload page on browser back/forward React Router would change the route BUT keep the same React component instances in memory
+		// ChartIQ state (chart data, drawings, settings) was preserved in the component and in localStorage/DOM
+		const handlePopState = () => {
+			window.location.reload();
+		};
 
-		// NOTE: Cross section is presently incompatible with library components version 9.1
-		// import("chartiq/plugins/crosssection/core") // check if library plugin is available
-		// 	.then(() => {
-		// 		// load and update react component
-		// 		import("@chartiq/react-components/CrossSection").then((module) => {
-		// 			Crosssection = module.ChartExample;
-		// 			setAvailableResources({ crosssection: true });
-		// 		});
-		// 	})
-		// 	.catch(() => {});
+		window.addEventListener('popstate', handlePopState);
+		return () => window.removeEventListener('popstate', handlePopState);
 	}, []);
 
 	return (
@@ -88,17 +95,15 @@ export default function MainRoutes() {
 				}}
 				/>} />
 				<Route path='/active-trader' element={<ActiveTrader />} />
-				{/* 
-				NOTE: TermStructure is presently incompatible with library web components version 9.1
-				<Route path='/cross-section' component={Crosssection}></Route> 
-			*/}
+				
+				<Route path='/cross-section' element={<Crosssection />} />				
+			
 
 				<Route path='/custom-chart' element={<CustomChart config={{
 					plugins: { tfc: null, marketDepth: null, studyBrowser: null },
 					menuStudiesConfig: { excludedStudies: { DoM: true } }
 				}} />} />
 				<Route path='/hello-world' element={<HelloWorld />} />
-
 			</Routes>
 		</Router>
 	);
@@ -155,15 +160,10 @@ function RouteList() {
 				</li>
 				<li>
 					<h3 title='Requires CrossSection plugin'>
-						{/* <Link to='cross-section'> */}
+						<Link to='cross-section'>
 						CrossSection (formerly TermStructure)
-						{/* </Link> */}
+						</Link>
 					</h3>
-					<p>
-						NOTE: TermStructure is presently incompatible with library web components version 9.1
-						<br />
-						To use this chart, you need to import legacy web components. See the <a href="https://documentation.chartiq.com/tutorial-Upgradelog_9.0.0-9.1.2.html" target="_blank">upgrade guide</a> for more information on working with legacy web components.
-					</p>
 					<p>
 						Creates a term structure chart for working with non&ndash;time
 						series data.

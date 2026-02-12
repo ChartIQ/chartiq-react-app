@@ -27,9 +27,6 @@ import "chartiq/examples/markers/tradeAnalyticsSample";
 // Crypto, L2 Heat Map, Market Depth,
 // import "chartiq/plugins/activetrader/cryptoiq";
 
-// ScriptIQ
-// import "chartiq/plugins/scriptiq/scriptiq";
-
 // SignalIQ
 import "chartiq/plugins/signaliq/signaliqDialog";
 import "chartiq/plugins/signaliq/signaliq-marker";
@@ -53,9 +50,6 @@ import "chartiq/plugins/studybrowser";
 // Trading Central: Technical Views
 // Important: Uncomment technicalViews in config.plugins below when enabling this plug-in.
 // import "chartiq/plugins/technicalviews/components";
-
-// Visual Earnings
-// import "chartiq/plugins/visualearnings/visualearnings";
 
 // Uncomment the following for the L2 simulator (required for the crypto sample and MarketDepth addOn)
 // import "chartiq/examples/feeds/L2_simulator"; /* for use with cryptoiq */

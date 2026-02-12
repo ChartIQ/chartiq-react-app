@@ -42,15 +42,6 @@ const MultiChartExample = ({ config: propsConfig, resources, chartInitialized, c
             { symbol: "AAPL" }
         ];
         const store = new CIQ.NameValueStore();
-        config.plugins.visualEarnings.container = "cq-chart-title";
-        config.plugins.visualEarnings.insertContainer = "afterend";
-        config.plugins.visualEarnings.markup = `
-            <cq-menu class="ciq-menu stx-visualearnings collapse">
-                <span></span>
-                <cq-menu-dropdown cq-lift>
-                <cq-menu-container cq-name="menuEstimize"></cq-menu-container>
-                </cq-menu-dropdown>
-            </cq-menu>`;
         config.multiChartId = "_ciq";
         config.addOns.tableView.coverContainer =
             ".ciq-multi-chart-container-wrapper";

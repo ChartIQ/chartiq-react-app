@@ -1,7 +1,6 @@
 {
 	"name": "chartiq-react-app",
-	"version": "9.9.0",
-	"chartiqVersion": "9.9.0",
+	"version": "10.1.0",
 	"description": "ChartIQ's full featured charting application written in ReactJS",
 	"type": "module",
 	"main": "index.js",
@@ -9,7 +8,7 @@
 		"build": "webpack --config=webpack.config.js",
 		"build:prod": "webpack --config=webpack.config.js --env production",
 		"start": "webpack serve -- --host=127.0.0.1 --allowed-hosts all",
-		"format": "prettier --write src/**/*.{js,jsx} react-components/**/*.{js,jsx} tests/**/*.js --config .prettierrc",
+		"format": "prettier --write src/**/*.{js,jsx} tests/**/*.js --config .prettierrc",
 		"watch": "webpack watch --config=webpack.config.js"
 	},
 	"keywords": [
@@ -39,16 +38,16 @@
 	},
 	"dependencies": {
 		"@babel/preset-env": "^7.26.0",
-		"react": "^18.3.0",
-		"react-dom": "^18.3.0",
+		"lodash": "^4.17.23",
+		"react": "^19.1.0",
+		"react-dom": "^19.1.0",
 		"react-router": "^7.1.1"
 	},
 	"chartiq-dependencies-for-npm": {
-		"@chartiq/active-trader": "^9.6.2",
-		"@chartiq/core": "^9.6.2",
-		"@chartiq/react-components": "9.9.0",
-		"@chartiq/technical-analysis": "^9.6.2",
-		"@chartiq/web-components": "^9.6.2",
-		"@chartiq/chart2music": "^9.8.0"
+		"@chartiq/active-trader": "~10.1.0",
+		"@chartiq/core": "~10.1.0",
+		"@chartiq/technical-analysis": "~10.1.0",
+		"@chartiq/web-components": "~10.1.0",
+		"@chartiq/chart2music": "~10.1.0"
 	}
 }

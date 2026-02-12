@@ -21,34 +21,49 @@ function getCustomConfig({ chartId, symbol, onChartReady, resources } = {}) {
 
 	if (onChartReady) config.onChartReady = onChartReady;
 
-	config.menuYaxisField = [
-		{ type: "item", label: "Yield", cmd: "Layout.setYaxisField('yield')" },
-		{ type: "item", label: "Bid", cmd: "Layout.setYaxisField('bid')" },
-		{ type: "item", label: "Mid", cmd: "Layout.setYaxisField('mid')" },
-		{ type: "item", label: "Ask", cmd: "Layout.setYaxisField('ask')" }
-	];
-	config.menuChartPreferences = [
-		{ type: "checkbox", label: "Shading", cmd: "Layout.Shading()" },
-		{ type: "checkbox", label: "X-Axis Scaling", cmd: "Layout.XAxisScaling()" },
-		{
-			type: "checkbox",
-			label: "Update Animations",
-			cmd: "Layout.UpdateAnimations()"
-		},
-		{ type: "checkbox", label: "Show Update Stamp", cmd: "Layout.UpdateStamp()" },
-		{
-			type: "checkboxOptions",
-			label: "Recent Updates",
-			cmd: "Layout.FreshPoints()",
-			options: "Layout.showFreshnessEdit()"
-		},
-		{
-			type: "checkbox",
-			label: "Timeline Date Selector",
-			cmd: "Layout.TimelineDateSelector()"
-		}
-
-	];
+	config.menus.menuYaxisField = {
+		content: [
+			{ type: "item", label: "Yield", tap: "Layout.setYaxisField('yield')" },
+			{ type: "item", label: "Bid", tap: "Layout.setYaxisField('bid')" },
+			{ type: "item", label: "Mid", tap: "Layout.setYaxisField('mid')" },
+			{ type: "item", label: "Ask", tap: "Layout.setYaxisField('ask')" }
+		]
+	};
+	config.menus.menuChartPreferences = {
+		content: [
+			{ type: "heading", label: "Options" },
+			{ type: "switch", label: "Shading", setget: "Layout.Shading()" },
+			{
+				type: "switch",
+				label: "X-Axis Scaling",
+				setget: "Layout.XAxisScaling()"
+			},
+			{
+				type: "switch",
+				label: "Update Animations",
+				setget: "Layout.UpdateAnimations()"
+			},
+			{
+				type: "switch",
+				label: "Show Update Stamp",
+				setget: "Layout.UpdateStamp()"
+			},
+			{
+				type: "switch",
+				label: "Recent Updates",
+				setget: "Layout.FreshPoints()",
+				options: "Layout.showFreshnessEdit()"
+			},
+			{
+				type: "switch",
+				label: "Timeline Date Selector",
+				setget: "Layout.TimelineDateSelector()"
+			},
+			{ type: "separator" },
+			{ type: "heading", label: "Themes" },
+			{ type: "component", value: "cq-themes", menuPersist: true }
+		]
+	};
 
 	config.plugins.crossSection.sortFunction = (l, r) => {
 		let weight = ["DY", "WK", "MO", "YR", "ST", "MT", "LT"];

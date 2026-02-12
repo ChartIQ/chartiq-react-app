@@ -22,6 +22,8 @@ import "chartiq/examples/translations/translationSample";
 //import "chartiq/examples/markers/tradeAnalyticsSample";
 import "chartiq/examples/markers/videoSample";
 
+import 'chartiq/plugins/chart2music'
+
 
 
 
