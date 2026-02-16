@@ -5,6 +5,8 @@ import quoteFeedSimulator from "chartiq/examples/feeds/quoteFeedSimulator";
 import PerfectScrollbar from "chartiq/js/thirdparty/perfect-scrollbar.esm.js";
 import marker from "chartiq/examples/markers/markersSample";
 
+import 'chartiq/plugins/chart2music'
+
 // Callback function where you can access both the chartEngine and the UIContext.
 const chartInitialized = ({ chartEngine, uiContext }) => {
 	// Assign stx and CIQ to window for development convenience

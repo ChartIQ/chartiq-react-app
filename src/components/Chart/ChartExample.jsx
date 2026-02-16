@@ -61,9 +61,6 @@ import "chartiq/examples/markers/videoSample";
 // chart2music will provide sonification (converting data into sound), support for screen readers, and keyboard handling capabilities.
 import 'chartiq/plugins/chart2music'
 
-// ScriptIQ
-// import "chartiq/plugins/scriptiq/scriptiq";
-
 // SignalIQ
 // import "chartiq/plugins/signaliq/signaliqDialog";
 // import "chartiq/plugins/signaliq/signaliq-marker";
@@ -85,9 +82,6 @@ import 'chartiq/plugins/chart2music'
 // Trading Central: Technical Views
 // Important: Uncomment technicalViews in config.plugins below when enabling this plug-in.
 // import "chartiq/plugins/technicalviews/components";
-
-// Visual Earnings
-// import "chartiq/plugins/visualearnings/visualearnings";
 
 // Uncomment the following for the L2 simulator (required for the crypto sample and MarketDepth addOn)
 // import "chartiq/examples/feeds/L2_simulator"; /* for use with cryptoiq */

@@ -23,9 +23,7 @@ const resolvedPaths = [
 	path.join(chartiqDir, "crossplot"),
 	path.join(chartiqDir, "gonogo"),
 	path.join(chartiqDir, "institutional"),
-	path.join(chartiqDir, "scriptiq"),
 	path.join(chartiqDir, "trading-central"),
-	path.join(chartiqDir, "visual-earnings"),
 	path.join(chartiqDir, "chart2music"),
 	path.join(chartiqDir)
 ];
@@ -186,7 +184,6 @@ export default {
         alias: {
             keyDir: path.resolve(isNpm ? keyFileDir : chartiqDir),
             chartiq: resolvedPaths,
-            '@chartiq/react-components': path.resolve(dirname, 'react-components', 'src'),
         },
         extensions: ['.js', '.jsx']
     }

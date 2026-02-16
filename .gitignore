@@ -39,14 +39,3 @@ tests/package-lock.json
 # eclipse
 .project
 .settings/
-
-# Ignore Components compiled folders
-
-react-components/index.js
-react-components/Chart/
-react-components/Advanced/
-
-react-components/ActiveTrader/
-react-components/CrossSection/
-
-react-components/node_modules/
